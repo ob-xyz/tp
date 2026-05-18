@@ -75,8 +75,7 @@ export default function Index() {
               <input id="bcd05" type="hidden" name="l" checked value="bcd05274-b4b9-4a90-a8b5-1fdee92637fa" />
               <input type="hidden" name="nonce" />
             </form>
-
-            <p className="dismiss-text" onClick={() => setShowModal(false)}>
+              <p className="dismiss-text" onClick={() => setShowModal(false)}>
               No thanks! I'm already subscribed
             </p>
           </div>

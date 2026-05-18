@@ -72,7 +72,7 @@ export default function Index() {
                         <button className="submit" type="submit">Subscribe</button>
                     </div>
                     <Altcha />
-                    <input id="6d48f" type="hidden" name="l" checked value="6d48fffe-7d37-4c14-b317-3e4cda33a647" />
+                    <input id="bcd05" type="hidden" name="l" checked value="bcd05274-b4b9-4a90-a8b5-1fdee92637fa" />
                     <input type="hidden" name="nonce" />
                     </form>
                 </div>
