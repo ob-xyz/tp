@@ -1705,6 +1705,12 @@
   force = true
 
 [[redirects]]
+  from = "/perplexity"
+  to = "https://app.thepoast.com/campaign/8edfb008-d90e-471b-b8ce-0abf09897ef2/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
