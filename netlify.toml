@@ -1711,6 +1711,12 @@
   force = true
 
 [[redirects]]
+  from = "/ramp"
+  to = "https://app.thepoast.com/campaign/36c725f9-b214-4f38-b3dc-4831b6fce081/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
