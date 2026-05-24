@@ -1717,6 +1717,12 @@
   force = true
 
 [[redirects]]
+  from = "/okta"
+  to = "https://app.thepoast.com/campaign/6b417171-db20-458f-a397-c55672d28bc1/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
