@@ -1753,6 +1753,12 @@
   force = true
 
 [[redirects]]
+  from = "/fin"
+  to = "https://app.thepoast.com/campaign/c732474f-75ad-4ab4-a9ad-7a4159b35ebc/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
