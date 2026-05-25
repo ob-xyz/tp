@@ -1723,7 +1723,7 @@
   force = true
 
 [[redirects]]
-  from = "/okta"
+  from = "/crowdstrike"
   to = "https://app.thepoast.com/campaign/e1e26997-d253-4006-9e18-1dd1f44b64c4/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
   force = true
