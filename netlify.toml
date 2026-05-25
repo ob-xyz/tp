@@ -1741,6 +1741,12 @@
   force = true
 
 [[redirects]]
+  from = "/restream"
+  to = "https://app.thepoast.com/campaign/27ae14fe-d063-4763-ad82-4af13f610d68/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
