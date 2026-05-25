@@ -1747,6 +1747,12 @@
   force = true
 
 [[redirects]]
+  from = "/labelbox"
+  to = "https://app.thepoast.com/campaign/a8b46581-ff30-4212-a946-9dba99960628/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
