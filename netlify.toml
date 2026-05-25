@@ -1735,6 +1735,12 @@
   force = true
 
 [[redirects]]
+  from = "/mongodb"
+  to = "https://app.thepoast.com/campaign/3915f8fb-2cfd-4446-95a8-c1fcca1e2ed4/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
