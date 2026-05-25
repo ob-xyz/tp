@@ -1759,6 +1759,12 @@
   force = true
 
 [[redirects]]
+  from = "/cisco"
+  to = "https://app.thepoast.com/campaign/5c7bafa1-fadb-4860-a646-00132c64949b/e0b14610-4448-4657-ae89-21598fe78de2"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
