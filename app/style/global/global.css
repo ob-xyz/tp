@@ -718,6 +718,12 @@ body {
 .moreinfo-container .header .outer-header .inner-header .social .info:hover {
   background: #FF0034;
 }
+.moreinfo-container .header .outer-header .inner-header .social .infoactive {
+  background: #FF0034;
+}
+.moreinfo-container .header .outer-header .inner-header .social .infoactive img {
+  filter: invert(0);
+}
 .moreinfo-container .header .outer-header .inner-header .social .ig:hover {
   background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
 }
