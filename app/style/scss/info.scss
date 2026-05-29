@@ -102,6 +102,12 @@ a {
     background: #FF0034; 
   }
 }
+.infoactive{
+  img{
+  filter: invert(0);
+  }
+    background: #FF0034; 
+}
 .ig{
   &:hover { 
 background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
