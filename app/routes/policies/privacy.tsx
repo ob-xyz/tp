@@ -1,4 +1,4 @@
-import logo from "~/../public/img/ja2.png";
+import logo from "~/../public/img/ja.png";
 import type { LinksFunction } from "@remix-run/node";
 import scroll from "~/style/scss/components/showscroll.css";
 
