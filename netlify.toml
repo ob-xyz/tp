@@ -1765,6 +1765,12 @@
   force = true
 
 [[redirects]]
+  from = "/teads"
+  to = "https://app.thepoast.com/campaign/f86862d0-b0b2-4bff-a101-58815d297015/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
