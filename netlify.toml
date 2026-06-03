@@ -1777,6 +1777,12 @@
   force = true
 
 [[redirects]]
+  from = "/sentry"
+  to = "https://app.thepoast.com/campaign/c4c37d2b-1cca-474d-90c9-b2df677f3b9a/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
