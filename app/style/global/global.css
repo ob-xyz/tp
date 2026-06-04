@@ -128,7 +128,7 @@ body {
   text-align: center;
   width: 100%;
   color: #fff;
-  box-shadow: 0px 0px 50px 0px rgba(247, 4, 4, 0.9);
+  box-shadow: 0px 0px 50px 0px rgba(240, 143, 25, 0.9);
 }
 .container .modal-content form .input-wrapper {
   position: relative;
@@ -295,7 +295,7 @@ body {
 .container .header .outer-header .inner-header2 a:hover {
   transform: none;
   background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
 @media (max-width: 720px) {
@@ -516,7 +516,7 @@ body {
 }
 .subscribe-container .header .outer-header .inner-header2 a:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .subscribe-container .header form {
   margin-top: 0.5rem;
@@ -540,7 +540,7 @@ body {
 }
 .subscribe-container .header form input.email:focus {
   outline: none;
-  box-shadow: 0 0 2px 2px #ff7171;
+  box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
   border-color: #02090A;
   caret-color: #02090A;
 }
@@ -569,7 +569,7 @@ body {
 }
 .subscribe-container .header form button.submit:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
 @media (max-width: 720px) {
@@ -743,16 +743,15 @@ body {
 }
 .moreinfo-container .header .outer-header .inner-header2 a:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .moreinfo-container .inner-container {
   background: #000;
   border-radius: 2.5rem;
-  margin: 0rem 10rem;
-  box-shadow: 0px 0px 50px 0px rgba(247, 4, 4, 0.9);
+  margin: 0rem 5rem;
+  box-shadow: 0 0 50px 0px rgba(240, 143, 25, 0.7);
   margin-bottom: 10rem;
-  padding: 5rem 5rem;
-  padding-bottom: 5rem;
+  padding: 3rem;
 }
 .moreinfo-container .inner-container .headerimg {
   border-top-right-radius: 2.5rem;
@@ -762,9 +761,8 @@ body {
 .moreinfo-container .inner-container .profile-outside {
   display: flex;
   justify-content: space-between;
-  padding: 0 4rem;
+  padding: 0;
   margin: 1rem auto;
-  margin-top: -22rem;
   gap: 2rem;
 }
 .moreinfo-container .inner-container .profile-outside .profile {
@@ -782,7 +780,7 @@ body {
 }
 .moreinfo-container .inner-container .profile-outside .profile img:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .moreinfo-container .inner-container .profile-outside .profile .inner-profile {
   display: flex;
@@ -846,7 +844,7 @@ body {
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form input.email:focus {
   outline: none;
-  box-shadow: 0 0 2px 2px #ff7171;
+  box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
   border-color: #02090A;
   caret-color: #02090A;
 }
@@ -872,7 +870,7 @@ body {
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form button.submit:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px #ff7171;
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
 @media (min-width: 751px) and (max-width: 1110px) {
@@ -1161,7 +1159,7 @@ body {
 }
 .ads-container .header .outer-header .inner-header2 a:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .ads-container .header form {
   margin-top: 0.5rem;
@@ -1185,7 +1183,7 @@ body {
 }
 .ads-container .header form input.email:focus {
   outline: none;
-  box-shadow: 0 0 2px 2px #ff7171;
+  box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
   border-color: #02090A;
   caret-color: #02090A;
 }
@@ -1214,7 +1212,7 @@ body {
 }
 .ads-container .header form button.submit:hover {
   transform: none;
-  box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
 @media (max-width: 720px) {

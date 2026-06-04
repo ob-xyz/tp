@@ -170,7 +170,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 
       &:hover {
           transform: none;
-          box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+          box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
         }
   }
 }
@@ -196,7 +196,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 2px 2px #ff7171;
+          box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
       border-color: #02090A;
       caret-color: #02090A;
     }
@@ -227,7 +227,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 
       &:hover {
           transform: none;
-          box-shadow: 0 0 20px 8px rgb(255, 113, 113);
+          box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
         }
   }
 }

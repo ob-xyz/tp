@@ -42,7 +42,6 @@ export default function Index() {
         </div>
       </div>
         <div className="inner-container">
-            <img className="headerimg" src={bg} alt="Jeffamazon Background" />
             <div className="profile-outside">
             <div className="profile">
                 <a href="https://linkedin.com/in/chrissignore" target="_blank" rel="noopener noreferrer">
