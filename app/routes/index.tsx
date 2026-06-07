@@ -64,7 +64,7 @@ export default function Index() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img className="logo" src={tp} alt="The Poast Logo" />
             <p>Subscribe to The Poast's free newsletter</p>
-            <p>Get today's tech news, plus one trending podcast, and exclusive subscriber-only insights</p>
+            <p>Get today's tech news, plus one trending podcast, and exclusive subscriber-only stories</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -91,9 +91,9 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h3>Gotta minute?</h3>
-        <p>That's all it takes to keep up with tech</p>
-        <p>Join 38,000+ readers for <a href="/today">one daily email</a> with<br /> the most interesting stories and posts across tech</p>        
+        <h1>Gotta minute?</h1>
+        <h3>That's all it takes to keep up with tech</h3>
+        <p>Join 38,000+ people scrolling our <a href="/today">feed-style email</a></p>        
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">

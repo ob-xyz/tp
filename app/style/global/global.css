@@ -40,7 +40,7 @@ body {
 }
 .container h1, .container h2, .container h3, .container span {
   font-style: normal;
-  text-align: left;
+  text-align: center;
   font-family: ku;
   font-size: 4.5rem;
 }
@@ -195,7 +195,7 @@ body {
   position: relative;
   width: 100%;
   margin: 0;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   padding-top: 3rem;
 }
 .container .header .nav .logo {
@@ -317,7 +317,7 @@ body {
   box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 855px) {
   .container .modal-overlay p {
     font-size: 1.1rem;
     width: 75%;
@@ -354,14 +354,17 @@ body {
   .container .header .nav .info {
     margin-right: 0rem;
   }
-  .container .header h3 {
-    font-size: 1.75rem;
-  }
   .container .header p {
     font-size: 1.4rem;
   }
   .container .header p:nth-child(3), .container .header p:nth-child(4) {
     font-size: 1rem;
+  }
+  .container .header h1 {
+    font-size: 2rem;
+  }
+  .container .header h3 {
+    font-size: 1.45rem;
   }
   .container .header p a {
     font-size: 1rem;

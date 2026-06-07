@@ -18,10 +18,10 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h3>Gotta minute?</h3>
-        <p>That's all it takes to keep up with tech</p>
-        <p>Join 38,000+ readers for <a href="/today">one daily email</a> covering<br /> the most important stories and posts across tech</p>     
-        <div className="outer-header">
+        <h1>Gotta minute?</h1>
+        <h3>That's all it takes to keep up with tech</h3>
+        <p>Join 38,000+ people scrolling our <a href="/today">feed-style email</a></p>        
+          <div className="outer-header">
           <div className="inner-header">
             <div className="social">
               <a className="x" href="https://x.com/thepoast" target="_blank" rel="noopener noreferrer">
