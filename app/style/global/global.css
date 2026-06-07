@@ -188,14 +188,33 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
-.container .header .logo {
-  width: 4rem;
+.container .header .nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
   margin: 0;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding-top: 3rem;
+}
+.container .header .nav .logo {
+  width: 4rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.container .header .nav .info {
+  width: 2rem;
+  filter: invert(1);
+  margin-right: 0;
+}
+.container .header .nav .info:hover {
+  transform: rotate(180deg);
 }
 .container .header p {
-  margin-top: 0.15rem;
+  padding: 0;
+  margin: 0;
   font-size: 2rem;
   font-weight: 100;
   font-family: ku;
@@ -211,8 +230,8 @@ body {
   font-size: 1.75rem;
 }
 .container .header .headerimg {
-  margin: 0 auto;
-  width: 42.5%;
+  margin: 0;
+  width: 47.5%;
   margin-top: 3.75rem;
 }
 .container .header .outer-header {
@@ -272,7 +291,7 @@ body {
 .container .header .outer-header .inner-header .social .li:hover {
   background: #1E66C2;
 }
-.container .header .outer-header .inner-header .social .info:hover {
+.container .header .outer-header .inner-header .social .yt:hover {
   background: #FF0034;
 }
 .container .header .outer-header .inner-header .social .ig:hover {
@@ -325,10 +344,15 @@ body {
     padding: 0 1rem;
     font-size: 1.25rem;
   }
-  .container .header .logo {
+  .container .header .nav {
+    margin-bottom: 2rem;
+    padding-top: 1.35rem;
+  }
+  .container .header .nav .logo {
     width: 3.25rem;
-    margin-bottom: 0.35rem;
-    margin-top: 0.75rem;
+  }
+  .container .header .nav .info {
+    margin-right: 0rem;
   }
   .container .header p {
     font-size: 1.4rem;
@@ -493,6 +517,9 @@ body {
 }
 .subscribe-container .header .outer-header .inner-header .social .li:hover {
   background: #1E66C2;
+}
+.subscribe-container .header .outer-header .inner-header .social .yt:hover {
+  background: #FF0034;
 }
 .subscribe-container .header .outer-header .inner-header .social .info:hover {
   background: #FF0034;
@@ -714,6 +741,9 @@ body {
 }
 .moreinfo-container .header .outer-header .inner-header .social .li:hover {
   background: #1E66C2;
+}
+.moreinfo-container .header .outer-header .inner-header .social .yt:hover {
+  background: #FF0034;
 }
 .moreinfo-container .header .outer-header .inner-header .social .info:hover {
   background: #FF0034;

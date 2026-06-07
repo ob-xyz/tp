@@ -7,6 +7,7 @@ import li from "~/../public/img/social/linkedin.png";
 import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
 import info from "~/../public/img/social/info.png";
+import yt from "~/../public/img/social/youtube.png";
 import j from "~/../public/img/ja7.png";
 import tp from "~/../public/img/ja1.png";
 import logo from "~/../public/img/ja.png";
@@ -84,7 +85,12 @@ export default function Index() {
 
       {/* HEADER SECTION */}
       <div className="header">
+        <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
+        <Link className="info" to="/info">
+            <img src={info} alt="More Info" />
+        </Link>
+        </div>
         <p>Gotta minute?</p>
         <p>That's all it takes to keep up with tech</p>
         <p>Join 38k+ readers for <a href="/today">one daily email</a></p>        
@@ -100,9 +106,9 @@ export default function Index() {
               <a className="li" href="https://linkedin.com/company/thepoast" target="_blank" rel="noopener noreferrer">
                 <img src={li} alt="LinkedIn" />
               </a>
-              <Link className="info" to="/info">
-                <img src={info} alt="More Info" />
-              </Link>
+              <a className="yt" href="https://youtube.com/@thepoast" target="_blank" rel="noopener noreferrer">
+                <img src={yt} alt="YouTube" />
+              </a>
             </div>
           </div>
           <div className="inner-header2">

@@ -1,8 +1,4 @@
 $dock-bg: linear-gradient(180deg, #3a3d45 0%, #000000 100%);
-$icon-bg:  linear-gradient(0deg,rgba(242, 209, 159, 1) 21%, rgba(255, 255, 255, 1) 100%);
-
-$orange-top: #f5f0e8; 
-$orange-bottom: #f2e2ca;
 
 body{
     overflow-y:hidden;
@@ -169,14 +165,34 @@ body{
       padding-right:1.5rem;
       -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
       mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-      .logo {
-        width: 4rem;
-        margin: 0;
-        margin-top:2rem;
-        margin-bottom: .5rem;
-      }
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative; 
+  width: 100%;
+  margin: 0; 
+  margin-bottom: 2.5rem;
+  padding-top:3rem;
+  .logo {
+    width: 4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); 
+  }
+
+  .info {
+    width: 2rem;
+    filter: invert(1);
+    margin-right:0;
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
+}
       p {
-        margin-top:.15rem;
+        padding:0;
+        margin:0;
         font-size: 2rem;
         font-weight: 100;
         font-family: ku;
@@ -194,8 +210,8 @@ body{
       }
 
       .headerimg{
-        margin: 0 auto;
-        width: 42.5%;
+        margin: 0;
+        width: 47.5%;
         margin-top: 3.75rem;
       }
     .outer-header{
@@ -259,7 +275,7 @@ a {
     background: #1E66C2; 
   }
 }
-.info{
+.yt{
   &:hover {
     background: #FF0034; 
   }
@@ -329,11 +345,16 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
 }
     .header{
+     .nav{
+        margin-bottom:2rem;
+        padding-top: 1.35rem;
       .logo {
         width:3.25rem;
-        margin-bottom:.35rem;
-        margin-top: .75rem;
-      }      
+      }
+      .info{
+          margin-right:0rem;
+      }
+     }
       p {
         font-size: 1.4rem;
         &:nth-child(3),
