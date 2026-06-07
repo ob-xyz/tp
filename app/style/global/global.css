@@ -354,6 +354,9 @@ body {
   .container .header .nav .info {
     margin-right: 0rem;
   }
+  .container .header h3 {
+    font-size: 1.75rem;
+  }
   .container .header p {
     font-size: 1.4rem;
   }

@@ -18,9 +18,9 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <p>Gotta minute?</p>
+        <h3>Gotta minute?</h3>
         <p>That's all it takes to keep up with tech</p>
-        <p>Join 38k+ readers for <a href="/today">one daily email</a></p>          
+        <p>Join 38,000+ readers for <a href="/today">one daily email</a> covering<br /> the most important stories and posts across tech</p>     
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
