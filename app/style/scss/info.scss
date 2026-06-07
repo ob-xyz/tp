@@ -107,6 +107,10 @@ a {
   filter: invert(0);
   }
     background: #FF0034; 
+  &:hover{
+    background: linear-gradient(180deg,#1e1e1e 21%, #929292 100%);
+    filter: invert(1);
+  }
 }
 .ig{
   &:hover { 
