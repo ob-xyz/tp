@@ -93,7 +93,7 @@ export default function Index() {
         </div>
         <h1>Gotta minute?</h1>
         <h3>That's all it takes to keep up with tech</h3>
-        <p>Join 38,000+ people scrolling our <a href="/today">feed-style email</a></p>        
+        <p>Join 38,000+ people scrolling our <a href="/today">daily tech feed</a></p>        
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
