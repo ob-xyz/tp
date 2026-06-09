@@ -1771,7 +1771,7 @@
   force = true
 
 [[redirects]]
-  from = "/anthropic-fable"
+  from = "/claude"
   to = "https://app.thepoast.com/campaign/5fe92e6c-ad6e-4df4-801a-6cd5e849a0af/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
