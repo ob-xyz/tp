@@ -1783,6 +1783,12 @@
   force = true
 
 [[redirects]]
+  from = "/chatbase"
+  to = "https://app.thepoast.com/campaign/56620543-279d-4bbc-9ccb-3bbd26650942/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
