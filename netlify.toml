@@ -1813,6 +1813,12 @@
   force = true
 
 [[redirects]]
+  from = "/pendulum"
+  to = "https://app.thepoast.com/campaign/750f545f-6004-4275-af15-a8c700dda3be/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
