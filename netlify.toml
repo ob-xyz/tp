@@ -1819,6 +1819,12 @@
   force = true
 
 [[redirects]]
+  from = "/vaneck"
+  to = "https://app.thepoast.com/campaign/860db8c9-ed47-47a4-9545-dc4315fa6bec/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
