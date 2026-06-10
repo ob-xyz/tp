@@ -1825,6 +1825,12 @@
   force = true
 
 [[redirects]]
+  from = "/cleverbridge"
+  to = "https://app.thepoast.com/campaign/dd22575f-3121-422b-bc6f-eb3da69525a7/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
