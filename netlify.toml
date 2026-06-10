@@ -1789,6 +1789,12 @@
   force = true
 
 [[redirects]]
+  from = "/railway"
+  to = "https://app.thepoast.com/campaign/a0734f28-f786-47ad-98aa-80c9c159924a/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
