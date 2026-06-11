@@ -1154,7 +1154,7 @@
 
 [[redirects]]
   from = "/qa-wolf"
-  to = "https://app.thepoast.com/campaign/003ef80e-d84d-43ae-9eb7-3c1cce68c218/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://app.thepoast.com/campaign/69af0952-b508-4fdf-b22c-125bc39cc384/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
 
@@ -1831,8 +1831,8 @@
   force = true
 
 [[redirects]]
-  from = "/qa-wolf"
-  to = "https://app.thepoast.com/campaign/69af0952-b508-4fdf-b22c-125bc39cc384/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  from = "/crossmedia"
+  to = "https://app.thepoast.com/campaign/003ef80e-d84d-43ae-9eb7-3c1cce68c218/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
   force = true
 
