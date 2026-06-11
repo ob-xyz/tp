@@ -1843,6 +1843,12 @@
   force = true
 
 [[redirects]]
+  from = "/thoughtworks"
+  to = "https://app.thepoast.com/campaign/4ba55217-956f-420b-b676-7b4757d91854/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
