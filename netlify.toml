@@ -1831,6 +1831,18 @@
   force = true
 
 [[redirects]]
+  from = "/qa-wolf"
+  to = "https://app.thepoast.com/campaign/69af0952-b508-4fdf-b22c-125bc39cc384/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/notion"
+  to = "https://app.thepoast.com/campaign/cd0fb0e2-1112-49fe-b565-a029c45c222a/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
