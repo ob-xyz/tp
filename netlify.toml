@@ -1873,6 +1873,12 @@
   force = true
 
 [[redirects]]
+  from = "/netsuite"
+  to = "https://app.thepoast.com/campaign/b287c103-61a1-4fcf-8b36-b368978a7841/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
