@@ -1861,6 +1861,12 @@
   force = true
 
 [[redirects]]
+  from = "/metronome"
+  to = "https://app.thepoast.com/campaign/164b5eee-b87c-4499-8df1-2ccd38e5ae66/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
