@@ -376,20 +376,20 @@ body {
   .container .header .nav .info {
     margin-right: 0rem;
   }
-  .container .header p:nth-child(3), .container .header p:nth-child(4) {
-    font-size: 1rem;
-  }
   .container .header h1 {
     font-size: 2.25rem;
     margin: 0.5rem auto 1rem auto;
     line-height: 0;
   }
   .container .header h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0.5rem auto;
   }
+  .container .header p:nth-child(3), .container .header p:nth-child(4) {
+    font-size: 0.875rem;
+  }
   .container .header p a {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
   .container .header .headerimg {
     width: 100%;
@@ -464,11 +464,29 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
-.subscribe-container .header .logo {
-  width: 4rem;
+.subscribe-container .header .nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
   margin: 0;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-top: 3rem;
+}
+.subscribe-container .header .nav .logo {
+  width: 4rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.subscribe-container .header .nav .info {
+  width: 2rem;
+  filter: invert(1);
+  margin-right: 0;
+}
+.subscribe-container .header .nav .info:hover {
+  transform: rotate(180deg);
 }
 .subscribe-container .header p {
   margin-top: 0.15rem;
@@ -691,11 +709,29 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
 }
-.moreinfo-container .header .logo {
-  width: 4rem;
+.moreinfo-container .header .nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
   margin: 0;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-top: 3rem;
+}
+.moreinfo-container .header .nav .logo {
+  width: 4rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.moreinfo-container .header .nav .info {
+  width: 2rem;
+  filter: invert(1);
+  margin-right: 0;
+}
+.moreinfo-container .header .nav .info:hover {
+  transform: rotate(180deg);
 }
 .moreinfo-container .header p {
   margin: 0;

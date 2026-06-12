@@ -14,12 +14,31 @@
       padding-right:1.5rem;
       -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
       mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-      .logo {
-        width: 4rem;
-        margin: 0;
-        margin-top:2rem;
-        margin-bottom: .5rem;
-      }
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative; 
+  width: 100%;
+  margin: 0; 
+  margin-bottom: 1.5rem;
+  padding-top:3rem;
+  .logo {
+    width: 4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); 
+  }
+
+  .info {
+    width: 2rem;
+    filter: invert(1);
+    margin-right:0;
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
+}
       p {
         margin:0;
         margin-top:.15rem;

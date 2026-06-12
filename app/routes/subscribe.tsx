@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
 import Altcha from "../components/altcha";
 
+import info from "~/../public/img/social/info.png";
 import li from "~/../public/img/social/linkedin.png";
 import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
@@ -11,7 +12,12 @@ export default function Index() {
   return (
     <div className="subscribe-container">
       <div className="header">
+        <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
+        <Link className="info" to="/info">
+            <img src={info} alt="More Info" />
+        </Link>
+        </div>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
