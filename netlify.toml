@@ -1879,6 +1879,12 @@
   force = true
 
 [[redirects]]
+  from = "/fisherinvestments"
+  to = "https://app.thepoast.com/campaign/511b86c1-6f53-4b9d-a3b6-4c542ddff3bf/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
