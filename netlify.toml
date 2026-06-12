@@ -1867,6 +1867,12 @@
   force = true
 
 [[redirects]]
+  from = "/semrush"
+  to = "https://app.thepoast.com/campaign/bfd05eb5-0b60-478f-b923-ceae949fe276/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200

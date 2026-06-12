@@ -42,11 +42,12 @@ body{
     }
     .err{
         position: absolute;
-        top:37.5rem;
+        top:27.5rem;
         z-index: 111111; 
         background:#000;
-        padding:1rem 2rem;
+        padding:1.5rem 2rem;
         border-radius: .75rem;
+        box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
       h1{
         font-family: kl;
         font-weight: 700;

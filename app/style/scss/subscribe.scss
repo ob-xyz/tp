@@ -261,11 +261,16 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 @media (max-width: 720px) {
 .subscribe-container{
     .header{
+     .nav{
+        margin-bottom:2rem;
+        padding-top: 1.35rem;
       .logo {
         width:3.25rem;
-        margin-bottom:.35rem;
-        margin-top: .75rem;
       }
+      .info{
+          margin-right:0rem;
+      }
+     }
       p {
         font-size: 1.4rem;
         &:nth-child(3),

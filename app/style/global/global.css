@@ -70,11 +70,12 @@ body {
 }
 .container .err {
   position: absolute;
-  top: 37.5rem;
+  top: 27.5rem;
   z-index: 111111;
   background: #000;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 0.75rem;
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .container .err h1 {
   font-family: kl;
@@ -646,10 +647,15 @@ body {
 }
 
 @media (max-width: 720px) {
-  .subscribe-container .header .logo {
+  .subscribe-container .header .nav {
+    margin-bottom: 2rem;
+    padding-top: 1.35rem;
+  }
+  .subscribe-container .header .nav .logo {
     width: 3.25rem;
-    margin-bottom: 0.35rem;
-    margin-top: 0.75rem;
+  }
+  .subscribe-container .header .nav .info {
+    margin-right: 0rem;
   }
   .subscribe-container .header p {
     font-size: 1.4rem;
@@ -973,6 +979,16 @@ body {
 }
 
 @media (min-width: 751px) and (max-width: 1110px) {
+  .moreinfo-container .header .nav {
+    margin-bottom: 2rem;
+    padding-top: 1.35rem;
+  }
+  .moreinfo-container .header .nav .logo {
+    width: 3.25rem;
+  }
+  .moreinfo-container .header .nav .info {
+    margin-right: 0rem;
+  }
   .moreinfo-container .header h1 {
     font-size: 3rem;
   }
@@ -1035,10 +1051,15 @@ body {
   }
 }
 @media (max-width: 750px) {
-  .moreinfo-container .header .logo {
+  .moreinfo-container .header .nav {
+    margin-bottom: 2rem;
+    padding-top: 1.35rem;
+  }
+  .moreinfo-container .header .nav .logo {
     width: 3.25rem;
-    margin-bottom: 0.35rem;
-    margin-top: 0.75rem;
+  }
+  .moreinfo-container .header .nav .info {
+    margin-right: 0rem;
   }
   .moreinfo-container .header h1 {
     font-size: 3rem;
