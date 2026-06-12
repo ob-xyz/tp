@@ -251,6 +251,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
       .input-wrapper {
         position: relative;
         width: 36.25rem;
+        margin:.15rem 0;
       }
       input.email {
         width: 100%;
@@ -262,7 +263,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
         font-family: ku;
         font-weight: 100;       
         background: #fff;
-        color: #fff;
+        color: #000;
         
         &:focus {
           outline: none;
