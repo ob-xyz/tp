@@ -1849,6 +1849,12 @@
   force = true
 
 [[redirects]]
+  from = "/luca-faloni"
+  to = "https://app.thepoast.com/campaign/07fd84ef-22ac-4dfe-970f-f1d0b8ca26ec/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
