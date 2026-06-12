@@ -1855,6 +1855,12 @@
   force = true
 
 [[redirects]]
+  from = "/workos"
+  to = "https://app.thepoast.com/campaign/4fbb3ce3-ab78-409b-b74f-a2facdea9add/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
