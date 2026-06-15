@@ -1883,6 +1883,102 @@
   to = "https://app.thepoast.com/campaign/511b86c1-6f53-4b9d-a3b6-4c542ddff3bf/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
+    
+[[redirects]]
+  from = "/noom"
+  to = "https://app.thepoast.com/campaign/efcbebef-0de5-40ed-bb01-e1e943db6467/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/ubiquity"
+  to = "https://app.thepoast.com/campaign/7add1ec1-92c1-42f6-a9e4-766002bfb1fd/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/slack"
+  to = "https://app.thepoast.com/campaign/28f3bac8-ba72-4cc0-861a-e9d25c45fc00/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/cmegroup"
+  to = "https://app.thepoast.com/campaign/abc752a1-6f52-4010-9476-93f0629a7b04/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/marqeta"
+  to = "https://app.thepoast.com/campaign/64f3424f-ee7d-4f21-9daa-3b7ae7255bd2/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/capitalgroup"
+  to = "https://app.thepoast.com/campaign/34a9d779-518d-41b4-994e-e1431efb4f4d/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/aspiriant"
+  to = "https://app.thepoast.com/campaign/fbe08aa9-81ba-4905-847d-363ceb24fa2c/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/sana"
+  to = "https://app.thepoast.com/campaign/7c338681-70e2-4a08-8b26-695968a65d94/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/airwallex"
+  to = "https://app.thepoast.com/campaign/16f8cdc8-cc6a-40a3-8870-7b294db2e2e5/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/superblocks"
+  to = "https://app.thepoast.com/campaign/1dc153f7-5660-4166-af88-68ecfe855f87/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/wisprflow"
+  to = "https://app.thepoast.com/campaign/ae4ade61-d5e9-4144-b2e3-7bec91f56c71/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/warp"
+  to = "https://app.thepoast.com/campaign/705b1750-c96f-43f0-bd21-dde203cd76c4/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/bland"
+  to = "https://app.thepoast.com/campaign/a650b22f-117e-419c-b03d-0e3b669637ef/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/thepointsguy"
+  to = "https://app.thepoast.com/campaign/259b8c89-d66f-422f-8f20-88634c1c7fff/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/studio"
+  to = "https://app.thepoast.com/campaign/65f386b3-9eec-4192-9e07-f660cbdf01ce/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+      
+[[redirects]]
+  from = "/hamiltonlane"
+  to = "https://app.thepoast.com/campaign/151b2aa2-7bd3-47de-9e15-4d2c8f1544ca/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
