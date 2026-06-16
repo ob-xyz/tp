@@ -44,7 +44,7 @@ export default function Index() {
             <input className="email" type="text" name="firstName" placeholder="First Name *" />
           </div>
           <div className="input-wrapper">
-            <input className="email" type="text" name="date" placeholder="Preferred Day *" />
+            <input className="email" type="text" name="attribs.preferred_date" placeholder="Preferred Day *" />
           </div>
           <div className="input-wrapper">
             <input className="email" type="email" name="email" required placeholder="Business Email Address *" />
