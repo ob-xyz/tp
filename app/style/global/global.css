@@ -354,7 +354,7 @@ body {
   }
   .container .header .nav {
     margin-bottom: 2rem;
-    padding-top: 1.35rem;
+    padding-top: 1.55rem;
   }
   .container .header .nav .logo {
     width: 3.25rem;
@@ -469,22 +469,6 @@ body {
 }
 .subscribe-container .header .nav .info:hover {
   transform: rotate(180deg);
-}
-.subscribe-container .header p {
-  margin-top: 0.15rem;
-  font-size: 2rem;
-  font-weight: 100;
-  font-family: ku;
-  text-align: center;
-}
-.subscribe-container .header p:nth-child(3), .subscribe-container .header p:nth-child(4) {
-  font-size: 1.75rem;
-}
-.subscribe-container .header p a {
-  font-family: kl;
-  text-decoration: underline !important;
-  color: #000;
-  font-size: 1.75rem;
 }
 .subscribe-container .header .headerimg {
   margin: 0 auto;
@@ -629,7 +613,7 @@ body {
 
 @media (max-width: 720px) {
   .subscribe-container .header .nav {
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
     padding-top: 1.35rem;
   }
   .subscribe-container .header .nav .logo {
@@ -638,14 +622,9 @@ body {
   .subscribe-container .header .nav .info {
     margin-right: 0rem;
   }
-  .subscribe-container .header p {
-    font-size: 1.4rem;
-  }
-  .subscribe-container .header p:nth-child(3), .subscribe-container .header p:nth-child(4) {
-    font-size: 1rem;
-  }
-  .subscribe-container .header p a {
-    font-size: 1rem;
+  .subscribe-container .header h1 {
+    font-size: 2rem;
+    margin-bottom: 0;
   }
   .subscribe-container .header .headerimg {
     width: 100%;
@@ -719,23 +698,6 @@ body {
 }
 .moreinfo-container .header .nav .info:hover {
   transform: rotate(180deg);
-}
-.moreinfo-container .header p {
-  margin: 0;
-  margin-top: 0.15rem;
-  font-size: 2rem;
-  font-weight: 100;
-  font-family: ku;
-  text-align: center;
-}
-.moreinfo-container .header p:nth-child(3), .moreinfo-container .header p:nth-child(4) {
-  font-size: 1.75rem;
-}
-.moreinfo-container .header p a {
-  font-family: kl;
-  text-decoration: underline !important;
-  color: #000;
-  font-size: 1.75rem;
 }
 .moreinfo-container .header .outer-header {
   display: flex;
@@ -970,18 +932,6 @@ body {
   .moreinfo-container .header .nav .info {
     margin-right: 0rem;
   }
-  .moreinfo-container .header h1 {
-    font-size: 3rem;
-  }
-  .moreinfo-container .header p {
-    font-size: 1.4rem;
-  }
-  .moreinfo-container .header p:nth-child(3) {
-    font-size: 1.3rem;
-  }
-  .moreinfo-container .header p a {
-    font-size: 1.3rem;
-  }
   .moreinfo-container .header .outer-header {
     flex-direction: column;
   }
@@ -1041,18 +991,6 @@ body {
   }
   .moreinfo-container .header .nav .info {
     margin-right: 0rem;
-  }
-  .moreinfo-container .header h1 {
-    font-size: 3rem;
-  }
-  .moreinfo-container .header p {
-    font-size: 1.4rem;
-  }
-  .moreinfo-container .header p:nth-child(3), .moreinfo-container .header p:nth-child(4) {
-    font-size: 1rem;
-  }
-  .moreinfo-container .header p a {
-    font-size: 1rem;
   }
   .moreinfo-container .header .outer-header {
     flex-direction: column;
