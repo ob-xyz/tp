@@ -14,7 +14,7 @@ body{
         font-style: normal;
         text-align: center;
         font-family: ku;
-        font-size:4.5rem;
+        font-size:3rem;
     }
     h2 {
         font-size:2.5rem;
@@ -203,11 +203,11 @@ body{
           font-size:1.75rem;
         }
       }
-      p a {          
+      h3 a {          
           font-family: kl;
           text-decoration: underline !important;
           color: #000;
-          font-size:1.75rem;
+          font-size:2.5rem;
       }
 
       .headerimg{
@@ -385,22 +385,14 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
       }
      }
       h1{
-        font-size:2.25rem;
-        margin:.5rem auto 1rem auto;
-        line-height: 0;
+        font-size:2rem;
+        margin-bottom: .5rem;
       }
       h3{
         font-size:1rem;
-        margin:.5rem auto;
       }
-            p {
-        &:nth-child(3),
-        &:nth-child(4){
-          font-size:.875rem;
-        }
-      }
-      p a {
-        font-size:.875rem;
+      h3 a {
+        font-size:1rem;
       }
       .headerimg{
         width: 100%;
