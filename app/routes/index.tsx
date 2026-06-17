@@ -92,7 +92,7 @@ export default function Index() {
         </Link>
         </div>
         <h1>Get our one minute daily newsletter</h1>
-        <h3>Join 38,000+ people reading <a href="/today">The Poast</a></h3>
+        <h3>Join 38,000 people reading <a href="/today">The Poast</a></h3>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">

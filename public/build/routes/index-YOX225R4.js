@@ -168,11 +168,11 @@ function Index() {
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: [
-        "Join 38,000+ people reading ",
+        "Join 38,000 people reading ",
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("a", { href: "/today", children: "The Poast" }, void 0, false, {
           fileName: "app/routes/index.tsx",
           lineNumber: 95,
-          columnNumber: 41
+          columnNumber: 40
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/index.tsx",
@@ -259,4 +259,4 @@ function Index() {
 export {
   Index as default
 };
-//# sourceMappingURL=/build/routes/index-W4QDQI3Y.js.map
+//# sourceMappingURL=/build/routes/index-YOX225R4.js.map
