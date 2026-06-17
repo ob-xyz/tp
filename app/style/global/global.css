@@ -213,22 +213,17 @@ body {
 .container .header .nav .info:hover {
   transform: rotate(180deg);
 }
-.container .header p {
-  padding: 0;
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 100;
-  font-family: ku;
-  text-align: center;
+.container .header h1 {
+  font-size: 2.5rem;
 }
-.container .header p:nth-child(3), .container .header p:nth-child(4) {
-  font-size: 1.75rem;
+.container .header h3 {
+  font-size: 1.25rem;
 }
 .container .header h3 a {
   font-family: kl;
   text-decoration: underline !important;
   color: #000;
-  font-size: 2.5rem;
+  font-size: 1.25rem;
 }
 .container .header .headerimg {
   margin: 0;

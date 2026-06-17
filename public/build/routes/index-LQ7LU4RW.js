@@ -162,17 +162,17 @@ function Index() {
         lineNumber: 88,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h1", { children: "Get our one minute daily newsletter" }, void 0, false, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h1", { children: "Get The Poast" }, void 0, false, {
         fileName: "app/routes/index.tsx",
         lineNumber: 94,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: [
-        "Join 38,000 people reading ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("a", { href: "/today", children: "The Poast" }, void 0, false, {
+        "Join 38,000 people reading our ",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("a", { href: "/today", children: "one minute newsletter" }, void 0, false, {
           fileName: "app/routes/index.tsx",
           lineNumber: 95,
-          columnNumber: 40
+          columnNumber: 44
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/index.tsx",
@@ -259,4 +259,4 @@ function Index() {
 export {
   Index as default
 };
-//# sourceMappingURL=/build/routes/index-YOX225R4.js.map
+//# sourceMappingURL=/build/routes/index-LQ7LU4RW.js.map
