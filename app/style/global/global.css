@@ -324,16 +324,6 @@ body {
   .header .nav .info {
     margin-right: 0rem;
   }
-  .header p:nth-child(3), .header p:nth-child(4) {
-    font-size: 1rem;
-  }
-  .header h1 {
-    margin: 2.5rem auto 2.5rem auto;
-    line-height: 0;
-  }
-  .header h3 {
-    margin: 0rem auto;
-  }
 }
 @media (max-width: 891px) {
   .container .modal-overlay p {
@@ -378,6 +368,7 @@ body {
   }
   .container .header h3 {
     font-size: 1rem;
+    width: 75%;
   }
   .container .header h3 a {
     font-size: 1rem;

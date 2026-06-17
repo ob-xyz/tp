@@ -319,19 +319,6 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
           margin-right:0rem;
       }
      }
-      p {
-        &:nth-child(3),
-        &:nth-child(4){
-          font-size:1rem;
-        }
-      }
-      h1{
-        margin:2.5rem auto 2.5rem auto;
-        line-height: 0;
-      }
-      h3{
-        margin:0rem auto;
-      }
 }
 }
 
@@ -384,6 +371,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
       }
       h3{
         font-size:1rem;
+        width:75%;
       }
       h3 a {
         font-size:1rem;
