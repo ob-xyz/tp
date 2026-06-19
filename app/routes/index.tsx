@@ -9,7 +9,6 @@ import ig from "~/../public/img/social/instagram.png";
 import info from "~/../public/img/social/info.png";
 import yt from "~/../public/img/social/youtube.png";
 import j from "~/../public/img/ja7.png";
-import tp from "~/../public/img/ja1.png";
 import logo from "~/../public/img/ja.png";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -62,7 +61,6 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img className="logo" src={tp} alt="The Poast Logo" />
             <p>Subscribe to The Poast's free newsletter</p>
             <p>Get today's tech news, plus one trending podcast, and exclusive subscriber-only stories</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
@@ -91,8 +89,9 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>Get The Poast</h1>
-        <h3>Join 38,000 people reading our <a href="/today">one minute daily newsletter</a></h3>  
+        <h1>Gotta minute?</h1>
+        <h2>That's all it takes to scroll <a href="/today">The Poast</a></h2>
+        <h3>Join 38k+ getting real posts from real people in tech</h3>  
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
