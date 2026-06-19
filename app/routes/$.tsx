@@ -19,8 +19,8 @@ export default function Index() {
         </Link>
         </div>
         <h1>Gotta minute?</h1>
-        <h2>That's all it takes to scroll <a href="/today">The Poast</a></h2>
-        <h3>Join 38k+ getting real posts from real people in tech</h3>  
+        <h2>That's all it takes to keep up with tech.</h2>
+        <h3>Join 38k+ people reading <a href="/today">The Poast</a></h3>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">

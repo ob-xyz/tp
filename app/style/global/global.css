@@ -209,21 +209,22 @@ body {
   transform: rotate(180deg);
 }
 .container .header h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
 }
-.container .header h2,
-.container .header h2 a {
-  font-size: 1.75rem;
+.container .header h2 {
+  font-size: 2.5rem;
+  width: 50rem;
   font-family: ku;
   color: #000;
 }
-.container .header h2 a {
+.container .header h3,
+.container .header h3 a {
+  font-size: 1.75rem;
+}
+.container .header h3 a {
   font-family: kl;
   text-decoration: underline !important;
   color: #000;
-}
-.container .header h3 {
-  font-size: 1.5rem;
 }
 .container .header .headerimg {
   margin: 0;
@@ -313,7 +314,7 @@ body {
   box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 
-@media (min-width: 700px) and (max-width: 1300px) {
+@media (min-width: 845px) and (max-width: 1300px) {
   .header .nav {
     margin-bottom: 2rem;
     padding-top: 1.35rem;
@@ -325,7 +326,7 @@ body {
     margin-right: 0rem;
   }
 }
-@media (max-width: 699px) {
+@media (max-width: 844px) {
   .container .modal-overlay p {
     font-size: 1.1rem;
     width: 75%;
@@ -366,13 +367,13 @@ body {
     font-size: 2rem;
     margin-bottom: 0.5rem;
   }
-  .container .header h2,
-  .container .header h2 a {
-    font-size: 1.15rem;
+  .container .header h2 {
+    font-size: 1.025rem;
+    width: 100%;
   }
-  .container .header h3 {
+  .container .header h3,
+  .container .header h3 a {
     font-size: 1rem;
-    width: 80%;
   }
   .container .header .headerimg {
     width: 100%;

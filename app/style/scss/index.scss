@@ -187,21 +187,22 @@ body{
   }
 }
       h1{
-        font-size:2.5rem;
+        font-size:3.5rem;
       }
-      h2,
-      h2 a{
-        font-size:1.75rem;
+      h2{
+        font-size:2.5rem;
+        width:50rem;
         font-family: ku;
         color:#000;
       }
-      h2 a {          
+      h3,
+      h3 a{
+        font-size:1.75rem;
+      }
+      h3 a {          
           font-family: kl;
           text-decoration: underline !important;
           color: #000;
-      }
-      h3{
-        font-size:1.5rem;
       }
       .headerimg{
         margin: 0;
@@ -306,7 +307,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
 }
 
-@media (min-width:700px) and (max-width: 1300px) {
+@media (min-width:845px) and (max-width: 1300px) {
     .header{
      .nav{
         margin-bottom:2rem;
@@ -321,7 +322,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
 }
 
-@media (max-width: 699px) {
+@media (max-width: 844px) {
 .container{
     .modal-overlay {        
       p {
@@ -368,13 +369,13 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
         font-size:2rem;
         margin-bottom: .5rem;
       }
-      h2,
-      h2 a {
-        font-size:1.15rem;
+      h2 {
+        font-size:1.025rem;
+        width:100%;
       }
-      h3{
+      h3,
+      h3 a{
         font-size:1rem;
-        width:80%;
       }
       .headerimg{
         width: 100%;
