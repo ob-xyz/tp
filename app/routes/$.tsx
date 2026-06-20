@@ -20,7 +20,7 @@ export default function Index() {
         </div>
         <h1>Gotta minute?</h1>
         <h2>That's all it takes to keep up with tech.</h2>
-        <h3>Join 38k+ people reading <a href="/today">The Poast</a></h3>  
+        <h3>Join 38,000 people reading <a href="/today">The Poast</a></h3>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
