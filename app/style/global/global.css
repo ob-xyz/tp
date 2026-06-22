@@ -209,19 +209,16 @@ body {
   transform: rotate(180deg);
 }
 .container .header h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
+  font-family: ku;
 }
 .container .header h2 {
   font-size: 2.5rem;
   width: 50rem;
-  font-family: ku;
+  font-family: kl;
   color: #000;
 }
-.container .header h3,
-.container .header h3 a {
-  font-size: 1.75rem;
-}
-.container .header h3 a {
+.container .header h2 a {
   font-family: kl;
   text-decoration: underline !important;
   color: #000;
