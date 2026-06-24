@@ -1979,6 +1979,12 @@
   to = "https://app.thepoast.com/campaign/151b2aa2-7bd3-47de-9e15-4d2c8f1544ca/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
+      
+[[redirects]]
+  from = "/clay"
+  to = "https://app.thepoast.com/campaign/53c6aff1-1d66-444e-8706-092b3ac9b546/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
