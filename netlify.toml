@@ -1991,6 +1991,12 @@
   to = "https://app.thepoast.com/campaign/0810f9b4-63f6-4b7f-b083-2bbcbf5193ab/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
+      
+[[redirects]]
+  from = "/bamboohr"
+  to = "https://app.thepoast.com/campaign/3ac03a50-1390-4b20-89df-beb05253d389/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
