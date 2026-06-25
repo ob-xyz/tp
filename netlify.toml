@@ -1997,6 +1997,12 @@
   to = "https://app.thepoast.com/campaign/3ac03a50-1390-4b20-89df-beb05253d389/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
+      
+[[redirects]]
+  from = "/simpleai"
+  to = "https://app.thepoast.com/campaign/da8b50e7-bf5f-4fc4-86ea-262187599255/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
