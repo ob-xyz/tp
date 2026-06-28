@@ -13,7 +13,7 @@
   force = true
 
 [[redirects]]
-  from = "/media-kit"
+  from = "/mediakit"
   to = "https://app.thepoast.com/campaign/f862f1e4-156d-40bf-8e44-23b62463988e/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
   force = true
