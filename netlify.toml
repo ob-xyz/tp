@@ -19,18 +19,6 @@
   force = true
 
 [[redirects]]
-  from = "/rate-card"
-  to = "https://app.thepoast.com/campaign/f25acf35-9c3e-427b-acf5-fec6c921dee2/e0b14610-4448-4657-ae89-21598fe78de2"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/sample"
-  to = "https://app.thepoast.com/campaign/08b22c17-a4e1-4374-92c8-a0b0593e33fb/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/anthropic"
   to = "https://app.thepoast.com/campaign/3b6fe241-842f-4da6-8fe7-7050c9f073d4/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
