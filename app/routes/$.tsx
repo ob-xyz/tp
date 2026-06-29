@@ -19,7 +19,7 @@ export default function Index() {
         </Link>
         </div>
         <h1>Keep up with tech in under a minute</h1>
-        <h2>Join 38,000 people reading <a href="/today">The Poast</a></h2>  
+        <h2>Join 38,000+ people reading <a href="/today">The Poast</a></h2>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
