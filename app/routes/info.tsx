@@ -11,6 +11,16 @@ import ig from "~/../public/img/social/instagram.png";
 import yt from "~/../public/img/social/youtube.png";
 import logo from "~/../public/img/ja.png";
 
+import ti from "~/../public/img/press/ti.svg";
+import wsj from "~/../public/img/press/wsj.svg";
+import nyt from "~/../public/img/press/nyt.svg";
+import bi from "~/../public/img/press/bi.svg";
+import fastco from "~/../public/img/press/fastcompany.svg";
+import bloomberg from "~/../public/img/press/bloomberg.svg";
+import cnbc from "~/../public/img/press/cnbc.svg";
+import axios from "~/../public/img/press/axios.svg";
+
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: scroll },
 ];
@@ -82,6 +92,41 @@ export default function Index() {
                 </div>
             </div>
             </div>
+        </div>
+        <div className="inner-container2">
+        <h1>Selected Press</h1>
+        <div className="outer-header">
+          <div className="inner-header">
+            <div className="social">
+                <a href="https://wsj.com/" target="_blank" rel="noopener noreferrer">
+                <img src={wsj} alt="Wall Street Journal" />
+              </a>
+                <a href="https://cnbc.com/" target="_blank" rel="noopener noreferrer">
+                <img src={cnbc} alt="CNBC" />
+              </a>
+              <a href="https://bloomberg.com" target="_blank" rel="noopener noreferrer">
+                <img src={bloomberg} alt="Bloomberg" />
+              </a>
+              <a href="https://fastcompany.com" target="_blank" rel="noopener noreferrer">
+                <img src={fastco} alt="Fast Company" />
+              </a>
+            </div>
+            <div className="social">
+                <a href="https://businessinsider.com/" target="_blank" rel="noopener noreferrer">
+                <img src={bi} alt="Business Insider" />
+              </a>
+                <a href="https://theinformation.com/" target="_blank" rel="noopener noreferrer">
+                <img src={ti} alt="The Information" />
+              </a>
+              <a href="https://nyt.com/" target="_blank" rel="noopener noreferrer">
+                <img src={nyt} alt="New York Times" />
+              </a>
+              <a href="https://axios.com/@" target="_blank" rel="noopener noreferrer">
+                <img src={axios} alt="Axios" />
+              </a>
+            </div>
+          </div>
+        </div>
         </div>
     </div>
   );
