@@ -362,10 +362,10 @@ body {
   }
   .container .header h1 {
     font-size: 2rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0;
   }
   .container .header h2 {
-    font-size: 1.025rem;
+    font-size: 1rem;
     width: 100%;
   }
   .container .header h3,
