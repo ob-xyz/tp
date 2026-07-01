@@ -1991,6 +1991,12 @@
   to = "https://app.thepoast.com/campaign/da8b50e7-bf5f-4fc4-86ea-262187599255/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
+      
+[[redirects]]
+  from = "/quince"
+  to = "https://app.thepoast.com/campaign/75ea50c3-cb8d-4fe6-9bab-b2cc03c2ac52/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
