@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "sources": ["browser-route-module:routes/confirm.tsx?browser"],
+  "sources": ["empty-module:@remix-run/node"],
   "sourcesContent": ["module.exports = {};"],
   "mappings": ";;;;;AAAA;AAAA;AAAA,WAAO,UAAU,CAAC;AAAA;AAAA;",
   "names": []

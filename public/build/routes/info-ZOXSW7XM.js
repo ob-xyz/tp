@@ -12,11 +12,11 @@ import {
   youtube_default
 } from "/build/_shared/chunk-7NJXVCHU.js";
 import {
-  Link
-} from "/build/_shared/chunk-ROHSLC5J.js";
-import {
   ja_default
 } from "/build/_shared/chunk-XIGSDZZU.js";
+import {
+  Link
+} from "/build/_shared/chunk-FKFAHRPY.js";
 import {
   require_jsx_dev_runtime
 } from "/build/_shared/chunk-S4ZNHW4H.js";
@@ -381,4 +381,4 @@ export {
   Index as default,
   links
 };
-//# sourceMappingURL=/build/routes/info-Q7QCVQFV.js.map
+//# sourceMappingURL=/build/routes/info-ZOXSW7XM.js.map
