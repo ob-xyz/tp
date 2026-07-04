@@ -1,28 +1,26 @@
-// app/routes/confirmed.tsx
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-
 export async function loader({ request }: LoaderFunctionArgs) {
   const referer = request.headers.get("referer") ?? "";
-  // e.g. "https://thepoast.com/railway"
   const slug = referer.split("/").filter(Boolean).pop() ?? "unknown";
-  // slug = "railway"
 
-  await fetch(process.env.NOTIFY_WEBHOOK_URL!, {
-    method: "POST",
-    body: JSON.stringify({ text: `🎯 Start Trial clicked — ${slug}` }),
-  }).catch(() => {});
+  try {
+    const res = await fetch(`${process.env.LISTMONK_URL}/api/subscribers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `token ${process.env.LISTMONK_API_TOKEN}`,
+      },
+      body: JSON.stringify({
+        email: `${slug}-${Date.now()}@placeholder.com`,
+        lists: [33],
+        status: "enabled",
+        attribs: { source_page: referer },
+      }),
+    });
+    const data = await res.json();
+    console.log("Listmonk response:", res.status, data); // check your server logs
+  } catch (err) {
+    console.error("Listmonk error:", err); // check your server logs
+  }
 
   return json({ slug });
-}
-
-export default function Confirmed() {
-  const { slug } = useLoaderData<typeof loader>();
-  return (
-    <div style={{ textAlign: "center", padding: "80px 20px" }}>
-      <div style={{ fontSize: 48 }}>✓</div>
-      <h2>Got it — we'll be in touch shortly</h2>
-      <p>Thanks for your interest, {slug}.</p>
-    </div>
-  );
 }

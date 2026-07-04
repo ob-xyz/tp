@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/routes/confirm.tsx"],
-  "sourcesContent": ["// app/routes/confirmed.tsx\nimport { json, type LoaderFunctionArgs } from \"@remix-run/node\";\nimport { useLoaderData } from \"@remix-run/react\";\n\nexport async function loader({ request }: LoaderFunctionArgs) {\n  const referer = request.headers.get(\"referer\") ?? \"\";\n  // e.g. \"https://thepoast.com/railway\"\n  const slug = referer.split(\"/\").filter(Boolean).pop() ?? \"unknown\";\n  // slug = \"railway\"\n\n  await fetch(process.env.NOTIFY_WEBHOOK_URL!, {\n    method: \"POST\",\n    body: JSON.stringify({ text: `\uD83C\uDFAF Start Trial clicked \u2014 ${slug}` }),\n  }).catch(() => {});\n\n  return json({ slug });\n}\n\nexport default function Confirmed() {\n  const { slug } = useLoaderData<typeof loader>();\n  return (\n    <div style={{ textAlign: \"center\", padding: \"80px 20px\" }}>\n      <div style={{ fontSize: 48 }}>\u2713</div>\n      <h2>Got it \u2014 we'll be in touch shortly</h2>\n      <p>Thanks for your interest, {slug}.</p>\n    </div>\n  );\n}"],
-  "mappings": ";;;;;;;;;;;;;;AACA,kBAA8C;AAqBxC;AAJS,SAAR,YAA6B;AAClC,QAAM,EAAE,KAAK,IAAI,cAA6B;AAC9C,SACE,mDAAC,SAAI,OAAO,EAAE,WAAW,UAAU,SAAS,YAAY,GACtD;AAAA,uDAAC,SAAI,OAAO,EAAE,UAAU,GAAG,GAAG,sBAA9B;AAAA;AAAA;AAAA;AAAA,WAA+B;AAAA,IAC/B,mDAAC,QAAG,uDAAJ;AAAA;AAAA;AAAA;AAAA,WAAsC;AAAA,IACtC,mDAAC,OAAE;AAAA;AAAA,MAA2B;AAAA,MAAK;AAAA,SAAnC;AAAA;AAAA;AAAA;AAAA,WAAoC;AAAA,OAHtC;AAAA;AAAA;AAAA;AAAA,SAIA;AAEJ;",
-  "names": []
-}

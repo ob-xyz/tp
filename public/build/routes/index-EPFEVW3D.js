@@ -12,23 +12,28 @@ import {
   youtube_default
 } from "/build/_shared/chunk-7NJXVCHU.js";
 import {
-  ja_default
-} from "/build/_shared/chunk-XIGSDZZU.js";
-import {
-  require_node
-} from "/build/_shared/chunk-3K2JK6MY.js";
-import {
   Link,
   useActionData,
   useNavigation
-} from "/build/_shared/chunk-FKFAHRPY.js";
+} from "/build/_shared/chunk-ROHSLC5J.js";
+import {
+  ja_default
+} from "/build/_shared/chunk-XIGSDZZU.js";
 import {
   require_jsx_dev_runtime,
   require_react
 } from "/build/_shared/chunk-S4ZNHW4H.js";
 import {
+  __commonJS,
   __toESM
 } from "/build/_shared/chunk-IU43IUTG.js";
+
+// empty-module:@remix-run/node
+var require_node = __commonJS({
+  "empty-module:@remix-run/node"(exports, module) {
+    module.exports = {};
+  }
+});
 
 // app/routes/index.tsx
 var import_react = __toESM(require_react());
@@ -244,4 +249,4 @@ function Index() {
 export {
   Index as default
 };
-//# sourceMappingURL=/build/routes/index-TJSWISRL.js.map
+//# sourceMappingURL=/build/routes/index-EPFEVW3D.js.map
