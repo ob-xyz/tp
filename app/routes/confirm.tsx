@@ -18,8 +18,8 @@ export default function Confirm() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1 style={{ fontSize: 42 }}>✓ Got it — we'll be in touch shortly</h1>
-        <h2 style={{ fontSize: 26 }}>Thanks for your interest in advertising with The Poast</h2>  
+        <h1 style={{ fontSize: 18 }}>✓ Got it — we'll be in touch shortly</h1>
+        <h2 style={{ fontSize: 24 }}>Thanks for your interest in advertising with The Poast</h2>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
