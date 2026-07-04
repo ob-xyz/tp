@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/routes/confirm.tsx"],
-  "sourcesContent": ["export default function Confirm() {\n  return (\n    <div style={{ textAlign: \"center\", padding: \"80px 20px\" }}>\n      <div style={{ fontSize: 48 }}>\u2713</div>\n      <h2>Got it \u2014 we'll be in touch shortly</h2>\n      <p>Thanks for your interest in advertising with The Poast.</p>\n    </div>\n  );\n}"],
-  "mappings": ";;;;;;;;AAGM;AAHS,SAAR,UAA2B;AAChC,SACE,mDAAC,SAAI,OAAO,EAAE,WAAW,UAAU,SAAS,YAAY,GACtD;AAAA,uDAAC,SAAI,OAAO,EAAE,UAAU,GAAG,GAAG,sBAA9B;AAAA;AAAA;AAAA;AAAA,WAA+B;AAAA,IAC/B,mDAAC,QAAG,uDAAJ;AAAA;AAAA;AAAA;AAAA,WAAsC;AAAA,IACtC,mDAAC,OAAE,uEAAH;AAAA;AAAA;AAAA;AAAA,WAA0D;AAAA,OAH5D;AAAA;AAAA;AAAA;AAAA,SAIA;AAEJ;",
-  "names": []
-}

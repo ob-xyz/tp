@@ -8,7 +8,7 @@ import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
 import info from "~/../public/img/social/info.png";
 import yt from "~/../public/img/social/youtube.png";
-import j from "~/../public/img/ja7.png";
+import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
 
 export async function action({ request }: ActionFunctionArgs) {
