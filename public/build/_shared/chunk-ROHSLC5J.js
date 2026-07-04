@@ -3140,15 +3140,6 @@ function useMatches() {
     };
   }), [matches, loaderData]);
 }
-function useLoaderData() {
-  let state = useDataRouterState(DataRouterStateHook.UseLoaderData);
-  let routeId = useCurrentRouteId(DataRouterStateHook.UseLoaderData);
-  if (state.errors && state.errors[routeId] != null) {
-    console.error("You cannot `useLoaderData` in an errorElement (routeId: " + routeId + ")");
-    return void 0;
-  }
-  return state.loaderData[routeId];
-}
 function useActionData() {
   let state = useDataRouterState(DataRouterStateHook.UseActionData);
   let route = React.useContext(RouteContext);
@@ -5298,9 +5289,6 @@ function useMatches2() {
     return remixMatch;
   }), [matches, routeModules]);
 }
-function useLoaderData2() {
-  return useLoaderData();
-}
 function useActionData2() {
   return useActionData();
 }
@@ -5946,7 +5934,6 @@ export {
   Links,
   Meta,
   Scripts,
-  useLoaderData2 as useLoaderData,
   useActionData2 as useActionData,
   LiveReload,
   RemixBrowser,
@@ -6158,4 +6145,4 @@ react-router-dom/dist/index.js:
    * @license MIT
    *)
 */
-//# sourceMappingURL=/build/_shared/chunk-FKFAHRPY.js.map
+//# sourceMappingURL=/build/_shared/chunk-ROHSLC5J.js.map
