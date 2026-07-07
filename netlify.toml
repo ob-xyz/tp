@@ -2005,6 +2005,12 @@
   force = true
 
 [[redirects]]
+  from = "/fiscalai"
+  to = "https://app.thepoast.com/campaign/520f4257-7d37-41da-b4af-f528db063248/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
