@@ -1999,6 +1999,12 @@
   force = true
 
 [[redirects]]
+  from = "/clickhouse"
+  to = "https://app.thepoast.com/campaign/413a4f5d-0eae-411e-9c0c-e1f141ffb2a0/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
