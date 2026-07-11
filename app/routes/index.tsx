@@ -89,8 +89,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>This free newsletter is your unfair advantage in a world moving faster every day</h1>
-        <h2>Every morning 38,000+ execs and builders scroll <a href="/today">The Poast</a> to get technology's biggest posts. Plus, the best tools, links, ideas, stories, and podcasts from across the web. One quick feed. Zero noise. All signal.</h2>  
+        <h1>This free 1-minute newsletter is your unfair advantage in a world moving faster every day</h1>
+        <h2>Every morning 38,000+ execs and builders scroll <a href="/today">The Poast</a> to see technology's biggest posts. Enjoy all the best tools, links, stories, and ideas from across the web. One quick feed. Zero noise. Full signal.</h2>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
