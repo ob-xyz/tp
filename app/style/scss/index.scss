@@ -175,6 +175,8 @@ body{
     position: absolute;
     left: 50%;
     transform: translateX(-50%); 
+    box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+    border-radius: 100%;
   }
 
   .info {
@@ -187,12 +189,13 @@ body{
   }
 }
       h1{
-        font-size:3rem;
+        font-size:2.5rem;
         font-family: ku;
+        width:55%;
       }
       h2{
-        font-size:2.5rem;
-        width:50rem;
+        font-size:1.5rem;
+        width:45rem;
         font-family: kl;
         color:#000;
       }
@@ -365,6 +368,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
       h1{
         font-size:2rem;
         margin-bottom: 0;
+        width:100%;
       }
       h2 {
         font-size:1rem;

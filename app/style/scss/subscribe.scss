@@ -70,6 +70,8 @@ body{
     position: absolute;
     left: 50%;
     transform: translateX(-50%); 
+    box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+    border-radius: 100%;
   }
 
   .info {
