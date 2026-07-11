@@ -90,7 +90,7 @@ export default function Index() {
         </Link>
         </div>
         <h1>This free 1-minute newsletter is your unfair advantage in a world moving faster every day</h1>
-        <h2>Every morning 40,000+ execs and builders scroll <a href="/today">The Poast</a> for the today's biggest stories and posts. Plus, the best technology, links, and tools from across the web. Bit snarky. High signal.</h2>  
+        <h2>Every morning 40,000+ execs and builders scroll <a href="/today">The Poast</a> for today's biggest stories and posts. Plus, the best technology, links, and tools from across the web. Bit snarky. Super high signal.</h2>  
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
