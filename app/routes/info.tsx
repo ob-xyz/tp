@@ -94,7 +94,7 @@ export default function Index() {
             </div>
         </div>
         <div className="inner-container2">
-        <h1>Selected Press</h1>
+        <h2>Selected Press</h2>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
@@ -128,11 +128,27 @@ export default function Index() {
           </div>
         </div>
         </div>
-                <div className="inner-container2">
-        <h1>About The Poast</h1>
+        <div className="inner-container3">
+        <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-
+              <p>Hey - I'm happy you finally found this section!</p>
+              <p> I know this wasn't the easiest place to stumble into, but now that's you're here, I might as well let you in on some internet gold.</p>
+              <p>For years, I've been obsessed with one question.</p>
+              <p><b>How should we consume information on a noisy internet?</b></p>
+              <p>This single question has taken my down the weirdest rabbit holes. But first I want to tell you a bit about me....</p>
+              <p>I'm Chris Signore. I grew up in a small town in Canada called Westport. It had roughly 600 people when we moved there, and still has roughly 600 people. And it's a big reason I still love living here.</p>
+              <p>But I did have to move away. To get my business degree from university. And for my first job at ProSlide Technology. It lasted half a decade before I had the courage to go back to my roots and build things for myself.</p>
+              <p>In 2017 I started doing just that. I began by posting about business news and stocks across the internet, rediscovering my love for making things (even if it was just content).</p>
+              <p>I couldn't help but noticed the internet had changed a lot since I was a kid. There were a few big companies who controlled all the attention, and they were amplifying the worse.</p>
+              <p>So I launched Jeffamazon. My first email newsletter. And a way to own my audience.</p>
+              <p>It blew up with more people signing up than I could ever on-board. It forced me to rethink everything.</p>
+              <p>So I tore it all down and started rebuilding the foundation. By 2020 I had a functional product and started to scale my on-boarding and develop a daily cadance.</p>
+              <p>And by the mid-2020s it began to look less and less like a newsletter and more like a newsfeed but without the profile pictures or people. It was a weird moment in time for Jeffamazon that eventually led to me registering thepoast.com.</p>
+              <p>But it was still a big struggled. So I tore it all down again and went all in on The Poast. My goal? The world's first email newsfeed with real people, real stories, and real posts from across the web.</p>
+              <p>I'm still all in on The Poast and it's growing faster than ever. But as much as I wanna brag about it, it's really one of those products you just gotta experience for yourself.</p>
+              <p>Sign up for free at <Link className="subscribe" to="/subscribe">thepoast.com/subscribe</Link></p>
+              <p>Cheers<br />Chris Signore</p>
           </div>
         </div>
         </div>
