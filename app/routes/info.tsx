@@ -75,7 +75,7 @@ export default function Index() {
                 </a>
             </div>
             <div className="subscribe">
-                <h1>Get The Poast</h1>
+                <h1>Get The Poast for free</h1>
                 <div className="logo-grid">
                     <form method="post" action="https://app.thepoast.com/subscription/form">
                     <div className="input-wrapper">
@@ -125,6 +125,14 @@ export default function Index() {
                 <img src={axios} alt="Axios" />
               </a>
             </div>
+          </div>
+        </div>
+        </div>
+                <div className="inner-container2">
+        <h1>About The Poast</h1>
+        <div className="outer-header">
+          <div className="inner-header">
+
           </div>
         </div>
         </div>
