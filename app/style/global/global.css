@@ -191,7 +191,7 @@ body {
   position: relative;
   width: 100%;
   margin: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   padding-top: 3rem;
 }
 .container .header .nav .logo {
@@ -216,6 +216,7 @@ body {
   width: 50rem;
 }
 .container .header h2 {
+  margin-top: 0.35rem;
   font-size: 1.5rem;
   width: 45rem;
   font-family: kl;
