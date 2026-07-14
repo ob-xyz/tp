@@ -19,8 +19,8 @@ export default function Confirm() {
         </Link>
         </div>
         <h1 style={{ fontSize: 94 }}>✓</h1>
-        <h1 style={{ fontSize: 18 }}>You're in — expect to see your ad live by end of the month</h1>
-        <h2 style={{ fontSize: 24 }}>We're scheduling your date and will follow-up shortly with payment details.</h2>
+        <h1 style={{ fontSize: 18 }}>You're in — expect to see your campaign in The Poast</h1>
+        <h2 style={{ fontSize: 24 }}>We're currently scheduling your date and will follow-up within 48 hours with your set date and payment details.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
