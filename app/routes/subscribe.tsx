@@ -40,6 +40,7 @@ export default function Index() {
           </div>
         </div>
           <form method="post" action="https://app.thepoast.com/subscription/form">
+          <h1>Get The Poast for free</h1>
           <div className="input-wrapper">
             <input className="email" type="text" name="firstName" placeholder="First Name *" />
           </div>
@@ -51,7 +52,7 @@ export default function Index() {
           <input id="6d48f" type="hidden" name="l" checked value="6d48fffe-7d37-4c14-b317-3e4cda33a647" />
           <input type="hidden" name="nonce" />
         </form>
-          <img className="headerimg" src={j} alt="Instagram" />
+          <img className="headerimg" src={j} alt="The Poast" />
       </div>
     </div>
   );

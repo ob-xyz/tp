@@ -57,6 +57,7 @@ export default function Index() {
         </div>
       </div>
         <div className="inner-container">
+            <h2>Editor-in-Chief</h2>
             <div className="profile-outside">
             <div className="profile">
                 <a href="https://linkedin.com/in/chrissignore" target="_blank" rel="noopener noreferrer">
