@@ -89,7 +89,7 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>This free 1-minute newsletter is your unfair advantage in a world moving faster every day</h1>
+        <h1>The daily feed for people building the future — delivered by email</h1>
         <h2>Every morning 40,000+ execs and builders spend one minute scrolling the best stories, posts, tools, links, and ideas from across the web. Real signal. Bit snarky. Some bite.</h2>  
           <div className="outer-header">
           <div className="inner-header">
