@@ -18,9 +18,6 @@ export default function Confirm() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1 style={{ fontSize: 72 }}>✓</h1>
-        <h1 style={{ fontSize: 18 }}>Got it — we'll be in touch shortly</h1>
-        <h2 style={{ fontSize: 24 }}>Thanks for your interest in advertising with The Poast</h2>  
         <h1 style={{ fontSize: 94 }}>✓</h1>
         <h1 style={{ fontSize: 18 }}>You're in — expect to see your ad live by end of the month</h1>
         <h2 style={{ fontSize: 24 }}>We're scheduling your date and will follow-up shortly with payment details.</h2>
