@@ -6,7 +6,7 @@ import li from "~/../public/img/social/linkedin.png";
 import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
 import yt from "~/../public/img/social/youtube.png";
-import j from "~/../public/img/ja6.png";
+import j from "~/../public/img/ja7.png";
 import logo from "~/../public/img/ja.png";
 export default function Index() {
   return (
@@ -46,7 +46,7 @@ export default function Index() {
           </div>
           <div className="input-wrapper">
             <input className="email" type="email" name="email" required placeholder="Email Address *" />
-            <button className="submit" type="submit">Sign Up</button>
+            <button className="submit" type="submit">Sign&nbsp;up</button>
           </div>
           <Altcha />
           <input id="6d48f" type="hidden" name="l" checked value="6d48fffe-7d37-4c14-b317-3e4cda33a647" />
