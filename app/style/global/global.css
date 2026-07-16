@@ -314,6 +314,19 @@ body {
   background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
   box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
+.container .footer {
+  display: flex;
+  position: relative;
+  bottom: 3.25rem;
+  padding: 0.75rem 1.25rem;
+  width: 26rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.container .footer a {
+  font-size: 1rem;
+  color: #000;
+}
 
 @media (min-width: 845px) and (max-width: 1300px) {
   .header .nav {

@@ -306,6 +306,23 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
 }
 }
+
+.footer{
+  display: flex;
+position: relative;
+bottom:3.25rem;
+padding:.75rem 1.25rem;
+width:26rem;
+border-radius: .5rem;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  a{
+    font-size:1rem;
+    color:#000;
+  }
+
+
+}
 }
 
 @media (min-width:845px) and (max-width: 1300px) {
