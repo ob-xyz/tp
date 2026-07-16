@@ -14,9 +14,9 @@ export default function Index() {
       <div className="header">
         <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
-        <Link className="info" to="/info">
+        {/* <Link className="info" to="/info">
             <img src={info} alt="More Info" />
-        </Link>
+        </Link> */}
         </div>
         <div className="outer-header">
           <div className="inner-header">

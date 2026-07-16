@@ -14,9 +14,9 @@ export default function Confirm() {
       <div className="header">
         <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
-        <Link className="info" to="/info">
+        {/* <Link className="info" to="/info">
             <img src={info} alt="More Info" />
-        </Link>
+        </Link> */}
         </div>
         <h1 style={{ fontSize: 94 }}>✓</h1>
         <h1 style={{ fontSize: 18 }}>You're in — expect to see your ad live by end of the month</h1>
