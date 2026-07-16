@@ -1,6 +1,7 @@
 import logo from "~/../public/img/ja.png";
 import type { LinksFunction } from "@remix-run/node";
 import scroll from "~/style/scss/components/showscroll.css";
+import Footer from "../../components/footer"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: scroll },
@@ -134,6 +135,7 @@ return (
           <li><u>Consent</u>: From time to time, we may ask for your consent to collect specific information, such as your precise geolocation, or use your information for certain specific reasons, like providing your email address or phone number for direct marketing purposes, or for the use of certain types of cookies for personalized advertising. In general, you may withdraw your consent by changing your settings (such as browser or device settings) or following instructions provided with information we send you on a consent basis (such as clicking ‘unsubscribe’ in any email we send you). You may always withdraw your consent at any time – just contact us at <a href="mailto:privacyrequest@thepoast.com">privacyrequest@thepoast.com</a>.</li>
         </ul>
       </div>
+
   </div>
   );
 }
