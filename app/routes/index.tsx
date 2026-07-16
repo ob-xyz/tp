@@ -115,17 +115,7 @@ export default function Index() {
         <img className="headerimg" src={j} alt="The Poast" />
             
       </div>
-      <div className="footer">
-         <Link to="/policies/privacy">
-         Privacy Policy
-        </Link> 
-        <Link to="/policies/terms">
-          Terms and Conditions
-        </Link>
-        <a href="mailto:support@thepoast.com">
-          Contact
-        </a> 
-      </div>
+
     </div>
   );
 }
