@@ -61,13 +61,13 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p>Subscribe to The Poast's free newsletter</p>
+            <p>Sign up to The Poast's free feed</p>
             <p>Start your day with an unfair advantage. Get technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web every day.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
                 <button className="submit" type="submit">
-                  {navigation.state === "submitting" ? "..." : "Subscribe"}
+                  {navigation.state === "submitting" ? "..." : "Sign Up"}
                 </button>
               </div>
               <Altcha />
@@ -75,7 +75,7 @@ export default function Index() {
               <input type="hidden" name="nonce" />
             </form>
               <p className="dismiss-text" onClick={() => setShowModal(false)}>
-              No thanks! I'm already subscribed
+              No thanks! I'm already signed up
             </p>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link> */}
         </div>
-        <h1>This free 1-minute newsletter is your unfair advantage over everyone else</h1>
+        <h1>This free 1-minute feed is your unfair advantage over everyone else</h1>
         <h2>Every day 40,000+ execs and builders scroll <a href="/today">The Poast</a> for technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web. Bit snarky. Real signal.</h2>  
           <div className="outer-header">
           <div className="inner-header">
@@ -109,7 +109,7 @@ export default function Index() {
             </div>
           </div>
           <div className="inner-header2">
-            <Link to="/subscribe">Subscribe</Link>
+            <Link to="/subscribe">Sign up</Link>
           </div>
         </div>
         <img className="headerimg" src={j} alt="The Poast" />
