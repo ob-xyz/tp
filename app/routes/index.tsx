@@ -57,7 +57,7 @@ export default function Index() {
 
   return (
     <div className="container">
-      {/* POPUP MODAL */}
+      {/* POPUP MODAL
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -79,7 +79,7 @@ export default function Index() {
             </p>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* HEADER SECTION */}
       <div className="header">
@@ -89,8 +89,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link> */}
         </div>
-        <h1>This free feed is your unfair advantage over everyone else</h1>
-        <h2>Every day 40,000+ execs and builders scroll <a href="/today">The Poast</a> for technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web. Bit snarky. Real signal.</h2>  
+        <h1>Feed your curiosity</h1>
+        <h2>Sign up to get updates about our app coming soon.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
