@@ -61,8 +61,8 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p>Sign up to The Poast's free feed</p>
-            <p>Start your day with an unfair advantage. Get technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web every day.</p>
+            <p>Sign up to The Poast's fast feed</p>
+            <p>Start your day with an unfair advantage. Sign up to our fast feed of technology's best posts. Plus, the top AI tools, links, and ideas in your inbox every day.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
