@@ -89,7 +89,7 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link> */}
         </div>
-        <h1>Feed your curiosity</h1>
+        <h1>Free, fast feed</h1>
         <h2>Sign up to get updates about our app coming soon.</h2>
           <div className="outer-header">
           <div className="inner-header">
