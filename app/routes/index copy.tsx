@@ -61,8 +61,8 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p>Sign up to The Poast's fast feed</p>
-            <p>Start your day with an unfair advantage. Sign up to our fast feed of technology's best posts. Plus, the top AI tools, links, and ideas in your inbox every day.</p>
+            <p>Subscribe to The Poast</p>
+            <p>The Poast is like an Instagram, LinkedIn, or X feed, but for email. Just scroll to read the best posts in tech. Plus, today's top tools, links, and ideas from across the web.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -89,8 +89,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link> */}
         </div>
-        <h1>This newsfeed is the fastest way to keep up with tech without having to doomscroll</h1>
-        <h2>Every day <a href="/today">The Poast</a> connects technology's top voices and posts into a 1-minute newsfeed delivered to 40,000+ execs and builders across the world.</h2>
+        <h1>This is the fastest way to keep up with tech without having to doomscroll</h1>
+        <h2><a href="/today">The Poast</a> is like an Instagram, LinkedIn, or X feed, but for email. Just scroll to read the best posts in tech. Plus, today's top tools, links, and ideas from across the web</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
