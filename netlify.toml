@@ -793,7 +793,7 @@
   force = true
 
 [[redirects]]
-  from = "/@micro1"
+  from = "/micro1"
   to = "https://app.thepoast.com/campaign/5be9ddca-7e9f-4207-9c9b-8b127cb2cf7b/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
   force = true
