@@ -133,11 +133,11 @@ export default function Index() {
         <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-              <p>Hey there!</p>
-              <p>I'm Chris from The Poast, the fastest way to keep up in tech.</p>
-              <p>Every day I spend an unhealthy amount of time doomscrolling the internet to find the best posts, tools, and ideas from X, YouTube, and the Web.</p>
-              <p>Then I pack them into a fast feed that takes about a minute to read.</p>
-              <p>You can check it out for free at <Link className="subscribe" to="/subscribe">thepoast.com/subscribe</Link></p>
+              <p>Keeping up with tech has become a full-time job.</p>
+              <p>Technology's best builders arn't just posting in one place. They're on X, YouTube, Reddit, Substack, and of course still using traditional media to get their message out there.</p>
+              <p>And half the time when I doomscroll to find something good — it's just fake news.</p>
+              <p>So I wanted to fix that and started building The Poast, a one minute feed of all the best tech posts. No fake news.</p>
+              <p>If you're a builder like me you can subscribe for free at <Link className="subscribe" to="/subscribe">thepoast.com/subscribe</Link></p>
               <p>Cheers<br />Chris Signore</p>
           </div>
         </div>

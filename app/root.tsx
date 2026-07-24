@@ -29,8 +29,8 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "The Poast - Tech's best posts",
-  description: "The Poast is a feed like Instagram, LinkedIn, or X, but for email. Just scroll to read the best posts in tech. Plus, today's top tools, links, and ideas from across the web.",
+  title: "The Poast",
+  description: "The Poast is like a LinkedIn or X feed, but for email. Just scroll to keep up with the best ideas in tech.",
   viewport: "width=device-width,initial-scale=1"
 });
 

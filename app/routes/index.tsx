@@ -57,12 +57,12 @@ export default function Index() {
 
   return (
     <div className="container">
-      {/* POPUP MODAL
+      {/* POPUP MODAL */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p>Sign up to The Poast's free feed</p>
-            <p>Start your day with an unfair advantage. Get technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web every day.</p>
+            <p>Subscribe to The Poast</p>
+            <p>The Poast is like a LinkedIn or X feed, but for email. Just scroll to keep up with the best ideas in tech.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -79,18 +79,18 @@ export default function Index() {
             </p>
           </div>
         </div>
-      )} */}
+      )}
 
       {/* HEADER SECTION */}
       <div className="header">
         <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
-        {/* <Link className="info" to="/info">
+        <Link className="info" to="/info">
             <img src={info} alt="More Info" />
-        </Link> */}
+        </Link>
         </div>
-        <h1>Free, fast feed</h1>
-        <h2>Sign up to get updates about our app coming soon.</h2>
+        <h1>This is the fastest way to keep up in tech</h1>
+        <h2><a href="/today">The Poast</a> is like a LinkedIn or X feed, but for email. Just scroll to keep up with the best ideas in tech.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
@@ -109,7 +109,7 @@ export default function Index() {
             </div>
           </div>
           <div className="inner-header2">
-            <Link to="/subscribe">Sign&nbsp;up</Link>
+            <Link to="/subscribe">Subscribe</Link>
           </div>
         </div>
         <img className="headerimg" src={j} alt="The Poast" />
