@@ -18,8 +18,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link> */}
         </div>
-        <h1>This free feed is your unfair advantage over everyone else</h1>
-        <h2>Every day 40,000+ execs and builders scroll <a href="/today">The Poast</a> for technology's biggest stories and posts. Plus, the best AI tools, links, and ideas from across the web. Bit snarky. Real signal.</h2>  
+        <h1>This is the fastest way to keep up with tech</h1>
+        <h2><a href="/today">The Poast</a> is like a LinkedIn or X feed, but for email. Just scroll to read what's happening in tech.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
