@@ -30,7 +30,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast",
-  description: "The Poast is like a LinkedIn or X feed, but for email. Just scroll to keep up with the best ideas in tech.",
+  description: "The Poast is like a LinkedIn or X feed, but for email. Just scroll to know what's happening in tech.",
   viewport: "width=device-width,initial-scale=1"
 });
 
