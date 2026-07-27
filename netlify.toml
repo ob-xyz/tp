@@ -2017,6 +2017,12 @@
   force = true
 
 [[redirects]]
+  from = "/aikido"
+  to = "https://app.shilll.com/campaign/1f9ed07e-dc61-44e7-823c-4098f56c8a3e/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
