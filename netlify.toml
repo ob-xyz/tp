@@ -2018,7 +2018,13 @@
 
 [[redirects]]
   from = "/aikido"
-  to = "https://app.shilll.com/campaign/1f9ed07e-dc61-44e7-823c-4098f56c8a3e/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  to = "https://app.thepoast.com/campaign/1f9ed07e-dc61-44e7-823c-4098f56c8a3e/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/langchain"
+  to = "https://app.thepoast.com/campaign/df7652eb-d47e-4a34-a27d-2582caf716af/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
   status = 200
   force = true
 
