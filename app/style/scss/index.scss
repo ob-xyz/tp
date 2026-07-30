@@ -190,15 +190,14 @@ body{
   }
 }
       h1{
-        margin-top:1rem;
-        font-size:3rem;
+        font-size:3.5rem;
         font-family: ku;
-        width:39rem;
+        width:32.5rem;
       } 
       h2{
         margin-top:.35rem;
         font-size:1.5rem;
-        width:32.5rem;
+        width:35rem;
         font-family: kl;
         color:#000;
       }
@@ -362,7 +361,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
     .header{
      .nav{
-        margin-bottom:2rem;
+        margin-bottom:1rem;
         padding-top: 1.55rem;
       .logo {
         width:3.25rem;
@@ -372,13 +371,14 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
       }
      }
       h1{
+        margin-top:.5rem;
         font-size:2rem;
         margin-bottom: 0;
-        width:100%; 
+        width:80%; 
       }
       h2 {
-        font-size:1.1rem;
-        width:85%;
+        font-size:1.15rem;
+        width: 100%;
       }
       h3,
       h3 a{

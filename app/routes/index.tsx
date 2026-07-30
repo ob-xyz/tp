@@ -62,7 +62,7 @@ export default function Index() {
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <p>Subscribe to The Poast</p>
-            <p>The Poast is like a LinkedIn or X feed, but for email. Just scroll to know what's happening every day.</p>
+            <p>The Poast is like a LinkedIn or X feed, but for email. Just scroll to keep up with tech.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -89,8 +89,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>This is the fastest way to keep up with technology</h1>
-        <h2>Just scroll <a href="/today">The Poast</a> for 1-minute every day so you can get back to spending the other 23 hours and 59 minutes building your life.</h2>
+        <h1>Take your free seat at the table</h1>
+        <h2>Every day 40,000+ people scroll <a href="/today">The Poast</a> to know what's happening in tech in 1-minute or less.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">

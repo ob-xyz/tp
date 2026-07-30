@@ -46,7 +46,7 @@ export default function Index() {
           </div>
           <div className="input-wrapper">
             <input className="email" type="email" name="email" required placeholder="Email Address *" />
-            <button className="submit" type="submit">Sign&nbsp;up</button>
+            <button className="submit" type="submit">Subscribe</button>
           </div>
           <Altcha />
           <input id="6d48f" type="hidden" name="l" checked value="6d48fffe-7d37-4c14-b317-3e4cda33a647" />
