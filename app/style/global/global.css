@@ -220,7 +220,7 @@ body {
 .container .header h2 {
   margin-top: 0.35rem;
   font-size: 1.5rem;
-  width: 36rem;
+  width: 32.5rem;
   font-family: kl;
   color: #000;
 }
@@ -231,8 +231,8 @@ body {
 }
 .container .header .headerimg {
   margin: 0;
-  width: 47.5%;
-  margin-top: 3.75rem;
+  width: 27.5rem;
+  margin-top: 2rem;
 }
 .container .header .outer-header {
   display: flex;
@@ -376,15 +376,11 @@ body {
   }
   .container .header h2 {
     font-size: 1.1rem;
-    width: 100%;
+    width: 85%;
   }
   .container .header h3,
   .container .header h3 a {
     font-size: 1rem;
-  }
-  .container .header .headerimg {
-    width: 100%;
-    margin-top: 3rem;
   }
   .container .header .outer-header {
     flex-direction: column;
@@ -482,9 +478,9 @@ body {
   transform: rotate(180deg);
 }
 .subscribe-container .header .headerimg {
-  margin: 0 auto;
-  width: 47.5%;
-  margin-top: 2.25rem;
+  margin: 0;
+  width: 27.5rem;
+  margin-top: 2rem;
 }
 .subscribe-container .header .outer-header {
   display: flex;
@@ -574,10 +570,11 @@ body {
 .subscribe-container .header form h1 {
   margin-top: 1.5rem;
   margin-bottom: 0.35rem;
-  font-size: 2rem;
+  margin-left: 3.1rem;
+  font-size: 1.1rem;
   font-family: ku;
   width: 42.25rem;
-  text-align: center;
+  text-align: left;
 }
 .subscribe-container .header form .input-wrapper {
   position: relative;
@@ -646,10 +643,6 @@ body {
   .subscribe-container .header h1 {
     font-size: 2rem;
     margin-bottom: 0;
-  }
-  .subscribe-container .header .headerimg {
-    width: 100%;
-    margin-top: 1rem;
   }
   .subscribe-container .header .outer-header {
     flex-direction: column;
@@ -1033,6 +1026,7 @@ body {
   font-size: 1.5rem;
   font-family: kl;
   color: #fff;
+  text-decoration: underline;
 }
 
 @media (min-width: 1111px) and (max-width: 1550px) {

@@ -133,12 +133,20 @@ export default function Index() {
         <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-              <p>Keeping up with tech has become a full-time job.</p>
-              <p>Technology's best builders arn't just posting in one place. They're on X, YouTube, Reddit, Substack, and of course still using traditional media to get their message out there.</p>
-              <p>And half the time when I doomscroll to find something good — it's just fake news.</p>
-              <p>So I wanted to fix that and started building The Poast, a one minute feed of all the best tech posts. No fake news.</p>
-              <p>If you're a builder like me you can subscribe for free at <Link className="subscribe" to="/subscribe">thepoast.com/subscribe</Link></p>
-              <p>Cheers<br />Chris Signore</p>
+            <p>Every app just wants one thing: your time.</p>
+            <p>One more scroll. One more click. One more notification.</p>
+            <p>It's not that there's too much information. It's that finding the signal means walking through hours of noise designed to keep you there.</p>
+            <p>I know because I tried to escape. I deleted the apps. I even tried ditching my phone. And it worked.</p>
+            <p>I noticed I'd fall asleep almost instantly. Then I'd wake up wiggling my toes, ready to go. I started following through on the things I'd always said I'd do, and my relationships became drastically better.</p>
+            <p>But it came with one nagging problem. I still felt disconnected from my friends, my family, and even my interests. The strange part is that leaving the apps doesn't just disconnect you from social media—it changes how you feel connected to the world.</p>
+            <p>I still wanted to catch the important ideas, the new breakthroughs, and the people building the coolest things on the planet. After all, they're the ones driving the conversations that really matter.</p>
+            <p>I knew I didn't want another endless feed. So I started building the thing I wished already existed.</p>
+            <p><strong>The Poast</strong> is a one-minute daily feed of the most interesting ideas, posts, and trends in technology.</p>
+            <p>No algorithm. No infinite scroll. No rage bait.</p>
+            <p>Just enough to know what's happening, so you can spend the other 23 hours and 59 minutes building your life.</p>
+            <p>If you're building a company, investing in the future, or simply curious about where the world is going, it's time to start protecting your attention.</p>
+            <p><strong>Scroll less. Know more.</strong></p>
+            <p>Chris Signore from The Poast</p>
           </div>
         </div>
         </div>

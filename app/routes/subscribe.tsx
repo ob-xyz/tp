@@ -40,7 +40,7 @@ export default function Index() {
           </div>
         </div>
           <form method="post" action="https://app.thepoast.com/subscription/form">
-          <h1>For 1-minute every day, 40,000+ execs and builders read The Poast</h1>
+          <h1>Get The Poast for free</h1>
           <div className="input-wrapper">
             <input className="email" type="text" name="firstName" placeholder="First Name *" />
           </div>

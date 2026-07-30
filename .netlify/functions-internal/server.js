@@ -91,7 +91,7 @@ function Footer() {
 var import_react3 = require("@remix-run/react");
 
 // app/style/global/global.css
-var global_default = "/build/_assets/global-6VSHB47Z.css";
+var global_default = "/build/_assets/global-OLN6WWHW.css";
 
 // app/root.tsx
 var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime"), links = () => [
@@ -1583,7 +1583,7 @@ var instagram_default = "/build/_assets/instagram-NEV5BMHS.png";
 var youtube_default = "/build/_assets/youtube-6G4FYXU3.png";
 
 // public/img/ja7.png
-var ja7_default = "/build/_assets/ja7-CLJDE3HQ.png";
+var ja7_default = "/build/_assets/ja7-D6QIM3F5.png";
 
 // app/routes/advertise.tsx
 var import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
@@ -1826,7 +1826,7 @@ function Index4() {
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("h1", { children: "For 1-minute every day, 40,000+ execs and builders read The Poast" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("h1", { children: "Get The Poast for free" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 43,
         columnNumber: 11
@@ -1900,7 +1900,7 @@ __export(confirm_exports, {
 var import_react7 = require("@remix-run/react");
 
 // public/img/ja6.png
-var ja6_default = "/build/_assets/ja6-UVYTAMUC.png";
+var ja6_default = "/build/_assets/ja6-QJKRGFBC.png";
 
 // app/routes/confirm.tsx
 var import_jsx_dev_runtime9 = require("react/jsx-dev-runtime");
@@ -2043,7 +2043,7 @@ function Index5() {
         lineNumber: 64,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { children: "The Poast is like a LinkedIn or X feed, but for email. Just scroll to know what's happening in tech." }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { children: "The Poast is like a LinkedIn or X feed, but for email. Just scroll to know what's happening every day." }, void 0, !1, {
         fileName: "app/routes/index.tsx",
         lineNumber: 65,
         columnNumber: 13
@@ -2120,18 +2120,19 @@ function Index5() {
         lineNumber: 86,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("h1", { children: "This is the fastest way to know what's happening in tech every day" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("h1", { children: "This is the fastest way to keep up with technology" }, void 0, !1, {
         fileName: "app/routes/index.tsx",
         lineNumber: 92,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("h2", { children: [
+        "Just scroll ",
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("a", { href: "/today", children: "The Poast" }, void 0, !1, {
           fileName: "app/routes/index.tsx",
           lineNumber: 93,
-          columnNumber: 13
+          columnNumber: 25
         }, this),
-        " is like a LinkedIn or X feed, but for email. Just scroll to know what's happening in tech."
+        " for 1-minute every day so you can get back to spending the other 23 hours and 59 minutes building your life."
       ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
         lineNumber: 93,
@@ -2198,7 +2199,7 @@ function Index5() {
         lineNumber: 94,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("img", { className: "headerimg", src: ja7_default, alt: "The Poast" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("img", { className: "headerimg", src: ja6_default, alt: "The Poast" }, void 0, !1, {
         fileName: "app/routes/index.tsx",
         lineNumber: 115,
         columnNumber: 9
@@ -2583,50 +2584,86 @@ function Index6() {
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "outer-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "inner-header", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Keeping up with tech has become a full-time job." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Every app just wants one thing: your time." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 136,
-          columnNumber: 15
+          columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Technology's best builders arn't just posting in one place. They're on X, YouTube, Reddit, Substack, and of course still using traditional media to get their message out there." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "One more scroll. One more click. One more notification." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 137,
-          columnNumber: 15
+          columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "And half the time when I doomscroll to find something good \u2014 it's just fake news." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "It's not that there's too much information. It's that finding the signal means walking through hours of noise designed to keep you there." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 138,
-          columnNumber: 15
+          columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "So I wanted to fix that and started building The Poast, a one minute feed of all the best tech posts. No fake news." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "I know because I tried to escape. I deleted the apps. I even tried ditching my phone. And it worked." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 139,
-          columnNumber: 15
+          columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: [
-          "If you're a builder like me you can subscribe for free at ",
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react10.Link, { className: "subscribe", to: "/subscribe", children: "thepoast.com/subscribe" }, void 0, !1, {
-            fileName: "app/routes/info.tsx",
-            lineNumber: 140,
-            columnNumber: 76
-          }, this)
-        ] }, void 0, !0, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "I noticed I'd fall asleep almost instantly. Then I'd wake up wiggling my toes, ready to go. I started following through on the things I'd always said I'd do, and my relationships became drastically better." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 140,
-          columnNumber: 15
+          columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: [
-          "Cheers",
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("br", {}, void 0, !1, {
-            fileName: "app/routes/info.tsx",
-            lineNumber: 141,
-            columnNumber: 24
-          }, this),
-          "Chris Signore"
-        ] }, void 0, !0, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "But it came with one nagging problem. I still felt disconnected from my friends, my family, and even my interests. The strange part is that leaving the apps doesn't just disconnect you from social media\u2014it changes how you feel connected to the world." }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 141,
-          columnNumber: 15
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "I still wanted to catch the important ideas, the new breakthroughs, and the people building the coolest things on the planet. After all, they're the ones driving the conversations that really matter." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 142,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "I knew I didn't want another endless feed. So I started building the thing I wished already existed." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 143,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("strong", { children: "The Poast" }, void 0, !1, {
+            fileName: "app/routes/info.tsx",
+            lineNumber: 144,
+            columnNumber: 16
+          }, this),
+          " is a one-minute daily feed of the most interesting ideas, posts, and trends in technology."
+        ] }, void 0, !0, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 144,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "No algorithm. No infinite scroll. No rage bait." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 145,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Just enough to know what's happening, so you can spend the other 23 hours and 59 minutes building your life." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 146,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "If you're building a company, investing in the future, or simply curious about where the world is going, it's time to start protecting your attention." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 147,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("strong", { children: "Scroll less. Know more." }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 148,
+          columnNumber: 16
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 148,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Chris Signore from The Poast" }, void 0, !1, {
+          fileName: "app/routes/info.tsx",
+          lineNumber: 149,
+          columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/info.tsx",
@@ -2667,18 +2704,19 @@ function Index7() {
       lineNumber: 15,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h1", { children: "This is the fastest way to know what's happening" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h1", { children: "This is the fastest way to know what's happening every day" }, void 0, !1, {
       fileName: "app/routes/$.tsx",
       lineNumber: 21,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h2", { children: [
+      "If you want to be a world-beater, someone who can build anything, and operate at the highest levels \u2014 sign up to ",
       /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("a", { href: "/today", children: "The Poast" }, void 0, !1, {
         fileName: "app/routes/$.tsx",
         lineNumber: 22,
-        columnNumber: 13
+        columnNumber: 126
       }, this),
-      " is like a LinkedIn or X feed, but for email. Just scroll to know what's happening in tech."
+      "."
     ] }, void 0, !0, {
       fileName: "app/routes/$.tsx",
       lineNumber: 22,
@@ -2771,7 +2809,7 @@ function Index7() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-NBTJ7FAB.js", imports: ["/build/_shared/chunk-ROHSLC5J.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LVILF6VP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QTBXP44O.js", imports: ["/build/_shared/chunk-32RTONQA.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/advertise": { id: "routes/advertise", parentId: "root", path: "advertise", index: void 0, caseSensitive: void 0, module: "/build/routes/advertise-JP7I2SGQ.js", imports: ["/build/_shared/chunk-YFXNP3K2.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-7Q2HGGED.js", imports: ["/build/_shared/chunk-32RTONQA.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-C2EZIVZG.js", imports: ["/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-YFXNP3K2.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-ZOHFYACJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YSGZONWN.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-SR4WX2RK.js", imports: ["/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-YFXNP3K2.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "db68591a", hmr: void 0, url: "/build/manifest-DB68591A.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NBTJ7FAB.js", imports: ["/build/_shared/chunk-ROHSLC5J.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-UHCTRQMA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-DE6VZ5JT.js", imports: ["/build/_shared/chunk-SQPLMRK4.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/advertise": { id: "routes/advertise", parentId: "root", path: "advertise", index: void 0, caseSensitive: void 0, module: "/build/routes/advertise-GYO4555B.js", imports: ["/build/_shared/chunk-PP2SU4MT.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-QJQPE36N.js", imports: ["/build/_shared/chunk-SQPLMRK4.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-KLWNJZG3.js", imports: ["/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-SQPLMRK4.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-I5UYBXZP.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YSGZONWN.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-PZDRVBXK.js", imports: ["/build/_shared/chunk-PP2SU4MT.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "bbc51070", hmr: void 0, url: "/build/manifest-BBC51070.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
