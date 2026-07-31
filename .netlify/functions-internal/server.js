@@ -75,7 +75,7 @@ function Footer() {
       lineNumber: 9,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("a", { href: "mailto:support@thepoast.com", children: "Contact" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Link, { to: "/advertise", children: "Advertise" }, void 0, !1, {
       fileName: "app/components/footer.tsx",
       lineNumber: 12,
       columnNumber: 9
@@ -107,7 +107,7 @@ var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime"), links = () => [
 ], meta = () => ({
   charset: "utf-8",
   title: "The Poast",
-  description: "Free daily newsletter. Just scroll to read what's happening in tech every morning. Plus, a few snarky comments, and exclusive subscriber-only posts.",
+  description: "Free daily newsletter. Just scroll to know what's happening in tech every morning. Plus, a few snarky comments, and exclusive subscriber-only posts.",
   viewport: "width=device-width,initial-scale=1"
 });
 function App() {
@@ -1535,9 +1535,9 @@ function Index2() {
   }, this);
 }
 
-// app/routes/advertise.tsx
-var advertise_exports = {};
-__export(advertise_exports, {
+// app/routes/subscribe.tsx
+var subscribe_exports = {};
+__export(subscribe_exports, {
   default: () => Index3
 });
 var import_react5 = require("@remix-run/react");
@@ -1570,6 +1570,9 @@ function AltchaWrapper() {
   }, this);
 }
 
+// public/img/social/info.png
+var info_default = "/build/_assets/info-FQKLT5OI.png";
+
 // public/img/social/linkedin.png
 var linkedin_default = "/build/_assets/linkedin-34LPKGU3.png";
 
@@ -1585,172 +1588,17 @@ var youtube_default = "/build/_assets/youtube-6G4FYXU3.png";
 // public/img/ja7.png
 var ja7_default = "/build/_assets/ja7-MHSW3SQG.png";
 
-// app/routes/advertise.tsx
+// app/routes/subscribe.tsx
 var import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
 function Index3() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "subscribe-container", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "header", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "nav", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { className: "logo", src: ja_default, alt: "The Poast Logo" }, void 0, !1, {
-      fileName: "app/routes/advertise.tsx",
-      lineNumber: 16,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/advertise.tsx",
-      lineNumber: 15,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "outer-header", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "social", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "x", href: "https://x.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: x_default, alt: "X (Twitter)" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 25,
-          columnNumber: 17
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 24,
-          columnNumber: 17
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "ig", href: "https://instagram.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: instagram_default, alt: "Instagram" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 28,
-          columnNumber: 17
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 27,
-          columnNumber: 17
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "li", href: "https://linkedin.com/company/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: linkedin_default, alt: "LinkedIn" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 31,
-          columnNumber: 17
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 30,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "yt", href: "https://youtube.com/@thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: youtube_default, alt: "YouTube" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 34,
-          columnNumber: 17
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 33,
-          columnNumber: 15
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 23,
-        columnNumber: 13
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 22,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "inner-header2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react5.Link, { to: "/", children: "Home" }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 39,
-        columnNumber: 14
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 38,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/advertise.tsx",
-      lineNumber: 21,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { className: "email", type: "text", name: "firstName", placeholder: "First Name *" }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 44,
-        columnNumber: 13
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 43,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { className: "email", type: "text", name: "attribs.preferred_date", placeholder: "Preferred Day *" }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 47,
-        columnNumber: 13
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 46,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "input-wrapper", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { className: "email", type: "email", name: "email", required: !0, placeholder: "Business Email Address *" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 50,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("button", { className: "submit", type: "submit", children: "Submit" }, void 0, !1, {
-          fileName: "app/routes/advertise.tsx",
-          lineNumber: 51,
-          columnNumber: 13
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 49,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 53,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { id: "5848a", type: "hidden", name: "l", checked: !0, value: "5848ad11-1e8f-4e56-a0bb-55a2db9da4b7" }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 54,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
-        fileName: "app/routes/advertise.tsx",
-        lineNumber: 55,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/advertise.tsx",
-      lineNumber: 42,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { className: "headerimg", src: ja7_default, alt: "Advertise" }, void 0, !1, {
-      fileName: "app/routes/advertise.tsx",
-      lineNumber: 57,
-      columnNumber: 11
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/advertise.tsx",
-    lineNumber: 14,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/advertise.tsx",
-    lineNumber: 13,
-    columnNumber: 5
-  }, this);
-}
-
-// app/routes/subscribe.tsx
-var subscribe_exports = {};
-__export(subscribe_exports, {
-  default: () => Index4
-});
-var import_react6 = require("@remix-run/react");
-
-// public/img/social/info.png
-var info_default = "/build/_assets/info-FQKLT5OI.png";
-
-// app/routes/subscribe.tsx
-var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime");
-function Index4() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "subscribe-container", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "header", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "nav", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { className: "logo", src: ja_default, alt: "The Poast Logo" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "nav", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { className: "logo", src: ja_default, alt: "The Poast Logo" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 16,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react6.Link, { className: "info", to: "/info", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: info_default, alt: "More Info" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react5.Link, { className: "info", to: "/info", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: info_default, alt: "More Info" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 18,
         columnNumber: 13
@@ -1764,9 +1612,9 @@ function Index4() {
       lineNumber: 15,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "outer-header", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "social", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "x", href: "https://x.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: x_default, alt: "X (Twitter)" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "outer-header", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "social", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "x", href: "https://x.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: x_default, alt: "X (Twitter)" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 25,
           columnNumber: 17
@@ -1775,7 +1623,7 @@ function Index4() {
           lineNumber: 24,
           columnNumber: 17
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "ig", href: "https://instagram.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: instagram_default, alt: "Instagram" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "ig", href: "https://instagram.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: instagram_default, alt: "Instagram" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 28,
           columnNumber: 17
@@ -1784,7 +1632,7 @@ function Index4() {
           lineNumber: 27,
           columnNumber: 17
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "li", href: "https://linkedin.com/company/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: linkedin_default, alt: "LinkedIn" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "li", href: "https://linkedin.com/company/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: linkedin_default, alt: "LinkedIn" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 31,
           columnNumber: 17
@@ -1793,7 +1641,7 @@ function Index4() {
           lineNumber: 30,
           columnNumber: 15
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "yt", href: "https://youtube.com/@thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: youtube_default, alt: "YouTube" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("a", { className: "yt", href: "https://youtube.com/@thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { src: youtube_default, alt: "YouTube" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 34,
           columnNumber: 17
@@ -1811,7 +1659,7 @@ function Index4() {
         lineNumber: 22,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "inner-header2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react6.Link, { to: "/", children: "Home" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "inner-header2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react5.Link, { to: "/", children: "Home" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 39,
         columnNumber: 14
@@ -1825,13 +1673,13 @@ function Index4() {
       lineNumber: 21,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("h1", { children: "Get The Poast for free" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("h1", { children: "Get The Poast for free" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 43,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { className: "email", type: "text", name: "firstName", placeholder: "First Name *" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { className: "email", type: "text", name: "firstName", placeholder: "First Name *" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 45,
         columnNumber: 13
@@ -1840,13 +1688,13 @@ function Index4() {
         lineNumber: 44,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "input-wrapper", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { className: "email", type: "email", name: "email", required: !0, placeholder: "Email Address *" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "input-wrapper", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { className: "email", type: "email", name: "email", required: !0, placeholder: "Email Address *" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 48,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("button", { className: "submit", type: "submit", children: "Subscribe" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("button", { className: "submit", type: "submit", children: "Subscribe" }, void 0, !1, {
           fileName: "app/routes/subscribe.tsx",
           lineNumber: 49,
           columnNumber: 13
@@ -1856,17 +1704,17 @@ function Index4() {
         lineNumber: 47,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 51,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { id: "6d48f", type: "hidden", name: "l", checked: !0, value: "6d48fffe-7d37-4c14-b317-3e4cda33a647" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { id: "6d48f", type: "hidden", name: "l", checked: !0, value: "6d48fffe-7d37-4c14-b317-3e4cda33a647" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 52,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
         fileName: "app/routes/subscribe.tsx",
         lineNumber: 53,
         columnNumber: 11
@@ -1876,7 +1724,7 @@ function Index4() {
       lineNumber: 42,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { className: "headerimg", src: ja7_default, alt: "The Poast" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("img", { className: "headerimg", src: ja7_default, alt: "The Poast" }, void 0, !1, {
       fileName: "app/routes/subscribe.tsx",
       lineNumber: 55,
       columnNumber: 11
@@ -1887,6 +1735,156 @@ function Index4() {
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/subscribe.tsx",
+    lineNumber: 13,
+    columnNumber: 5
+  }, this);
+}
+
+// app/routes/ads-form.tsx
+var ads_form_exports = {};
+__export(ads_form_exports, {
+  default: () => Index4
+});
+var import_react6 = require("@remix-run/react");
+var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime");
+function Index4() {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "subscribe-container", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "header", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "nav", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { className: "logo", src: ja_default, alt: "The Poast Logo" }, void 0, !1, {
+      fileName: "app/routes/ads-form.tsx",
+      lineNumber: 16,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/ads-form.tsx",
+      lineNumber: 15,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "outer-header", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "social", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "x", href: "https://x.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: x_default, alt: "X (Twitter)" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 25,
+          columnNumber: 17
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 24,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "ig", href: "https://instagram.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: instagram_default, alt: "Instagram" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 28,
+          columnNumber: 17
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 27,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "li", href: "https://linkedin.com/company/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: linkedin_default, alt: "LinkedIn" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 31,
+          columnNumber: 17
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 30,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("a", { className: "yt", href: "https://youtube.com/@thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { src: youtube_default, alt: "YouTube" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 34,
+          columnNumber: 17
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 33,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 23,
+        columnNumber: 13
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 22,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "inner-header2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react6.Link, { to: "/", children: "Home" }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 39,
+        columnNumber: 14
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 38,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/ads-form.tsx",
+      lineNumber: 21,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { className: "email", type: "text", name: "firstName", placeholder: "First Name *" }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 44,
+        columnNumber: 13
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 43,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "input-wrapper", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { className: "email", type: "text", name: "attribs.preferred_date", placeholder: "Preferred Day *" }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 47,
+        columnNumber: 13
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 46,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("div", { className: "input-wrapper", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { className: "email", type: "email", name: "email", required: !0, placeholder: "Business Email Address *" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 50,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("button", { className: "submit", type: "submit", children: "Submit" }, void 0, !1, {
+          fileName: "app/routes/ads-form.tsx",
+          lineNumber: 51,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 49,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 53,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { id: "5848a", type: "hidden", name: "l", checked: !0, value: "5848ad11-1e8f-4e56-a0bb-55a2db9da4b7" }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 54,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
+        fileName: "app/routes/ads-form.tsx",
+        lineNumber: 55,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/ads-form.tsx",
+      lineNumber: 42,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("img", { className: "headerimg", src: ja7_default, alt: "Advertise" }, void 0, !1, {
+      fileName: "app/routes/ads-form.tsx",
+      lineNumber: 57,
+      columnNumber: 11
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/ads-form.tsx",
+    lineNumber: 14,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/ads-form.tsx",
     lineNumber: 13,
     columnNumber: 5
   }, this);
@@ -2337,7 +2335,7 @@ function Index6() {
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "inner-container", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { children: "The Poast" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { children: "Editor-in-Chief" }, void 0, !1, {
         fileName: "app/routes/info.tsx",
         lineNumber: 60,
         columnNumber: 13
@@ -2652,20 +2650,12 @@ function Index7() {
       lineNumber: 15,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h1", { children: "This is the fastest way to know what's happening every day" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h1", { children: "This free newsletter gives you an unfair advantage every day" }, void 0, !1, {
       fileName: "app/routes/$.tsx",
       lineNumber: 21,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h2", { children: [
-      "If you want to be a world-beater, someone who can build anything, and operate at the highest levels \u2014 sign up to ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("a", { href: "/today", children: "The Poast" }, void 0, !1, {
-        fileName: "app/routes/$.tsx",
-        lineNumber: 22,
-        columnNumber: 126
-      }, this),
-      "."
-    ] }, void 0, !0, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("h2", { children: "Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech. Plus, a few snarky comments, and exclusive subscriber-only posts." }, void 0, !1, {
       fileName: "app/routes/$.tsx",
       lineNumber: 22,
       columnNumber: 9
@@ -2757,7 +2747,7 @@ function Index7() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-NBTJ7FAB.js", imports: ["/build/_shared/chunk-ROHSLC5J.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-FY2VN6WU.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-UB4VOIFO.js", imports: ["/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/advertise": { id: "routes/advertise", parentId: "root", path: "advertise", index: void 0, caseSensitive: void 0, module: "/build/routes/advertise-XTG7TBV5.js", imports: ["/build/_shared/chunk-AH5TOH2K.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-Z2XFV3BS.js", imports: ["/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-LVH2KW6X.js", imports: ["/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-RAHUQHD2.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YSGZONWN.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-VVCGP4HD.js", imports: ["/build/_shared/chunk-AH5TOH2K.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f2842e17", hmr: void 0, url: "/build/manifest-F2842E17.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NBTJ7FAB.js", imports: ["/build/_shared/chunk-ROHSLC5J.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2RHFDDOT.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-Y7Y6HI3U.js", imports: ["/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/ads-form": { id: "routes/ads-form", parentId: "root", path: "ads-form", index: void 0, caseSensitive: void 0, module: "/build/routes/ads-form-3MTQKC7A.js", imports: ["/build/_shared/chunk-AH5TOH2K.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-Z2XFV3BS.js", imports: ["/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-LVH2KW6X.js", imports: ["/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-FU7UXCO5.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YSGZONWN.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-VVCGP4HD.js", imports: ["/build/_shared/chunk-AH5TOH2K.js", "/build/_shared/chunk-JOIKWTUL.js", "/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-BKRGPCP6.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "64c06da8", hmr: void 0, url: "/build/manifest-64C06DA8.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -2785,14 +2775,6 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     caseSensitive: void 0,
     module: terms_exports
   },
-  "routes/advertise": {
-    id: "routes/advertise",
-    parentId: "root",
-    path: "advertise",
-    index: void 0,
-    caseSensitive: void 0,
-    module: advertise_exports
-  },
   "routes/subscribe": {
     id: "routes/subscribe",
     parentId: "root",
@@ -2800,6 +2782,14 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     index: void 0,
     caseSensitive: void 0,
     module: subscribe_exports
+  },
+  "routes/ads-form": {
+    id: "routes/ads-form",
+    parentId: "root",
+    path: "ads-form",
+    index: void 0,
+    caseSensitive: void 0,
+    module: ads_form_exports
   },
   "routes/confirm": {
     id: "routes/confirm",
