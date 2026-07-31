@@ -9,9 +9,9 @@ export default function Footer() {
         <Link to="/policies/terms">
           Terms and Conditions
         </Link>
-        <a href="mailto:support@thepoast.com">
-          Contact
-        </a> 
+        <Link to="/advertise">
+          Advertise
+        </Link> 
       </footer>
   );
 }
