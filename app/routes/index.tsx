@@ -89,8 +89,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>Get The Poast's free 1-minute newsletter</h1>
-        <h2>Every day 40,000+ execs and builders scroll The Poast to know what's happening in tech. Get the most valuable tactics and insights. Plus, a few snarky comments.</h2>
+        <h1>This free newsletter gives you an unfair advantage every day</h1>
+        <h2>Every day 40,000+ execs and builders scroll The Poast to know what's happening in tech. Get the most valuable tactics and ideas. Plus, a few snarky comments.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
