@@ -9,7 +9,7 @@ export default function Footer() {
         <Link to="/policies/terms">
           Terms and Conditions
         </Link>
-        <Link to="/advertise">
+        <Link to="/sponsors">
           Advertise
         </Link> 
       </footer>
