@@ -75,7 +75,6 @@ body{
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        width:60%;
       }
       p:nth-child(2),
       p:nth-child(4){
@@ -83,7 +82,7 @@ body{
         font-weight: 700; 
         font-size:1.15rem;
         margin:1rem auto;
-        width:70%;
+        width:67.5%;
       }
       p:nth-child(4){
         cursor: pointer;
@@ -192,12 +191,12 @@ body{
       h1{
         font-size:3.5rem;
         font-family: ku;
-        width:32.5rem;
+        width:37.5rem;
       } 
       h2{
         margin-top:.35rem;
         font-size:1.5rem;
-        width:35rem;
+        width:40rem;
         font-family: kl;
         color:#000;
       }
