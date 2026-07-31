@@ -62,7 +62,7 @@ export default function Index() {
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <p>Get The Poast's free newsletter</p>
-            <p>Just scroll to read technology's most valuable tactics and insights. Plus, a few snarky comments. 1-minute or less every day.</p>
+            <p>Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -90,7 +90,7 @@ export default function Index() {
         </Link>
         </div>
         <h1>This free newsletter gives you an unfair advantage every day</h1>
-        <h2>Every day 40,000+ execs and builders scroll The Poast to know what's happening in tech. Get the most valuable tactics and ideas. Plus, a few snarky comments.</h2>
+        <h2>Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech. Plus, a few snarky comments, and exclusive subscriber-only posts.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
