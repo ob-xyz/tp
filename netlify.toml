@@ -13,7 +13,7 @@
   force = true
 
 [[redirects]]
-  from = "/sponsors"
+  from = "/advertise"
   to = "https://app.thepoast.com/campaign/3971671b-467f-4ac2-b49d-2813d313d209/61016a0c-ab35-411e-ba5a-afd53b682c25"
   status = 200
   force = true

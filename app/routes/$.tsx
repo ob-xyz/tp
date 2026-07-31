@@ -14,9 +14,9 @@ export default function Index() {
       <div className="header">
         <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
-        {/* <Link className="info" to="/info">
+        <Link className="info" to="/info">
             <img src={info} alt="More Info" />
-        </Link> */}
+        </Link>
         </div>
         <h1>This free newsletter gives you an unfair advantage every day</h1>
         <h2>Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech. Plus, a few snarky comments, and exclusive subscriber-only posts.</h2>
