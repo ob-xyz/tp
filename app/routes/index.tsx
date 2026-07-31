@@ -10,6 +10,7 @@ import info from "~/../public/img/social/info.png";
 import yt from "~/../public/img/social/youtube.png";
 import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
+import txtlogo from "~/../public/img/ja6.png";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -61,8 +62,10 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p>Get The Poast's free newsletter</p>
-            <p>Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech</p>
+            <img className="" src={txtlogo} alt="The Poast" />
+            <p>Trusted by 40,000+ execs and builders</p>
+            <p>Never miss what everyone's talking about</p>
+            <p>Just scroll once a day to know what matters in tech.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -75,7 +78,7 @@ export default function Index() {
               <input type="hidden" name="nonce" />
             </form>
               <p className="dismiss-text" onClick={() => setShowModal(false)}>
-              No thanks! I'm already signed up
+              No thanks! I'm already subscribed
             </p>
           </div>
         </div>
@@ -89,8 +92,8 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>This free newsletter gives you an unfair advantage every day</h1>
-        <h2>Every morning 40,000+ execs and builders scroll The Poast to know what's happening in tech. Plus, a few snarky comments, and exclusive subscriber-only posts.</h2>
+        <h1>This free newsletter gives you an unfair advantage every day.</h1>
+        <h2>Every morning, 40,000+ execs and builders scroll The Poast to know what matters in tech.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">

@@ -14,3 +14,9 @@
     color: #000;
   }
 }
+
+@media (max-width: 495px) {
+.footer {
+  display:none;
+}
+}

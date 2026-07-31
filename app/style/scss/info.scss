@@ -224,13 +224,13 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 .subscribe {
     flex: 1;
     margin-top:0rem;
+    margin-left:-.25rem;
     h1 {
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1.15rem !important;
       margin-bottom: .35rem;
-      font-family: ku;
-      margin-left:1.65rem;
-
+      font-family: kl;
+      text-align: center;
     }
 
     .logo-grid {
@@ -614,6 +614,9 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
   h2{
     font-size:1.5rem;
     margin-bottom: 0;
+  }
+  p{
+    font-size: 1.15rem;
   }
 }
 }
