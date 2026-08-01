@@ -19,6 +19,12 @@
   force = true
 
 [[redirects]]
+  from = "/today"
+  to = "https://app.thepoast.com/campaign/611791e4-dfa1-4dae-ab0c-40a5e6fae402/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/anthropic"
   to = "https://app.thepoast.com/campaign/3b6fe241-842f-4da6-8fe7-7050c9f073d4/e0b14610-4448-4657-ae89-21598fe78de2"
   status = 200
