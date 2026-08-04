@@ -133,9 +133,10 @@ export default function Index() {
         <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-          <p>Every app just wants your attention.</p>
-          <p>So I built The Poast — a one-minute feed that helps you get back the other 23 hours and 59 minutes of your day.</p>
-          <p>If you're building a company, investing in the future, or simply curious about where technology is taking us, The Poast helps you stay informed with high quality posts and snarky comments.</p>
+          <p>The Poast will always be a free publication that chases technology's biggest curiosities in a fair and nonpartisan way.</p>
+          <p>Today's technology is a revolution across industries. It's the one thing every serious executive and builder is talking about.</p>
+          <p>And we are grateful to be apart of an industry where it's common for the leaders to openly share their thoughts</p>
+          <p>.</p>
           <p>Chris from The Poast</p>
           </div>
         </div>
