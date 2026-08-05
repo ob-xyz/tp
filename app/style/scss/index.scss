@@ -42,7 +42,7 @@ body{
     }
     .err{
         position: absolute;
-        top:27.5rem;
+        top:19rem;
         z-index: 111111; 
         background:#000;
         padding:1.5rem 2rem;
@@ -336,6 +336,13 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 
 @media (max-width: 844px) {
 .container{
+      .err{
+        top:14rem;
+        width:90%;
+        h1{
+        font-size:1.5rem !important;
+      }
+      }
     .modal-overlay {      
       width:100%;
       img{
