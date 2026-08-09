@@ -118,6 +118,9 @@ body {
   font-size: 1.15rem;
   margin: 1rem auto;
 }
+.container .modal-overlay p:nth-child(3) {
+  width: 75%;
+}
 .container .modal-overlay p:nth-child(4) {
   margin-top: 0.35rem;
   margin-bottom: 1.25rem;
@@ -222,7 +225,7 @@ body {
 .container .header h1 {
   font-size: 3rem;
   font-family: ku;
-  width: 37.5rem;
+  width: 42.5rem;
 }
 .container .header h2 {
   margin-top: 0.35rem;
@@ -357,8 +360,11 @@ body {
   .container .modal-overlay p:nth-child(2),
   .container .modal-overlay p:nth-child(4),
   .container .modal-overlay p:nth-child(6) {
-    font-size: 1rem;
-    width: 65%;
+    width: 75%;
+  }
+  .container .modal-overlay p:nth-child(3) {
+    font-size: 1.25rem;
+    width: 100%;
   }
   .container .modal-overlay p:nth-child(2),
   .container .modal-overlay p:nth-child(6) {

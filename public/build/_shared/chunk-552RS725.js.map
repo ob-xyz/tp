@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/components/altcha.tsx"],
-  "sourcesContent": ["import { useEffect, useState } from \"react\";\n\n// This tells TypeScript the tag is okay\ndeclare global {\n  namespace JSX {\n    interface IntrinsicElements {\n      'altcha-widget': any;\n    }\n  }\n}\n\nexport default function AltchaWrapper() {\n  const [isMounted, setIsMounted] = useState(false);\n\n  useEffect(() => {\n    setIsMounted(true);\n    // Load the library only when the component hits the browser\n    import(\"altcha\").catch(err => console.error(\"Altcha load error:\", err));\n  }, []);\n\n  if (!isMounted) {\n    // Return a placeholder of the same size to prevent layout shift\n    return <div style={{ height: \"80px\" }}></div>;\n  }\n\n  return (\n    <altcha-widget \n      challengeurl=\"https://app.jeffamzn.com/api/public/captcha/altcha\"\n      hidefooter=\"true\"\n      hidelogo=\"true\"\n    ></altcha-widget>\n  );\n}"],
-  "mappings": ";;;;;;;;;AAAA,mBAAoC;AAsBzB;AAXI,SAAR,gBAAiC;AACtC,QAAM,CAAC,WAAW,YAAY,QAAI,uBAAS,KAAK;AAEhD,8BAAU,MAAM;AACd,iBAAa,IAAI;AAEjB,WAAO,mCAAQ,EAAE,MAAM,SAAO,QAAQ,MAAM,sBAAsB,GAAG,CAAC;AAAA,EACxE,GAAG,CAAC,CAAC;AAEL,MAAI,CAAC,WAAW;AAEd,WAAO,mDAAC,SAAI,OAAO,EAAE,QAAQ,OAAO,KAA7B;AAAA;AAAA;AAAA;AAAA,WAAgC;AAAA,EACzC;AAEA,SACE;AAAA,IAAC;AAAA;AAAA,MACC,cAAa;AAAA,MACb,YAAW;AAAA,MACX,UAAS;AAAA;AAAA,IAHX;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,EAIC;AAEL;",
-  "names": []
-}
