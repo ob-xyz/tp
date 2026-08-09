@@ -222,12 +222,12 @@ body {
 .container .header h1 {
   font-size: 3rem;
   font-family: ku;
-  width: 42rem;
+  width: 37.5rem;
 }
 .container .header h2 {
   margin-top: 0.35rem;
   font-size: 1.5rem;
-  width: 41rem;
+  width: 35rem;
   font-family: kl;
   color: #000;
 }
@@ -399,7 +399,7 @@ body {
   }
   .container .header h2 {
     font-size: 1.1rem;
-    width: 100%;
+    width: 90%;
   }
   .container .header h3,
   .container .header h3 a {
