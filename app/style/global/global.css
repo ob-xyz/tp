@@ -230,7 +230,7 @@ body {
 .container .header h2 {
   margin-top: 0.35rem;
   font-size: 1.5rem;
-  width: 35rem;
+  width: 30rem;
   font-family: kl;
   color: #000;
 }
@@ -401,7 +401,7 @@ body {
     margin-top: 0.5rem;
     font-size: 1.4rem;
     margin-bottom: 0;
-    width: 90%;
+    width: 100%;
   }
   .container .header h2 {
     font-size: 1.1rem;
