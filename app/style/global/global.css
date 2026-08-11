@@ -360,7 +360,7 @@ body {
   .container .modal-overlay p:nth-child(2),
   .container .modal-overlay p:nth-child(4),
   .container .modal-overlay p:nth-child(6) {
-    width: 75%;
+    width: 90%;
   }
   .container .modal-overlay p:nth-child(3) {
     font-size: 1.25rem;
