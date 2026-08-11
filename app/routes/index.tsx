@@ -65,7 +65,7 @@ export default function Index() {
             <img className="" src={txtlogo} alt="The Poast" />
             <p>Trusted by 40,000+ execs and builders</p>
             <p>Know who's winning the AI arms race with this free newsletter</p>
-            <p>Just scroll The Poast every day to discover the best AI updates, and ideas</p>
+            <p>Just scroll The Poast to keep score.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -93,7 +93,7 @@ export default function Index() {
         </Link>
         </div>
         <h1>This free newsletter is the fastest way to know who's winning the AI arms race.</h1>
-        <h2>Every morning, 40,000+ execs and builders scroll The Poast to discover the latest AI updates and ideas.</h2>
+        <h2>Every day, 40,000+ execs and builders scroll The Poast to keep score.</h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">
