@@ -2029,6 +2029,12 @@
   force = true
 
 [[redirects]]
+  from = "/tailscale"
+  to = "https://app.thepoast.com/campaign/71191bc5-96cf-4080-b760-04bb83b5e616/644045f5-a135-42b3-bb76-6d9557c055d9"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
