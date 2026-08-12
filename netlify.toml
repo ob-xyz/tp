@@ -20,13 +20,7 @@
 
 [[redirects]]
   from = "/advertise"
-  to = "https://app.thepoast.com/campaign/3971671b-467f-4ac2-b49d-2813d313d209/61016a0c-ab35-411e-ba5a-afd53b682c25"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/today"
-  to = "https://app.thepoast.com/campaign/611791e4-dfa1-4dae-ab0c-40a5e6fae402/70f2aeef-07dd-4c07-a5c8-1b60c442c47e"
+  to = "https://app.thepoast.com/campaign/ba97f2f9-a8c7-46a7-b183-ccffbc3b6891/644045f5-a135-42b3-bb76-6d9557c055d9"
   status = 200
   force = true
 
