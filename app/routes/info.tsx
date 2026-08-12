@@ -133,7 +133,7 @@ export default function Index() {
         <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-          <p>Thank you for looking and appreciate the time.</p>
+          <p>The Poast is a free newsletter covering the AI arms race. </p>
           </div>
         </div>
         </div>
