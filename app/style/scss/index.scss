@@ -1,5 +1,10 @@
 $dock-bg: linear-gradient(180deg, #3a3d45 0%, #000000 100%);
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; /* Prevents viewport drift */
+}
+
 body {
   overflow-y: hidden;
 }
@@ -7,6 +12,10 @@ body {
 .container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
   
   b {
     font-family: 'bold';
@@ -57,6 +66,8 @@ body {
     padding: 1.5rem 2rem;
     border-radius: .75rem;
     box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+    max-width: calc(100% - 2rem);
+    box-sizing: border-box;
 
     h1 {
       font-family: kl !important;
@@ -72,15 +83,18 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80rem;
+    width: 100%;
+    max-width: 80rem; /* Changed from fixed width: 80rem */
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    box-sizing: border-box;
 
     img {
-      width: 20rem;
+      max-width: 20rem;
+      width: 100%;
       padding: 0;
       margin: -5rem auto 1rem auto;
     }
@@ -120,18 +134,22 @@ body {
 
   .modal-content {
     background: #000;
-    margin: 0rem 17.5rem;
+    margin: 0rem 1.5rem;
     padding: 1.5rem 1.5rem;
     border-radius: .75rem;
     text-align: center;
     width: 100%;
+    max-width: 38rem; /* Prevents overflow while keeping desktop bounds */
     color: #fff;
     box-shadow: 0px 0px 50px 0px rgba($orange, 0.9);
+    box-sizing: border-box;
 
     form {
       .input-wrapper {
         position: relative;
-        width: 36.25rem;
+        width: 100%; /* Changed from fixed 36.25rem */
+        max-width: 36.25rem;
+        margin: 0 auto;
       }
 
       input.email {
@@ -189,6 +207,8 @@ body {
     align-items: center;
     background: linear-gradient(180deg, #fff 82.5%, #000000 100%);
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     height: 100vh;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -228,13 +248,15 @@ body {
     h1 {
       font-size: 3rem;
       font-family: ku;
-      width: 42.50rem;
+      width: 100%;
+      max-width: 42.50rem; /* Changed from fixed width */
     } 
 
     h2 {
       margin-top: .35rem;
       font-size: 1.5rem;
-      width: 27.5rem;
+      width: 100%;
+      max-width: 27.5rem; /* Changed from fixed width */
       font-family: kl;
       color: #000;
 
@@ -247,7 +269,9 @@ body {
 
     .headerimg {
       margin: 0;
-      width: 27.5rem;
+      width: 100%;
+      max-width: 27.5rem; /* Changed from fixed width */
+      height: auto;
       margin-top: 2rem;
     }
 
@@ -255,6 +279,8 @@ body {
       display: flex; 
       position: sticky;
       margin-top: 2.75rem; 
+      max-width: 100%;
+      box-sizing: border-box;
 
       .inner-header {
         display: flex;
@@ -266,6 +292,7 @@ body {
         padding: .75rem 1.5rem .75rem 1.5rem;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         justify-content: space-between;
+        box-sizing: border-box;
 
         h2 {
           color: #fff;
@@ -280,6 +307,7 @@ body {
           display: flex;
           gap: .75rem;
           margin-right: 0;
+          max-width: 100%;
 
           a {
             display: flex;
@@ -346,115 +374,112 @@ body {
       }
     }
   }
-.feed-container {
-  margin: 0 auto;
-  padding: 1rem 24px 6rem 24px;
-  background: #fff;
-  overflow: hidden;
-  box-sizing: border-box; /* Ensures padding is calculated inside 100% width */
-  max-width: 100%;
 
-  h1, h2, h3 {
-    font-style: normal;
-    text-align: center;
-    font-family: ku;
-    font-size: 3rem;
-    overflow-wrap: break-word; /* Prevents long titles from expanding grid */
-    word-break: break-word;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    color: #000;
-    font-family: ku;
-  }
-
-  span {
-    font-size: .775rem;
-    font-family: ku;
-    font-weight: 100;
-  }
-
-  h3 {
-    font-size: 2.75rem;
-  }
-
-  h4 {
-    font-family: kl;
-    font-size: 1.35rem;
-    color: $darkred;
-  }
-
-  p {
-    font-family: kl;
-    font-size: 1rem;
-    overflow-wrap: break-word; /* Prevents long URLs or excerpts from breaking container */
-    word-break: break-word;
-  }
-
-  a {
-    font-family: kl;
-  }
-
-  @media (max-width: 600px) {
-    padding: 1rem 16px 4rem 16px; /* Reduce horizontal padding slightly for narrow phones */
-  }
-}
-
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-    align-items: stretch;
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-.article-card-link {
-  text-decoration: none;
-  color: inherit;
-  min-width: 0; /* CRITICAL: Allows grid item to shrink smaller than child text/images */
-  display: block;
-}
-
-/* Card Base Styling */
-.feed-card {
-  display: flex;
-  flex-direction: column;
-  padding: .75rem 1.25rem;
-  border-radius: .75rem;
-  box-sizing: border-box;
-  width: 100%;
-  
-  /* Reduced blur radius to prevent shadow from bleeding outside mobile viewport */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
-  }
-
-  /* Ensure card images stay bounded */
-  img {
+  .feed-container {
+    margin: 0 auto;
+    padding: 1rem 24px 6rem 24px;
+    background: #fff;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
     max-width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-}
 
-  /* Middle Card Standing Up Effect (2nd, 5th, 8th cards in 3-column layout) */
+    h1, h2, h3 {
+      font-style: normal;
+      text-align: center;
+      font-family: ku;
+      font-size: 3rem;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      color: #000;
+      font-family: ku;
+    }
+
+    span {
+      font-size: .775rem;
+      font-family: ku;
+      font-weight: 100;
+    }
+
+    h3 {
+      font-size: 2.75rem;
+    }
+
+    h4 {
+      font-family: kl;
+      font-size: 1.35rem;
+      color: $darkred;
+    }
+
+    p {
+      font-family: kl;
+      font-size: 1rem;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    a {
+      font-family: kl;
+    }
+
+    @media (max-width: 600px) {
+      padding: 1rem 16px 4rem 16px;
+    }
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: stretch;
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .article-card-link {
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+    display: block;
+  }
+
+  .feed-card {
+    display: flex;
+    flex-direction: column;
+    padding: .75rem 1.25rem;
+    border-radius: .75rem;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+
   @media (min-width: 901px) {
     .article-card-link:nth-child(3n + 2) {
       z-index: 10;
@@ -483,7 +508,6 @@ body {
     }
   }
 
-  /* Typography & Content Alignment */
   .card-content {
     padding: 24px 20px 28px 20px;
     display: flex;
@@ -502,7 +526,7 @@ body {
 
   .card-title {
     color: #000;
-    &:first-letter{
+    &:first-letter {
       text-transform: uppercase;
     }
   }
@@ -511,8 +535,6 @@ body {
     font-size: 13.5px;
     color: #4a4a4a;
     margin: 0;
-    
-    /* Clamp to 4 lines matching the card height */
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -552,7 +574,8 @@ body {
       width: 100%;
 
       img {
-        width: 16rem;
+        max-width: 16rem;
+        width: 100%;
       }
 
       p {
@@ -578,28 +601,33 @@ body {
     }
 
     .modal-content {
-      margin: 0 1.5rem;
+      margin: 0 1rem;
+      width: calc(100% - 2rem);
 
       form {
         margin-top: .75rem;
 
         .input-wrapper {
           position: relative;
-          width: 22rem;
+          width: 100%;
         }
 
         input.email {
-          font-size: 1.25rem;
+          font-size: 1.15rem;
+          padding: 0.85rem 1rem;
         }
 
         button.submit {
           padding: 0 1rem;
-          font-size: 1.25rem;
+          font-size: 1.15rem;
         }
       }
     }
 
     .header {
+      padding-left: 1rem;
+      padding-right: 1rem;
+
       .nav {
         margin-bottom: 1rem;
         padding-top: 1.55rem;
@@ -622,7 +650,7 @@ body {
 
       h2 {
         font-size: 1.1rem;
-        width: 90%;
+        width: 100%;
       }
 
       h3, h3 a {
@@ -632,20 +660,38 @@ body {
       .outer-header {
         flex-direction: column;
         margin-top: 2.25rem;
+        width: 100%;
 
         .inner-header {
+          width: 100%;
+          justify-content: center;
+
           .social {
-            margin-right: auto; 
-            margin-right: auto;
+            margin: 0 auto;
+            gap: 0.5rem;
+
+            a {
+              width: 3.25rem;
+              height: 3.25rem;
+
+              img {
+                width: 2.25rem;
+              }
+            }
           }
         }
 
         .inner-header2 {
-          margin-left: auto;
+          margin-left: 0;
           margin-top: .75rem;
+          width: 100%;
 
           a {
-            padding: 1.2rem 4.15rem;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 1rem 0;
+            font-size: 1.75rem;
           }
         }
       }
