@@ -4,8 +4,8 @@ import { useLoaderData } from "@remix-run/react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const campaignId = params.id;
-  const username = process.env.USERNAME;
-  const token = process.env.TOKEN;
+  const username = process.env.LISTMONK_USERNAME;
+  const token = process.env.LISTMONK_TOKEN;
   const authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`;
 
   // 1. Fetch target campaign

@@ -64,8 +64,8 @@ function getCoverImage(html: string = "") {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const username = process.env.USERNAME;
-  const token = process.env.TOKEN;
+  const username = process.env.LISTMONK_USERNAME;
+  const token = process.env.LISTMONK_TOKEN;
   const authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`;
 
   try {
