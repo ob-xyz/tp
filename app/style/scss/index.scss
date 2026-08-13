@@ -655,43 +655,24 @@ body {
       margin-top: 1.25rem;
     }
 
-      .outer-header {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1.5rem;
-        .inner-header {
-          width: 100%;
-          justify-content: center;
-
-          .social {
-            margin: 0 auto;
-            gap: 0.5rem;
-
-            a {
-              width: 3.25rem;
-              height: 3.25rem;
-
-              img {
-                width: 2.25rem;
-              }
-            }
-          }
-        }
-
-        .inner-header2 {
-          margin-left: 0;
-          margin-top: .75rem;
-          width: 100%;
-
-          a {
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-            padding: 1rem 0;
-            font-size: 1.75rem;
-          }
+    .outer-header{
+      flex-direction: column;
+      margin-top: 1.5rem;
+    .inner-header {
+        .social {
+          margin-right: auto; 
+          margin-right: auto;
         }
       }
+  .inner-header2{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:.75rem;
+      a {
+      padding: 1.2rem 4.25rem;
+  }
+}
+}
     }
   }
 }
