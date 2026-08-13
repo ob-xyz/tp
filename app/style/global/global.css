@@ -29,7 +29,7 @@
 }
 html, body {
   max-width: 100%;
-  overflow-x: hidden; /* Prevents viewport drift */
+  overflow-x: hidden;
 }
 
 body {
@@ -101,7 +101,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 80rem; /* Changed from fixed width: 80rem */
+  width: 80rem;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -149,7 +149,7 @@ body {
   border-radius: 0.75rem;
   text-align: center;
   width: 100%;
-  max-width: 38rem; /* Prevents overflow while keeping desktop bounds */
+  width: 38rem;
   color: #fff;
   box-shadow: 0px 0px 50px 0px rgba(240, 143, 25, 0.9);
   box-sizing: border-box;
