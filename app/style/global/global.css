@@ -34,7 +34,6 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  /* Skeleton Loader Styles */
   /* Card Base Styling */
   /* Middle Card Standing Up Effect (2nd, 5th, 8th cards in 3-column layout) */
   /* Typography & Content Alignment */
@@ -365,46 +364,6 @@ body {
 }
 .container .feed-container a {
   font-family: kl;
-}
-.container .skeleton-card {
-  background: #f4f4f5;
-  pointer-events: none;
-}
-.container .skeleton-image {
-  width: 100%;
-  aspect-ratio: 16/10;
-  background: #e4e4e7;
-  border-radius: 0.5rem;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-.container .skeleton-line {
-  background: #e4e4e7;
-  border-radius: 0.25rem;
-  margin-bottom: 0.5rem;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-.container .skeleton-line.short {
-  width: 30%;
-  height: 12px;
-}
-.container .skeleton-line.title {
-  width: 80%;
-  height: 20px;
-}
-.container .skeleton-line.text {
-  width: 100%;
-  height: 14px;
-}
-@keyframes pulse {
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.6;
-  }
 }
 .container .article-grid {
   display: grid;
