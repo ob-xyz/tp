@@ -485,6 +485,9 @@ body {
 
   .card-title {
     color: #000;
+    &:first-letter{
+      text-transform: uppercase;
+    }
   }
 
   .card-excerpt {

@@ -138,7 +138,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const data = await response.json();
     const campaigns = data?.data?.results || data?.data || [];
 
-    const cutoffDate = new Date("2026-08-01T00:00:00Z");
+    const cutoffDate = new Date("2026-08-07T00:00:00Z");
     const seenDates = new Set<string>();
     const uniqueDailyCampaigns: any[] = [];
 

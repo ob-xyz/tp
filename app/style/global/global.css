@@ -448,6 +448,9 @@ body {
 .container .card-title {
   color: #000;
 }
+.container .card-title:first-letter {
+  text-transform: uppercase;
+}
 .container .card-excerpt {
   font-size: 13.5px;
   color: #4a4a4a;
