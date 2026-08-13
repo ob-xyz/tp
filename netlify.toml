@@ -1,7 +1,8 @@
 [build]
   command = "remix build"
   publish = "public"
-
+  environment = { SECRETS_SCAN_OMIT_KEYS = "LISTMONK_USERNAME" }
+  
 [dev]
   command = "remix watch"
   port = 3000
