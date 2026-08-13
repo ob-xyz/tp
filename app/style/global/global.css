@@ -333,12 +333,16 @@ body {
   padding: 1rem 24px 6rem 24px;
   background: #fff;
   overflow: hidden;
+  box-sizing: border-box; /* Ensures padding is calculated inside 100% width */
+  max-width: 100%;
 }
 .container .feed-container h1, .container .feed-container h2, .container .feed-container h3 {
   font-style: normal;
   text-align: center;
   font-family: ku;
   font-size: 3rem;
+  overflow-wrap: break-word; /* Prevents long titles from expanding grid */
+  word-break: break-word;
 }
 .container .feed-container h2 {
   font-size: 1.25rem;
@@ -361,16 +365,24 @@ body {
 .container .feed-container p {
   font-family: kl;
   font-size: 1rem;
+  overflow-wrap: break-word; /* Prevents long URLs or excerpts from breaking container */
+  word-break: break-word;
 }
 .container .feed-container a {
   font-family: kl;
+}
+@media (max-width: 600px) {
+  .container .feed-container {
+    padding: 1rem 16px 4rem 16px; /* Reduce horizontal padding slightly for narrow phones */
+  }
 }
 .container .article-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   align-items: center;
-  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 @media (max-width: 900px) {
   .container .article-grid {
@@ -381,24 +393,36 @@ body {
 @media (max-width: 600px) {
   .container .article-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 .container .article-card-link {
   text-decoration: none;
   color: inherit;
+  min-width: 0; /* CRITICAL: Allows grid item to shrink smaller than child text/images */
+  display: block;
 }
 .container .feed-card {
   display: flex;
   flex-direction: column;
   padding: 0.75rem 1.25rem;
   border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  /* Reduced blur radius to prevent shadow from bleeding outside mobile viewport */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  /* Ensure card images stay bounded */
 }
 .container .feed-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+.container .feed-card img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 @media (min-width: 901px) {
   .container .article-card-link:nth-child(3n+2) {
