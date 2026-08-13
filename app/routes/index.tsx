@@ -131,7 +131,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.error(`Listmonk Feed Error: ${response.status} ${response.statusText}`);
+      console.error(`Feed Error: ${response.status} ${response.statusText}`);
       return json({ articles: cachedArticles?.data || [] });
     }
 
