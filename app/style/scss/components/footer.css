@@ -17,7 +17,10 @@
 
 @media (max-width: 495px) {
   .footer {
-    display: none;
+    width: 22.5rem;
+  }
+  .footer a {
+    font-size: 0.875rem;
   }
 }
 
