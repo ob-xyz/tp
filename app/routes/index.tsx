@@ -116,9 +116,7 @@ export default function Index() {
           </div>
         </div>
         <img className="headerimg" src={j} alt="The Poast" />
-            
       </div>
-
     </div>
   );
 }
