@@ -1750,7 +1750,6 @@ altcha-widget {
 @media (max-width: 495px) {
   .footer {
     width: 21rem;
-    margin-bottom: 2rem;
   }
   .footer a {
     font-size: 0.875rem;
