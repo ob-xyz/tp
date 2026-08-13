@@ -351,6 +351,7 @@ body {
     margin: 0 auto;
     padding: 1rem 24px 6rem 24px;
     background: #fff;
+    overflow: hidden;
 
     h1, h2, h3 {
       font-style: normal;
@@ -396,6 +397,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     align-items: center;
+    overflow: hidden;
 
     @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
@@ -420,6 +422,7 @@ body {
     border-radius: .75rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 
     &:hover {
       transform: translateY(-3px);
