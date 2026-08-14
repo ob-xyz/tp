@@ -32,6 +32,9 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow-x: hidden;
+  /* STICKY SUBSCRIBE NAV
+     Hidden above the viewport by default; slides in once the header image
+     scrolls into view/past threshold (see IntersectionObserver in Index). */
 }
 .container b {
   font-family: "bold";
@@ -83,6 +86,55 @@
   font-size: 1.5rem !important;
   width: 100%;
   color: #fff;
+}
+.container .sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem; /* Spacious padding off screen edges */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.container .sticky-nav.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.container .sticky-nav .sticky-logo {
+  margin-left: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 100%;
+  box-shadow: 0 0 12px 4px rgba(242, 209, 159, 0.5);
+}
+.container .sticky-nav .sticky-subscribe {
+  margin-right: 0;
+  padding: 0.55rem 1.75rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: ku;
+  font-weight: 100;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(0deg, #000 21%, rgb(255, 255, 255) 100%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.container .sticky-nav .sticky-subscribe:hover {
+  background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
 .container .modal-overlay {
   position: fixed;
@@ -427,6 +479,8 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   background: none;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 420px;
 }
 .container .feed-card:hover {
   transform: translateY(-3px);
@@ -494,6 +548,16 @@
   overflow: hidden;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .container .sticky-nav,
+  .container .feed-card,
+  .container .info,
+  .container .social a,
+  .container .inner-header2 a,
+  .container button.submit {
+    transition: none !important;
+  }
+}
 @media (min-width: 845px) and (max-width: 1300px) {
   .header .nav {
     margin-bottom: 2rem;
@@ -513,6 +577,17 @@
   }
   .container .err h1 {
     font-size: 1.5rem !important;
+  }
+  .container .sticky-nav {
+    padding: 0.6rem 1.25rem;
+  }
+  .container .sticky-nav .sticky-logo {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+  .container .sticky-nav .sticky-subscribe {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.9rem;
   }
   .container .modal-overlay {
     width: 100%;
@@ -593,7 +668,7 @@
   }
   .container .header .outer-header .inner-header .social {
     margin-right: auto;
-    margin-right: auto;
+    margin-left: auto;
   }
   .container .header .outer-header .inner-header2 {
     margin-left: auto;

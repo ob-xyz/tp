@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigation, useActionData, useLoaderData } from "@remix-run/react";
 import { json, type ActionFunctionArgs, type LoaderFunctionArgs } from "@remix-run/node";
 import Altcha from "../components/altcha";
@@ -14,27 +14,21 @@ import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
 import txtlogo from "~/../public/img/ja6.png";
 
-export const links = () => [{ rel: "stylesheet", href: scroll }];
+export const links = () => [
+  { rel: "stylesheet", href: scroll },
+  { rel: "preconnect", href: "https://img.thepoast.com" },
+  { rel: "dns-prefetch", href: "https://img.thepoast.com" },
+];
 
-/* Prevent client-side navigation/actions from re-fetching the loader unnecessarily */
 export function shouldRevalidate() {
   return false;
 }
 
-/* Helper functions for parsing Listmonk body content */
 function getExcerpt(html: string = "", subject: string = "", length = 140) {
   if (!html) return "";
 
-  // 1. Strip Go template tags
   let text = String(html).replace(/\{\{[\s\S]*?\}\}/g, "");
 
-  // 1.5 Strip a leading bold/strong/heading "kicker" line, e.g.
-  // <p><a href="..."><strong>Cami Clack is the first lady of Anthropic, but
-  // has no public profile at all</strong></a></p> — newsletter templates
-  // open with a byline <strong>Chris Signore</strong> FIRST, then the real
-  // kicker line as a second bold block further down. Skip the byline match
-  // and remove the next bold/heading tag after it (the actual kicker),
-  // leaving the excerpt to start at the real body copy that follows.
   {
     const boldRe = /<(strong|b|h[1-6])[^>]*>[\s\S]*?<\/\1>/gi;
     let m;
@@ -46,28 +40,19 @@ function getExcerpt(html: string = "", subject: string = "", length = 140) {
     }
   }
 
-  // 2. Convert HTML tags to spaces
   text = text.replace(/<[^>]+>/g, " ");
-
-  // 3. Strip everything up through the author header line/signature block
   text = text.replace(/^[\s\S]*?Chris\s+Signore[^\w]*/i, "");
-
-  // 4. Strip domain names (e.g. economist.com, app.thepoast.com)
   text = text.replace(/\b(?:https?:\/\/)?(?:www\.)?[\w-]+\.\w{2,}\b/gi, "");
-
-  // 5. Fallback cleanup for meta phrases
   text = text
     .replace(/this is a \d+ minute.*?read/gi, "")
     .replace(/View Online|Sign Up/gi, "")
     .replace(/\s+/g, " ")
     .trim();
 
-  // 6. Strip subject title matches or repeated keyword headers at the start
   if (subject) {
     const escapedSubject = String(subject).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     text = text.replace(new RegExp(`^${escapedSubject}\\s*`, "i"), "");
 
-    // Strip leading words matching campaign title or category headers
     const words = String(subject).split(/\s+/).filter(Boolean);
     if (words.length > 0) {
       const firstFewWords = words.slice(0, 3).join("\\s+");
@@ -75,12 +60,7 @@ function getExcerpt(html: string = "", subject: string = "", length = 140) {
     }
   }
 
-  // 6.5. Strip a leading run of lowercase slug/title words (e.g. "wispr flow
-  // deleted this post") up to the first capitalized word, which is where the
-  // real story sentence begins (e.g. "Seemingly innocent post on X sparks...")
   text = text.replace(/^(?:[a-z0-9][^\s]*\s+)+(?=[A-Z])/, "");
-
-  // 7. Clean up leading punctuation, dashes, or residual symbols
   const cleanedText = text.replace(/^[\s,·•:-]+/, "").trim();
 
   return cleanedText.length > length
@@ -108,19 +88,15 @@ function getCoverImage(html: string = "") {
     }
   }
 
-  // Returns the 2nd valid story image (skips header image)
   return images.length > 1 ? images[1] : images[0] || null;
 }
 
-/* In-memory server cache for campaign feed */
 let cachedArticles: { data: any[]; timestamp: number } | null = null;
-const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+const CACHE_TTL_MS = 10 * 60 * 1000;
 
-/* Loader to fetch finished Listmonk campaigns */
 export async function loader({ request }: LoaderFunctionArgs) {
   const now = Date.now();
 
-  // Return cached result immediately if unexpired
   if (cachedArticles && now - cachedArticles.timestamp < CACHE_TTL_MS) {
     return json(
       { articles: cachedArticles.data },
@@ -171,12 +147,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
       const campaignDate = new Date(rawDate);
 
-      // Filter by cutoff date
       if (campaignDate < cutoffDate) {
         continue;
       }
 
-      // Deduplicate to 1 campaign per calendar day
       const dateKey = campaignDate.toISOString().split("T")[0];
 
       if (!seenDates.has(dateKey)) {
@@ -187,7 +161,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
     const targetCampaigns = uniqueDailyCampaigns.slice(0, 12);
 
-    // Hydrate campaign body details in parallel with timeout protection
     const fullArticles = await Promise.all(
       targetCampaigns.map(async (c: any) => {
         let bodyContent = c.body || "";
@@ -222,7 +195,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       })
     );
 
-    // Save to server memory cache
     cachedArticles = { data: fullArticles, timestamp: now };
 
     return json(
@@ -250,6 +222,8 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function Index() {
   const { articles } = useLoaderData<typeof loader>();
   const [showModal, setShowModal] = useState(false);
+  const [showStickyNav, setShowStickyNav] = useState(false);
+  const headerImgRef = useRef<HTMLImageElement>(null);
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
 
@@ -281,8 +255,33 @@ export default function Index() {
     }
   }, [actionData]);
 
+  // Triggers sticky nav as soon as user scrolls to headerimg
+  useEffect(() => {
+    const headerImg = headerImgRef.current;
+    if (!headerImg) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyNav(!entry.isIntersecting),
+      { 
+        threshold: 0,
+        rootMargin: "-500px 0px 0px 0px" // Adjust pixel offset here (-100px, -300px, etc.)
+      }
+    );
+
+    observer.observe(headerImg);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="container">
+      {/* STICKY SUBSCRIBE NAV */}
+      <div className={`sticky-nav${showStickyNav ? " visible" : ""}`}>
+        <img className="sticky-logo" src={logo} alt="The Poast" loading="lazy" decoding="async" />
+        <Link to="/subscribe" className="sticky-subscribe">
+          Subscribe
+        </Link>
+      </div>
+
       {/* POPUP MODAL */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
@@ -340,7 +339,16 @@ export default function Index() {
             <Link to="/subscribe">Subscribe</Link>
           </div>
         </div>
-        <img className="headerimg" src={j} alt="The Poast" loading="eager" decoding="async" fetchpriority="high" />
+        {/* IntersectionObserver ref bound directly to headerimg */}
+        <img
+          ref={headerImgRef}
+          className="headerimg"
+          src={j}
+          alt="The Poast"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       </div>
 
       {/* ARCHIVE FEED SECTION */}
