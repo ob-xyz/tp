@@ -241,7 +241,7 @@
   margin-top: .35rem;
   font-size: 1.5rem;
   width: 100%;
-  max-width: 27.5rem;
+  max-width: 30rem;
   font-family: kl;
   color: #000;
 }
@@ -345,7 +345,7 @@
 .container .feed-container {
   margin: 0 auto;
   padding: 2rem 24px 6rem;
-  background: #fff;
+  background: #fff !important;
   overflow: hidden;
   box-sizing: border-box;
   width: 100%;
@@ -429,6 +429,7 @@
   box-shadow: 0 4px 16px #00000014;
   transition: transform .3s ease, box-shadow .3s ease;
   overflow: hidden;
+  background: none;
 }
 .container .feed-card:hover {
   transform: translateY(-3px);

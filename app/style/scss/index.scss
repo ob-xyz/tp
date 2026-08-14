@@ -235,14 +235,14 @@
       font-size: 3rem;
       font-family: ku;
       width: 100%;
-      max-width: 42.50rem; /* Changed from fixed width */
+      max-width: 42.50rem;
     } 
 
     h2 {
       margin-top: .35rem;
       font-size: 1.5rem;
       width: 100%;
-      max-width: 27.5rem; /* Changed from fixed width */
+      max-width: 30rem;
       font-family: kl;
       color: #000;
 
@@ -364,7 +364,7 @@
   .feed-container {
     margin: 0 auto;
     padding: 2rem 24px 6rem 24px;
-    background: #fff;
+    background: #fff !important;
     overflow: hidden;
     box-sizing: border-box;
     width: 100%;
@@ -453,6 +453,7 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    background: none;
 
     &:hover {
       transform: translateY(-3px);

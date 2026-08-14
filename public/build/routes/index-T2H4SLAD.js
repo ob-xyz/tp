@@ -174,7 +174,7 @@ function Index() {
         lineNumber: 297,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h2", { children: "Every day, 35,000+ execs and builders scroll The Poast to keep score." }, void 0, false, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h2", { children: "Every day, 35,000+ execs and builders scroll The Poast to check the leader board." }, void 0, false, {
         fileName: "app/routes/index.tsx",
         lineNumber: 298,
         columnNumber: 9
@@ -326,4 +326,4 @@ export {
   links,
   shouldRevalidate
 };
-//# sourceMappingURL=/build/routes/index-KOVNSLGQ.js.map
+//# sourceMappingURL=/build/routes/index-T2H4SLAD.js.map
