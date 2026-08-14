@@ -420,7 +420,7 @@
 
   .feed-container {
     margin: 0 auto;
-    padding: 2rem 24px 6rem 24px;
+    padding: 4rem 24px 6rem 24px;
     background: #fff !important;
     overflow: hidden;
     box-sizing: border-box;
@@ -517,7 +517,7 @@
 
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0px 0px 50px 0px rgba($dark-purple, 0.9);
+      box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.7);
       box-sizing: border-box;
     }
 
@@ -539,7 +539,7 @@
 
         &:hover {
           transform: translateY(-20px) scale(1.03);
-          box-shadow: 0px 0px 50px 0px rgba($orange, 0.9);
+      box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.9);
           box-sizing: border-box;
         }
       }
