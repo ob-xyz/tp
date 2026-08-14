@@ -289,7 +289,7 @@ export default function Index() {
             <img className="" src={txtlogo} alt="The Poast" loading="eager" decoding="async" />
             <p>Trusted by 35,000+ execs and builders</p>
             <p>Know who's winning the AI arms race with this free newsletter</p>
-            <p>Just scroll The Poast to keep score.</p>
+            <p>Just scroll The Poast to check the leader board.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
