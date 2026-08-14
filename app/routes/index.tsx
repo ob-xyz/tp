@@ -28,6 +28,24 @@ function getExcerpt(html: string = "", subject: string = "", length = 140) {
   // 1. Strip Go template tags
   let text = String(html).replace(/\{\{[\s\S]*?\}\}/g, "");
 
+  // 1.5 Strip a leading bold/strong/heading "kicker" line, e.g.
+  // <p><a href="..."><strong>Cami Clack is the first lady of Anthropic, but
+  // has no public profile at all</strong></a></p> — newsletter templates
+  // open with a byline <strong>Chris Signore</strong> FIRST, then the real
+  // kicker line as a second bold block further down. Skip the byline match
+  // and remove the next bold/heading tag after it (the actual kicker),
+  // leaving the excerpt to start at the real body copy that follows.
+  {
+    const boldRe = /<(strong|b|h[1-6])[^>]*>[\s\S]*?<\/\1>/gi;
+    let m;
+    while ((m = boldRe.exec(text)) !== null) {
+      if (!/chris\s+signore/i.test(m[0])) {
+        text = text.slice(0, m.index) + text.slice(m.index + m[0].length);
+        break;
+      }
+    }
+  }
+
   // 2. Convert HTML tags to spaces
   text = text.replace(/<[^>]+>/g, " ");
 
