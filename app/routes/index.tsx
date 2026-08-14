@@ -57,6 +57,11 @@ function getExcerpt(html: string = "", subject: string = "", length = 140) {
     }
   }
 
+  // 6.5. Strip a leading run of lowercase slug/title words (e.g. "wispr flow
+  // deleted this post") up to the first capitalized word, which is where the
+  // real story sentence begins (e.g. "Seemingly innocent post on X sparks...")
+  text = text.replace(/^(?:[a-z0-9][^\s]*\s+)+(?=[A-Z])/, "");
+
   // 7. Clean up leading punctuation, dashes, or residual symbols
   const cleanedText = text.replace(/^[\s,·•:-]+/, "").trim();
 
@@ -264,7 +269,7 @@ export default function Index() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img className="" src={txtlogo} alt="The Poast" />
+            <img className="" src={txtlogo} alt="The Poast" loading="eager" decoding="async" />
             <p>Trusted by 35,000+ execs and builders</p>
             <p>Know who's winning the AI arms race with this free newsletter</p>
             <p>Just scroll The Poast to keep score.</p>
@@ -289,9 +294,9 @@ export default function Index() {
       {/* HEADER SECTION */}
       <div className="header">
         <div className="nav">
-          <img className="logo" src={logo} alt="The Poast Logo" />
+          <img className="logo" src={logo} alt="The Poast Logo" loading="eager" decoding="async" />
           <Link className="info" to="/info">
-            <img src={info} alt="More Info" />
+            <img src={info} alt="More Info" loading="lazy" decoding="async" />
           </Link>
         </div>
         <h1>This free newsletter is the fastest way to know who's winning the AI arms race.</h1>
@@ -300,16 +305,16 @@ export default function Index() {
           <div className="inner-header">
             <div className="social">
               <a className="x" href="https://x.com/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={x} alt="X (Twitter)" />
+                <img src={x} alt="X (Twitter)" loading="lazy" decoding="async" />
               </a>
               <a className="ig" href="https://instagram.com/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={ig} alt="Instagram" />
+                <img src={ig} alt="Instagram" loading="lazy" decoding="async" />
               </a>
               <a className="li" href="https://linkedin.com/company/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={li} alt="LinkedIn" />
+                <img src={li} alt="LinkedIn" loading="lazy" decoding="async" />
               </a>
               <a className="yt" href="https://youtube.com/@thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={yt} alt="YouTube" />
+                <img src={yt} alt="YouTube" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>
@@ -317,14 +322,14 @@ export default function Index() {
             <Link to="/subscribe">Subscribe</Link>
           </div>
         </div>
-        <img className="headerimg" src={j} alt="The Poast" />
+        <img className="headerimg" src={j} alt="The Poast" loading="eager" decoding="async" fetchpriority="high" />
       </div>
 
       {/* ARCHIVE FEED SECTION */}
       {articles && articles.length > 0 && (
         <main className="feed-container">
           <section className="article-grid">
-            {articles.map((article: any) => (
+            {articles.map((article: any, index: number) => (
               <Link
                 key={article.id}
                 to={`/articles/${article.id}`}
@@ -333,7 +338,12 @@ export default function Index() {
                 <article className="feed-card">
                   {article.coverImage && (
                     <div className="card-image-wrapper">
-                      <img src={article.coverImage} alt={article.subject} />
+                      <img
+                        src={article.coverImage}
+                        alt={article.subject}
+                        loading={index < 3 ? "eager" : "lazy"}
+                        decoding="async"
+                      />
                     </div>
                   )}
                   <div className="card-content">
