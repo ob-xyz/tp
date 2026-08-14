@@ -317,7 +317,7 @@ export default function Index() {
           </Link>
         </div>
         <h1>This free newsletter is the fastest way to become smarter about AI.</h1>
-        <h2>Every day, 35,000+ execs and builders scroll The Poast to know who's winning the AI arms race.</h2>
+        <h2>Every day, 35,000+ execs and builders scroll The Poast for AI tools, ideas, and posts worth knowing.</h2>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
