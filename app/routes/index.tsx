@@ -287,7 +287,7 @@ export default function Index() {
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img className="" src={txtlogo} alt="The Poast" loading="eager" decoding="async" />
-            <p>Trusted by 35,000+ execs and builders</p>
+            <p>Trusted by 25,000+ execs and builders</p>
             <p>Become smarter about AI with this free newsletter</p>
             <p>Just scroll The Poast for AI, tech, and business stories worth knowing.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
@@ -317,7 +317,7 @@ export default function Index() {
           </Link>
         </div>
         <h1>This free newsletter is the fastest way to become smarter about AI.</h1>
-        <h2>Every day, 35,000+ execs and builders scroll The Poast for AI, tech, and business stories worth knowing.</h2>
+        <h2>Every day, 25,000+ execs and builders scroll The Poast for AI, tech, and business stories worth knowing.</h2>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
