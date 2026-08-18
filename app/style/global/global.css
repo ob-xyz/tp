@@ -906,6 +906,15 @@ body {
   transform: none;
   box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
 }
+.subscribe-container .header .priv {
+  text-align: center;
+  max-width: 35rem;
+  font-size: 0.775rem;
+  margin-top: 0.5rem;
+}
+.subscribe-container .header .priv a {
+  color: #f08f19;
+}
 
 @media (max-width: 720px) {
   .subscribe-container .header .nav {
@@ -952,6 +961,9 @@ body {
   .subscribe-container .header form button.submit {
     padding: 0 1rem;
     font-size: 1.25rem;
+  }
+  .subscribe-container .header .priv {
+    width: 100%;
   }
 }
 .moreinfo-container {

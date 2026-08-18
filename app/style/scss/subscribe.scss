@@ -249,6 +249,15 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
         }
   }
 }
+      .priv{
+        text-align: center;
+        max-width:35rem;
+        font-size: .775rem;
+        margin-top:.5rem;
+        a{
+          color:$orange;
+        }
+      }
 }
 }
 
@@ -302,6 +311,9 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
     padding: 0 1rem;
     font-size: 1.25rem;
   }
+}
+.priv{
+    width:100%;
 }
 }
 }
