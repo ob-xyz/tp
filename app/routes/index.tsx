@@ -116,8 +116,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const timeoutId = setTimeout(() => controller.abort(), 3500);
 
   try {
+    // FIX: order by updated_at (when the campaign finished sending / status
+    // flipped to "finished"), not created_at (when the draft was made).
     const response = await fetch(
-      "https://app.thepoast.com/api/campaigns?status=finished&order_by=created_at&order=DESC&per_page=30",
+      "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=30",
       {
         headers: {
           Authorization: authHeader,
@@ -142,7 +144,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const uniqueDailyCampaigns: any[] = [];
 
     for (const c of campaigns) {
-      const rawDate = c.sent_at || c.created_at;
+      // FIX: listmonk campaigns don't have a `sent_at` field — that was
+      // always undefined and silently fell back to created_at. Use
+      // updated_at (the "Ended" timestamp) instead.
+      const rawDate = c.updated_at || c.created_at;
       if (!rawDate) continue;
 
       const campaignDate = new Date(rawDate);
@@ -153,6 +158,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
       const dateKey = campaignDate.toISOString().split("T")[0];
 
+      // Since campaigns now arrive sorted by updated_at DESC, the first
+      // campaign seen for a given day is the one that finished sending
+      // last that day — matching the listmonk "Ended" timestamp.
       if (!seenDates.has(dateKey)) {
         seenDates.add(dateKey);
         uniqueDailyCampaigns.push(c);
@@ -188,7 +196,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
         return {
           id: c.id,
           subject: c.subject || "Untitled Issue",
-          date: c.sent_at || c.created_at || new Date().toISOString(),
+          // FIX: same rationale — use updated_at (ended) not the
+          // nonexistent sent_at.
+          date: c.updated_at || c.created_at || new Date().toISOString(),
           excerpt: getExcerpt(bodyContent, c.subject),
           coverImage: getCoverImage(bodyContent),
         };
@@ -262,7 +272,7 @@ export default function Index() {
 
     const observer = new IntersectionObserver(
       ([entry]) => setShowStickyNav(!entry.isIntersecting),
-      { 
+      {
         threshold: 0,
         rootMargin: "-500px 0px 0px 0px" // Adjust pixel offset here (-100px, -300px, etc.)
       }
