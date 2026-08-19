@@ -352,7 +352,7 @@ export default function Index() {
       </div>
 
       {/* ARCHIVE FEED SECTION */}
-      {/* {articles && articles.length > 0 && (
+      {articles && articles.length > 0 && (
         <main className="feed-container">
           <h1>Past issues</h1>
           <p>Just scroll to read it for free</p>
@@ -390,7 +390,7 @@ export default function Index() {
             ))}
           </section>
         </main>
-      )} */}
+      )}
     </div>
   );
 }
