@@ -30,13 +30,11 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast",
-  description: "Free Daily Newsletter. Start your day knowing what's possible in the world.",
+  description: "Free Daily Newsletter. A fast feed of the internet's best moments.",
   viewport: "width=device-width,initial-scale=1"
 });
 
 export default function App() {
-
-  
   return (
     <html lang="en">
       <head>

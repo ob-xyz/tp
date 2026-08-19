@@ -288,8 +288,8 @@ export default function Index() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img className="" src={txtlogo} alt="The Poast" loading="eager" decoding="async" />
             <p>Trusted by 20,000+ execs and builders</p>
-            <p>Feed your curiosity with this free newsletter</p>
-            <p>Start your day knowing what's possible in the world.</p>
+            <p>Scroll less. Read more.</p>
+            <p>Start your day with a fast feed of the internet's best moments.</p>
             <form method="post" action="https://app.thepoast.com/subscription/form">
               <div className="input-wrapper">
                 <input className="email" type="email" name="email" required placeholder="Email Address *" />
@@ -316,8 +316,8 @@ export default function Index() {
             <img src={info} alt="More Info" loading="lazy" decoding="async" />
           </Link>
         </div>
-        <h1>This free newsletter is the fastest way to feed your curiosity.</h1>
-        <h2>Every day, 20,000+ execs and builders scroll The Poast to see what's possible in the world.</h2>
+        <h1>Scroll less.<br />Know more.</h1>
+        <h2>Every day, 20,000+ execs and builders scroll The Poast for the internet's best tweets, screenshots, and snarky comments.</h2>
         <div className="outer-header">
           <div className="inner-header">
             <div className="social">
@@ -352,7 +352,7 @@ export default function Index() {
       </div>
 
       {/* ARCHIVE FEED SECTION */}
-      {articles && articles.length > 0 && (
+      {/* {articles && articles.length > 0 && (
         <main className="feed-container">
           <h1>Past issues</h1>
           <p>Just scroll to read it for free</p>
@@ -390,7 +390,7 @@ export default function Index() {
             ))}
           </section>
         </main>
-      )}
+      )} */}
     </div>
   );
 }
