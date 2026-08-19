@@ -32,9 +32,6 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow-x: hidden;
-  /* STICKY SUBSCRIBE NAV
-     Hidden above the viewport by default; slides in once the header image
-     scrolls into view/past threshold (see IntersectionObserver in Index). */
 }
 .container b {
   font-family: "bold";
@@ -395,7 +392,7 @@
 }
 .container .feed-container {
   margin: 0 auto;
-  padding: 4rem 24px 6rem 24px;
+  padding: 2rem 24px 6rem 24px;
   background: #fff !important;
   overflow: hidden;
   box-sizing: border-box;
@@ -433,13 +430,17 @@
   font-size: 1rem;
   overflow-wrap: break-word;
   word-break: break-word;
+  text-align: center;
 }
 .container .feed-container a {
   font-family: kl;
 }
 @media (max-width: 600px) {
   .container .feed-container {
-    padding: 1rem 16px 4rem 16px;
+    padding: 2rem 16px 6rem 16px;
+  }
+  .container .feed-container h1 {
+    font-size: 1.75rem;
   }
 }
 .container .article-grid {
@@ -449,6 +450,7 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  margin-top: 4rem;
 }
 @media (max-width: 900px) {
   .container .article-grid {
@@ -458,6 +460,7 @@
 }
 @media (max-width: 600px) {
   .container .article-grid {
+    margin-top: 2rem;
     grid-template-columns: 1fr;
     gap: 20px;
   }

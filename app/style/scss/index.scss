@@ -64,10 +64,6 @@
       color: #fff;
     }
   }
-
-  /* STICKY SUBSCRIBE NAV
-     Hidden above the viewport by default; slides in once the header image
-     scrolls into view/past threshold (see IntersectionObserver in Index). */
   .sticky-nav {
     position: fixed;
     top: 0;
@@ -420,7 +416,7 @@
 
   .feed-container {
     margin: 0 auto;
-    padding: 4rem 24px 6rem 24px;
+    padding: 2rem 24px 6rem 24px;
     background: #fff !important;
     overflow: hidden;
     box-sizing: border-box;
@@ -434,6 +430,7 @@
       font-size: 3rem;
       overflow-wrap: break-word;
       word-break: break-word;
+   
     }
 
     h2 {
@@ -463,14 +460,17 @@
       font-size: 1rem;
       overflow-wrap: break-word;
       word-break: break-word;
+      text-align: center;
     }
 
     a {
       font-family: kl;
     }
-
     @media (max-width: 600px) {
-      padding: 1rem 16px 4rem 16px;
+      padding: 2rem 16px 6rem 16px;
+      h1{ 
+        font-size: 1.75rem;
+      }
     }
   }
 
@@ -481,13 +481,14 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-
+    margin-top:4rem;
     @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
       align-items: stretch;
     }
 
     @media (max-width: 600px) {
+      margin-top:2rem;
       grid-template-columns: 1fr;
       gap: 20px;
     }

@@ -14,7 +14,7 @@ import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
 import txtlogo from "~/../public/img/ja6.png";
 
-export const links = () => [
+export const links: LinksFunction = () => [
   { rel: "stylesheet", href: scroll },
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" },
@@ -354,6 +354,8 @@ export default function Index() {
       {/* ARCHIVE FEED SECTION */}
       {articles && articles.length > 0 && (
         <main className="feed-container">
+          <h1>Past issues</h1>
+          <p>Just scroll to read it for free</p>
           <section className="article-grid">
             {articles.map((article: any, index: number) => (
               <Link
