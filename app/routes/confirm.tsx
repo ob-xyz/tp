@@ -1,12 +1,7 @@
 import { Link } from "@remix-run/react";
 
-import li from "~/../public/img/social/linkedin.png";
-import x from "~/../public/img/social/x.png";
-import ig from "~/../public/img/social/instagram.png";
-import yt from "~/../public/img/social/youtube.png";
 import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
-import info from "~/../public/img/social/info.png";
 
 export default function Confirm() {
   return (
@@ -14,34 +9,15 @@ export default function Confirm() {
       <div className="header">
         <div className="nav">
         <img className="logo" src={logo} alt="The Poast Logo" />
-        {/* <Link className="info" to="/info">
-            <img src={info} alt="More Info" />
-        </Link> */}
+        <br />
         </div>
-        <h1 style={{ fontSize: 94 }}>✓</h1>
-        <h1 style={{ fontSize: 18 }}>You're in — expect to see your ad live by end of the month</h1>
-        <h2 style={{ fontSize: 24 }}>We're scheduling your date and will follow-up shortly with payment details.</h2>
-          <div className="outer-header">
-          <div className="inner-header">
-            <div className="social">
-              <a className="x" href="https://x.com/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={x} alt="X (Twitter)" />
-              </a>
-              <a className="ig" href="https://instagram.com/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={ig} alt="Instagram" />
-              </a>
-              <a className="li" href="https://linkedin.com/company/thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={li} alt="LinkedIn" />
-              </a>
-              <a className="yt" href="https://youtube.com/@thepoast" target="_blank" rel="noopener noreferrer">
-                <img src={yt} alt="YouTube" />
-              </a>
-            </div>
-          </div>
-          <div className="inner-header2">
-            <Link to="/subscribe">Subscribe</Link>
-          </div>
-        </div>
+        <h1 style={{ fontSize: 52 }}>✓</h1>
+        <h1 style={{ fontSize: 30, textAlign: "center" }}>Welcome back to The Poast</h1>
+        <h2 style={{ fontSize: 18, textAlign: "left" }}><br />Thanks for giving me a second shot :)</h2>
+        <h2 style={{ fontSize: 18, textAlign: "left" }}><br />Expect my feed in your inbox every morning. It brings together the world’s top business-minded news, comments, and posts from across the web, and delivers it to you in a fast feed that takes about a minute to read. Check out the <Link to='/live'>latest issue here →</Link></h2>
+        <h2 style={{ fontSize: 18, textAlign: "left" }}><br /><em>P.S. If you don't receive an email, please check your spam or promotions folder and "move us" to your primary inbox to ensure you get the poast each morning.</em></h2>
+        <h2 style={{ fontSize: 18, textAlign: "left" }}><br />See you bright and early 🏴‍☠️</h2>
+        <h2 style={{ fontSize: 18, textAlign: "left" }}><br />—Chris from The Poast<br /><br /><br /><br /></h2>
         <img className="headerimg" src={j} alt="The Poast" />
       </div>
     </div>
