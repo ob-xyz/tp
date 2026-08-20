@@ -1974,12 +1974,12 @@ function createPool() {
   return process.env.DATABASE_URL ? new import_pg.default.Pool({
     connectionString: process.env.DATABASE_URL
   }) : new import_pg.default.Pool({
-    host: process.env.LISTMONK_DB_HOST || "127.0.0.1",
-    port: Number(process.env.LISTMONK_DB_PORT) || 5432,
-    database: process.env.LISTMONK_DB_NAME || "listmonk",
-    user: process.env.LISTMONK_DB_USER || "postgres",
+    host: process.env.DB_HOST || "127.0.0.1",
+    port: Number(process.env.DB_PORT) || 5432,
+    database: process.env.DB_NAME || "listmonk",
+    user: process.env.DB_USER || "postgres",
     // Cast to String to ensure 'undefined' is never passed to SCRAM auth
-    password: String(process.env.LISTMONK_DB_PASSWORD || "")
+    password: String(process.env.DB_PASSWORD || "")
   });
 }
 var pool;
