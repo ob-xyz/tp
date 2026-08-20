@@ -1,0 +1,259 @@
+.sponsor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem 6rem 1.5rem;
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  .sponsor-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h1 {
+          color: #fafafa !important; /* Forces visible white header */
+          font-size: 2.75rem;
+          font-weight: 700;
+          margin: 0;
+    }
+
+    .subheading {
+      font-size: 1.15rem;
+      color: #888888;
+      margin-top: 0.5rem;
+    }
+
+    .stats-badge {
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      background: #111111;
+      border: 1px solid #222222;
+
+      span {
+        font-size: 0.95rem;
+        color: #ffdc80;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .sponsor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    max-width: 72rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .calendar-card,
+  .form-card {
+    background: #0d0d0d;
+    border: 1px solid #222222;
+    border-radius: 1rem;
+    padding: 2rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+  }
+
+  /* Calendar Component */
+  .calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+
+    h3 {
+    color: #fafafa !important; /* Fixes dark "August 2026" text */
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    }
+
+    button {
+      background: #161616;
+      color: #ffffff;
+      border: 1px solid #282828;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.4rem;
+      cursor: pointer;
+
+      &:hover {
+        background: #222222;
+      }
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4rem;
+
+    .calendar-header-day {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #666666;
+      padding-bottom: 0.5rem;
+    }
+
+    .calendar-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      background: #141414;
+      border: 1px solid #222222;
+      border-radius: 0.5rem;
+      color: #fafafa !important;
+      cursor: pointer;
+      padding: 0.2rem;
+      transition: all 0.15s ease-in-out;
+
+      &.empty {
+        background: transparent;
+        border: none;
+        cursor: default;
+      }
+
+      .day-number, 
+    span:first-child {
+      color: #fafafa !important; /* Visible day numbers (1, 2, 3...) */
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+  .status-label,
+    .status-indicator,
+    span:last-child {
+      color: #a1a1aa !important; /* Muted gray for "Available" */
+      font-size: 0.65rem;
+      margin-top: 0.2rem;
+    }
+
+      &:hover:not(:disabled):not(.empty) {
+        border-color: #ffa72b;
+        background: #1c1c1c;
+      }
+
+      &.selected {
+        background: #ffdc80 !important;
+        color: #000000;
+        border-color: #ffdc80;
+
+        .day-number,
+      .status-label,
+      span {
+        color: #000000 !important; /* Keeps selected day text crisp on gold */
+        font-weight: 700;
+      }
+      }
+
+      &.booked {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: #080808;
+    .day-number,
+      span {
+        color: #71717a !important;
+      }
+        .status-label {
+        color: #ef4444 !important; /* Red for "Sold Out" */        }
+      }
+    }
+  }
+
+  /* Form Component */
+  .form-card {
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.25rem;
+
+      label {
+        font-size: 0.875rem;
+        color: #aaaaaa;
+        margin-bottom: 0.4rem;
+      }
+
+      input,
+      textarea {
+        background: #141414;
+        border: 1px solid #222222;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        color: #ffffff;
+        font-size: 0.95rem;
+
+        &:focus {
+          outline: none;
+          border-color: #ffdc80;
+        }
+      }
+
+      .date-display {
+        background: #1c1c1c;
+        color: #ffdc80;
+        font-weight: 600;
+        border-color: #333333;
+      }
+    }
+
+    .error-message {
+      color: #ff4d4d;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #000000;
+      background: #ffdc80;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background: #ffa72b;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .success-banner {
+    text-align: center;
+    background: #0d0d0d;
+    border: 1px solid #ffdc80;
+    padding: 3rem;
+    border-radius: 1rem;
+    max-width: 32rem;
+
+    h2 {
+      color: #ffdc80;
+      margin-top: 0;
+    }
+  }
+}
