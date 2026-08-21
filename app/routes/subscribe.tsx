@@ -51,7 +51,7 @@ export default function Index() {
           <input id="6d48f" type="hidden" name="l" checked value="6d48fffe-7d37-4c14-b317-3e4cda33a647" />
           <input type="hidden" name="nonce" />
         </form>
-          <p className="priv">By submitting this form, you agree to recieve recurring marketing communications from The Poast at the email you provide. To opt out, click unsubscribe at the bottom of our emails.<br />By submitting this form, you also agree to our <Link to="/policies/terms">Terms</Link> & <Link to="/policies/privacy">Privacy Policy</Link>.</p>
+          <p className="priv">By submitting this form, you agree to receive recurring marketing communications from The Poast at the email you provide. To opt out, click unsubscribe at the bottom of our emails.<br />By submitting this form, you also agree to our <Link to="/policies/terms">Terms</Link> & <Link to="/policies/privacy">Privacy Policy</Link>.</p>
           <img className="headerimg" src={j} alt="The Poast" />
       </div>
     </div>
