@@ -49,9 +49,6 @@ const CACHE_TTL_MS = 10 * 60 * 1000;
 /*
  * Add any campaign/article IDs you never want to show
  * in the "Past issues" archive here.
- *
- * Example:
- * const SKIPPED_ARTICLE_IDS = new Set(["725", "726", "800"]);
  */
 const SKIPPED_ARTICLE_IDS = new Set(["725", "724"]);
 

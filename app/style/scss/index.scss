@@ -239,6 +239,20 @@
         }
       }
     }
+    .dismiss-text{
+        font-family: kl;
+        font-weight: 700; 
+        font-size: 1rem;
+        cursor: pointer;
+        padding: .35rem 0;
+        color:#fff;
+        background: linear-gradient(0deg, rgb(163, 163, 163) 21%, rgba(255, 255, 255, 1) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        border:none;
+        max-width:100%;
+    }
   }
 
   .header {
