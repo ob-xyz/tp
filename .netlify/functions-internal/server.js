@@ -1644,7 +1644,7 @@ var instagram_default = "/build/_assets/instagram-NEV5BMHS.png";
 var youtube_default = "/build/_assets/youtube-6G4FYXU3.png";
 
 // public/img/ja6.png
-var ja6_default = "/build/_assets/ja6-56UFSGJB.png";
+var ja6_default = "/build/_assets/ja6-UFKBF2CN.png";
 
 // app/routes/subscribe.tsx
 var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime");
@@ -2346,7 +2346,6 @@ function Sponsor() {
 // app/routes/index.tsx
 var routes_exports = {};
 __export(routes_exports, {
-  action: () => action2,
   default: () => Index4,
   links: () => links5,
   loader: () => loader3,
@@ -2361,339 +2360,696 @@ var import_jsx_dev_runtime11 = require("react/jsx-dev-runtime"), links5 = () => 
 function shouldRevalidate() {
   return !1;
 }
+var CACHE_TTL_MS = 10 * 60 * 1e3, SKIPPED_ARTICLE_IDS = /* @__PURE__ */ new Set(["725", "724"]), cachedArticles = null;
+function articleResponse(articles) {
+  return (0, import_node3.json)(
+    { articles },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+      }
+    }
+  );
+}
+async function fetchWithTimeout(url, options, timeout = 3500) {
+  let controller = new AbortController(), timeoutId = setTimeout(() => {
+    controller.abort();
+  }, timeout);
+  try {
+    return await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 function getExcerpt(html = "", subject = "", length = 140) {
   if (!html)
     return "";
-  let text = String(html).replace(/\{\{[\s\S]*?\}\}/g, "");
-  {
-    let boldRe = /<(strong|b|h[1-6])[^>]*>[\s\S]*?<\/\1>/gi, m;
-    for (; (m = boldRe.exec(text)) !== null; )
-      if (!/chris\s+signore/i.test(m[0])) {
-        text = text.slice(0, m.index) + text.slice(m.index + m[0].length);
-        break;
-      }
-  }
-  if (text = text.replace(/<[^>]+>/g, " "), text = text.replace(/^[\s\S]*?Chris\s+Signore[^\w]*/i, ""), text = text.replace(/\b(?:https?:\/\/)?(?:www\.)?[\w-]+\.\w{2,}\b/gi, ""), text = text.replace(/this is a \d+ minute.*?read/gi, "").replace(/View Online|Sign Up/gi, "").replace(/\s+/g, " ").trim(), subject) {
-    let escapedSubject = String(subject).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    text = text.replace(new RegExp(`^${escapedSubject}\\s*`, "i"), "");
+  let text = String(html).replace(/\{\{[\s\S]*?\}\}/g, "").replace(
+    /<p[^>]*class=["']tagline["'][^>]*>[\s\S]*?<\/p>/gi,
+    ""
+  ).replace(/<table[\s\S]*?<\/table>/gi, "").replace(
+    /^[\s\S]*?today['’]?s\s+feed\s+is\s+a\s+\d+\s+minute[^·]*[·]?\s*/i,
+    ""
+  ).replace(/^Hey\s+[\s\S]*?read\s*[·]?\s*/i, "").replace(/The Poast\s*of the day/gi, "").replace(/<[^>]+>/g, " ").replace(
+    /\b(?:https?:\/\/)?(?:www\.)?[\w-]+(?:\.[\w-]+)+[^\s]*/gi,
+    ""
+  ).replace(/\b(?:View Online|Sign Up)\b/gi, "").replace(/\s+/g, " ").trim();
+  if (subject) {
+    let escapedSubject = String(subject).replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    );
+    text = text.replace(
+      new RegExp(`^${escapedSubject}\\s*`, "i"),
+      ""
+    );
     let words = String(subject).split(/\s+/).filter(Boolean);
     if (words.length > 0) {
-      let firstFewWords = words.slice(0, 3).join("\\s+");
-      text = text.replace(new RegExp(`^${firstFewWords}\\s*`, "i"), "");
+      let firstFewWords = words.slice(0, 3).map(
+        (word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      ).join("\\s+");
+      text = text.replace(
+        new RegExp(`^${firstFewWords}\\s*`, "i"),
+        ""
+      );
     }
   }
-  text = text.replace(/^(?:[a-z0-9][^\s]*\s+)+(?=[A-Z])/, "");
-  let cleanedText = text.replace(/^[\s,·•:-]+/, "").trim();
-  return cleanedText.length > length ? cleanedText.substring(0, length) + "..." : cleanedText;
+  return text = text.replace(/^(?:[a-z0-9][^\s]*\s+)+(?=[A-Z])/i, "").replace(/^[\s,·•:;-]+/, "").trim(), text.length > length ? `${text.slice(0, length).trim()}...` : text;
 }
 function getCoverImage(html = "") {
   if (!html)
     return null;
-  let imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi, images = [], match;
+  let imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi, match, firstValidImage = null;
   for (; (match = imgRegex.exec(String(html))) !== null; ) {
     let fullTag = match[0], src = match[1];
-    /avatar|headshot|profile|logo|icon|author/i.test(fullTag) || /avatar|headshot|profile|logo|icon|author/i.test(src) || images.push(src);
+    if (!/avatar|headshot|profile|logo|icon|author/i.test(
+      `${fullTag} ${src}`
+    )) {
+      if (firstValidImage)
+        return src;
+      firstValidImage = src;
+    }
   }
-  return images.length > 1 ? images[1] : images[0] || null;
+  return firstValidImage;
 }
-var cachedArticles = null, CACHE_TTL_MS = 10 * 60 * 1e3;
-async function loader3({ request }) {
+function getUniqueDailyCampaigns(campaigns, cutoffDate, limit = 12) {
+  let seenDates = /* @__PURE__ */ new Set(), result = [];
+  for (let campaign of campaigns) {
+    if (SKIPPED_ARTICLE_IDS.has(String(campaign.id)))
+      continue;
+    let rawDate = campaign.updated_at || campaign.created_at;
+    if (!rawDate)
+      continue;
+    let campaignDate = new Date(rawDate);
+    if (Number.isNaN(campaignDate.getTime()) || campaignDate < cutoffDate)
+      continue;
+    let dateKey = campaignDate.toISOString().slice(0, 10);
+    if (!seenDates.has(dateKey) && (seenDates.add(dateKey), result.push(campaign), result.length >= limit))
+      break;
+  }
+  return result;
+}
+async function loader3({
+  request
+}) {
   var _a;
   let now = Date.now();
   if (cachedArticles && now - cachedArticles.timestamp < CACHE_TTL_MS)
-    return (0, import_node3.json)(
-      { articles: cachedArticles.data },
-      {
-        headers: {
-          "Cache-Control": "public, max-age=600, s-maxage=600"
-        }
-      }
+    return articleResponse(cachedArticles.data);
+  let username = process.env.LISTMONK_USERNAME, token = process.env.LISTMONK_TOKEN;
+  if (!username || !token)
+    return console.error("Missing Listmonk credentials"), articleResponse(
+      (cachedArticles == null ? void 0 : cachedArticles.data) || []
     );
-  let username = process.env.LISTMONK_USERNAME, token = process.env.LISTMONK_TOKEN, authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`, controller = new AbortController(), timeoutId = setTimeout(() => controller.abort(), 3500);
+  let headers = {
+    Authorization: `Basic ${Buffer.from(
+      `${username}:${token}`
+    ).toString("base64")}`,
+    Accept: "application/json"
+  };
   try {
-    let response = await fetch(
-      "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=30",
+    let response = await fetchWithTimeout(
+      "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=20",
       {
-        headers: {
-          Authorization: authHeader,
-          Accept: "application/json"
-        },
-        signal: controller.signal
-      }
+        headers
+      },
+      3500
     );
-    if (clearTimeout(timeoutId), !response.ok)
-      return console.error(`Feed Error: ${response.status} ${response.statusText}`), (0, import_node3.json)({ articles: (cachedArticles == null ? void 0 : cachedArticles.data) || [] });
-    let data = await response.json(), campaigns = ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.results) || (data == null ? void 0 : data.data) || [], cutoffDate = /* @__PURE__ */ new Date("2026-08-07T00:00:00Z"), seenDates = /* @__PURE__ */ new Set(), uniqueDailyCampaigns = [];
-    for (let c of campaigns) {
-      let rawDate = c.updated_at || c.created_at;
-      if (!rawDate)
-        continue;
-      let campaignDate = new Date(rawDate);
-      if (campaignDate < cutoffDate)
-        continue;
-      let dateKey = campaignDate.toISOString().split("T")[0];
-      seenDates.has(dateKey) || (seenDates.add(dateKey), uniqueDailyCampaigns.push(c));
-    }
-    let targetCampaigns = uniqueDailyCampaigns.slice(0, 12), fullArticles = await Promise.all(
-      targetCampaigns.map(async (c) => {
+    if (!response.ok)
+      return console.error(
+        `Feed Error: ${response.status} ${response.statusText}`
+      ), articleResponse(
+        (cachedArticles == null ? void 0 : cachedArticles.data) || []
+      );
+    let data = await response.json(), campaigns = ((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.results) || (data == null ? void 0 : data.data) || [], targetCampaigns = getUniqueDailyCampaigns(
+      campaigns,
+      /* @__PURE__ */ new Date(
+        "2026-08-07T00:00:00Z"
+      ),
+      12
+    ), fullArticles = await Promise.all(
+      targetCampaigns.map(async (campaign) => {
         var _a2;
-        let bodyContent = c.body || "";
-        if (!bodyContent && c.id)
+        let bodyContent = campaign.body || "";
+        if (!bodyContent && campaign.id)
           try {
-            let detailController = new AbortController(), detailTimeout = setTimeout(() => detailController.abort(), 2e3), detailRes = await fetch(`https://app.thepoast.com/api/campaigns/${c.id}`, {
-              headers: { Authorization: authHeader, Accept: "application/json" },
-              signal: detailController.signal
-            });
-            if (clearTimeout(detailTimeout), detailRes.ok) {
-              let detailData = await detailRes.json();
+            let detailResponse = await fetchWithTimeout(
+              `https://app.thepoast.com/api/campaigns/${campaign.id}`,
+              {
+                headers
+              },
+              2500
+            );
+            if (detailResponse.ok) {
+              let detailData = await detailResponse.json();
               bodyContent = ((_a2 = detailData == null ? void 0 : detailData.data) == null ? void 0 : _a2.body) || "";
             }
           } catch {
           }
         return {
-          id: c.id,
-          subject: c.subject || "Untitled Issue",
-          // FIX: same rationale — use updated_at (ended) not the
-          // nonexistent sent_at.
-          date: c.updated_at || c.created_at || (/* @__PURE__ */ new Date()).toISOString(),
-          excerpt: getExcerpt(bodyContent, c.subject),
-          coverImage: getCoverImage(bodyContent)
+          id: campaign.id,
+          subject: campaign.subject || "Untitled Issue",
+          /*
+           * updated_at corresponds to the campaign's
+           * completion/ended time.
+           */
+          date: campaign.updated_at || campaign.created_at || (/* @__PURE__ */ new Date()).toISOString(),
+          excerpt: getExcerpt(
+            bodyContent,
+            campaign.subject || ""
+          ),
+          coverImage: getCoverImage(
+            bodyContent
+          )
         };
       })
     );
-    return cachedArticles = { data: fullArticles, timestamp: now }, (0, import_node3.json)(
-      { articles: fullArticles },
-      {
-        headers: {
-          "Cache-Control": "public, max-age=600, s-maxage=600"
-        }
-      }
-    );
+    return cachedArticles = {
+      data: fullArticles,
+      timestamp: now
+    }, articleResponse(fullArticles);
   } catch (error) {
-    return clearTimeout(timeoutId), console.error("Failed to load feed:", error), (0, import_node3.json)({ articles: (cachedArticles == null ? void 0 : cachedArticles.data) || [] });
+    return console.error(
+      "Failed to load feed:",
+      error
+    ), articleResponse(
+      (cachedArticles == null ? void 0 : cachedArticles.data) || []
+    );
   }
 }
-async function action2({ request }) {
-  let email = (await request.formData()).get("email");
-  return console.log("New Poast Subscriber:", email), (0, import_node3.json)({ success: !0 });
-}
 function Index4() {
-  let { articles } = (0, import_react11.useLoaderData)(), [showModal, setShowModal] = (0, import_react10.useState)(!1), [showStickyNav, setShowStickyNav] = (0, import_react10.useState)(!1), headerImgRef = (0, import_react10.useRef)(null), navigation = (0, import_react11.useNavigation)(), actionData = (0, import_react11.useActionData)();
+  let { articles } = (0, import_react11.useLoaderData)(), [showModal, setShowModal] = (0, import_react10.useState)(!1), [showStickyNav, setShowStickyNav] = (0, import_react10.useState)(!1), headerImgRef = (0, import_react10.useRef)(null);
   return (0, import_react10.useEffect)(() => {
-    let isSubscribed = localStorage.getItem("thepoast_subscribed"), hasSeenThisSession = sessionStorage.getItem("thepoast_seen_session");
-    if (!isSubscribed && !hasSeenThisSession) {
-      let timer = setTimeout(() => {
-        setShowModal(!0), sessionStorage.setItem("thepoast_seen_session", "true");
-      }, 1e3);
-      return () => clearTimeout(timer);
-    }
+    let isSubscribed = localStorage.getItem(
+      "thepoast_subscribed"
+    ), hasSeenThisSession = sessionStorage.getItem(
+      "thepoast_seen_session"
+    );
+    if (isSubscribed || hasSeenThisSession)
+      return;
+    let timer = window.setTimeout(() => {
+      setShowModal(!0), sessionStorage.setItem(
+        "thepoast_seen_session",
+        "true"
+      );
+    }, 1e3);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []), (0, import_react10.useEffect)(() => {
     let handleEsc = (event) => {
       event.key === "Escape" && setShowModal(!1);
     };
-    return window.addEventListener("keydown", handleEsc), () => window.removeEventListener("keydown", handleEsc);
+    return window.addEventListener(
+      "keydown",
+      handleEsc
+    ), () => {
+      window.removeEventListener(
+        "keydown",
+        handleEsc
+      );
+    };
   }, []), (0, import_react10.useEffect)(() => {
-    actionData != null && actionData.success && (localStorage.setItem("thepoast_subscribed", "true"), setShowModal(!1));
-  }, [actionData]), (0, import_react10.useEffect)(() => {
     let headerImg = headerImgRef.current;
     if (!headerImg)
       return;
     let observer = new IntersectionObserver(
-      ([entry2]) => setShowStickyNav(!entry2.isIntersecting),
+      ([entry2]) => {
+        setShowStickyNav(
+          !entry2.isIntersecting
+        );
+      },
       {
         threshold: 0,
         rootMargin: "-500px 0px 0px 0px"
-        // Adjust pixel offset here (-100px, -300px, etc.)
       }
     );
-    return observer.observe(headerImg), () => observer.disconnect();
+    return observer.observe(headerImg), () => {
+      observer.disconnect();
+    };
   }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "container", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `sticky-nav${showStickyNav ? " visible" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { className: "sticky-logo", src: ja_default, alt: "The Poast", loading: "lazy", decoding: "async" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+      "div",
+      {
+        className: `sticky-nav${showStickyNav ? " visible" : ""}`,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            "img",
+            {
+              className: "sticky-logo",
+              src: "/img/ja.png",
+              alt: "The Poast",
+              loading: "lazy",
+              decoding: "async"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 574,
+              columnNumber: 9
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            import_react11.Link,
+            {
+              to: "/subscribe",
+              className: "sticky-subscribe",
+              children: "Subscribe"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 582,
+              columnNumber: 9
+            },
+            this
+          )
+        ]
+      },
+      void 0,
+      !0,
+      {
         fileName: "app/routes/index.tsx",
-        lineNumber: 289,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/subscribe", className: "sticky-subscribe", children: "Subscribe" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 290,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 288,
-      columnNumber: 7
-    }, this),
-    showModal && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "modal-overlay", onClick: () => setShowModal(!1), children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "modal-content", onClick: (e) => e.stopPropagation(), children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { className: "", src: ja6_default, alt: "The Poast", loading: "eager", decoding: "async" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 299,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Trusted by 15,000+ execs and builders" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 300,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Scroll less. Know more." }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 301,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Just scroll The Poast for a daily fast feed of business-minded news." }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 302,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("form", { method: "post", action: "https://app.thepoast.com/subscription/form", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "input-wrapper", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("input", { className: "email", type: "email", name: "email", required: !0, placeholder: "Email Address *" }, void 0, !1, {
+        lineNumber: 569,
+        columnNumber: 7
+      },
+      this
+    ),
+    showModal && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+      "div",
+      {
+        className: "modal-overlay",
+        onClick: () => setShowModal(!1),
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+          "div",
+          {
+            className: "modal-content",
+            onClick: (event) => event.stopPropagation(),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "img",
+                {
+                  src: "/img/ja6.png",
+                  alt: "The Poast",
+                  loading: "eager",
+                  decoding: "async"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 604,
+                  columnNumber: 13
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Trusted by 15,000+ execs and builders" }, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 611,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Scroll less. Know more." }, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 615,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Just scroll The Poast for a daily fast feed of business-minded news." }, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 619,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "form",
+                {
+                  method: "post",
+                  action: "https://app.thepoast.com/subscription/form",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "input-wrapper", children: [
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                        "input",
+                        {
+                          className: "email",
+                          type: "email",
+                          name: "email",
+                          required: !0,
+                          placeholder: "Email Address *"
+                        },
+                        void 0,
+                        !1,
+                        {
+                          fileName: "app/routes/index.tsx",
+                          lineNumber: 629,
+                          columnNumber: 17
+                        },
+                        this
+                      ),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                        "button",
+                        {
+                          className: "submit",
+                          type: "submit",
+                          children: "Subscribe"
+                        },
+                        void 0,
+                        !1,
+                        {
+                          fileName: "app/routes/index.tsx",
+                          lineNumber: 637,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ] }, void 0, !0, {
+                      fileName: "app/routes/index.tsx",
+                      lineNumber: 628,
+                      columnNumber: 15
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                      fileName: "app/routes/index.tsx",
+                      lineNumber: 645,
+                      columnNumber: 15
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                      "input",
+                      {
+                        id: "6d48f",
+                        type: "hidden",
+                        name: "l",
+                        value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                      },
+                      void 0,
+                      !1,
+                      {
+                        fileName: "app/routes/index.tsx",
+                        lineNumber: 647,
+                        columnNumber: 15
+                      },
+                      this
+                    ),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                      "input",
+                      {
+                        type: "hidden",
+                        name: "nonce"
+                      },
+                      void 0,
+                      !1,
+                      {
+                        fileName: "app/routes/index.tsx",
+                        lineNumber: 654,
+                        columnNumber: 15
+                      },
+                      this
+                    )
+                  ]
+                },
+                void 0,
+                !0,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 624,
+                  columnNumber: 13
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "button",
+                {
+                  type: "button",
+                  className: "dismiss-text",
+                  onClick: () => setShowModal(!1),
+                  children: "No thanks! I'm already subscribed"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 660,
+                  columnNumber: 13
+                },
+                this
+              )
+            ]
+          },
+          void 0,
+          !0,
+          {
             fileName: "app/routes/index.tsx",
-            lineNumber: 305,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "submit", type: "submit", children: navigation.state === "submitting" ? "..." : "Subscribe" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 306,
-            columnNumber: 17
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 304,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 310,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("input", { id: "6d48f", type: "hidden", name: "l", defaultChecked: !0, value: "6d48fffe-7d37-4c14-b317-3e4cda33a647" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 311,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 312,
-          columnNumber: 15
-        }, this)
-      ] }, void 0, !0, {
+            lineNumber: 598,
+            columnNumber: 11
+          },
+          this
+        )
+      },
+      void 0,
+      !1,
+      {
         fileName: "app/routes/index.tsx",
-        lineNumber: 303,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "dismiss-text", onClick: () => setShowModal(!1), children: "No thanks! I'm already subscribed" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 314,
-        columnNumber: 13
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 298,
-      columnNumber: 11
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 297,
-      columnNumber: 7
-    }, this),
+        lineNumber: 592,
+        columnNumber: 7
+      },
+      this
+    ),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "header", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "nav", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { className: "logo", src: ja_default, alt: "The Poast Logo", loading: "eager", decoding: "async" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 324,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "info", to: "/info", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { src: info_default, alt: "More Info", loading: "lazy", decoding: "async" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 326,
-          columnNumber: 13
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 325,
-          columnNumber: 11
-        }, this)
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+          "img",
+          {
+            className: "logo",
+            src: "/img/ja.png",
+            alt: "The Poast Logo",
+            loading: "eager",
+            decoding: "async"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/index.tsx",
+            lineNumber: 677,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+          import_react11.Link,
+          {
+            className: "info",
+            to: "/info",
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+              "img",
+              {
+                src: "/img/social/info.png",
+                alt: "More Info",
+                loading: "lazy",
+                decoding: "async"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 689,
+                columnNumber: 13
+              },
+              this
+            )
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/index.tsx",
+            lineNumber: 685,
+            columnNumber: 11
+          },
+          this
+        )
       ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 323,
+        lineNumber: 676,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h1", { children: [
         "Scroll less.",
         /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("br", {}, void 0, !1, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 329,
-          columnNumber: 25
+          lineNumber: 700,
+          columnNumber: 11
         }, this),
         "Know more."
       ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 329,
+        lineNumber: 698,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { children: "Every day, 15,000+ execs and builders scroll The Poast for a fast feed of business-minded news, posts, and snarky comments." }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 330,
+        lineNumber: 704,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "outer-header", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "social", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("a", { className: "x", href: "https://x.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { src: x_default, alt: "X (Twitter)", loading: "lazy", decoding: "async" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 335,
-            columnNumber: 17
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 334,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("a", { className: "ig", href: "https://instagram.com/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { src: instagram_default, alt: "Instagram", loading: "lazy", decoding: "async" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 338,
-            columnNumber: 17
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 337,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("a", { className: "li", href: "https://linkedin.com/company/thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { src: linkedin_default, alt: "LinkedIn", loading: "lazy", decoding: "async" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 341,
-            columnNumber: 17
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 340,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("a", { className: "yt", href: "https://youtube.com/@thepoast", target: "_blank", rel: "noopener noreferrer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("img", { src: youtube_default, alt: "YouTube", loading: "lazy", decoding: "async" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 344,
-            columnNumber: 17
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 343,
-            columnNumber: 15
-          }, this)
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            "a",
+            {
+              className: "x",
+              href: "https://x.com/thepoast",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "img",
+                {
+                  src: "/img/social/x.png",
+                  alt: "X (Twitter)",
+                  loading: "lazy",
+                  decoding: "async"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 721,
+                  columnNumber: 17
+                },
+                this
+              )
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 715,
+              columnNumber: 15
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            "a",
+            {
+              className: "ig",
+              href: "https://instagram.com/thepoast",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "img",
+                {
+                  src: "/img/social/instagram.png",
+                  alt: "Instagram",
+                  loading: "lazy",
+                  decoding: "async"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 735,
+                  columnNumber: 17
+                },
+                this
+              )
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 729,
+              columnNumber: 15
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            "a",
+            {
+              className: "li",
+              href: "https://linkedin.com/company/thepoast",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "img",
+                {
+                  src: "/img/social/linkedin.png",
+                  alt: "LinkedIn",
+                  loading: "lazy",
+                  decoding: "async"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 749,
+                  columnNumber: 17
+                },
+                this
+              )
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 743,
+              columnNumber: 15
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+            "a",
+            {
+              className: "yt",
+              href: "https://youtube.com/@thepoast",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "img",
+                {
+                  src: "/img/social/youtube.png",
+                  alt: "YouTube",
+                  loading: "lazy",
+                  decoding: "async"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 763,
+                  columnNumber: 17
+                },
+                this
+              )
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/index.tsx",
+              lineNumber: 757,
+              columnNumber: 15
+            },
+            this
+          )
         ] }, void 0, !0, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 333,
+          lineNumber: 713,
           columnNumber: 13
         }, this) }, void 0, !1, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 332,
+          lineNumber: 712,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "inner-header2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/subscribe", children: "Subscribe" }, void 0, !1, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 349,
+          lineNumber: 775,
           columnNumber: 13
         }, this) }, void 0, !1, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 348,
+          lineNumber: 774,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 331,
+        lineNumber: 710,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
@@ -2701,35 +3057,35 @@ function Index4() {
         {
           ref: headerImgRef,
           className: "headerimg",
-          src: ja6_default,
+          src: "/img/ja6.png",
           alt: "The Poast",
           loading: "eager",
           decoding: "async",
-          fetchpriority: "high"
+          fetchPriority: "high"
         },
         void 0,
         !1,
         {
           fileName: "app/routes/index.tsx",
-          lineNumber: 353,
+          lineNumber: 782,
           columnNumber: 9
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 322,
+      lineNumber: 674,
       columnNumber: 7
     }, this),
-    articles && articles.length > 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "feed-container", children: [
+    articles.length > 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "feed-container", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h1", { children: "Past issues" }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 367,
+        lineNumber: 798,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Just scroll to read it for free" }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 368,
+        lineNumber: 800,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("section", { className: "article-grid", children: articles.map(
@@ -2751,68 +3107,73 @@ function Index4() {
                 !1,
                 {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 379,
-                  columnNumber: 23
+                  lineNumber: 819,
+                  columnNumber: 25
                 },
                 this
               ) }, void 0, !1, {
                 fileName: "app/routes/index.tsx",
-                lineNumber: 378,
-                columnNumber: 15
+                lineNumber: 818,
+                columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "card-content", children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("span", { className: "card-date", children: new Date(article.date).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric"
-                }) }, void 0, !1, {
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("span", { className: "card-date", children: new Date(
+                  article.date
+                ).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                  }
+                ) }, void 0, !1, {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 388,
-                  columnNumber: 21
+                  lineNumber: 834,
+                  columnNumber: 23
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { className: "card-title", children: article.subject }, void 0, !1, {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 395,
-                  columnNumber: 21
+                  lineNumber: 847,
+                  columnNumber: 23
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "card-excerpt", children: article.excerpt }, void 0, !1, {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 396,
-                  columnNumber: 21
+                  lineNumber: 851,
+                  columnNumber: 23
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/index.tsx",
-                lineNumber: 387,
-                columnNumber: 19
+                lineNumber: 832,
+                columnNumber: 21
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/index.tsx",
-              lineNumber: 376,
-              columnNumber: 17
+              lineNumber: 815,
+              columnNumber: 19
             }, this)
           },
           article.id,
           !1,
           {
             fileName: "app/routes/index.tsx",
-            lineNumber: 371,
-            columnNumber: 11
+            lineNumber: 810,
+            columnNumber: 13
           },
           this
         )
       ) }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 369,
+        lineNumber: 804,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 366,
+      lineNumber: 796,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 286,
+    lineNumber: 566,
     columnNumber: 5
   }, this);
 }
@@ -3341,11 +3702,11 @@ function Index5() {
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "outer-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "inner-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: [
-        "The Poast is a daily fast feed of news, posts, and snarky comments. It's like a LinkedIn or X feed, but delivered to your inbox every day. Sign up for ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react13.Link, { to: "/subscribe", children: "free" }, void 0, !1, {
+        "The Poast is a daily fast feed of news, and posts. It's like a LinkedIn or X feed, but delivered to your inbox every day. Sign up for free ",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react13.Link, { to: "/subscribe", children: "here" }, void 0, !1, {
           fileName: "app/routes/info.tsx",
           lineNumber: 136,
-          columnNumber: 165
+          columnNumber: 153
         }, this),
         "."
       ] }, void 0, !0, {
@@ -3507,7 +3868,7 @@ function Index6() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-2LGZY6HC.js", imports: ["/build/_shared/chunk-XXERCUYP.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LQWANEBZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-ZLMQVLR6.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-S2YZZTE2.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-LAK5ZOPP.js", imports: ["/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-3E45BSHM.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-HBL7DOEJ.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-G6PU6GXG.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-7RR3FWT7.js", imports: ["/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-QEC6VIIV.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-FRG6KC73.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-HUXGSKMG.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "41a1b71c", hmr: void 0, url: "/build/manifest-41A1B71C.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-2LGZY6HC.js", imports: ["/build/_shared/chunk-XXERCUYP.js", "/build/_shared/chunk-S4ZNHW4H.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LQWANEBZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-NHVPFKQJ.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-S2YZZTE2.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-5RLQCKAG.js", imports: ["/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-3E45BSHM.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-OHUU7J7J.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-LXG33JNA.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-7RR3FWT7.js", imports: ["/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-X4VRTAXJ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-QEC6VIIV.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-Z56JI6EX.js", imports: ["/build/_shared/chunk-552RS725.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "b7cda3cf", hmr: void 0, url: "/build/manifest-B7CDA3CF.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
