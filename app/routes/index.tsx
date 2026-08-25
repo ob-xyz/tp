@@ -795,7 +795,7 @@ export default function Index() {
           <h1>Past issues</h1>
 
           <p>
-            Just scroll to read it for free
+            Just scroll to read
           </p>
 
           <section className="article-grid">
