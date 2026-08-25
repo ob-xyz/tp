@@ -98,7 +98,7 @@ export default function Index() {
         <h2>About The Poast</h2>
         <div className="outer-header">
           <div className="inner-header">
-          <p>Every day there are 500 pieces of content that end up trending across various social media platforms like X, YouTube, and Reddit. The Poast finds the 10 pieces that actually matter, stitches them together into an easy-to-read fast feed, then delivers it to your inbox. Sign up for free <Link to="/subscribe">here</Link>.</p>
+          <p>Every day, 500 interesting posts trend across apps like X, YouTube, Reddit, and Instagram. The Poast hunts for the top 10 business-minded ones, stitches them into a feed, then delivers it to your inbox. Sign up for free <Link to="/subscribe">here</Link>.</p>
           </div>
         </div>
         </div>
