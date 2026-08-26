@@ -104,6 +104,8 @@
   pointer-events: none;
   will-change: transform;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0.5rem 2.25rem 0rem 2.5rem;
+  border-radius: 1rem;
 }
 .container .sticky-nav.visible {
   transform: translateY(0);
@@ -258,14 +260,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(180deg, #fff 82.5%, #000000 100%);
+  background: linear-gradient(180deg, #fff 75.5%, #000000 100%);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 }
 .container .header .nav {
   display: flex;
@@ -275,7 +277,7 @@
   width: 100%;
   margin: 0;
   margin-bottom: 2rem;
-  padding-top: 3rem;
+  padding-top: 2rem;
 }
 .container .header .nav .logo {
   width: 4rem;
@@ -322,9 +324,9 @@
 .container .header .outer-header {
   display: flex;
   position: sticky;
-  margin-top: 2.25rem;
   max-width: 100%;
   box-sizing: border-box;
+  margin-top: 2.25rem;
 }
 .container .header .outer-header .inner-header {
   display: flex;
@@ -489,7 +491,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   box-sizing: border-box;
   width: 100%;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -757,7 +759,7 @@ body {
   width: 100%;
   margin: 0;
   margin-bottom: 1.5rem;
-  padding-top: 3rem;
+  padding-top: 2rem;
 }
 .subscribe-container .header .nav .logo {
   width: 4rem;
@@ -1007,7 +1009,7 @@ body {
   width: 100%;
   margin: 0;
   margin-bottom: 1.5rem;
-  padding-top: 3rem;
+  padding-top: 2rem;
 }
 .moreinfo-container .header .nav .logo {
   width: 4rem;
@@ -1121,10 +1123,8 @@ body {
 .moreinfo-container .inner-container {
   background: #000;
   border-radius: 2.5rem;
-  margin: 0rem 5rem;
+  margin: 0.25rem 5rem 5.5rem 5rem;
   box-shadow: 0 0 50px 0px rgba(240, 143, 25, 0.7);
-  margin-bottom: 5.5rem;
-  margin-top: 0.25rem;
   padding: 3rem;
 }
 .moreinfo-container .inner-container h2 {
@@ -1132,29 +1132,33 @@ body {
   font-size: 2rem;
   font-weight: 100;
   font-family: ku;
-  margin: 0 auto;
-  flex-shrink: 0;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem 0;
 }
 .moreinfo-container .inner-container .profile-outside {
   display: flex;
   justify-content: space-between;
-  padding: 0;
-  margin: 1rem auto;
+  align-items: flex-start;
   gap: 2rem;
+  margin: 1rem 0 0 0;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .moreinfo-container .inner-container .profile-outside {
+    flex-direction: column;
+  }
 }
 .moreinfo-container .inner-container .profile-outside .profile {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: left;
-  margin-left: 0;
+  align-items: flex-start;
+  flex-shrink: 0;
 }
 .moreinfo-container .inner-container .profile-outside .profile img {
-  border-radius: 0rem;
-  margin-left: 0;
-  transition: all 0.3s ease;
+  max-width: 250px;
+  width: 100%;
+  height: auto;
   border-radius: 0.25rem;
+  transition: all 0.3s ease;
 }
 .moreinfo-container .inner-container .profile-outside .profile img:hover {
   transform: none;
@@ -1163,7 +1167,7 @@ body {
 .moreinfo-container .inner-container .profile-outside .profile .inner-profile {
   display: flex;
   flex-direction: column;
-  margin-left: 0;
+  align-items: flex-start;
 }
 .moreinfo-container .inner-container .profile-outside .profile .inner-profile h1 {
   color: #fff;
@@ -1190,25 +1194,32 @@ body {
 }
 .moreinfo-container .inner-container .profile-outside .subscribe {
   flex: 1;
-  margin-top: 0rem;
-  margin-left: -0.25rem;
+  width: 100%;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe h1 {
   color: #fff;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
   font-family: ku;
   text-align: left;
-  padding-left: 0.5rem;
+  padding-left: 0;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid {
   border: 2px solid #212121;
   border-radius: 0.75rem;
-  margin: 0 auto;
+  padding: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form .input-wrapper {
   position: relative;
-  width: 36.25rem;
-  margin: 0.15rem 0;
+  width: 100%;
+  margin: 0;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form input.email {
   width: 100%;
@@ -1216,7 +1227,7 @@ body {
   border-radius: 0.75rem;
   font-size: 1.5rem;
   box-sizing: border-box;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   font-family: ku;
   font-weight: 100;
   background: #fff;
@@ -1225,23 +1236,23 @@ body {
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form input.email:focus {
   outline: none;
   box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
-  border-color: #02090A;
-  caret-color: #02090A;
+  border-color: #02090a;
+  caret-color: #02090a;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget {
   color: #fff;
+  margin-top: 0.25rem;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form button.submit {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  padding: 0 2.65rem;
-  margin: 0.35rem;
+  top: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  padding: 0 2rem;
   color: #fff;
   border: none;
-  border-radius: 0.75rem;
-  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
   font-family: ku;
   font-weight: 100;
   transition: all 0.3s ease;
@@ -2045,7 +2056,7 @@ altcha-widget {
   z-index: 1000;
   padding: 0.75rem 1.25rem;
   width: 25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 .footer a {

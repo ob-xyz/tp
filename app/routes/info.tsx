@@ -4,7 +4,7 @@ import Altcha from "../components/altcha";
 import scroll from "~/style/scss/components/showscroll.css";
 
 import info from "~/../public/img/social/info.png";
-import cs from "~/../public/img/cs.jpg";
+import cs2 from "~/../public/img/cs.jpg";
 import li from "~/../public/img/social/linkedin.png";
 import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
@@ -61,7 +61,7 @@ export default function Index() {
             <div className="profile-outside">
             <div className="profile">
                 <a href="https://linkedin.com/in/chrissignore" target="_blank" rel="noopener noreferrer">
-                <img className="headerimg" src={cs} alt="It's me (Chris Signore)" />
+                <img className="headerimg" src={cs2} alt="It's me (Chris Signore)" />
                 <div className="inner-profile">
                     <h1>Chris Signore</h1>
                     <div className="social">

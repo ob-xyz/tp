@@ -22,7 +22,7 @@
       width: 100%;
       margin: 0; 
       margin-bottom: 1.5rem;
-      padding-top:3rem;
+      padding-top:2rem;
       .logo {
         width: 4rem;
         position: absolute;
@@ -152,145 +152,167 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 .inner-container {
   background: #000;
   border-radius: 2.5rem;
-  margin:0rem 5rem;
+  margin: 0.25rem 5rem 5.5rem 5rem;
   box-shadow: 0 0 50px 0px rgba($orange, 0.7);
-  margin-bottom:5.5rem;
-  margin-top:.25rem;
-  padding:3rem;
-      h2 {
-      color: #fff;
-      font-size: 2rem;
-      font-weight: 100;
-      font-family: ku;
-      margin: 0 auto;
-      flex-shrink: 0;
-      margin-bottom:1.5rem;
+  padding: 3rem;
+
+  h2 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 100;
+    font-family: ku;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .profile-outside {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 1rem 0 0 0; // Removed "auto" so it anchors left
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
     }
-.profile-outside{
-  display: flex;
-  justify-content: space-between;
-  padding: 0;
-  margin:1rem auto;
-  gap: 2rem;
-  
-.profile {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  margin-left:0; 
-  img {
-    border-radius: 0rem;
-    margin-left:0; 
-    transition: all 0.3s ease;
-    border-radius: .25rem;
-      &:hover {
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      img {
+        max-width: 250px;
+        width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+        transition: all 0.3s ease;
+
+        &:hover {
           transform: none;
           box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
         }
-    }
+      }
 
-  .inner-profile {
-    display: flex;
-    flex-direction: column;
-    margin-left:0; 
-    h1 {
-      color: #fff;
-      font-family: ku;
-      font-weight: 100;
-      margin: 1rem 0 .5rem 0;
-      text-align: left;
-      font-size: 2rem;
-    }
-
-    .social {
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
-      margin-left:0;      
-      a {
+      .inner-profile {
         display: flex;
-        align-items: center;
-        width: 2rem;
-        
-        img {
-          width: 100%;
-          height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+
+        h1 {
+          color: #fff;
+          font-family: ku;
+          font-weight: 100;
+          margin: 1rem 0 0.5rem 0;
+          text-align: left;
+          font-size: 2rem;
+        }
+
+        .social {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+          margin-left:0;
+          a {
+            display: flex;
+            align-items: center;
+            width: 2rem;
+
+            img {
+              width: 100%;
+              height: auto;
+            }
+          }
         }
       }
     }
-  }
-}
-.subscribe {
-    flex: 1;
-    margin-top:0rem;
-    margin-left:-.25rem;
-    h1 {
-      color: #fff;
-      margin-bottom: .35rem;
-      font-family: ku;
-      text-align: left;
-      padding-left:.5rem;
-    }
 
-    .logo-grid {
-      border: 2px solid #212121;
-      border-radius: .75rem;
-      margin:0 auto;
+.subscribe {
+  flex: 1;
+  width: 100%;
+
+  h1 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-family: ku;
+    text-align: left;
+    padding-left: 0;
+  }
+
+  .logo-grid {
+    border: 2px solid #212121;
+    border-radius: 0.75rem;
+    padding: 1.25rem; // Adds breathing room inside the outer border box
+    width: 100%;
+    box-sizing: border-box;
+
     form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; // Handles spacing between First Name and Email fields cleanly
+      width: 100%;
+
       .input-wrapper {
         position: relative;
-        width: 36.25rem;
-        margin:.15rem 0;
+        width: 100%; // Lets the input fill the full container width
+        margin: 0;
       }
+
       input.email {
         width: 100%;
-        border: .175rem solid #212121;
-        border-radius: .75rem;
+        border: 0.175rem solid #212121;
+        border-radius: 0.75rem;
         font-size: 1.5rem;
         box-sizing: border-box;
-        padding:1.5rem;
+        padding: 1.25rem 1.5rem;
         font-family: ku;
-        font-weight: 100;       
+        font-weight: 100;
         background: #fff;
         color: #000;
-        
+
         &:focus {
           outline: none;
           box-shadow: 0 0 10px 4px rgba(242, 209, 159, 0.7);
-          border-color: #02090A;
-          caret-color: #02090A;
+          border-color: #02090a;
+          caret-color: #02090a;
         }
       }
+
       altcha-widget {
-          color:#fff;
+        color: #fff;
+        margin-top: 0.25rem;
       }
+
       button.submit {
         position: absolute;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        padding: 0 2.65rem;
-        margin: .35rem; 
+        top: 0.25rem;
+        right: 0.25rem;
+        bottom: 0.25rem;
+        padding: 0 2rem;
         color: #fff;
         border: none;
-        border-radius: .75rem;
-        font-size: 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1.25rem;
         font-family: ku;
         font-weight: 100;
         transition: all 0.3s ease;
-        background: linear-gradient(0deg,#000 21%, rgba(255, 255, 255, 1) 100%);
+        background: linear-gradient(
+          0deg,
+          #000 21%,
+          rgba(255, 255, 255, 1) 100%
+        );
         cursor: pointer;
 
-      &:hover {
+        &:hover {
           transform: none;
           box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
         }
       }
     }
-    }
   }
 }
+  }
 }
 .inner-container2{
     background: #000;
@@ -378,7 +400,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 }
 @media (min-width: 1111px) and (max-width: 1550px) {
 .moreinfo-container{
-.inner-container2 {
+  .inner-container2 {
   margin-bottom: 20rem;
   padding-bottom:2rem;
     .outer-header{
@@ -415,6 +437,7 @@ background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 
 
     .outer-header{
       flex-direction: column;
+
   .inner-header2{
     margin-left: auto;
     margin-top:.75rem;

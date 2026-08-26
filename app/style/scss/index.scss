@@ -84,7 +84,8 @@
     pointer-events: none;
     will-change: transform;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
+    margin:.5rem 2.25rem 0rem 2.5rem;
+    border-radius: 1rem;
     &.visible {
       transform: translateY(0);
       opacity: 1;
@@ -259,14 +260,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(180deg, #fff 82.5%, #000000 100%);
+    background: linear-gradient(180deg, #fff 75.5%, #000000 100%);
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 
     .nav {
       display: flex;
@@ -276,7 +277,7 @@
       width: 100%;
       margin: 0; 
       margin-bottom: 2rem;
-      padding-top: 3rem;
+      padding-top: 2rem;
 
       .logo {
         width: 4rem;
@@ -331,9 +332,9 @@
     .outer-header {
       display: flex; 
       position: sticky;
-      margin-top: 2.25rem; 
       max-width: 100%;
       box-sizing: border-box;
+        margin-top:2.25rem;
 
       .inner-header {
         display: flex;
@@ -346,7 +347,6 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         justify-content: space-between;
         box-sizing: border-box;
-
         h2 {
           color: #fff;
           font-size: 2.5rem;
@@ -519,7 +519,7 @@
     display: flex;
     flex-direction: column;
     padding: .75rem 1.25rem;
-    border-radius: .75rem;
+    border-radius: 1rem;
     box-sizing: border-box;
     width: 100%;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
