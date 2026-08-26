@@ -1988,6 +1988,57 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.content-privacy .sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem; /* Spacious padding off screen edges */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0.35rem 1.5rem 0 1.5rem;
+  border-radius: 1rem;
+}
+.content-privacy .sticky-nav.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.content-privacy .sticky-nav .sticky-logo {
+  margin-left: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 100%;
+  box-shadow: 0 0 12px 4px rgba(242, 209, 159, 0.5);
+}
+.content-privacy .sticky-nav .sticky-subscribe {
+  margin-right: 0;
+  padding: 0.55rem 1.75rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: ku;
+  font-weight: 100;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(0deg, #000 21%, rgb(255, 255, 255) 100%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.content-privacy .sticky-nav .sticky-subscribe:hover {
+  background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+}
 .content-privacy b {
   font-family: "bold";
 }
@@ -2026,6 +2077,7 @@ body {
   border-top-right-radius: 3rem;
   padding: 0 5rem;
   padding-bottom: 5rem;
+  margin-bottom: 20rem;
 }
 .content-privacy .content-privacy2 h2, .content-privacy .content-privacy2 span {
   padding-top: 6rem;

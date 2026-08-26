@@ -18,8 +18,15 @@ export default function Index() {
             <img src={info} alt="More Info" />
         </Link>
         </div>
-        <h1>Scroll less.<br />Know more.</h1>
-        <h2>Every day, 15,000+ execs and builders scroll The Poast for a fast feed of business-minded news, posts, and snarky comments.</h2>
+        <h1>
+          Scroll less.
+        </h1>
+        <h1>Know more.</h1>
+        <h2>
+          Every day, 15,000+ execs and builders scroll
+          The Poast for a fast feed of business-minded
+          news, posts, and snarky comments.
+        </h2>
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">

@@ -554,13 +554,12 @@ useEffect(() => {
           showStickyNav ? " visible" : ""
         }`}
       >
-        <img
-          className="sticky-logo"
+        <Link className="sticky-logo" to="/"><img
           src="/img/ja.png"
           alt="The Poast"
           loading="lazy"
           decoding="async"
-        />
+        /></Link>
 
         <Link
           to="/subscribe"
@@ -656,14 +655,16 @@ useEffect(() => {
       {/* HEADER SECTION */}
       <div className="header">
 
-        <div className="nav">
-          <img
-            className="logo"
+        <div className="nav">                    
+          <Link to="/" className="logo">
+            <img
             src="/img/ja.png"
             alt="The Poast Logo"
             loading="eager"
             decoding="async"
           />
+          </Link>
+
 
           <Link
             className="info"

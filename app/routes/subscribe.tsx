@@ -6,14 +6,15 @@ import li from "~/../public/img/social/linkedin.png";
 import x from "~/../public/img/social/x.png";
 import ig from "~/../public/img/social/instagram.png";
 import yt from "~/../public/img/social/youtube.png";
-import j from "~/../public/img/ja6.png";
 import logo from "~/../public/img/ja.png";
 export default function Index() {
   return (
     <div className="subscribe-container">
       <div className="header">
         <div className="nav">
-        <img className="logo" src={logo} alt="The Poast Logo" />
+        <Link to="/" className="logo">
+           <img src={logo} alt="The Poast Logo" />
+        </Link>
         <Link className="info" to="/info">
             <img src={info} alt="More Info" />
         </Link>

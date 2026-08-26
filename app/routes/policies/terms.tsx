@@ -1,16 +1,53 @@
-import logo from "~/../public/img/ja2.png";
+import { Link } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useEffect, useState } from "react";
+import logo from "~/../public/img/ja.png";
 import scroll from "~/style/scss/components/showscroll.css";
+import Footer from "../../components/footer"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: scroll },
 ];
 export default function Index() {
+    const [showStickyNav, setShowStickyNav] = useState(false);
+  
+    /* ------------------------------ STICKY NAV ------------------------------ */
+    useEffect(() => {
+      const handleScroll = () => {
+        // Toggle sticky nav when scrolled past 50px
+        if (window.scrollY > 50) {
+          setShowStickyNav(true);
+        } else {
+          setShowStickyNav(false);
+        }
+      };
+  
+      // Run once on mount to handle reloads midway down the page
+      handleScroll();
+  
+      window.addEventListener("scroll", handleScroll, { passive: true });
+  
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
 return (
     <div className="content-privacy">
-      <div className="logo">
-        <img src={logo} alt="The Poast Logo" />
+            {/* STICKY SUBSCRIBE NAV */}
+      <div className={`sticky-nav${showStickyNav ? " visible" : ""}`}>
+        <Link className="sticky-logo" to="/"><img
+          src={logo}
+          alt="The Poast"
+          loading="lazy"
+          decoding="async"
+        /></Link>
+        <Link to="/subscribe" className="sticky-subscribe">
+          Subscribe
+        </Link>
       </div>
+      <Link to="/" className="logo">
+        <img src={logo} alt="The Poast Logo" />
+      </Link>
       <div className="content-privacy2">
         <h2><span>Terms and Conditions.</span><br />Effective: April 5, 2025.</h2>
         <p>The Poast respects your privacy and values your trust. This Privacy Policy (“Policy”) describes how we collect and use your information and explains your rights and options. This Policy applies to these services (which we call the “Services” in this Policy):</p>
@@ -134,6 +171,7 @@ return (
           <li><u>Consent</u>: From time to time, we may ask for your consent to collect specific information, such as your precise geolocation, or use your information for certain specific reasons, like providing your email address or phone number for direct marketing purposes, or for the use of certain types of cookies for personalized advertising. In general, you may withdraw your consent by changing your settings (such as browser or device settings) or following instructions provided with information we send you on a consent basis (such as clicking ‘unsubscribe’ in any email we send you). You may always withdraw your consent at any time – just contact us at <a href="mailto:privacyrequest@thepoast.com">privacyrequest@thepoast.com</a>.</li>
         </ul>
       </div>
+    <Footer />
   </div>
   );
 }

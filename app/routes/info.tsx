@@ -53,13 +53,12 @@ export default function Index() {
     <div className="moreinfo-container">
       {/* STICKY SUBSCRIBE NAV */}
       <div className={`sticky-nav${showStickyNav ? " visible" : ""}`}>
-        <img
-          className="sticky-logo"
+        <Link className="sticky-logo" to="/"><img
           src={logo}
           alt="The Poast"
           loading="lazy"
           decoding="async"
-        />
+        /></Link>
         <Link to="/subscribe" className="sticky-subscribe">
           Subscribe
         </Link>
@@ -67,7 +66,9 @@ export default function Index() {
 
       <div className="header">
         <div className="nav">
-          <img className="logo" src={logo} alt="The Poast Logo" />
+          <Link to="/" className="logo">
+            <img src={logo} alt="The Poast Logo" />
+          </Link>
           <Link className="info" to="/info">
             <img src={info} alt="More Info" />
           </Link>
