@@ -528,36 +528,22 @@ export default function Index() {
     };
   }, []);
 
-  /* ------------------------------ STICKY NAV ------------------------------ */
+/* ------------------------------ STICKY NAV ------------------------------ */
+useEffect(() => {
+  const handleScroll = () => {
+    // Shows the sticky navbar when scrolled past 500px
+    setShowStickyNav(window.scrollY > 300);
+  };
 
-  useEffect(() => {
-    const headerImg =
-      headerImgRef.current;
+  // Run once on mount to handle reloads/restores mid-page
+  handleScroll();
 
-    if (!headerImg) {
-      return;
-    }
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
-    const observer =
-      new IntersectionObserver(
-        ([entry]) => {
-          setShowStickyNav(
-            !entry.isIntersecting
-          );
-        },
-        {
-          threshold: 0,
-          rootMargin:
-            "-500px 0px 0px 0px",
-        }
-      );
-
-    observer.observe(headerImg);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
     <div className="container">
@@ -694,10 +680,8 @@ export default function Index() {
 
         <h1>
           Scroll less.
-          <br />
-          Know more.
         </h1>
-
+        <h1>Know more.</h1>
         <h2>
           Every day, 15,000+ execs and builders scroll
           The Poast for a fast feed of business-minded
