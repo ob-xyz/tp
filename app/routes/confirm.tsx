@@ -8,7 +8,9 @@ export default function Confirm() {
     <div className="container">
       <div className="header">
         <div className="nav">
-        <img className="logo" src={logo} alt="The Poast Logo" />
+        <Link to="/" className="logo">
+        <img src={logo} alt="The Poast Logo" />
+        </Link>
         <br />
         </div>
         <h1 style={{ fontSize: 52 }}>✓</h1>
