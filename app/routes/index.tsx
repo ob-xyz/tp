@@ -680,12 +680,10 @@ useEffect(() => {
         </div>
 
         <h1>
-          Scroll less.
-        </h1>
-        <h1>Know more.</h1>
+          Become exponentially smarter in just 1 minute</h1>
         <h2>
           Every day, 15,000+ execs and builders scroll
-          The Poast for a fast feed of business-minded
+          The Poast for a curated feed of interesting
           news, posts, and snarky comments.
         </h2>
 
@@ -758,30 +756,12 @@ useEffect(() => {
               Subscribe
             </Link>
           </div>
-
         </div>
-
-        <img
-          ref={headerImgRef}
-          className="headerimg"
-          src="/img/ja6.png"
-          alt="The Poast"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-
       </div>
 
       {/* ARCHIVE FEED SECTION */}
       {articles.length > 0 && (
         <main className="feed-container">
-
-          <h1>Past issues</h1>
-
-          <p>
-            Just scroll to read
-          </p>
 
           <section className="article-grid">
             {articles.map(

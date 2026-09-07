@@ -19,12 +19,10 @@ export default function Index() {
         </Link>
         </div>
         <h1>
-          Scroll less.
-        </h1>
-        <h1>Know more.</h1>
+          Become exponentially smarter in just 1 minute</h1>
         <h2>
           Every day, 15,000+ execs and builders scroll
-          The Poast for a fast feed of business-minded
+          The Poast for a curated feed of interesting
           news, posts, and snarky comments.
         </h2>
           <div className="outer-header">

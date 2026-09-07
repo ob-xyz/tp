@@ -260,15 +260,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(180deg, #fff 75.5%, #000000 100%);
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-
+    
     .nav {
       display: flex;
       justify-content: flex-end;
@@ -300,11 +292,10 @@
     }
 
     h1 {
-      font-size: 3.5rem;
+      font-size: 2.75rem;
       font-family: ku;
       width: 100%;
       max-width: 40rem;
-      line-height: 3.75rem;
     } 
 
     h2 {
@@ -314,12 +305,6 @@
       max-width: 31rem;
       font-family: kl;
       color: #000;
-
-      a {
-        font-family: kl;
-        text-decoration: underline !important;
-        color: #000;
-      }
     }
 
     .headerimg {
@@ -335,7 +320,7 @@
       position: sticky;
       max-width: 100%;
       box-sizing: border-box;
-        margin-top:2.25rem;
+      margin-top:2.5rem;
 
       .inner-header {
         display: flex;
@@ -431,7 +416,7 @@
 
   .feed-container {
     margin: 0 auto;
-    padding: 2rem 24px 6rem 24px;
+    padding: 0rem 24px 6rem 24px;
     background: #fff !important;
     overflow: hidden;
     box-sizing: border-box;
@@ -447,11 +432,11 @@
       word-break: break-word;
    
     }
-
     h2 {
       font-size: 1.25rem;
       color: #000;
       font-family: ku;
+      
     }
 
     span {
@@ -497,6 +482,7 @@
     width: 100%;
     box-sizing: border-box;
     margin-top:4rem;
+    
     @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
       align-items: stretch;
@@ -651,7 +637,7 @@
 
     .sticky-nav {
       padding: .6rem 1.25rem;
-
+      margin:.35rem 1rem 0 1rem;
       .sticky-logo {
         width: 1.85rem;
         height: 1.85rem;
@@ -735,15 +721,15 @@
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 1.75rem;
         margin-bottom: .5rem;
-        width: 90%; 
-        line-height: 2rem;
+        width: 100%; 
       }
 
       h2 {
+        margin-top:-.15rem;
         font-size: 1.1rem;
-        width: 80%;
+        width: 100%;
       }
 
       h3, h3 a {

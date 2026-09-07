@@ -260,14 +260,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(180deg, #fff 75.5%, #000000 100%);
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 }
 .container .header .nav {
   display: flex;
@@ -296,11 +288,10 @@
   transform: rotate(180deg);
 }
 .container .header h1 {
-  font-size: 3.5rem;
+  font-size: 2.75rem;
   font-family: ku;
   width: 100%;
   max-width: 40rem;
-  line-height: 3.75rem;
 }
 .container .header h2 {
   margin-top: 0.35rem;
@@ -308,11 +299,6 @@
   width: 100%;
   max-width: 31rem;
   font-family: kl;
-  color: #000;
-}
-.container .header h2 a {
-  font-family: kl;
-  text-decoration: underline !important;
   color: #000;
 }
 .container .header .headerimg {
@@ -327,7 +313,7 @@
   position: sticky;
   max-width: 100%;
   box-sizing: border-box;
-  margin-top: 2.25rem;
+  margin-top: 2.5rem;
 }
 .container .header .outer-header .inner-header {
   display: flex;
@@ -409,7 +395,7 @@
 }
 .container .feed-container {
   margin: 0 auto;
-  padding: 2rem 24px 6rem 24px;
+  padding: 0rem 24px 6rem 24px;
   background: #fff !important;
   overflow: hidden;
   box-sizing: border-box;
@@ -600,6 +586,7 @@
   }
   .container .sticky-nav {
     padding: 0.6rem 1.25rem;
+    margin: 0.35rem 1rem 0 1rem;
   }
   .container .sticky-nav .sticky-logo {
     width: 1.85rem;
@@ -667,14 +654,14 @@
     margin-right: 0rem;
   }
   .container .header h1 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     margin-bottom: 0.5rem;
-    width: 90%;
-    line-height: 2rem;
+    width: 100%;
   }
   .container .header h2 {
+    margin-top: -0.15rem;
     font-size: 1.1rem;
-    width: 80%;
+    width: 100%;
   }
   .container .header h3, .container .header h3 a {
     font-size: 1rem;
@@ -2169,9 +2156,9 @@ altcha-widget {
   padding: 0 0.35rem;
 }
 
-@media (max-width: 495px) {
+@media (max-width: 915px) {
   .footer {
-    width: 20.5rem;
+    width: 24rem;
   }
   .footer a {
     font-size: 0.775rem;
