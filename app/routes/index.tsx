@@ -50,7 +50,7 @@ const CACHE_TTL_MS = 10 * 60 * 1000;
  * Add any campaign/article IDs you never want to show
  * in the "Past issues" archive here.
  */
-const SKIPPED_ARTICLE_IDS = new Set(["725", "724", "741", "754", "752"]);
+const SKIPPED_ARTICLE_IDS = new Set(["725", "724", "741", "754", "752", "763"]);
 
 let cachedArticles:
   | {
@@ -111,40 +111,34 @@ function getExcerpt(
     // Remove Go template tags like {{ ... }}
     .replace(/\{\{[\s\S]*?\}\}/g, "")
 
-    // Remove the explicit tagline
-    .replace(
-      /<p[^>]*class=["']tagline["'][^>]*>[\s\S]*?<\/p>/gi,
-      ""
-    )
+    // Remove the tagline block/paragraph
+    .replace(/<p[^>]*class=["'][^"']*tagline[^"']*["'][^>]*>[\s\S]*?<\/p>/gi, "")
 
-    // Remove tables containing header/profile metadata
+    // Remove metadata/header divs and tables (contains profile, duration, date)
+    .replace(/<div[^>]*class=["'][^"']*uhd[^"']*["'][^>]*>[\s\S]*?<\/div>/gi, "")
     .replace(/<table[\s\S]*?<\/table>/gi, "")
 
-    // Remove known newsletter/header text
-    .replace(
-      /^[\s\S]*?today['’]?s\s+feed\s+is\s+a\s+\d+\s+minute[^·]*[·]?\s*/i,
-      ""
-    )
+    // Strip out standard dynamic UI phrases and stats (e.g. "top story 120M views", "1 min 10 sec")
+    .replace(/(?:top story\s*)?\d+[M|K|B]?\s*views?/gi, "")
+    .replace(/\d+\s*min(?:\s*\d+\s*sec)?/gi, "")
+    .replace(/^[\s\S]*?today['’]?s\s+feed[^·]*[·]?\s*/i, "")
     .replace(/^Hey\s+[\s\S]*?read\s*[·]?\s*/i, "")
     .replace(/The Poast\s*of the day/gi, "")
 
-    // Strip remaining HTML
+    // Strip remaining HTML tags
     .replace(/<[^>]+>/g, " ")
 
     // Remove URLs
-    .replace(
-      /\b(?:https?:\/\/)?(?:www\.)?[\w-]+(?:\.[\w-]+)+[^\s]*/gi,
-      ""
-    )
+    .replace(/\b(?:https?:\/\/)?(?:www\.)?[\w-]+(?:\.[\w-]+)+[^\s]*/gi, "")
 
-    // Remove UI text
+    // Remove standard UI actions
     .replace(/\b(?:View Online|Sign Up)\b/gi, "")
 
-    // Normalize whitespace
+    // Normalize multiple spaces
     .replace(/\s+/g, " ")
     .trim();
 
-  // Remove the subject if it appears at the beginning
+  // Remove the subject if repeated at the beginning
   if (subject) {
     const escapedSubject = String(subject).replace(
       /[.*+?^${}()|[\]\\]/g,
@@ -164,9 +158,7 @@ function getExcerpt(
     if (words.length > 0) {
       const firstFewWords = words
         .slice(0, 3)
-        .map((word) =>
-          word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-        )
+        .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
         .join("\\s+");
 
       text = text.replace(
@@ -176,9 +168,9 @@ function getExcerpt(
     }
   }
 
-  // Clean leading junk/punctuation
+  // Clean remaining leading punctuation or dangling residual words
   text = text
-    .replace(/^(?:[a-z0-9][^\s]*\s+)+(?=[A-Z])/i, "")
+    .replace(/^(?:here|link|read|online)\s*[·•:;.,-]*\s*/i, "")
     .replace(/^[\s,·•:;-]+/, "")
     .trim();
 
@@ -194,18 +186,17 @@ function getExcerpt(
 function getCoverImage(html: string = "") {
   if (!html) return null;
 
-  const imgRegex =
-    /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+  const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
 
   let match;
-  let firstValidImage: string | null = null;
 
   while ((match = imgRegex.exec(String(html))) !== null) {
     const fullTag = match[0];
     const src = match[1];
 
+    // Exclude profile photos, badges, icons, avatars
     const isAvatarOrIcon =
-      /avatar|headshot|profile|logo|icon|author/i.test(
+      /avatar|headshot|profile|logo|icon|author|tp2\.jpg|c4\.png/i.test(
         `${fullTag} ${src}`
       );
 
@@ -213,23 +204,11 @@ function getCoverImage(html: string = "") {
       continue;
     }
 
-    /*
-     * Preserve the original behavior:
-     * if there are 2 or more valid images,
-     * use the second valid image.
-     */
-    if (firstValidImage) {
-      return src;
-    }
-
-    firstValidImage = src;
+    // Return the very first valid content image found
+    return src;
   }
 
-  /*
-   * If there was only one valid image,
-   * use that one.
-   */
-  return firstValidImage;
+  return null;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -528,22 +507,22 @@ export default function Index() {
     };
   }, []);
 
-/* ------------------------------ STICKY NAV ------------------------------ */
-useEffect(() => {
-  const handleScroll = () => {
-    // Shows the sticky navbar when scrolled past 500px
-    setShowStickyNav(window.scrollY > 300);
-  };
+  /* ------------------------------ STICKY NAV ------------------------------ */
+  useEffect(() => {
+    const handleScroll = () => {
+      // Shows the sticky navbar when scrolled past 300px
+      setShowStickyNav(window.scrollY > 300);
+    };
 
-  // Run once on mount to handle reloads/restores mid-page
-  handleScroll();
+    // Run once on mount to handle reloads/restores mid-page
+    handleScroll();
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -664,7 +643,6 @@ useEffect(() => {
             decoding="async"
           />
           </Link>
-
 
           <Link
             className="info"
