@@ -64,6 +64,7 @@
       color: #fff;
     }
   }
+
   .sticky-nav {
     position: fixed;
     top: 0;
@@ -73,7 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: .75rem 2.5rem; /* Spacious padding off screen edges */
+    padding: .75rem 2.5rem;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -84,8 +85,9 @@
     pointer-events: none;
     will-change: transform;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    margin:.35rem 1.5rem 0 1.5rem;
+    margin: .35rem 1.5rem 0 1.5rem;
     border-radius: 1rem;
+
     &.visible {
       transform: translateY(0);
       opacity: 1;
@@ -240,19 +242,20 @@
         }
       }
     }
-    .dismiss-text{
-        font-family: kl;
-        font-weight: 700; 
-        font-size: 1rem;
-        cursor: pointer;
-        padding: .35rem 0;
-        color:#fff;
-        background: linear-gradient(0deg, rgb(163, 163, 163) 21%, rgba(255, 255, 255, 1) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        border:none;
-        max-width:100%;
+
+    .dismiss-text {
+      font-family: kl;
+      font-weight: 700; 
+      font-size: 1rem;
+      cursor: pointer;
+      padding: .35rem 0;
+      color: #fff;
+      background: linear-gradient(0deg, rgb(163, 163, 163) 21%, rgba(255, 255, 255, 1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      border: none;
+      max-width: 100%;
     }
   }
 
@@ -301,6 +304,7 @@
     h2 {
       margin-top: .35rem;
       font-size: 1.5rem;
+      line-height: 1.25;
       width: 100%;
       max-width: 31rem;
       font-family: kl;
@@ -317,10 +321,11 @@
 
     .outer-header {
       display: flex; 
+      align-items: center;
       position: sticky;
       max-width: 100%;
       box-sizing: border-box;
-      margin-top:2.5rem;
+      margin-top: 2.5rem;
 
       .inner-header {
         display: flex;
@@ -329,10 +334,11 @@
         background: linear-gradient(180deg, #3a3d45 0%, #000000 100%);
         border: 1px solid #444;
         border-radius: .75rem;
-        padding: .75rem 1.5rem .75rem 1.5rem;
+        padding: .75rem 1.5rem;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         justify-content: space-between;
         box-sizing: border-box;
+
         h2 {
           color: #fff;
           font-size: 2.5rem;
@@ -372,18 +378,9 @@
             }
           }
 
-          .x:hover {
-            background: #000000; 
-          }
-
-          .li:hover {
-            background: #1E66C2; 
-          }
-
-          .yt:hover {
-            background: #FF0034; 
-          }
-
+          .x:hover { background: #000000; }
+          .li:hover { background: #1E66C2; }
+          .yt:hover { background: #FF0034; }
           .ig:hover { 
             background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
           } 
@@ -392,15 +389,21 @@
 
       .inner-header2 {
         display: flex;
+        align-items: center;
         margin-left: 1.5rem;
 
         a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           border-radius: .75rem;
           padding: 1.2rem 3rem;
           font-size: 2.5rem;
           font-family: ku;
           font-weight: 100;
           color: #fff;
+          text-decoration: none;
+          box-sizing: border-box;
           transition: all 0.3s ease;
           background: linear-gradient(0deg, #000 21%, rgba(255, 255, 255, 1) 100%);
 
@@ -430,13 +433,12 @@
       font-size: 3rem;
       overflow-wrap: break-word;
       word-break: break-word;
-   
     }
+
     h2 {
       font-size: 1.25rem;
       color: #000;
       font-family: ku;
-      
     }
 
     span {
@@ -466,9 +468,10 @@
     a {
       font-family: kl;
     }
+
     @media (max-width: 600px) {
       padding: 2rem 16px 6rem 16px;
-      h1{ 
+      h1 { 
         font-size: 1.75rem;
       }
     }
@@ -481,7 +484,7 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    margin-top:4rem;
+    margin-top: 4rem;
     
     @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
@@ -489,7 +492,7 @@
     }
 
     @media (max-width: 600px) {
-      margin-top:2rem;
+      margin-top: 2rem;
       grid-template-columns: 1fr;
       gap: 20px;
     }
@@ -499,7 +502,9 @@
     text-decoration: none;
     color: inherit;
     min-width: 0;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .feed-card {
@@ -509,6 +514,7 @@
     border-radius: 1rem;
     box-sizing: border-box;
     width: 100%;
+    height: 100%;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
@@ -518,9 +524,13 @@
     contain-intrinsic-size: 0 420px;
 
     &:hover {
-      transform: translateY(-3px);
+      transform: translateY(-8px);
       box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.7);
       box-sizing: border-box;
+
+      .card-image-wrapper img {
+        transform: scale(1.03);
+      }
     }
 
     img {
@@ -535,13 +545,13 @@
       z-index: 10;
       
       .feed-card {
-        transform: translateY(-16px) scale(1.02);
+        transform: translateY(-24px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
         border: 1px solid rgba(0, 0, 0, 0.08);
 
         &:hover {
-          transform: translateY(-20px) scale(1.03);
-      box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.9);
+          transform: translateY(-28px);
+          box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.9);
           box-sizing: border-box;
         }
       }
@@ -554,9 +564,13 @@
     z-index: 10; 
     border-radius: .5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
     img {
-      object-fit: cover;
+      width: 100%;
       height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
     }
   }
 
@@ -601,7 +615,8 @@
     .info,
     .social a,
     .inner-header2 a,
-    button.submit {
+    button.submit,
+    .card-image-wrapper img {
       transition: none !important;
     }
   }
@@ -637,7 +652,8 @@
 
     .sticky-nav {
       padding: .6rem 1.25rem;
-      margin:.35rem 1rem 0 1rem;
+      margin: .35rem 1rem 0 1rem;
+
       .sticky-logo {
         width: 1.85rem;
         height: 1.85rem;
@@ -727,7 +743,7 @@
       }
 
       h2 {
-        margin-top:-.15rem;
+        margin-top: -.15rem;
         font-size: 1.1rem;
         width: 100%;
       }

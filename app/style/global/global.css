@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 2.5rem; /* Spacious padding off screen edges */
+  padding: 0.75rem 2.5rem;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -296,6 +296,7 @@
 .container .header h2 {
   margin-top: 0.35rem;
   font-size: 1.5rem;
+  line-height: 1.25;
   width: 100%;
   max-width: 31rem;
   font-family: kl;
@@ -310,6 +311,7 @@
 }
 .container .header .outer-header {
   display: flex;
+  align-items: center;
   position: sticky;
   max-width: 100%;
   box-sizing: border-box;
@@ -322,7 +324,7 @@
   background: linear-gradient(180deg, #3a3d45 0%, #000000 100%);
   border: 1px solid #444;
   border-radius: 0.75rem;
-  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   justify-content: space-between;
   box-sizing: border-box;
@@ -376,15 +378,21 @@
 }
 .container .header .outer-header .inner-header2 {
   display: flex;
+  align-items: center;
   margin-left: 1.5rem;
 }
 .container .header .outer-header .inner-header2 a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.75rem;
   padding: 1.2rem 3rem;
   font-size: 2.5rem;
   font-family: ku;
   font-weight: 100;
   color: #fff;
+  text-decoration: none;
+  box-sizing: border-box;
   transition: all 0.3s ease;
   background: linear-gradient(0deg, #000 21%, rgb(255, 255, 255) 100%);
 }
@@ -472,7 +480,9 @@
   text-decoration: none;
   color: inherit;
   min-width: 0;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .container .feed-card {
   display: flex;
@@ -481,6 +491,7 @@
   border-radius: 1rem;
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
@@ -489,9 +500,12 @@
   contain-intrinsic-size: 0 420px;
 }
 .container .feed-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-8px);
   box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.7);
   box-sizing: border-box;
+}
+.container .feed-card:hover .card-image-wrapper img {
+  transform: scale(1.03);
 }
 .container .feed-card img {
   max-width: 100%;
@@ -503,12 +517,12 @@
     z-index: 10;
   }
   .container .article-card-link:nth-child(3n+2) .feed-card {
-    transform: translateY(-16px) scale(1.02);
+    transform: translateY(-24px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
     border: 1px solid rgba(0, 0, 0, 0.08);
   }
   .container .article-card-link:nth-child(3n+2) .feed-card:hover {
-    transform: translateY(-20px) scale(1.03);
+    transform: translateY(-28px);
     box-shadow: 0 0 40px 0px rgba(242, 209, 159, 0.9);
     box-sizing: border-box;
   }
@@ -521,8 +535,11 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 .container .card-image-wrapper img {
-  object-fit: cover;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
 }
 .container .card-content {
   padding: 24px 20px 28px 20px;
@@ -560,7 +577,8 @@
   .container .info,
   .container .social a,
   .container .inner-header2 a,
-  .container button.submit {
+  .container button.submit,
+  .container .card-image-wrapper img {
     transition: none !important;
   }
 }
@@ -1254,6 +1272,7 @@ body {
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+  /* ALTCHA Full-Width Styling */
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form .input-wrapper {
   position: relative;
@@ -1279,8 +1298,32 @@ body {
   caret-color: #02090a;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   color: #fff;
   margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+.moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  border: 0.175rem solid #212121 !important;
+  border-radius: 0.75rem !important;
+  background: #000 !important;
+  padding: 0.75rem 1rem !important;
+}
+.moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha-label {
+  font-family: kl;
+  font-size: 1rem;
+  color: #fff;
 }
 .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form button.submit {
   position: absolute;
@@ -1453,7 +1496,7 @@ body {
   }
   .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form .input-wrapper {
     position: relative;
-    min-width: 22rem;
+    width: 100%;
   }
   .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form input.email {
     font-size: 1.25rem;
@@ -1464,7 +1507,6 @@ body {
   }
   .moreinfo-container .inner-container2 {
     margin: 0 3.5rem;
-    margin-bottom: 5rem;
     margin-bottom: 20rem;
   }
   .moreinfo-container .inner-container2 h2 {
@@ -1544,9 +1586,12 @@ body {
   .moreinfo-container .inner-container .profile-outside .subscribe h1 {
     font-size: 1.5rem;
   }
+  .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form {
+    /* ALTCHA Mobile Scaling */
+  }
   .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form .input-wrapper {
     position: relative;
-    width: 19rem;
+    width: 100%; /* Changed from fixed 19rem to fluid 100% */
   }
   .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form input.email {
     font-size: 1.25rem;
@@ -1554,6 +1599,19 @@ body {
   .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form button.submit {
     padding: 0 1rem;
     font-size: 1.25rem;
+  }
+  .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget {
+    width: 100%;
+  }
+  .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha {
+    padding: 0.5rem 0.75rem !important;
+  }
+  .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha-label {
+    font-size: 0.85rem !important;
+  }
+  .moreinfo-container .inner-container .profile-outside .subscribe .logo-grid form altcha-widget .altcha-checkbox {
+    transform: scale(0.9);
+    transform-origin: left center;
   }
   .moreinfo-container .inner-container2 {
     margin: 0rem 0.5rem;
