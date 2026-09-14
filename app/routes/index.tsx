@@ -661,7 +661,7 @@ export default function Index() {
           Become exponentially smarter in just 1 minute</h1>
         <h2>
           Every day, 15,000+ execs and builders scroll
-          The Poast for a curated feed of interesting
+          The Poast for a fast feed of interesting
           news, posts, and snarky comments.
         </h2>
 
