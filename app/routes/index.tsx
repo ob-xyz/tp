@@ -578,8 +578,7 @@ export default function Index() {
             </p>
 
             <p>
-              Just scroll The Poast for a daily fast
-              feed of business-minded news.
+              Get the best parts of the timeline, sent to your inbox.
             </p>
 
             <form
@@ -658,7 +657,7 @@ export default function Index() {
         </div>
 
         <h1>
-          Become exponentially smarter in just 1 minute</h1>
+          Scroll less. Know more.</h1>
         <h2>
           Every day, 15,000+ execs and builders scroll
           The Poast for a fast feed of interesting
