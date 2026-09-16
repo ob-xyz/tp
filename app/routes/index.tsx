@@ -659,7 +659,7 @@ export default function Index() {
         <h1>
           Scroll less. Know more.</h1>
         <h2>
-          Every day, 15,000+ execs and builders scroll
+          Every day, 25,000+ execs and builders scroll
           The Poast for a fast feed of interesting
           news, posts, and snarky comments.
         </h2>
