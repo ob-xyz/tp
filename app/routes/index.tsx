@@ -570,11 +570,11 @@ export default function Index() {
             />
 
             <p>
-              Trusted by 20,000+ execs and builders
+              Trusted by 30,000+ execs and builders
             </p>
 
             <p>
-              Scroll less. Know more.
+              Scroll for a minute.
             </p>
 
             <p>
@@ -657,9 +657,9 @@ export default function Index() {
         </div>
 
         <h1>
-          Scroll less. Know more.</h1>
+          Scroll for a minute.</h1>
         <h2>
-          Every day, 20,000+ execs and builders scroll
+          Every day, 30,000+ execs and builders scroll
           The Poast for a fast feed of interesting
           news, posts, and snarky comments.
         </h2>
