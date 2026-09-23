@@ -260,6 +260,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .container .header .nav {
   display: flex;
@@ -268,7 +271,7 @@
   position: relative;
   width: 100%;
   margin: 0;
-  margin-bottom: 2.5rem;
+  margin-bottom: 6rem;
   padding-top: 2rem;
 }
 .container .header .nav .logo {
@@ -282,23 +285,23 @@
 .container .header .nav .info {
   width: 2rem;
   filter: invert(1);
-  margin-right: 0;
+  margin-right: 0% !important;
 }
 .container .header .nav .info:hover {
   transform: rotate(180deg);
 }
 .container .header h1 {
-  font-size: 2.75rem;
+  font-size: 3.25rem;
   font-family: ku;
   width: 100%;
-  max-width: 40rem;
+  max-width: 45rem;
 }
 .container .header h2 {
-  margin-top: 0.35rem;
+  margin-top: 0.75rem;
   font-size: 1.5rem;
   line-height: 1.25;
   width: 100%;
-  max-width: 31rem;
+  max-width: 30rem;
   font-family: kl;
   color: #000;
 }
@@ -403,7 +406,7 @@
 }
 .container .feed-container {
   margin: 0 auto;
-  padding: 0rem 24px 6rem 24px;
+  padding: 2.5rem 24px 6rem 24px;
   background: #fff !important;
   overflow: hidden;
   box-sizing: border-box;
