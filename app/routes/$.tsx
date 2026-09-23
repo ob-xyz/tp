@@ -19,12 +19,13 @@ export default function Index() {
         </Link>
         </div>
         <h1>
-          Become exponentially smarter in just 1 minute</h1>
+          Become smarter, faster.</h1>
         <h2>
-          Every day, 15,000+ execs and builders scroll
-          The Poast for a curated feed of interesting
-          news, posts, and snarky comments.
+          Every day, 25,000+ execs and builders scroll
+          The Poast for a fast feed of 
+          news, posts, and snarky comments from founders, execs, and builders across social media.
         </h2>
+
           <div className="outer-header">
           <div className="inner-header">
             <div className="social">

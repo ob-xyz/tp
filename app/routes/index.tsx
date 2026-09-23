@@ -570,15 +570,15 @@ export default function Index() {
             />
 
             <p>
-              Trusted by 30,000+ execs and builders
+              Trusted by 25,000+ execs and builders
             </p>
 
             <p>
-              Scroll for a minute.
+              The World's Fastest Feed
             </p>
 
             <p>
-              Get the best parts of the timeline, sent to your inbox.
+              Get a fast feed of news, posts, and snarky comments, sent to you.
             </p>
 
             <form
@@ -657,10 +657,10 @@ export default function Index() {
         </div>
 
         <h1>
-          Scroll for a minute.</h1>
+          Become smarter, faster.</h1>
         <h2>
-          Every day, 30,000+ execs and builders scroll
-          The Poast for a fast feed of interesting
+          Every day, 25,000+ execs and builders scroll
+          The Poast for a fast feed of 
           news, posts, and snarky comments.
         </h2>
 
