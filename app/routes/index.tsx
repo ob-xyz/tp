@@ -574,11 +574,11 @@ export default function Index() {
             </p>
 
             <p>
-              The World's Fastest Feed
+              Get The Poast for free
             </p>
 
             <p>
-              Get a fast feed of news, posts, and snarky comments, sent to you.
+              Subscribe for the world's best posts, delivered to your inbox.
             </p>
 
             <form
@@ -657,11 +657,9 @@ export default function Index() {
         </div>
 
         <h1>
-          Become smarter, faster.</h1>
+          The World's Best Posts</h1>
         <h2>
-          Every day, 25,000+ execs and builders scroll
-          The Poast for a fast feed of 
-          news, posts, and snarky comments.
+         Get the best posts from all the apps with a side of snarky comments, delivered daily.
         </h2>
 
         <div className="outer-header">
