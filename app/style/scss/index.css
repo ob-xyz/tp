@@ -1,14 +1,4 @@
 @charset "UTF-8";
-/* -------------------------------------------------------------------------- */
-/*                                DESIGN TOKENS                               */
-/* -------------------------------------------------------------------------- */
-/*
- * Colors modeled on how a real dark-mode timeline actually looks (near-
- * black, not pure black; off-white text, not pure white) rather than a
- * decorative dark theme. Brand accent (gold) is spent in exactly one
- * place — the mark glow — everything else stays quiet so the content is
- * the only thing competing for attention.
- */
 .feed-page {
   min-height: 100vh;
   width: 100%;

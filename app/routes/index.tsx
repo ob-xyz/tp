@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   json,
@@ -13,10 +13,6 @@ export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" },
 ];
-
-export function shouldRevalidate() {
-  return false;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                   CONFIG                                   */
@@ -57,8 +53,8 @@ type IssuePayload = {
 /* -------------------------------------------------------------------------- */
 
 const SENT_CHECK_TTL_MS = 60 * 1000;
-const SENT_CONTENT_TTL_MS = 30 * 60 * 1000; // Increased to 30 mins
-const DRAFT_CONTENT_TTL_MS = 30 * 1000;      // Reduced to 30s for responsiveness
+const SENT_CONTENT_TTL_MS = 30 * 60 * 1000;
+const DRAFT_CONTENT_TTL_MS = 30 * 1000;
 
 let cachedLatestMeta: { data: Campaign | null; timestamp: number } | null = null;
 let cachedSentIssue: { data: LatestIssue | null; timestamp: number } | null = null;
@@ -69,7 +65,6 @@ function issueResponse(mode: IssueMode, issue: LatestIssue | null) {
     { mode, issue } satisfies IssuePayload,
     {
       headers: {
-        // High max-age and s-maxage at Edge CDN level prevents blocking users
         "Cache-Control":
           "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
       },
@@ -84,7 +79,7 @@ function issueResponse(mode: IssueMode, issue: LatestIssue | null) {
 async function fetchWithTimeout(
   url: string,
   options: RequestInit,
-  timeout = 2000 // Fast timeout (2s) to prevent browser hangs
+  timeout = 3000
 ) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -105,7 +100,7 @@ async function fetchCampaignPreviewHtml(
   const response = await fetchWithTimeout(
     `https://app.thepoast.com/api/campaigns/${id}/preview`,
     { headers },
-    2000
+    3000
   );
 
   if (response && response.ok) {
@@ -274,7 +269,7 @@ async function getLatestMeta(
   const response = await fetchWithTimeout(
     "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
     { headers },
-    2000
+    3000
   );
 
   if (response && response.ok) {
@@ -286,7 +281,6 @@ async function getLatestMeta(
     return latest;
   }
 
-  // Graceful fallback to existing cache on network failure
   return cachedLatestMeta?.data ?? null;
 }
 
@@ -408,33 +402,60 @@ function FeedEmbed({ html, title }: { html: string; title: string }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loaded, setLoaded] = useState(false);
 
-  const handleLoad = () => {
+  useEffect(() => {
     const frame = iframeRef.current;
-    const doc = frame?.contentDocument;
+    if (!frame) return;
 
-    if (frame && doc) {
-      const height = Math.max(
-        doc.documentElement?.scrollHeight || 0,
-        doc.body?.scrollHeight || 0
-      );
+    const updateHeight = () => {
+      const doc = frame.contentDocument;
+      if (doc) {
+        const height = Math.max(
+          doc.documentElement?.scrollHeight || 0,
+          doc.body?.scrollHeight || 0
+        );
+        if (height > 0) {
+          frame.style.height = `${height}px`;
+          setLoaded(true);
+        }
+      }
+    };
 
-      if (height > 0) {
-        frame.style.height = `${height}px`;
+    // Initial check
+    updateHeight();
+
+    // Re-check as images load inside iframe
+    const doc = frame.contentDocument;
+    if (doc) {
+      doc.addEventListener("DOMContentLoaded", updateHeight);
+      
+      // Use ResizeObserver inside iframe document body if supported
+      if (doc.body && typeof ResizeObserver !== "undefined") {
+        const observer = new ResizeObserver(updateHeight);
+        observer.observe(doc.body);
+        return () => observer.disconnect();
       }
     }
-
-    setLoaded(true);
-  };
+  }, [html]);
 
   return (
     <div className={`feed-embed${loaded ? " loaded" : ""}`}>
-      {!loaded && <div className="feed-skeleton" />}
+      {!loaded && <div className="feed-skeleton" style={{ minHeight: "400px" }} />}
 
       <iframe
         ref={iframeRef}
         srcDoc={html}
         title={title}
-        onLoad={handleLoad}
+        onLoad={() => {
+          const frame = iframeRef.current;
+          if (frame?.contentDocument) {
+            const height = Math.max(
+              frame.contentDocument.documentElement?.scrollHeight || 0,
+              frame.contentDocument.body?.scrollHeight || 0
+            );
+            if (height > 0) frame.style.height = `${height}px`;
+          }
+          setLoaded(true);
+        }}
         loading="eager"
         sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
         scrolling="no"
@@ -477,7 +498,7 @@ export default function Index() {
 
       <main className="feed-stream">
         {issue ? (
-          <FeedEmbed html={issue.body} title={issue.subject} />
+          <FeedEmbed key={issue.id} html={issue.body} title={issue.subject} />
         ) : (
           <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
         )}

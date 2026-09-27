@@ -2433,31 +2433,25 @@ var routes_exports = {};
 __export(routes_exports, {
   default: () => Index4,
   links: () => links5,
-  loader: () => loader3,
-  shouldRevalidate: () => shouldRevalidate
+  loader: () => loader3
 });
 var import_react14 = require("react"), import_react15 = require("@remix-run/react"), import_node3 = require("@remix-run/node");
 var import_jsx_dev_runtime11 = require("react/jsx-dev-runtime"), links5 = () => [
   { rel: "stylesheet", href: showscroll_default },
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" }
-];
-function shouldRevalidate() {
-  return !1;
-}
-var DRAFT_CAMPAIGN_ID = 1, WORK_TIMEZONE = "America/New_York", WORK_START_HOUR = 9, SENT_CHECK_TTL_MS = 60 * 1e3, SENT_CONTENT_TTL_MS = 30 * 60 * 1e3, DRAFT_CONTENT_TTL_MS = 30 * 1e3, cachedLatestMeta = null, cachedSentIssue = null, cachedDraftIssue = null;
+], DRAFT_CAMPAIGN_ID = 1, WORK_TIMEZONE = "America/New_York", WORK_START_HOUR = 9, SENT_CHECK_TTL_MS = 60 * 1e3, SENT_CONTENT_TTL_MS = 30 * 60 * 1e3, DRAFT_CONTENT_TTL_MS = 30 * 1e3, cachedLatestMeta = null, cachedSentIssue = null, cachedDraftIssue = null;
 function issueResponse(mode, issue) {
   return (0, import_node3.json)(
     { mode, issue },
     {
       headers: {
-        // High max-age and s-maxage at Edge CDN level prevents blocking users
         "Cache-Control": "public, max-age=60, s-maxage=300, stale-while-revalidate=86400"
       }
     }
   );
 }
-async function fetchWithTimeout(url, options, timeout = 2e3) {
+async function fetchWithTimeout(url, options, timeout = 3e3) {
   let controller = new AbortController(), timeoutId = setTimeout(() => controller.abort(), timeout);
   try {
     return await fetch(url, { ...options, signal: controller.signal });
@@ -2471,7 +2465,7 @@ async function fetchCampaignPreviewHtml(id, headers) {
   let response = await fetchWithTimeout(
     `https://app.thepoast.com/api/campaigns/${id}/preview`,
     { headers },
-    2e3
+    3e3
   );
   return response && response.ok ? await response.text() : "";
 }
@@ -2597,7 +2591,7 @@ async function getLatestMeta(headers) {
   let response = await fetchWithTimeout(
     "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
     { headers },
-    2e3
+    3e3
   );
   if (response && response.ok) {
     let data = await response.json(), latest = (((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.results) || (data == null ? void 0 : data.data) || [])[0] || null;
@@ -2657,10 +2651,31 @@ async function loader3({ request }) {
 }
 function FeedEmbed({ html, title }) {
   let iframeRef = (0, import_react14.useRef)(null), [loaded, setLoaded] = (0, import_react14.useState)(!1);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `feed-embed${loaded ? " loaded" : ""}`, children: [
-    !loaded && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-skeleton" }, void 0, !1, {
+  return (0, import_react14.useEffect)(() => {
+    let frame = iframeRef.current;
+    if (!frame)
+      return;
+    let updateHeight = () => {
+      var _a, _b;
+      let doc2 = frame.contentDocument;
+      if (doc2) {
+        let height = Math.max(
+          ((_a = doc2.documentElement) == null ? void 0 : _a.scrollHeight) || 0,
+          ((_b = doc2.body) == null ? void 0 : _b.scrollHeight) || 0
+        );
+        height > 0 && (frame.style.height = `${height}px`, setLoaded(!0));
+      }
+    };
+    updateHeight();
+    let doc = frame.contentDocument;
+    if (doc && (doc.addEventListener("DOMContentLoaded", updateHeight), doc.body && typeof ResizeObserver < "u")) {
+      let observer = new ResizeObserver(updateHeight);
+      return observer.observe(doc.body), () => observer.disconnect();
+    }
+  }, [html]), /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `feed-embed${loaded ? " loaded" : ""}`, children: [
+    !loaded && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-skeleton", style: { minHeight: "400px" } }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 431,
+      lineNumber: 442,
       columnNumber: 19
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
@@ -2671,11 +2686,11 @@ function FeedEmbed({ html, title }) {
         title,
         onLoad: () => {
           var _a, _b;
-          let frame = iframeRef.current, doc = frame == null ? void 0 : frame.contentDocument;
-          if (frame && doc) {
+          let frame = iframeRef.current;
+          if (frame != null && frame.contentDocument) {
             let height = Math.max(
-              ((_a = doc.documentElement) == null ? void 0 : _a.scrollHeight) || 0,
-              ((_b = doc.body) == null ? void 0 : _b.scrollHeight) || 0
+              ((_a = frame.contentDocument.documentElement) == null ? void 0 : _a.scrollHeight) || 0,
+              ((_b = frame.contentDocument.body) == null ? void 0 : _b.scrollHeight) || 0
             );
             height > 0 && (frame.style.height = `${height}px`);
           }
@@ -2689,14 +2704,14 @@ function FeedEmbed({ html, title }) {
       !1,
       {
         fileName: "app/routes/index.tsx",
-        lineNumber: 433,
+        lineNumber: 444,
         columnNumber: 7
       },
       this
     )
   ] }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 430,
+    lineNumber: 441,
     columnNumber: 5
   }, this);
 }
@@ -2716,62 +2731,62 @@ function Index4() {
         !1,
         {
           fileName: "app/routes/index.tsx",
-          lineNumber: 458,
+          lineNumber: 479,
           columnNumber: 11
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 457,
+        lineNumber: 478,
         columnNumber: 9
       }, this),
       mode === "draft" && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-status", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("span", { className: "status-dot" }, void 0, !1, {
           fileName: "app/routes/index.tsx",
-          lineNumber: 468,
+          lineNumber: 489,
           columnNumber: 13
         }, this),
         "Live"
       ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 467,
+        lineNumber: 488,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", className: "feed-subscribe", children: "Subscribe" }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 473,
+        lineNumber: 494,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 456,
+      lineNumber: 477,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(FeedEmbed, { html: issue.body, title: issue.subject }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(FeedEmbed, { html: issue.body, title: issue.subject }, issue.id, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 480,
+      lineNumber: 501,
       columnNumber: 9
     }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-empty", children: "Check back soon for today\u2019s issue." }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 482,
+      lineNumber: 503,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 478,
+      lineNumber: 499,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("footer", { className: "feed-footer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", children: "Get tomorrow\u2019s edition by email" }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 487,
+      lineNumber: 508,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 486,
+      lineNumber: 507,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 455,
+    lineNumber: 476,
     columnNumber: 5
   }, this);
 }
@@ -2938,7 +2953,7 @@ __export(home_exports, {
   default: () => Index5,
   links: () => links7,
   loader: () => loader5,
-  shouldRevalidate: () => shouldRevalidate2
+  shouldRevalidate: () => shouldRevalidate
 });
 var import_react17 = require("react"), import_react18 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
 var import_jsx_dev_runtime13 = require("react/jsx-dev-runtime"), links7 = () => [
@@ -2946,7 +2961,7 @@ var import_jsx_dev_runtime13 = require("react/jsx-dev-runtime"), links7 = () => 
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" }
 ];
-function shouldRevalidate2() {
+function shouldRevalidate() {
   return !1;
 }
 var CACHE_TTL_MS = 10 * 60 * 1e3, SKIPPED_ARTICLE_IDS = /* @__PURE__ */ new Set(["725", "724", "741", "754", "752", "763", "768", "774"]), cachedArticles = null;
@@ -4289,7 +4304,7 @@ function Index7() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-APPH7H5H.js", imports: ["/build/_shared/chunk-X32F4JRF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-FTMBHUGY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QFV7JZGC.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-KAYJKLDD.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-IUYWIOOT.js", imports: ["/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-2YEWSXMO.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-LI7AAIQN.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-7VFGXYEQ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-NF4KEFJK.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-J2ELB5EA.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-AEHODZBW.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-NEURPKRD.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-37VEBPJO.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "129e503e", hmr: void 0, url: "/build/manifest-129E503E.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-APPH7H5H.js", imports: ["/build/_shared/chunk-X32F4JRF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-FTMBHUGY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QFV7JZGC.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-KAYJKLDD.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-IUYWIOOT.js", imports: ["/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-2YEWSXMO.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-LI7AAIQN.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-GEDENE22.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-NF4KEFJK.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-J2ELB5EA.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-AEHODZBW.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-NEURPKRD.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-37VEBPJO.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "e4858233", hmr: void 0, url: "/build/manifest-E4858233.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
