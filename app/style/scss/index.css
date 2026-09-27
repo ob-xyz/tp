@@ -1,17 +1,370 @@
-/* Error: Undefined variable.
- *    ,
- * 36 |     color: $darkred;
- *    |            ^^^^^^^^
- *    '
- *   app/style/scss/index.scss 36:12  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 36 \2502      color: $darkred;\a    \2502             ^^^^^^^^\a    \2575 \a   app/style/scss/index.scss 36:12  root stylesheet";
+@charset "UTF-8";
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  /* ---------------------------------------------------------------------- */
+  /*                      TODAY'S EDITION — PHONE FRAME                     */
+  /* ---------------------------------------------------------------------- */
+  /*
+   * Two explicit color/animation variants rather than a shared variable,
+   * so the dot's color is unambiguous at a glance in devtools and there's
+   * no risk of a stale custom-property value lingering between states.
+   */
 }
+.container b {
+  font-family: "bold";
+}
+.container h1, .container h2, .container h3, .container span {
+  font-style: normal;
+  text-align: center;
+  font-family: ku;
+  font-size: 3rem;
+}
+.container h2 {
+  font-size: 2.5rem;
+  color: #fff;
+  font-family: kl;
+}
+.container h2 span {
+  font-size: 4.5rem;
+  font-family: ku;
+}
+.container h3 {
+  font-size: 2.75rem;
+}
+.container h4 {
+  font-family: kl;
+  font-size: 1.35rem;
+  color: red;
+}
+.container p, .container .text {
+  font-family: kl;
+  font-size: 1.25rem;
+}
+.container a {
+  font-family: kl;
+}
+.container .err {
+  position: absolute;
+  top: 19rem;
+  z-index: 111111;
+  background: #000;
+  padding: 1.5rem 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+  max-width: calc(100% - 2rem);
+  box-sizing: border-box;
+}
+.container .err h1 {
+  font-family: kl !important;
+  font-weight: 700;
+  font-size: 1.5rem !important;
+  width: 100%;
+  color: #fff;
+}
+.container .sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0.35rem 1.5rem 0 1.5rem;
+  border-radius: 1rem;
+}
+.container .sticky-nav.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.container .sticky-nav .sticky-logo {
+  margin-left: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 100%;
+  box-shadow: 0 0 12px 4px rgba(242, 209, 159, 0.5);
+}
+.container .sticky-nav .sticky-subscribe {
+  margin-right: 0;
+  padding: 0.55rem 1.75rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: ku;
+  font-weight: 100;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(0deg, #000 21%, rgb(255, 255, 255) 100%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.container .sticky-nav .sticky-subscribe:hover {
+  background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+}
+.container .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+}
+.container .header .nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+.container .header .nav .logo {
+  width: 4rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+  border-radius: 100%;
+}
+.container .today-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0rem 1.5rem 10rem;
+  margin-top: -2rem;
+  box-sizing: border-box;
+}
+.container .today-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: ku;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 1.5rem;
+}
+.container .pulse-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+}
+.container .pulse-dot.sent {
+  background: #ff4d2b;
+  animation: today-pulse-red 2s infinite;
+}
+.container .pulse-dot.draft {
+  background: #2bff92;
+  animation: today-pulse-green 2s infinite;
+}
+@keyframes today-pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 43, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 0.5rem rgba(255, 77, 43, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 43, 0);
+  }
+}
+@keyframes today-pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(43, 255, 146, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 0.5rem rgba(43, 255, 146, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(43, 255, 146, 0);
+  }
+}
+.container .phone-frame {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  padding: 1rem 0.65rem 0.65rem;
+  background: #000;
+  border-radius: 2.75rem;
+  box-sizing: border-box;
+  box-shadow: 0 0 45px 6px rgba(242, 209, 159, 0.55), 0 25px 60px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.container .phone-frame.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+.container .phone-notch {
+  position: absolute;
+  top: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5.5rem;
+  height: 1.15rem;
+  background: #000;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  z-index: 3;
+}
+.container .phone-screen {
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+  background: #000;
+  border-radius: 1.85rem;
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+  /*
+   * Small inset so the embedded content never sits flush against the
+   * rounded corner mask — without this, email HTML that starts flush
+   * top-left (no internal body padding) gets its first characters
+   * clipped by the border-radius curve.
+   */
+  padding: 0.5rem 0.6rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.container .phone-screen iframe {
+  display: block;
+  width: 100%;
+  min-height: 20rem;
+  border: none;
+  background: #000;
+}
+.container .phone-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(90deg, #111 25%, #1c1c1c 37%, #111 63%);
+  background-size: 400% 100%;
+  animation: phone-skeleton-pulse 1.4s ease infinite;
+}
+@keyframes phone-skeleton-pulse {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+.container .today-empty {
+  font-family: kl;
+  font-size: 1.15rem;
+  color: #555;
+  padding: 3.5rem 1rem;
+  text-align: center;
+}
+.container .today-subscribe {
+  margin-top: 8rem;
+  display: inline-flex;
+  align-items: center;
+  font-family: ku;
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: #fff;
+  text-decoration: none;
+  padding: 1.75rem 1.5rem;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  background: linear-gradient(0deg, #000 21%, rgb(255, 255, 255) 100%);
+  transition: all 0.3s ease;
+}
+.container .today-subscribe:hover {
+  background: radial-gradient(circle at 30% 107%, #ffdc80 0%, #ffa72b 5%, #ff9603 20%, #f56040 40%, #fd1d1d 50%, #e1306c 60%, #c13584 70%, #833ab4 85%, #405de6 100%);
+  box-shadow: 0 0 20px 8px rgba(242, 209, 159, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container .sticky-nav,
+  .container button.submit,
+  .container .phone-frame,
+  .container .pulse-dot,
+  .container .phone-skeleton {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+@media (min-width: 845px) and (max-width: 1300px) {
+  .header .nav {
+    margin-bottom: 2rem;
+    padding-top: 1.35rem;
+  }
+  .header .nav .logo {
+    width: 3.25rem;
+  }
+}
+@media (max-width: 844px) {
+  .container .err {
+    top: 14rem;
+    width: 90%;
+  }
+  .container .err h1 {
+    font-size: 1.5rem !important;
+  }
+  .container .sticky-nav {
+    padding: 0.6rem 1.25rem;
+    margin: 0.35rem 1rem 0 1rem;
+  }
+  .container .sticky-nav .sticky-logo {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+  .container .sticky-nav .sticky-subscribe {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.9rem;
+  }
+  .container .header {
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
+  .container .header .nav {
+    padding-top: 1.55rem;
+  }
+  .container .header .nav .logo {
+    width: 3.25rem;
+  }
+  .container .today-container {
+    padding: 2.25rem 0rem 22.5rem;
+  }
+  .container .today-label {
+    font-size: 0.95rem;
+    margin-bottom: 1.1rem;
+  }
+  .container .phone-frame {
+    max-width: 100%;
+    border-radius: 2.1rem;
+    padding: 1.1rem 0rem 0.5rem;
+  }
+  .container .phone-notch {
+    width: 4.5rem;
+    height: 1rem;
+  }
+  .container .phone-screen {
+    border-radius: 1.4rem;
+    padding: 0.4rem 0.5rem;
+  }
+  .container .today-subscribe {
+    font-size: 1rem;
+    padding: 0.8rem 1.75rem;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -19,11 +19,9 @@ export default function Index() {
         </Link>
         </div>
         <h1>
-          Become smarter, faster.</h1>
+          All The Best Posts</h1>
         <h2>
-          Every day, 25,000+ execs and builders scroll
-          The Poast for a fast feed of 
-          news, posts, and snarky comments from founders, execs, and builders across social media.
+         Get the best posts from all the apps with a side of snarky comments, delivered daily.
         </h2>
 
           <div className="outer-header">

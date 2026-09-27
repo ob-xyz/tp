@@ -3,7 +3,7 @@ import { Link } from "@remix-run/react";
 export default function Footer() {
   return (
       <footer className="footer">
-        <Link to="/">
+        <Link to="/home">
          Home
         </Link> 
         <a href="/advertise">
