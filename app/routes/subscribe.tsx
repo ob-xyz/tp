@@ -37,7 +37,7 @@ export default function Index() {
             </div>
           </div>
           <div className="inner-header2">
-             <Link to="/home">Home</Link>
+             <Link to="/">Home</Link>
           </div>
         </div>
           <form method="post" action="https://app.thepoast.com/subscription/form">

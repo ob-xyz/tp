@@ -91,7 +91,7 @@ export default function Index() {
             </div>
           </div>
           <div className="inner-header2">
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
           </div>
         </div>
       </div>

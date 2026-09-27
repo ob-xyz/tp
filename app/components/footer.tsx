@@ -3,12 +3,9 @@ import { Link } from "@remix-run/react";
 export default function Footer() {
   return (
       <footer className="footer">
-        <Link to="/home">
+        <Link to="/">
          Home
-        </Link> 
-        <a href="/advertise">
-          Advertise
-        </a> 
+        </Link>
         <Link to="/policies/terms">
           Terms and Conditions
         </Link>
