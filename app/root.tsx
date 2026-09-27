@@ -1,6 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
-import Footer from "./components/footer";
 
 import {
   Links,
@@ -30,7 +29,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast : You're all caught up",
-  description: "The World's Best Posts. Get the best posts from all the apps with a side of snarky comments, delivered daily.",
+  description: "The World's Most Interesting Poeple and Posts. Get the best posts from the most interesting people with a side of snarky comments, delivered to your inbox daily.",
   viewport: "width=device-width,initial-scale=1"
 });
 
@@ -47,7 +46,6 @@ export default function App() {
         <Scripts />
         <LiveReload />
       </body>
-      <Footer />
     </html>
   );
 }

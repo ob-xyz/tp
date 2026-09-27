@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   json,
   type LinksFunction,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
-
-import Altcha from "../components/altcha";
 
 import scroll from "~/style/scss/components/showscroll.css";
 
@@ -24,20 +22,7 @@ export function shouldRevalidate() {
 /*                                   CONFIG                                   */
 /* -------------------------------------------------------------------------- */
 
-/*
- * The campaign always used as the "live draft" while today's edition is
- * being written. Change if the scratchpad campaign's ID ever changes.
- */
 const DRAFT_CAMPAIGN_ID = 1;
-
-/*
- * Working-hours window, in this timezone. Before WORK_START_HOUR, the
- * homepage shows the most recent finished send (red) even if nothing has
- * gone out yet today. From WORK_START_HOUR onward, it shows the live
- * draft (green) UNTIL a finished campaign dated today actually appears —
- * at which point it flips back to red automatically, whenever that
- * happens to be.
- */
 const WORK_TIMEZONE = "America/New_York";
 const WORK_START_HOUR = 9;
 
@@ -68,32 +53,25 @@ type IssuePayload = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*                                   CACHE                                    */
+/*                             PERSISTENT CACHE                               */
 /* -------------------------------------------------------------------------- */
 
-const SENT_CHECK_TTL_MS = 60 * 1000; // how often we re-check whether today's issue has gone out
-const SENT_CONTENT_TTL_MS = 10 * 60 * 1000; // finished issue body rarely changes once sent
-const DRAFT_CONTENT_TTL_MS = 60 * 1000; // draft changes throughout the day while being written
+const SENT_CHECK_TTL_MS = 60 * 1000;
+const SENT_CONTENT_TTL_MS = 30 * 60 * 1000; // Increased to 30 mins
+const DRAFT_CONTENT_TTL_MS = 30 * 1000;      // Reduced to 30s for responsiveness
 
-let cachedLatestMeta:
-  | { data: Campaign | null; timestamp: number }
-  | null = null;
-
-let cachedSentIssue:
-  | { data: LatestIssue | null; timestamp: number }
-  | null = null;
-
-let cachedDraftIssue:
-  | { data: LatestIssue | null; timestamp: number }
-  | null = null;
+let cachedLatestMeta: { data: Campaign | null; timestamp: number } | null = null;
+let cachedSentIssue: { data: LatestIssue | null; timestamp: number } | null = null;
+let cachedDraftIssue: { data: LatestIssue | null; timestamp: number } | null = null;
 
 function issueResponse(mode: IssueMode, issue: LatestIssue | null) {
   return json(
     { mode, issue } satisfies IssuePayload,
     {
       headers: {
+        // High max-age and s-maxage at Edge CDN level prevents blocking users
         "Cache-Control":
-          "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
+          "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
       },
     }
   );
@@ -106,43 +84,32 @@ function issueResponse(mode: IssueMode, issue: LatestIssue | null) {
 async function fetchWithTimeout(
   url: string,
   options: RequestInit,
-  timeout = 3500
+  timeout = 2000 // Fast timeout (2s) to prevent browser hangs
 ) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
     return await fetch(url, { ...options, signal: controller.signal });
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeoutId);
   }
 }
 
-/*
- * Uses Listmonk's /preview endpoint rather than the raw campaign `body`
- * field. `body` is only the inner content — the dark-card styling, layout,
- * and template wrapper come from the campaign's associated template and
- * are NOT included in `body`. /preview returns the fully rendered HTML
- * exactly as it would be sent (template applied, merge tags resolved by
- * Listmonk itself), so it's the correct source for anything meant to
- * visually match the real send.
- */
 async function fetchCampaignPreviewHtml(
   id: number | string,
   headers: Record<string, string>
 ): Promise<string> {
-  try {
-    const response = await fetchWithTimeout(
-      `https://app.thepoast.com/api/campaigns/${id}/preview`,
-      { headers },
-      3500
-    );
+  const response = await fetchWithTimeout(
+    `https://app.thepoast.com/api/campaigns/${id}/preview`,
+    { headers },
+    2000
+  );
 
-    if (response.ok) {
-      return await response.text();
-    }
-  } catch {
-    /* graceful fallback handled by caller */
+  if (response && response.ok) {
+    return await response.text();
   }
 
   return "";
@@ -170,7 +137,6 @@ function getZonedParts(date: Date, timeZone: string) {
 
   return {
     dateKey: `${get("year")}-${get("month")}-${get("day")}`,
-    // "24" shows up for midnight in some locale outputs; normalize to 0.
     hour: rawHour === 24 ? 0 : rawHour,
   };
 }
@@ -179,15 +145,6 @@ function getZonedParts(date: Date, timeZone: string) {
 /*                        GO-STYLE DATE TEMPLATE RESOLUTION                   */
 /* -------------------------------------------------------------------------- */
 
-/*
- * Campaign bodies use Listmonk/Go-style merge tags like {{ Date "Jan 2" }},
- * which are only filled in by Listmonk's own send pipeline. Since we pull
- * the raw body directly from the API (outside that pipeline), these tags
- * arrive unresolved. This does a single-pass, longest-token-first
- * substitution using Go's reference-date layout tokens, covering the
- * common date/weekday tokens. Anything left over (an unrecognized tag) is
- * stripped rather than shown as raw {{ }} syntax.
- */
 function formatGoDate(date: Date, layout: string): string {
   const pad = (value: number) => String(value).padStart(2, "0");
 
@@ -209,11 +166,6 @@ function formatGoDate(date: Date, layout: string): string {
   const day = date.getDate();
   const weekday = date.getDay();
 
-  /*
-   * Longest tokens first, so e.g. "Monday" is matched before "Mon", and
-   * "2006" is matched before "06" — this is a single left-to-right scan,
-   * so a substituted value is never re-scanned for further token matches.
-   */
   const tokens: Array<[string, string]> = [
     ["Monday", weekdayLong[weekday]],
     ["January", monthNamesLong[month - 1]],
@@ -257,7 +209,6 @@ function resolveTemplateTags(html: string, referenceDate: Date): string {
     }
   );
 
-  // Anything else unresolved gets removed rather than shown raw.
   return withDates.replace(/\{\{[\s\S]*?\}\}/g, "");
 }
 
@@ -265,15 +216,6 @@ function resolveTemplateTags(html: string, referenceDate: Date): string {
 /*                          PREPARE ISSUE HTML FOR IFRAME                     */
 /* -------------------------------------------------------------------------- */
 
-/*
- * - Resolves {{ Date "..." }} merge tags (see above)
- * - Injects <base target="_blank"> so links open in a new tab
- * - Injects a mobile viewport meta tag
- * - Injects a responsive image/table reset (max-width, not width, so it
- *   only caps oversized elements — small icons/badges are untouched, and
- *   it doesn't need to fight the template's own <style> block, since
- *   max-width and width are different properties)
- */
 function prepareIssueHtml(html: string = "", referenceDate: Date): string {
   if (!html) return "";
 
@@ -314,12 +256,78 @@ function prepareIssueHtml(html: string = "", referenceDate: Date): string {
 }
 
 /* -------------------------------------------------------------------------- */
+/*                        METADATA + DRAFT HELPERS                            */
+/* -------------------------------------------------------------------------- */
+
+async function getLatestMeta(
+  headers: Record<string, string>
+): Promise<Campaign | null> {
+  const metaCheckNow = Date.now();
+
+  if (
+    cachedLatestMeta &&
+    metaCheckNow - cachedLatestMeta.timestamp < SENT_CHECK_TTL_MS
+  ) {
+    return cachedLatestMeta.data;
+  }
+
+  const response = await fetchWithTimeout(
+    "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
+    { headers },
+    2000
+  );
+
+  if (response && response.ok) {
+    const data = await response.json();
+    const campaigns: Campaign[] = data?.data?.results || data?.data || [];
+    const latest = campaigns[0] || null;
+
+    cachedLatestMeta = { data: latest, timestamp: metaCheckNow };
+    return latest;
+  }
+
+  // Graceful fallback to existing cache on network failure
+  return cachedLatestMeta?.data ?? null;
+}
+
+async function resolveDraftIssue(
+  now: Date,
+  previewHeaders: Record<string, string>
+): Promise<LatestIssue | null> {
+  const draftCheckNow = Date.now();
+
+  if (
+    cachedDraftIssue &&
+    draftCheckNow - cachedDraftIssue.timestamp < DRAFT_CONTENT_TTL_MS
+  ) {
+    return cachedDraftIssue.data;
+  }
+
+  const draftBody = await fetchCampaignPreviewHtml(
+    DRAFT_CAMPAIGN_ID,
+    previewHeaders
+  );
+
+  if (!draftBody) {
+    return cachedDraftIssue?.data ?? null;
+  }
+
+  const draftIssue: LatestIssue = {
+    id: DRAFT_CAMPAIGN_ID,
+    subject: "Today's Edition (Live Draft)",
+    date: now.toISOString(),
+    body: prepareIssueHtml(draftBody, now),
+  };
+
+  cachedDraftIssue = { data: draftIssue, timestamp: draftCheckNow };
+  return draftIssue;
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                   LOADER                                   */
 /* -------------------------------------------------------------------------- */
 
-export async function loader({
-  request,
-}: LoaderFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const now = new Date();
   const { dateKey: todayKey, hour: currentHour } = getZonedParts(
     now,
@@ -330,64 +338,22 @@ export async function loader({
   const token = process.env.LISTMONK_TOKEN;
 
   if (!username || !token) {
-    console.error("Missing Listmonk credentials");
     return issueResponse("sent", cachedSentIssue?.data ?? null);
   }
 
-  const authHeader = `Basic ${Buffer.from(
-    `${username}:${token}`
-  ).toString("base64")}`;
+  const authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`;
 
-  const headers = {
-    Authorization: authHeader,
-    Accept: "application/json",
-  };
+  const headers = { Authorization: authHeader, Accept: "application/json" };
+  const previewHeaders = { Authorization: authHeader, Accept: "text/html" };
 
-  // /preview returns HTML directly, not JSON — separate Accept header.
-  const previewHeaders = {
-    Authorization: authHeader,
-    Accept: "text/html",
-  };
+  const isWorkingHoursGuess = currentHour >= WORK_START_HOUR;
 
-  /* ------------------------- STEP 1: latest finished ----------------------- */
-  /*
-   * Cheap metadata-only check, short TTL, used purely to decide whether
-   * today's issue has already gone out.
-   */
-  let latestMeta: Campaign | null = null;
-  const metaCheckNow = Date.now();
-
-  if (
-    cachedLatestMeta &&
-    metaCheckNow - cachedLatestMeta.timestamp < SENT_CHECK_TTL_MS
-  ) {
-    latestMeta = cachedLatestMeta.data;
-  } else {
-    try {
-      const response = await fetchWithTimeout(
-        "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
-        { headers },
-        3500
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        const campaigns: Campaign[] =
-          data?.data?.results || data?.data || [];
-
-        latestMeta = campaigns[0] || null;
-        cachedLatestMeta = { data: latestMeta, timestamp: metaCheckNow };
-      } else {
-        console.error(
-          `Feed Error: ${response.status} ${response.statusText}`
-        );
-        latestMeta = cachedLatestMeta?.data ?? null;
-      }
-    } catch (error) {
-      console.error("Failed to check latest campaign:", error);
-      latestMeta = cachedLatestMeta?.data ?? null;
-    }
-  }
+  const [latestMeta, speculativeDraftIssue] = await Promise.all([
+    getLatestMeta(headers),
+    isWorkingHoursGuess
+      ? resolveDraftIssue(now, previewHeaders)
+      : Promise.resolve(null),
+  ]);
 
   const latestDateRaw = latestMeta?.updated_at || latestMeta?.created_at;
   const latestKey = latestDateRaw
@@ -395,43 +361,11 @@ export async function loader({
     : null;
 
   const isSentToday = latestKey === todayKey;
-  const isWorkingHours = currentHour >= WORK_START_HOUR;
-  const showDraft = !isSentToday && isWorkingHours;
+  const showDraft = !isSentToday && isWorkingHoursGuess;
 
-  /* ----------------------------- DRAFT BRANCH ------------------------------ */
-
-  if (showDraft) {
-    const draftCheckNow = Date.now();
-
-    if (
-      cachedDraftIssue &&
-      draftCheckNow - cachedDraftIssue.timestamp < DRAFT_CONTENT_TTL_MS
-    ) {
-      return issueResponse("draft", cachedDraftIssue.data);
-    }
-
-    const draftBody = await fetchCampaignPreviewHtml(
-      DRAFT_CAMPAIGN_ID,
-      previewHeaders
-    );
-
-    if (draftBody) {
-      const draftIssue: LatestIssue = {
-        id: DRAFT_CAMPAIGN_ID,
-        subject: "Today's Edition (Live Draft)",
-        date: now.toISOString(),
-        body: prepareIssueHtml(draftBody, now),
-      };
-
-      cachedDraftIssue = { data: draftIssue, timestamp: draftCheckNow };
-      return issueResponse("draft", draftIssue);
-    }
-
-    // If the draft fetch fails, fall through to the sent branch below
-    // rather than showing nothing.
+  if (showDraft && speculativeDraftIssue) {
+    return issueResponse("draft", speculativeDraftIssue);
   }
-
-  /* ------------------------------ SENT BRANCH ------------------------------ */
 
   if (!latestMeta) {
     return issueResponse("sent", cachedSentIssue?.data ?? null);
@@ -447,10 +381,7 @@ export async function loader({
     return issueResponse("sent", cachedSentIssue.data);
   }
 
-  const sentBody = await fetchCampaignPreviewHtml(
-    latestMeta.id,
-    previewHeaders
-  );
+  const sentBody = await fetchCampaignPreviewHtml(latestMeta.id, previewHeaders);
 
   if (!sentBody) {
     return issueResponse("sent", cachedSentIssue?.data ?? null);
@@ -470,16 +401,10 @@ export async function loader({
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                ISSUE FRAME                                 */
+/*                                 FEED EMBED                                 */
 /* -------------------------------------------------------------------------- */
 
-function IssueFrame({
-  html,
-  title,
-}: {
-  html: string;
-  title: string;
-}) {
+function FeedEmbed({ html, title }: { html: string; title: string }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -502,22 +427,18 @@ function IssueFrame({
   };
 
   return (
-    <div className={`phone-frame${loaded ? " loaded" : ""}`}>
-      <div className="phone-notch" />
+    <div className={`feed-embed${loaded ? " loaded" : ""}`}>
+      {!loaded && <div className="feed-skeleton" />}
 
-      <div className="phone-screen">
-        {!loaded && <div className="phone-skeleton" />}
-
-        <iframe
-          ref={iframeRef}
-          srcDoc={html}
-          title={title}
-          onLoad={handleLoad}
-          loading="eager"
-          sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-          scrolling="no"
-        />
-      </div>
+      <iframe
+        ref={iframeRef}
+        srcDoc={html}
+        title={title}
+        onLoad={handleLoad}
+        loading="eager"
+        sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+        scrolling="no"
+      />
     </div>
   );
 }
@@ -528,171 +449,43 @@ function IssueFrame({
 
 export default function Index() {
   const { mode, issue } = useLoaderData<typeof loader>();
-
-  const [showModal, setShowModal] = useState(false);
-  const [showStickyNav, setShowStickyNav] = useState(false);
-
-  /* ---------------------------- SUBSCRIBE POPUP --------------------------- */
-
-  useEffect(() => {
-    const isSubscribed = localStorage.getItem("thepoast_subscribed");
-    const hasSeenThisSession = sessionStorage.getItem("thepoast_seen_session");
-
-    if (isSubscribed || hasSeenThisSession) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      setShowModal(true);
-      sessionStorage.setItem("thepoast_seen_session", "true");
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  /* ----------------------------- ESC TO CLOSE ----------------------------- */
-
-  useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setShowModal(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
-
-  /* ------------------------------ STICKY NAV ------------------------------ */
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowStickyNav(window.scrollY > 300);
-    };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const isDraft = mode === "draft";
 
   return (
-    <div className="container">
-
-      {/* STICKY SUBSCRIBE NAV */}
-      <div className={`sticky-nav${showStickyNav ? " visible" : ""}`}>
-        <Link className="sticky-logo" to="/">
+    <div className="feed-page">
+      <header className="feed-topbar">
+        <Link className="feed-mark" to="/">
           <img
             src="/img/ja.png"
             alt="The Poast"
-            loading="lazy"
+            loading="eager"
             decoding="async"
           />
         </Link>
 
-        <Link to="/subscribe" className="sticky-subscribe">
-          Subscribe
-        </Link>
-      </div>
-
-      {/* POPUP MODAL */}
-      {showModal && (
-        <div
-          className="modal-overlay"
-          onClick={() => setShowModal(false)}
-        >
-          <div
-            className="modal-content"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <img
-              src="/img/ja6.png"
-              alt="The Poast"
-              loading="eager"
-              decoding="async"
-            />
-
-            <p>Trusted by 25,000+ execs and builders</p>
-            <p>Get The Poast for free</p>
-            <p>Subscribe for the world's best posts, delivered to your inbox.</p>
-
-            <form
-              method="post"
-              action="https://app.thepoast.com/subscription/form"
-            >
-              <div className="input-wrapper">
-                <input
-                  className="email"
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Email Address *"
-                />
-
-                <button className="submit" type="submit">
-                  Subscribe
-                </button>
-              </div>
-
-              <Altcha />
-
-              <input
-                id="6d48f"
-                type="hidden"
-                name="l"
-                value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
-              />
-
-              <input type="hidden" name="nonce" />
-            </form>
-
-            <button
-              type="button"
-              className="dismiss-text"
-              onClick={() => setShowModal(false)}
-            >
-              No thanks! I'm already subscribed
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* HEADER SECTION */}
-      <div className="header">
-        <div className="nav">
-          <Link to="/" className="logo">
-            <img
-              src="/img/ja.png"
-              alt="The Poast Logo"
-              loading="eager"
-              decoding="async"
-            />
-          </Link>
-        </div>
-      </div>
-
-      {/* TODAY'S EDITION — LIVE PHONE FRAME */}
-      <main className="today-container">
-        <div className="today-label">
-          <span className={`pulse-dot ${isDraft ? "draft" : "sent"}`} />
-          {isDraft ? "Live \u2014 Today\u2019s Edition" : "Today\u2019s Edition"}
-        </div>
-
-        {issue ? (
-          <IssueFrame html={issue.body} title={issue.subject} />
-        ) : (
-          <div className="today-empty">
-            Check back soon for today&rsquo;s issue.
+        {isDraft && (
+          <div className="feed-status">
+            <span className="status-dot" />
+            Live
           </div>
         )}
 
-        <Link to="/subscribe" className="today-subscribe">
-          Get The Poast sent to you &rarr;
+        <Link to="/subscribe" className="feed-subscribe">
+          Subscribe
         </Link>
+      </header>
+
+      <main className="feed-stream">
+        {issue ? (
+          <FeedEmbed html={issue.body} title={issue.subject} />
+        ) : (
+          <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
+        )}
       </main>
 
+      <footer className="feed-footer">
+        <Link to="/subscribe">Get tomorrow&rsquo;s edition by email</Link>
+      </footer>
     </div>
   );
 }

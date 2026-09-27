@@ -60,41 +60,13 @@ __export(root_exports, {
   links: () => links,
   meta: () => meta
 });
-
-// app/components/footer.tsx
-var import_react2 = require("@remix-run/react"), import_jsx_dev_runtime2 = require("react/jsx-dev-runtime");
-function Footer() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("footer", { className: "footer", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Link, { to: "/", children: "Home" }, void 0, !1, {
-      fileName: "app/components/footer.tsx",
-      lineNumber: 6,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Link, { to: "/policies/terms", children: "Terms and Conditions" }, void 0, !1, {
-      fileName: "app/components/footer.tsx",
-      lineNumber: 9,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Link, { to: "/policies/privacy", children: "Privacy Policy" }, void 0, !1, {
-      fileName: "app/components/footer.tsx",
-      lineNumber: 12,
-      columnNumber: 10
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/components/footer.tsx",
-    lineNumber: 5,
-    columnNumber: 7
-  }, this);
-}
-
-// app/root.tsx
-var import_react3 = require("@remix-run/react");
+var import_react2 = require("@remix-run/react");
 
 // app/style/global/global.css
-var global_default = "/build/_assets/global-WDNZFVTF.css";
+var global_default = "/build/_assets/global-SHCVKBIH.css";
 
 // app/root.tsx
-var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime"), links = () => [
+var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), links = () => [
   {
     rel: "icon",
     href: "/favicon.ico",
@@ -107,61 +79,56 @@ var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime"), links = () => [
 ], meta = () => ({
   charset: "utf-8",
   title: "The Poast : You're all caught up",
-  description: "The World's Best Posts. Get the best posts from all the apps with a side of snarky comments, delivered daily.",
+  description: "The World's Most Interesting Poeple and Posts. Get the best posts from the most interesting people with a side of snarky comments, delivered to your inbox daily.",
   viewport: "width=device-width,initial-scale=1"
 });
 function App() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("html", { lang: "en", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("head", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Meta, {}, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("html", { lang: "en", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("head", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Meta, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 41,
+        lineNumber: 40,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Links, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Links, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 42,
+        lineNumber: 41,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 40,
+      lineNumber: 39,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("body", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Outlet, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("body", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Outlet, {}, void 0, !1, {
+        fileName: "app/root.tsx",
+        lineNumber: 44,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.ScrollRestoration, {}, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 45,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.ScrollRestoration, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.Scripts, {}, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 46,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Scripts, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react2.LiveReload, {}, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 47,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.LiveReload, {}, void 0, !1, {
-        fileName: "app/root.tsx",
-        lineNumber: 48,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 44,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(Footer, {}, void 0, !1, {
-      fileName: "app/root.tsx",
-      lineNumber: 50,
+      lineNumber: 43,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/root.tsx",
-    lineNumber: 39,
+    lineNumber: 38,
     columnNumber: 5
   }, this);
 }
@@ -179,6 +146,32 @@ var ja_default = "/build/_assets/ja-O6OFOOU2.png";
 
 // app/style/scss/components/showscroll.css
 var showscroll_default = "/build/_assets/showscroll-FNF7IES6.css";
+
+// app/components/footer.tsx
+var import_react3 = require("@remix-run/react"), import_jsx_dev_runtime3 = require("react/jsx-dev-runtime");
+function Footer() {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("footer", { className: "footer", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Link, { to: "/", children: "Home" }, void 0, !1, {
+      fileName: "app/components/footer.tsx",
+      lineNumber: 6,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Link, { to: "/policies/terms", children: "Terms and Conditions" }, void 0, !1, {
+      fileName: "app/components/footer.tsx",
+      lineNumber: 9,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Link, { to: "/policies/privacy", children: "Privacy Policy" }, void 0, !1, {
+      fileName: "app/components/footer.tsx",
+      lineNumber: 12,
+      columnNumber: 10
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/components/footer.tsx",
+    lineNumber: 5,
+    columnNumber: 7
+  }, this);
+}
 
 // app/routes/policies/privacy.tsx
 var import_jsx_dev_runtime4 = require("react/jsx-dev-runtime"), links2 = () => [
@@ -2452,37 +2445,35 @@ var import_jsx_dev_runtime11 = require("react/jsx-dev-runtime"), links5 = () => 
 function shouldRevalidate() {
   return !1;
 }
-var DRAFT_CAMPAIGN_ID = 1, WORK_TIMEZONE = "America/New_York", WORK_START_HOUR = 9, SENT_CHECK_TTL_MS = 60 * 1e3, SENT_CONTENT_TTL_MS = 10 * 60 * 1e3, DRAFT_CONTENT_TTL_MS = 60 * 1e3, cachedLatestMeta = null, cachedSentIssue = null, cachedDraftIssue = null;
+var DRAFT_CAMPAIGN_ID = 1, WORK_TIMEZONE = "America/New_York", WORK_START_HOUR = 9, SENT_CHECK_TTL_MS = 60 * 1e3, SENT_CONTENT_TTL_MS = 30 * 60 * 1e3, DRAFT_CONTENT_TTL_MS = 30 * 1e3, cachedLatestMeta = null, cachedSentIssue = null, cachedDraftIssue = null;
 function issueResponse(mode, issue) {
   return (0, import_node3.json)(
     { mode, issue },
     {
       headers: {
-        "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300"
+        // High max-age and s-maxage at Edge CDN level prevents blocking users
+        "Cache-Control": "public, max-age=60, s-maxage=300, stale-while-revalidate=86400"
       }
     }
   );
 }
-async function fetchWithTimeout(url, options, timeout = 3500) {
+async function fetchWithTimeout(url, options, timeout = 2e3) {
   let controller = new AbortController(), timeoutId = setTimeout(() => controller.abort(), timeout);
   try {
     return await fetch(url, { ...options, signal: controller.signal });
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeoutId);
   }
 }
 async function fetchCampaignPreviewHtml(id, headers) {
-  try {
-    let response = await fetchWithTimeout(
-      `https://app.thepoast.com/api/campaigns/${id}/preview`,
-      { headers },
-      3500
-    );
-    if (response.ok)
-      return await response.text();
-  } catch {
-  }
-  return "";
+  let response = await fetchWithTimeout(
+    `https://app.thepoast.com/api/campaigns/${id}/preview`,
+    { headers },
+    2e3
+  );
+  return response && response.ok ? await response.text() : "";
 }
 function getZonedParts(date, timeZone) {
   let parts = new Intl.DateTimeFormat("en-US", {
@@ -2498,7 +2489,6 @@ function getZonedParts(date, timeZone) {
   }, rawHour = Number(get("hour"));
   return {
     dateKey: `${get("year")}-${get("month")}-${get("day")}`,
-    // "24" shows up for midnight in some locale outputs; normalize to 0.
     hour: rawHour === 24 ? 0 : rawHour
   };
 }
@@ -2599,72 +2589,62 @@ function prepareIssueHtml(html = "", referenceDate) {
     (match, attrs) => `<html${attrs}><head>${injected}</head>`
   ) : `<head>${injected}</head>${resolved}`;
 }
-async function loader3({
-  request
-}) {
-  var _a, _b;
+async function getLatestMeta(headers) {
+  var _a;
+  let metaCheckNow = Date.now();
+  if (cachedLatestMeta && metaCheckNow - cachedLatestMeta.timestamp < SENT_CHECK_TTL_MS)
+    return cachedLatestMeta.data;
+  let response = await fetchWithTimeout(
+    "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
+    { headers },
+    2e3
+  );
+  if (response && response.ok) {
+    let data = await response.json(), latest = (((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.results) || (data == null ? void 0 : data.data) || [])[0] || null;
+    return cachedLatestMeta = { data: latest, timestamp: metaCheckNow }, latest;
+  }
+  return (cachedLatestMeta == null ? void 0 : cachedLatestMeta.data) ?? null;
+}
+async function resolveDraftIssue(now, previewHeaders) {
+  let draftCheckNow = Date.now();
+  if (cachedDraftIssue && draftCheckNow - cachedDraftIssue.timestamp < DRAFT_CONTENT_TTL_MS)
+    return cachedDraftIssue.data;
+  let draftBody = await fetchCampaignPreviewHtml(
+    DRAFT_CAMPAIGN_ID,
+    previewHeaders
+  );
+  if (!draftBody)
+    return (cachedDraftIssue == null ? void 0 : cachedDraftIssue.data) ?? null;
+  let draftIssue = {
+    id: DRAFT_CAMPAIGN_ID,
+    subject: "Today's Edition (Live Draft)",
+    date: now.toISOString(),
+    body: prepareIssueHtml(draftBody, now)
+  };
+  return cachedDraftIssue = { data: draftIssue, timestamp: draftCheckNow }, draftIssue;
+}
+async function loader3({ request }) {
+  var _a;
   let now = /* @__PURE__ */ new Date(), { dateKey: todayKey, hour: currentHour } = getZonedParts(
     now,
     WORK_TIMEZONE
   ), username = process.env.LISTMONK_USERNAME, token = process.env.LISTMONK_TOKEN;
   if (!username || !token)
-    return console.error("Missing Listmonk credentials"), issueResponse("sent", (cachedSentIssue == null ? void 0 : cachedSentIssue.data) ?? null);
-  let authHeader = `Basic ${Buffer.from(
-    `${username}:${token}`
-  ).toString("base64")}`, headers = {
-    Authorization: authHeader,
-    Accept: "application/json"
-  }, previewHeaders = {
-    Authorization: authHeader,
-    Accept: "text/html"
-  }, latestMeta = null, metaCheckNow = Date.now();
-  if (cachedLatestMeta && metaCheckNow - cachedLatestMeta.timestamp < SENT_CHECK_TTL_MS)
-    latestMeta = cachedLatestMeta.data;
-  else
-    try {
-      let response = await fetchWithTimeout(
-        "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
-        { headers },
-        3500
-      );
-      if (response.ok) {
-        let data = await response.json();
-        latestMeta = (((_a = data == null ? void 0 : data.data) == null ? void 0 : _a.results) || (data == null ? void 0 : data.data) || [])[0] || null, cachedLatestMeta = { data: latestMeta, timestamp: metaCheckNow };
-      } else
-        console.error(
-          `Feed Error: ${response.status} ${response.statusText}`
-        ), latestMeta = (cachedLatestMeta == null ? void 0 : cachedLatestMeta.data) ?? null;
-    } catch (error) {
-      console.error("Failed to check latest campaign:", error), latestMeta = (cachedLatestMeta == null ? void 0 : cachedLatestMeta.data) ?? null;
-    }
-  let latestDateRaw = (latestMeta == null ? void 0 : latestMeta.updated_at) || (latestMeta == null ? void 0 : latestMeta.created_at), isSentToday = (latestDateRaw ? getZonedParts(new Date(latestDateRaw), WORK_TIMEZONE).dateKey : null) === todayKey, isWorkingHours = currentHour >= WORK_START_HOUR;
-  if (!isSentToday && isWorkingHours) {
-    let draftCheckNow = Date.now();
-    if (cachedDraftIssue && draftCheckNow - cachedDraftIssue.timestamp < DRAFT_CONTENT_TTL_MS)
-      return issueResponse("draft", cachedDraftIssue.data);
-    let draftBody = await fetchCampaignPreviewHtml(
-      DRAFT_CAMPAIGN_ID,
-      previewHeaders
-    );
-    if (draftBody) {
-      let draftIssue = {
-        id: DRAFT_CAMPAIGN_ID,
-        subject: "Today's Edition (Live Draft)",
-        date: now.toISOString(),
-        body: prepareIssueHtml(draftBody, now)
-      };
-      return cachedDraftIssue = { data: draftIssue, timestamp: draftCheckNow }, issueResponse("draft", draftIssue);
-    }
-  }
+    return issueResponse("sent", (cachedSentIssue == null ? void 0 : cachedSentIssue.data) ?? null);
+  let authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`, headers = { Authorization: authHeader, Accept: "application/json" }, previewHeaders = { Authorization: authHeader, Accept: "text/html" }, isWorkingHoursGuess = currentHour >= WORK_START_HOUR, [latestMeta, speculativeDraftIssue] = await Promise.all(
+    [
+      getLatestMeta(headers),
+      isWorkingHoursGuess ? resolveDraftIssue(now, previewHeaders) : Promise.resolve(null)
+    ]
+  ), latestDateRaw = (latestMeta == null ? void 0 : latestMeta.updated_at) || (latestMeta == null ? void 0 : latestMeta.created_at);
+  if (!((latestDateRaw ? getZonedParts(new Date(latestDateRaw), WORK_TIMEZONE).dateKey : null) === todayKey) && isWorkingHoursGuess && speculativeDraftIssue)
+    return issueResponse("draft", speculativeDraftIssue);
   if (!latestMeta)
     return issueResponse("sent", (cachedSentIssue == null ? void 0 : cachedSentIssue.data) ?? null);
   let sentCheckNow = Date.now();
-  if (cachedSentIssue && String((_b = cachedSentIssue.data) == null ? void 0 : _b.id) === String(latestMeta.id) && sentCheckNow - cachedSentIssue.timestamp < SENT_CONTENT_TTL_MS)
+  if (cachedSentIssue && String((_a = cachedSentIssue.data) == null ? void 0 : _a.id) === String(latestMeta.id) && sentCheckNow - cachedSentIssue.timestamp < SENT_CONTENT_TTL_MS)
     return issueResponse("sent", cachedSentIssue.data);
-  let sentBody = await fetchCampaignPreviewHtml(
-    latestMeta.id,
-    previewHeaders
-  );
+  let sentBody = await fetchCampaignPreviewHtml(latestMeta.id, previewHeaders);
   if (!sentBody)
     return issueResponse("sent", (cachedSentIssue == null ? void 0 : cachedSentIssue.data) ?? null);
   let sentReferenceDate = latestDateRaw ? new Date(latestDateRaw) : now, sentIssue = {
@@ -2675,338 +2655,123 @@ async function loader3({
   };
   return cachedSentIssue = { data: sentIssue, timestamp: sentCheckNow }, issueResponse("sent", sentIssue);
 }
-function IssueFrame({
-  html,
-  title
-}) {
+function FeedEmbed({ html, title }) {
   let iframeRef = (0, import_react14.useRef)(null), [loaded, setLoaded] = (0, import_react14.useState)(!1);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `phone-frame${loaded ? " loaded" : ""}`, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "phone-notch" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `feed-embed${loaded ? " loaded" : ""}`, children: [
+    !loaded && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-skeleton" }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 506,
-      columnNumber: 7
+      lineNumber: 431,
+      columnNumber: 19
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "phone-screen", children: [
-      !loaded && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "phone-skeleton" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+      "iframe",
+      {
+        ref: iframeRef,
+        srcDoc: html,
+        title,
+        onLoad: () => {
+          var _a, _b;
+          let frame = iframeRef.current, doc = frame == null ? void 0 : frame.contentDocument;
+          if (frame && doc) {
+            let height = Math.max(
+              ((_a = doc.documentElement) == null ? void 0 : _a.scrollHeight) || 0,
+              ((_b = doc.body) == null ? void 0 : _b.scrollHeight) || 0
+            );
+            height > 0 && (frame.style.height = `${height}px`);
+          }
+          setLoaded(!0);
+        },
+        loading: "eager",
+        sandbox: "allow-same-origin allow-popups allow-popups-to-escape-sandbox",
+        scrolling: "no"
+      },
+      void 0,
+      !1,
+      {
         fileName: "app/routes/index.tsx",
-        lineNumber: 509,
-        columnNumber: 21
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-        "iframe",
-        {
-          ref: iframeRef,
-          srcDoc: html,
-          title,
-          onLoad: () => {
-            var _a, _b;
-            let frame = iframeRef.current, doc = frame == null ? void 0 : frame.contentDocument;
-            if (frame && doc) {
-              let height = Math.max(
-                ((_a = doc.documentElement) == null ? void 0 : _a.scrollHeight) || 0,
-                ((_b = doc.body) == null ? void 0 : _b.scrollHeight) || 0
-              );
-              height > 0 && (frame.style.height = `${height}px`);
-            }
-            setLoaded(!0);
-          },
-          loading: "eager",
-          sandbox: "allow-same-origin allow-popups allow-popups-to-escape-sandbox",
-          scrolling: "no"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 511,
-          columnNumber: 9
-        },
-        this
-      )
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 508,
-      columnNumber: 7
-    }, this)
+        lineNumber: 433,
+        columnNumber: 7
+      },
+      this
+    )
   ] }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 505,
+    lineNumber: 430,
     columnNumber: 5
   }, this);
 }
 function Index4() {
-  let { mode, issue } = (0, import_react15.useLoaderData)(), [showModal, setShowModal] = (0, import_react14.useState)(!1), [showStickyNav, setShowStickyNav] = (0, import_react14.useState)(!1);
-  (0, import_react14.useEffect)(() => {
-    let isSubscribed = localStorage.getItem("thepoast_subscribed"), hasSeenThisSession = sessionStorage.getItem("thepoast_seen_session");
-    if (isSubscribed || hasSeenThisSession)
-      return;
-    let timer = window.setTimeout(() => {
-      setShowModal(!0), sessionStorage.setItem("thepoast_seen_session", "true");
-    }, 1e3);
-    return () => clearTimeout(timer);
-  }, []), (0, import_react14.useEffect)(() => {
-    let handleEsc = (event) => {
-      event.key === "Escape" && setShowModal(!1);
-    };
-    return window.addEventListener("keydown", handleEsc), () => window.removeEventListener("keydown", handleEsc);
-  }, []), (0, import_react14.useEffect)(() => {
-    let handleScroll = () => {
-      setShowStickyNav(window.scrollY > 300);
-    };
-    return handleScroll(), window.addEventListener("scroll", handleScroll, { passive: !0 }), () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  let isDraft = mode === "draft";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "container", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: `sticky-nav${showStickyNav ? " visible" : ""}`, children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { className: "sticky-logo", to: "/", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+  let { mode, issue } = (0, import_react15.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-page", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("header", { className: "feed-topbar", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { className: "feed-mark", to: "/", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
         "img",
         {
           src: "/img/ja.png",
           alt: "The Poast",
-          loading: "lazy",
+          loading: "eager",
           decoding: "async"
         },
         void 0,
         !1,
         {
           fileName: "app/routes/index.tsx",
-          lineNumber: 587,
+          lineNumber: 458,
           columnNumber: 11
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 586,
+        lineNumber: 457,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", className: "sticky-subscribe", children: "Subscribe" }, void 0, !1, {
+      mode === "draft" && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-status", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("span", { className: "status-dot" }, void 0, !1, {
+          fileName: "app/routes/index.tsx",
+          lineNumber: 468,
+          columnNumber: 13
+        }, this),
+        "Live"
+      ] }, void 0, !0, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 595,
+        lineNumber: 467,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", className: "feed-subscribe", children: "Subscribe" }, void 0, !1, {
+        fileName: "app/routes/index.tsx",
+        lineNumber: 473,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 585,
+      lineNumber: 456,
       columnNumber: 7
     }, this),
-    showModal && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
-      {
-        className: "modal-overlay",
-        onClick: () => setShowModal(!1),
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-          "div",
-          {
-            className: "modal-content",
-            onClick: (event) => event.stopPropagation(),
-            children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                "img",
-                {
-                  src: "/img/ja6.png",
-                  alt: "The Poast",
-                  loading: "eager",
-                  decoding: "async"
-                },
-                void 0,
-                !1,
-                {
-                  fileName: "app/routes/index.tsx",
-                  lineNumber: 610,
-                  columnNumber: 13
-                },
-                this
-              ),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Trusted by 25,000+ execs and builders" }, void 0, !1, {
-                fileName: "app/routes/index.tsx",
-                lineNumber: 617,
-                columnNumber: 13
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Get The Poast for free" }, void 0, !1, {
-                fileName: "app/routes/index.tsx",
-                lineNumber: 618,
-                columnNumber: 13
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { children: "Subscribe for the world's best posts, delivered to your inbox." }, void 0, !1, {
-                fileName: "app/routes/index.tsx",
-                lineNumber: 619,
-                columnNumber: 13
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                "form",
-                {
-                  method: "post",
-                  action: "https://app.thepoast.com/subscription/form",
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "input-wrapper", children: [
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                        "input",
-                        {
-                          className: "email",
-                          type: "email",
-                          name: "email",
-                          required: !0,
-                          placeholder: "Email Address *"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/index.tsx",
-                          lineNumber: 626,
-                          columnNumber: 17
-                        },
-                        this
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "submit", type: "submit", children: "Subscribe" }, void 0, !1, {
-                        fileName: "app/routes/index.tsx",
-                        lineNumber: 634,
-                        columnNumber: 17
-                      }, this)
-                    ] }, void 0, !0, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 625,
-                      columnNumber: 15
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 639,
-                      columnNumber: 15
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                      "input",
-                      {
-                        id: "6d48f",
-                        type: "hidden",
-                        name: "l",
-                        value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/index.tsx",
-                        lineNumber: 641,
-                        columnNumber: 15
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 648,
-                      columnNumber: 15
-                    }, this)
-                  ]
-                },
-                void 0,
-                !0,
-                {
-                  fileName: "app/routes/index.tsx",
-                  lineNumber: 621,
-                  columnNumber: 13
-                },
-                this
-              ),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                "button",
-                {
-                  type: "button",
-                  className: "dismiss-text",
-                  onClick: () => setShowModal(!1),
-                  children: "No thanks! I'm already subscribed"
-                },
-                void 0,
-                !1,
-                {
-                  fileName: "app/routes/index.tsx",
-                  lineNumber: 651,
-                  columnNumber: 13
-                },
-                this
-              )
-            ]
-          },
-          void 0,
-          !0,
-          {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 606,
-            columnNumber: 11
-          },
-          this
-        )
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 602,
-        columnNumber: 7
-      },
-      this
-    ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "nav", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/", className: "logo", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "img",
-      {
-        src: "/img/ja.png",
-        alt: "The Poast Logo",
-        loading: "eager",
-        decoding: "async"
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 666,
-        columnNumber: 13
-      },
-      this
-    ) }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(FeedEmbed, { html: issue.body, title: issue.subject }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 665,
-      columnNumber: 11
-    }, this) }, void 0, !1, {
+      lineNumber: 480,
+      columnNumber: 9
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-empty", children: "Check back soon for today\u2019s issue." }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 664,
+      lineNumber: 482,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 663,
+      lineNumber: 478,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "today-container", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "today-label", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("span", { className: `pulse-dot ${isDraft ? "draft" : "sent"}` }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 679,
-          columnNumber: 11
-        }, this),
-        isDraft ? "Live \u2014 Today\u2019s Edition" : "Today\u2019s Edition"
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 678,
-        columnNumber: 9
-      }, this),
-      issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(IssueFrame, { html: issue.body, title: issue.subject }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 684,
-        columnNumber: 9
-      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "today-empty", children: "Check back soon for today\u2019s issue." }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 686,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", className: "today-subscribe", children: "Get The Poast sent to you \u2192" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 691,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("footer", { className: "feed-footer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react15.Link, { to: "/subscribe", children: "Get tomorrow\u2019s edition by email" }, void 0, !1, {
       fileName: "app/routes/index.tsx",
-      lineNumber: 677,
+      lineNumber: 487,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/index.tsx",
+      lineNumber: 486,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 582,
+    lineNumber: 455,
     columnNumber: 5
   }, this);
 }
@@ -3678,12 +3443,12 @@ function Index5() {
         lineNumber: 636,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h1", { children: "All The Best Posts" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h1", { children: "The world's most interesting people and posts" }, void 0, !1, {
         fileName: "app/routes/home.tsx",
         lineNumber: 659,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h2", { children: "Get the best posts from all the apps with a side of snarky comments, delivered daily." }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h2", { children: "Get the best posts from the world's most interesting people with a side of snarky comments, delivered to your inbox daily." }, void 0, !1, {
         fileName: "app/routes/home.tsx",
         lineNumber: 661,
         columnNumber: 9
@@ -4427,12 +4192,12 @@ function Index7() {
       lineNumber: 15,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h1", { children: "All The Best Posts" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h1", { children: "The world's most interesting people and posts" }, void 0, !1, {
       fileName: "app/routes/$.tsx",
       lineNumber: 21,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h2", { children: "Get the best posts from all the apps with a side of snarky comments, delivered daily." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h2", { children: "Get the best posts from the world's most interesting people with a side of snarky comments, delivered to your inbox daily." }, void 0, !1, {
       fileName: "app/routes/$.tsx",
       lineNumber: 23,
       columnNumber: 9
@@ -4524,7 +4289,7 @@ function Index7() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-APPH7H5H.js", imports: ["/build/_shared/chunk-X32F4JRF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-QDPO2GSX.js", imports: ["/build/_shared/chunk-75RWHKFU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-VKXQQBJF.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-KAYJKLDD.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-IUYWIOOT.js", imports: ["/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-2YEWSXMO.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-IYVQV4RH.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-VWWWE7QQ.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-NF4KEFJK.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-J2ELB5EA.js", imports: ["/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-AEHODZBW.js", imports: ["/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-NEURPKRD.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-37VEBPJO.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "6b1071c3", hmr: void 0, url: "/build/manifest-6B1071C3.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-APPH7H5H.js", imports: ["/build/_shared/chunk-X32F4JRF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-KP36BFFC.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QFV7JZGC.js", imports: ["/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/articles.$id": { id: "routes/articles.$id", parentId: "root", path: "articles/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/articles.$id-KAYJKLDD.js", imports: ["/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-IUYWIOOT.js", imports: ["/build/_shared/chunk-CBRVIVIP.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feed": { id: "routes/feed", parentId: "root", path: "feed", index: void 0, caseSensitive: void 0, module: "/build/routes/feed-2YEWSXMO.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-LI7AAIQN.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-7VFGXYEQ.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/info": { id: "routes/info", parentId: "root", path: "info", index: void 0, caseSensitive: void 0, module: "/build/routes/info-NF4KEFJK.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-J2ELB5EA.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-AEHODZBW.js", imports: ["/build/_shared/chunk-75RWHKFU.js", "/build/_shared/chunk-XIGSDZZU.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sponsor": { id: "routes/sponsor", parentId: "root", path: "sponsor", index: void 0, caseSensitive: void 0, module: "/build/routes/sponsor-NEURPKRD.js", imports: ["/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3K2JK6MY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-37VEBPJO.js", imports: ["/build/_shared/chunk-XIOJQNNJ.js", "/build/_shared/chunk-7NJXVCHU.js", "/build/_shared/chunk-XIGSDZZU.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "befcd26f", hmr: void 0, url: "/build/manifest-BEFCD26F.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

@@ -657,11 +657,11 @@ export default function Index() {
         </div>
 
         <h1>
-          All The Best Posts</h1>
+          The world's most interesting people and posts</h1>
         <h2>
-         Get the best posts from all the apps with a side of snarky comments, delivered daily.
+         Get the best posts from the world's most interesting people with a side of snarky comments, delivered to your inbox daily.
         </h2>
-
+        
         <div className="outer-header">
 
           <div className="inner-header">
