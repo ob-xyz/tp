@@ -689,7 +689,7 @@ export default function Index() {
         )}
 
         <Link to="/subscribe" className="today-subscribe">
-          Get The Poast sent to your inbox &rarr;
+          Get The Poast sent to you &rarr;
         </Link>
       </main>
 
