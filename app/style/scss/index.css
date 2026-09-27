@@ -168,24 +168,124 @@
 /* ---------------------------------------------------------------------- */
 /*                                  FOOTER                                 */
 /* ---------------------------------------------------------------------- */
-.feed-footer {
-  width: 100%;
-  max-width: 600px;
-  padding: 1.5rem 1.1rem 3.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  box-sizing: border-box;
+/* -------------------------------------------------------------------------- */
+/*                      ULTRA-MINIMALIST SUBSCRIBE BAR                       */
+/* -------------------------------------------------------------------------- */
+.feed-subscribe-form {
+  max-width: 540px;
+  margin: 2rem auto 1rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 1-Line Seamless Input Bar */
+  /* Centered Altcha Styling Overrides */
+}
+.feed-subscribe-form .feed-subscribe-heading {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.8rem;
   text-align: center;
 }
-.feed-footer a {
-  font-family: kl;
-  font-size: 0.95rem;
-  color: #71767b;
-  text-decoration: none;
+.feed-subscribe-form .feed-input-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.25rem 0.35rem 0.25rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.feed-footer a:hover {
-  color: #e7e9ea;
+.feed-subscribe-form .feed-input-bar:focus-within {
+  border-color: rgba(43, 255, 146, 0.5);
+  box-shadow: 0 0 12px rgba(43, 255, 146, 0.15);
+}
+.feed-subscribe-form .feed-input-bar .feed-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.5rem;
+  min-width: 0;
+}
+.feed-subscribe-form .feed-input-bar .feed-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+.feed-subscribe-form .feed-input-bar .feed-input.name-input {
+  flex: 1;
+}
+.feed-subscribe-form .feed-input-bar .feed-input.email-input {
+  flex: 1.5;
+}
+.feed-subscribe-form .feed-input-bar .feed-submit {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.feed-subscribe-form .feed-input-bar .feed-submit:hover {
+  background: #2bff92;
+  transform: translateY(-1px);
+}
+.feed-subscribe-form .feed-input-bar .feed-submit:active {
+  transform: translateY(0);
+}
+.feed-subscribe-form .feed-altcha-wrap {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* Targeting Web Component Shadow DOM variables */
+}
+.feed-subscribe-form .feed-altcha-wrap altcha-widget {
+  --altcha-max-width: 280px;
+  --altcha-color-bg: transparent;
+  --altcha-color-border: rgba(255, 255, 255, 0.1);
+  --altcha-color-text: rgba(255, 255, 255, 0.6);
+  --altcha-color-border-focus: #2bff92;
+  --altcha-border-radius: 8px;
+  font-size: 0.75rem;
+}
+.feed-subscribe-form .feed-legal {
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+.feed-subscribe-form .feed-legal a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: underline;
+}
+.feed-subscribe-form .feed-legal a:hover {
+  color: #2bff92;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .feed-subscribe-form .feed-input-bar {
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 0.5rem;
+    gap: 0.4rem;
+  }
+  .feed-subscribe-form .feed-input-bar .divider {
+    display: none;
+  }
+  .feed-subscribe-form .feed-input-bar .feed-input {
+    width: 100%;
+  }
+  .feed-subscribe-form .feed-input-bar .feed-submit {
+    width: 100%;
+  }
+}
 /* ---------------------------------------------------------------------- */
 /*                                   MODAL                                 */
 /* ---------------------------------------------------------------------- */

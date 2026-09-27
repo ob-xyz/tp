@@ -5,7 +5,7 @@ import {
   type LinksFunction,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
-
+import Altcha from "../components/altcha";
 import scroll from "~/style/scss/components/showscroll.css";
 
 export const links: LinksFunction = () => [
@@ -503,9 +503,49 @@ export default function Index() {
           <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
         )}
       </main>
-
       <footer className="feed-footer">
-        <Link to="/subscribe">Get tomorrow&rsquo;s edition by email</Link>
+        <form
+          method="post"
+          action="https://app.thepoast.com/subscription/form"
+          className="feed-subscribe-form"
+        >
+          <p className="feed-subscribe-heading">Get tomorrow’s edition sent to you</p>
+
+          {/* Single Line Input Bar */}
+          <div className="feed-input-bar">
+            <input
+              className="feed-input email-input"
+              type="email"
+              name="email"
+              required
+              placeholder="Email Address *"
+            />
+            <button className="feed-submit" type="submit">
+              Subscribe
+            </button>
+          </div>
+
+          {/* Centered Minimalist Altcha Container */}
+          <div className="feed-altcha-wrap">
+            <Altcha />
+          </div>
+
+          {/* Hidden Listmonk Inputs */}
+          <input
+            id="6d48f"
+            type="hidden"
+            name="l"
+            value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
+          />
+          <input type="hidden" name="nonce" />
+
+          {/* Subtle Footnote */}
+          <p className="feed-legal">
+            By submitting, you agree to our{" "}
+            <Link to="/policies/terms">Terms</Link> &amp;{" "}
+            <Link to="/policies/privacy">Privacy Policy</Link>.
+          </p>
+        </form>
       </footer>
     </div>
   );
