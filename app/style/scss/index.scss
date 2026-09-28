@@ -177,7 +177,7 @@ $feed-max-width: 600px;
 /* ---------------------------------------------------------------------- */
 .feed-subscribe-form {
   max-width: 540px;
-  margin: 5rem auto 1rem;
+  margin: 2.5rem auto 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,8 +200,8 @@ $feed-max-width: 600px;
     padding: 0.25rem 0.35rem 0.25rem 0rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     &:focus-within {
-      border-color: rgba(43, 255, 146, 0.5);
-      box-shadow: 0 0 12px rgba(43, 255, 146, 0.15);
+      border-color: #3598db;
+      box-shadow: 0 0 12px #3598db;
     }
 
     .feed-input {
@@ -246,7 +246,7 @@ $feed-max-width: 600px;
 
   /* Centered Altcha Styling Overrides */
   .feed-altcha-wrap {
-    margin-top: 0rem;
+    margin-top: 0;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -329,7 +329,7 @@ $feed-max-width: 600px;
 
 @media (max-width: 640px) {
   .feed-topbar {
-    padding: .7rem .85rem;
+    padding: .7rem .6rem;
     width: 100%;
     gap: .4rem;
 
@@ -337,8 +337,8 @@ $feed-max-width: 600px;
       margin-left:.25rem;
     }
     .feed-mark img {
-      width: 1.85rem;
-      height: 1.85rem;
+      width: 2rem;
+      height: 2rem;
     }
 
     .feed-subscribe {
@@ -350,12 +350,15 @@ $feed-max-width: 600px;
   .feed-status {
     font-size: .8rem;
   }
+  .feed-subscribe-form {
+    margin-top:1.5rem;
+  }
 }
 
 /* Very narrow phones (iPhone SE, small Android) — trim further still */
 @media (max-width: 380px) {
   .feed-topbar {
-    padding: .6rem .7rem;
+    padding: .6rem .6rem;
     gap: .3rem;
 
     .feed-subscribe {

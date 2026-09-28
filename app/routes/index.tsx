@@ -190,6 +190,9 @@ function prepareIssueHtml(html: string = "", referenceDate: Date): string {
       img {
         height: auto !important;
       }
+      .footer {
+        display: none !important;
+      }
     </style>
   `;
 
