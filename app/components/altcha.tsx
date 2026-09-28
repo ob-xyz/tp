@@ -25,7 +25,7 @@ export default function AltchaWrapper() {
 
   return (
     <altcha-widget 
-      challengeurl="https://app.jeffamzn.com/api/public/captcha/altcha"
+      challengeurl="https://app.thepoast.com/api/public/captcha/altcha"
       hidefooter="true"
       hidelogo="true"
     ></altcha-widget>
