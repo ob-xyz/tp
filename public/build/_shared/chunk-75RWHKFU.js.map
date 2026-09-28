@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/components/footer.tsx"],
-  "sourcesContent": ["import { Link } from \"@remix-run/react\";\n\nexport default function Footer() {\n  return (\n      <footer className=\"footer\">\n        <Link to=\"/\">\n         Home\n        </Link>\n        <Link to=\"/policies/terms\">\n          Terms and Conditions\n        </Link>\n         <Link to=\"/policies/privacy\">\n         Privacy Policy\n        </Link> \n      </footer>\n  );\n}\n"],
-  "mappings": ";;;;;;;;;AAKQ;AAHO,SAAR,SAA0B;AAC/B,SACI,mDAAC,YAAO,WAAU,UAChB;AAAA,uDAAC,QAAK,IAAG,KAAI,oBAAb;AAAA;AAAA;AAAA;AAAA,WAEA;AAAA,IACA,mDAAC,QAAK,IAAG,mBAAkB,oCAA3B;AAAA;AAAA;AAAA;AAAA,WAEA;AAAA,IACC,mDAAC,QAAK,IAAG,qBAAoB,8BAA7B;AAAA;AAAA;AAAA;AAAA,WAED;AAAA,OATF;AAAA;AAAA;AAAA;AAAA,SAUA;AAEN;",
-  "names": []
-}
