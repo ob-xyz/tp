@@ -29,7 +29,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast : You're all caught up",
-  description: "The most interesting people, posts, and snarky comments. Sent to you every day. Get the best posts from the most interesting people with a side of snarky comments, every day.",
+  description: "The most interesting people, and posts. With a side of snarky comments. Enjoy something new, every day.",
   viewport: "width=device-width,initial-scale=1"
 });
 

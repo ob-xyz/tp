@@ -1,0 +1,227 @@
+/* app/style/scss/sponsor.css */
+.sponsor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem 6rem;
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.sponsor-container .sponsor-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.sponsor-container .sponsor-header h1 {
+  color: #fafafa !important;
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+.sponsor-container .sponsor-header .subheading {
+  font-size: 1.15rem;
+  color: #888;
+  margin-top: .5rem;
+}
+.sponsor-container .sponsor-header .stats-badge {
+  margin-top: 1rem;
+  padding: .4rem 1rem;
+  border-radius: 2rem;
+  background: #111111;
+  border: 1px solid #222222;
+}
+.sponsor-container .sponsor-header .stats-badge span {
+  font-size: .95rem;
+  color: #ffdc80;
+  font-weight: 600;
+}
+.sponsor-container .sponsor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 72rem;
+}
+@media (max-width: 900px) {
+  .sponsor-container .sponsor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.sponsor-container .calendar-card,
+.sponsor-container .form-card {
+  background: #0d0d0d;
+  border: 1px solid #222222;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.sponsor-container .calendar-card h2,
+.sponsor-container .form-card h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+.sponsor-container .calendar-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.sponsor-container .calendar-controls h3 {
+  color: #fafafa !important;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+.sponsor-container .calendar-controls button {
+  background: #161616;
+  color: #fff;
+  border: 1px solid #282828;
+  padding: .4rem .8rem;
+  border-radius: .4rem;
+  cursor: pointer;
+}
+.sponsor-container .calendar-controls button:hover {
+  background: #222222;
+}
+.sponsor-container .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .4rem;
+}
+.sponsor-container .calendar-grid .calendar-header-day {
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 600;
+  color: #666;
+  padding-bottom: .5rem;
+}
+.sponsor-container .calendar-grid .calendar-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  background: #141414;
+  border: 1px solid #222222;
+  border-radius: .5rem;
+  color: #fafafa !important;
+  cursor: pointer;
+  padding: .2rem;
+  transition: all .15s ease-in-out;
+}
+.sponsor-container .calendar-grid .calendar-day.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+.sponsor-container .calendar-grid .calendar-day .day-number,
+.sponsor-container .calendar-grid .calendar-day span:first-child {
+  color: #fafafa !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.sponsor-container .calendar-grid .calendar-day .status-label,
+.sponsor-container .calendar-grid .calendar-day .status-indicator,
+.sponsor-container .calendar-grid .calendar-day span:last-child {
+  color: #a1a1aa !important;
+  font-size: .65rem;
+  margin-top: .2rem;
+}
+.sponsor-container .calendar-grid .calendar-day:hover:not(:disabled):not(.empty) {
+  border-color: #ffa72b;
+  background: #1c1c1c;
+}
+.sponsor-container .calendar-grid .calendar-day.selected {
+  background: #ffdc80 !important;
+  color: #000;
+  border-color: #ffdc80;
+}
+.sponsor-container .calendar-grid .calendar-day.selected .day-number,
+.sponsor-container .calendar-grid .calendar-day.selected .status-label,
+.sponsor-container .calendar-grid .calendar-day.selected span {
+  color: #000 !important;
+  font-weight: 700;
+}
+.sponsor-container .calendar-grid .calendar-day.booked {
+  opacity: .4;
+  cursor: not-allowed;
+  background: #080808;
+}
+.sponsor-container .calendar-grid .calendar-day.booked .day-number,
+.sponsor-container .calendar-grid .calendar-day.booked span {
+  color: #71717a !important;
+}
+.sponsor-container .calendar-grid .calendar-day.booked .status-label {
+  color: #ef4444 !important;
+}
+.sponsor-container .form-card .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+.sponsor-container .form-card .form-group label {
+  font-size: .875rem;
+  color: #aaa;
+  margin-bottom: .4rem;
+}
+.sponsor-container .form-card .form-group input,
+.sponsor-container .form-card .form-group textarea {
+  background: #141414;
+  border: 1px solid #222222;
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  color: #fff;
+  font-size: .95rem;
+}
+.sponsor-container .form-card .form-group input:focus,
+.sponsor-container .form-card .form-group textarea:focus {
+  outline: none;
+  border-color: #ffdc80;
+}
+.sponsor-container .form-card .form-group .date-display {
+  background: #1c1c1c;
+  color: #ffdc80;
+  font-weight: 600;
+  border-color: #333;
+}
+.sponsor-container .form-card .error-message {
+  color: #ff4d4d;
+  font-size: .875rem;
+  margin-bottom: 1rem;
+}
+.sponsor-container .form-card .submit-btn {
+  width: 100%;
+  padding: .9rem;
+  border: none;
+  border-radius: .5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #000;
+  background: #ffdc80;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.sponsor-container .form-card .submit-btn:hover:not(:disabled) {
+  background: #ffa72b;
+}
+.sponsor-container .form-card .submit-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+.sponsor-container .success-banner {
+  text-align: center;
+  background: #0d0d0d;
+  border: 1px solid #ffdc80;
+  padding: 3rem;
+  border-radius: 1rem;
+  max-width: 32rem;
+}
+.sponsor-container .success-banner h2 {
+  color: #ffdc80;
+  margin-top: 0;
+}

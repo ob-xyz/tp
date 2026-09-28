@@ -346,7 +346,7 @@ export default function Index() {
         {issue ? (
           <FeedEmbed key={issue.id} html={issue.body} title={issue.subject} />
         ) : (
-          <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
+          <div className="feed-empty">Check back soon for today&rsquo;s edition.</div>
         )}
       </main>
 
