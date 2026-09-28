@@ -1,16 +1,68 @@
-/* Keep the area behind/around the page dark (overscroll, address-bar changes) */
+/* ---------------------------------------------------------------------- */
+/*                               THEME TOKENS                              */
+/* ---------------------------------------------------------------------- */
+/* Light is the base; dark overrides follow the system setting */
+:root {
+  --feed-bg: #ffffff;
+  --feed-surface: #f7f9f9;
+  --feed-hairline: rgba(0, 0, 0, 0.1);
+  --feed-text: #0f1419;
+  --feed-text-muted: #536471;
+  --feed-accent: #b8842f;
+  --feed-live: #00b86b;
+  --feed-btn-bg: #0f1419;
+  --feed-btn-text: #ffffff;
+  --feed-logo-glow: rgba(184, 132, 47, 0.3);
+  --feed-input-bg: rgba(0, 0, 0, 0.03);
+  --feed-input-border: rgba(0, 0, 0, 0.15);
+  --feed-input-text: #0f1419;
+  --feed-input-placeholder: rgba(0, 0, 0, 0.4);
+  --feed-heading: rgba(0, 0, 0, 0.6);
+  --feed-legal: rgba(0, 0, 0, 0.45);
+  --feed-legal-link: rgba(0, 0, 0, 0.65);
+  --feed-skeleton-a: #f0f0f0;
+  --feed-skeleton-b: #e2e2e2;
+  --feed-pulse-rgb: 0, 184, 107;
+  --feed-focus: #3598db;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --feed-bg: #050505;
+    --feed-surface: #0b0b0b;
+    --feed-hairline: rgba(255, 255, 255, 0.08);
+    --feed-text: #e7e9ea;
+    --feed-text-muted: #71767b;
+    --feed-accent: #f2d19f;
+    --feed-live: #2bff92;
+    --feed-btn-bg: #ffffff;
+    --feed-btn-text: #050505;
+    --feed-logo-glow: rgba(242, 209, 159, 0.35);
+    --feed-input-bg: rgba(255, 255, 255, 0.03);
+    --feed-input-border: rgba(255, 255, 255, 0.12);
+    --feed-input-text: #ffffff;
+    --feed-input-placeholder: rgba(255, 255, 255, 0.35);
+    --feed-heading: rgba(255, 255, 255, 0.6);
+    --feed-legal: rgba(255, 255, 255, 0.3);
+    --feed-legal-link: rgba(255, 255, 255, 0.5);
+    --feed-skeleton-a: #0a0a0a;
+    --feed-skeleton-b: #161616;
+    --feed-pulse-rgb: 43, 255, 146;
+  }
+}
+/* Keep the area behind/around the page matching the theme (overscroll, address bar) */
 html:has(.feed-page),
 body:has(.feed-page) {
-  background: #050505;
+  background: var(--feed-bg);
 }
 
 .feed-page {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
-  background: #050505;
-  color: #e7e9ea;
-  color-scheme: dark; /* stops mobile browsers from force-darkening / recoloring */
+  background: var(--feed-bg);
+  color: var(--feed-text);
+  color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   box-sizing: border-box;
@@ -37,10 +89,10 @@ body:has(.feed-page) {
   gap: 0.5rem;
   flex-wrap: nowrap;
   padding: 0.85rem 0.75rem;
-  background: #050505;
+  background: var(--feed-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--feed-hairline);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -53,17 +105,17 @@ body:has(.feed-page) {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 100%;
-  box-shadow: 0 0 10px 2px rgba(242, 209, 159, 0.35);
+  box-shadow: 0 0 10px 2px var(--feed-logo-glow);
 }
 .feed-topbar .feed-subscribe {
   flex-shrink: 0;
   font-family: bold;
   font-size: 0.95rem;
-  color: #050505;
+  color: var(--feed-btn-text);
   text-decoration: none;
   padding: 0.5rem 1.15rem;
   border-radius: 999px;
-  background: #fff;
+  background: var(--feed-btn-bg);
   white-space: nowrap;
   margin-right: 0;
   transition: transform 0.15s ease, opacity 0.2s ease;
@@ -79,7 +131,7 @@ body:has(.feed-page) {
   gap: 0.4rem;
   font-family: kl;
   font-size: 0.9rem;
-  color: #71767b;
+  color: var(--feed-text-muted);
   white-space: nowrap;
   min-width: 0;
   overflow: hidden;
@@ -90,21 +142,21 @@ body:has(.feed-page) {
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 999px;
-  background: #2bff92;
+  background: var(--feed-live);
   flex-shrink: 0;
-  box-shadow: 0 0 0 0 rgba(43, 255, 146, 0.6);
+  box-shadow: 0 0 0 0 rgba(var(--feed-pulse-rgb), 0.6);
   animation: feed-live-pulse 2s infinite;
 }
 
 @keyframes feed-live-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(43, 255, 146, 0.7), 0 0 6px rgba(43, 255, 146, 0.8);
+    box-shadow: 0 0 0 0 rgba(var(--feed-pulse-rgb), 0.7), 0 0 6px rgba(var(--feed-pulse-rgb), 0.8);
   }
   70% {
-    box-shadow: 0 0 0 0.5rem rgba(43, 255, 146, 0), 0 0 10px rgba(43, 255, 146, 0.4);
+    box-shadow: 0 0 0 0.5rem rgba(var(--feed-pulse-rgb), 0), 0 0 10px rgba(var(--feed-pulse-rgb), 0.4);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(43, 255, 146, 0), 0 0 6px rgba(43, 255, 146, 0.8);
+    box-shadow: 0 0 0 0 rgba(var(--feed-pulse-rgb), 0), 0 0 6px rgba(var(--feed-pulse-rgb), 0.8);
   }
 }
 /* ---------------------------------------------------------------------- */
@@ -119,7 +171,6 @@ body:has(.feed-page) {
 .feed-embed {
   position: relative;
   width: 100%;
-  /* Only reserve space while loading; once loaded the iframe sets its own height */
 }
 .feed-embed:not(.loaded) {
   min-height: 24rem;
@@ -127,11 +178,11 @@ body:has(.feed-page) {
 .feed-embed iframe {
   display: block;
   width: 100%;
-  height: 24rem; /* replaced by JS once content is measured */
+  height: 24rem;
   min-height: 0;
   border: none;
   background: transparent;
-  color-scheme: dark;
+  color-scheme: light dark;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -143,7 +194,7 @@ body:has(.feed-page) {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #0a0a0a 25%, #161616 37%, #0a0a0a 63%);
+  background: linear-gradient(90deg, var(--feed-skeleton-a) 25%, var(--feed-skeleton-b) 37%, var(--feed-skeleton-a) 63%);
   background-size: 400% 100%;
   animation: feed-skeleton-pulse 1.4s ease infinite;
 }
@@ -159,7 +210,7 @@ body:has(.feed-page) {
 .feed-empty {
   font-family: kl;
   font-size: 1.05rem;
-  color: #71767b;
+  color: var(--feed-text-muted);
   padding: 4rem 1.5rem;
   text-align: center;
 }
@@ -182,7 +233,7 @@ body:has(.feed-page) {
 }
 .feed-subscribe-form .feed-subscribe-heading {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--feed-heading);
   margin: 0 0 0.8rem;
   text-align: center;
   font-family: bold;
@@ -192,34 +243,34 @@ body:has(.feed-page) {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
   border-radius: 999px;
   padding: 0.25rem 0.35rem 0.25rem 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .feed-subscribe-form .feed-input-bar:focus-within {
-  border-color: #3598db;
-  box-shadow: 0 0 12px #3598db;
+  border-color: var(--feed-focus);
+  box-shadow: 0 0 12px var(--feed-focus);
 }
 .feed-subscribe-form .feed-input-bar .feed-input {
   background: transparent;
   border: none;
   outline: none;
-  color: #fff;
+  color: var(--feed-input-text);
   font-size: 0.85rem;
   padding: 0.4rem 1.5rem;
   min-width: 0;
 }
 .feed-subscribe-form .feed-input-bar .feed-input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--feed-input-placeholder);
 }
 .feed-subscribe-form .feed-input-bar .feed-input.email-input {
   flex: 1.5;
 }
 .feed-subscribe-form .feed-input-bar .feed-submit {
-  background: #ffffff;
-  color: #050505;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
   border: none;
   border-radius: 999px;
   padding: 0.45rem 1.1rem;
@@ -245,24 +296,24 @@ body:has(.feed-page) {
 .feed-subscribe-form .feed-altcha-wrap altcha-widget {
   --altcha-max-width: 280px;
   --altcha-color-bg: transparent;
-  --altcha-color-border: rgba(255, 255, 255, 0.1);
-  --altcha-color-text: rgba(255, 255, 255, 0.6);
-  --altcha-color-border-focus: #2bff92;
+  --altcha-color-border: var(--feed-input-border);
+  --altcha-color-text: var(--feed-heading);
+  --altcha-color-border-focus: var(--feed-live);
   --altcha-border-radius: 8px;
   font-size: 0.75rem;
 }
 .feed-subscribe-form .feed-legal {
   margin: 0.8rem 0 15rem;
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--feed-legal);
   text-align: center;
 }
 .feed-subscribe-form .feed-legal a {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--feed-legal-link);
   text-decoration: underline;
 }
 .feed-subscribe-form .feed-legal a:hover {
-  color: #3598db;
+  color: var(--feed-focus);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -311,7 +362,6 @@ body:has(.feed-page) {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
-/* Very narrow phones */
 @media (max-width: 380px) {
   .feed-topbar {
     padding: 0.6rem;

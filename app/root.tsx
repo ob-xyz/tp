@@ -38,6 +38,17 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#050505"
+          media="(prefers-color-scheme: dark)"
+        />
         <Links />
       </head>
       <body>
