@@ -570,7 +570,7 @@ export default function Index() {
             />
 
             <p>
-              Trusted by 25,000+ execs and builders
+              The most interesting people and posts. Every day.
             </p>
 
             <p>
@@ -578,7 +578,7 @@ export default function Index() {
             </p>
 
             <p>
-              Subscribe for the world's best posts, delivered to your inbox.
+              Subscribe to a daily feed of the most interesting people and posts.
             </p>
 
             <form
@@ -657,9 +657,9 @@ export default function Index() {
         </div>
 
         <h1>
-          The world's most interesting people and posts</h1>
+          The most interesting people and posts</h1>
         <h2>
-         Get the best posts from the world's most interesting people with a side of snarky comments, delivered to your inbox daily.
+         Get the best posts from the most interesting people with a side of snarky comments, every day.
         </h2>
         
         <div className="outer-header">

@@ -1,4 +1,4 @@
-$feed-bg: #000000;
+$feed-bg: #050505;
 $feed-surface: #0b0b0b;
 $feed-hairline: rgba(255, 255, 255, 0.08);
 $feed-text: #e7e9ea;
@@ -25,10 +25,6 @@ $feed-live: #2bff92;
 /*                                 TOP BAR                                 */
 /* ---------------------------------------------------------------------- */
 
-/*
- * One shared max-width for topbar/stream/footer so their edges line up —
- * this had drifted to three different values (620/600/600px).
- */
 $feed-max-width: 600px;
 
 .feed-topbar {
@@ -42,8 +38,8 @@ $feed-max-width: 600px;
   justify-content: space-between;
   gap: .5rem;
   flex-wrap: nowrap;
-  padding: .85rem 1rem;
-  background: rgba(0, 0, 0, 0.85);
+  padding: .85rem .75rem;
+  background: #050505;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid $feed-hairline;
@@ -54,8 +50,8 @@ $feed-max-width: 600px;
     flex-shrink: 0;
     margin-left:0;
     img {
-      width: 2.1rem;
-      height: 2.1rem;
+      width: 2.25rem;
+      height: 2.25rem;
       border-radius: 100%;
       box-shadow: 0 0 10px 2px rgba(242, 209, 159, 0.35);
     }
@@ -63,8 +59,7 @@ $feed-max-width: 600px;
 
   .feed-subscribe {
     flex-shrink: 0;
-    font-family: ku;
-    font-weight: 100;
+    font-family: bold;
     font-size: .95rem;
     color: $feed-bg;
     text-decoration: none;
@@ -74,10 +69,13 @@ $feed-max-width: 600px;
     white-space: nowrap;
     transition: opacity 0.2s ease;
     margin-right:0;
+    transition: transform 0.15s ease, background-color 0.15s ease;
     
-    &:hover {
-      opacity: .85;
-    }
+      &:hover {
+        opacity: .85;
+        transform: translateY(-1px);
+      }
+
   }
 }
 
@@ -129,22 +127,10 @@ $feed-max-width: 600px;
   box-sizing: border-box;
 }
 
-/*
- * No border-radius, no box-shadow, no background different from the page.
- * This should not look like a card sitting on the page — it should look
- * like the page.
- */
 .feed-embed {
   position: relative;
   width: 100%;
   min-height: 24rem;
-
-  /*
-   * Opacity lives on the iframe, not this wrapper — previously the whole
-   * wrapper (including the skeleton below) was opacity:0 until loaded,
-   * so the loading state was invisible and the page just looked blank
-   * until content popped in. The skeleton should be visible immediately.
-   */
   iframe {
     display: block;
     width: 100%;
@@ -201,8 +187,7 @@ $feed-max-width: 600px;
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 0.8rem;
     text-align: center;
-    font-family: ku;
-    font-weight: 100;
+    font-family: bold;
   }
 
   .feed-input-bar {
@@ -239,7 +224,7 @@ $feed-max-width: 600px;
 
     .feed-submit {
       background: #ffffff;
-      color: #000000;
+      color: #050505;
       border: none;
       border-radius: 999px;
       padding: 0.45rem 1.1rem;
@@ -247,10 +232,9 @@ $feed-max-width: 600px;
       cursor: pointer;
       white-space: nowrap;
       transition: transform 0.15s ease, background-color 0.15s ease;
-      font-family: ku;
-      font-weight: 100;
+      font-family: bold;
       &:hover {
-        background: #2bff92;
+        opacity:.85;
         transform: translateY(-1px);
       }
 
