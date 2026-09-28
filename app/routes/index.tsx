@@ -491,9 +491,9 @@ export default function Index() {
           </div>
         )}
 
-        <Link to="/subscribe" className="feed-subscribe">
+        <a href="#subscribe" className="feed-subscribe">
           Subscribe
-        </Link>
+        </a>
       </header>
 
       <main className="feed-stream">
@@ -503,13 +503,13 @@ export default function Index() {
           <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
         )}
       </main>
-      <footer className="feed-footer">
+      <footer className="feed-footer" id="subscribe">
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">Get tomorrow’s edition sent to you</p>
+          <p className="feed-subscribe-heading">Get The Poast sent to you</p>
 
           {/* Single Line Input Bar */}
           <div className="feed-input-bar">
