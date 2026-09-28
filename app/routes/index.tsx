@@ -487,7 +487,7 @@ export default function Index() {
         {isDraft && (
           <div className="feed-status">
             <span className="status-dot" />
-            Live
+            Today's edition
           </div>
         )}
 
