@@ -484,12 +484,12 @@ export default function Index() {
           />
         </Link>
 
-        {isDraft && (
+        {/* {isDraft && (
           <div className="feed-status">
             <span className="status-dot" />
             Today's edition
           </div>
-        )}
+        )} */}
 
         <a href="#subscribe" className="feed-subscribe">
           Subscribe
