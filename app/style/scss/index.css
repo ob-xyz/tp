@@ -101,8 +101,8 @@ body:has(.feed-page) {
   justify-content: center;
 }
 .feed-topbar .feed-mark img {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 100%;
   box-shadow: 0 0 10px 2px var(--feed-logo-glow);
 }
@@ -326,8 +326,8 @@ body:has(.feed-page) {
     gap: 0.4rem;
   }
   .feed-topbar .feed-mark img {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   .feed-topbar .feed-subscribe {
     font-size: 0.85rem;
