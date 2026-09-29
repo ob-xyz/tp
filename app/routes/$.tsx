@@ -18,23 +18,11 @@ export const links: LinksFunction = () => [
 /*                                   CONFIG                                   */
 /* -------------------------------------------------------------------------- */
 
-const DRAFT_CAMPAIGN_ID = 1;
-const WORK_TIMEZONE = "America/New_York";
-const WORK_START_HOUR = 9;
+const LIVE_CAMPAIGN_ID = 1;
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
 /* -------------------------------------------------------------------------- */
-
-type Campaign = {
-  id: number | string;
-  subject?: string;
-  body?: string;
-  updated_at?: string;
-  created_at?: string;
-};
-
-type IssueMode = "sent" | "draft";
 
 type LatestIssue = {
   id: number | string;
@@ -44,29 +32,25 @@ type LatestIssue = {
 };
 
 type IssuePayload = {
-  mode: IssueMode;
   issue: LatestIssue | null;
+  isDraft: boolean;
 };
 
 /* -------------------------------------------------------------------------- */
 /*                             PERSISTENT CACHE                               */
 /* -------------------------------------------------------------------------- */
 
-const SENT_CHECK_TTL_MS = 60 * 1000;
-const SENT_CONTENT_TTL_MS = 30 * 60 * 1000;
-const DRAFT_CONTENT_TTL_MS = 30 * 1000;
+const CONTENT_TTL_MS = 30 * 1000;
 
-let cachedLatestMeta: { data: Campaign | null; timestamp: number } | null = null;
-let cachedSentIssue: { data: LatestIssue | null; timestamp: number } | null = null;
-let cachedDraftIssue: { data: LatestIssue | null; timestamp: number } | null = null;
+let cachedIssue: { data: LatestIssue | null; timestamp: number } | null = null;
 
-function issueResponse(mode: IssueMode, issue: LatestIssue | null) {
+function issueResponse(issue: LatestIssue | null, isDraft = true) {
   return json(
-    { mode, issue } satisfies IssuePayload,
+    { issue, isDraft } satisfies IssuePayload,
     {
       headers: {
         "Cache-Control":
-          "public, max-age=60, s-maxage=300, stale-while-revalidate=86400",
+          "public, max-age=30, s-maxage=60, stale-while-revalidate=86400",
       },
     }
   );
@@ -108,32 +92,6 @@ async function fetchCampaignPreviewHtml(
   }
 
   return "";
-}
-
-/* -------------------------------------------------------------------------- */
-/*                              TIMEZONE HELPERS                              */
-/* -------------------------------------------------------------------------- */
-
-function getZonedParts(date: Date, timeZone: string) {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hour12: false,
-  });
-
-  const parts = formatter.formatToParts(date);
-  const get = (type: string) =>
-    parts.find((part) => part.type === type)?.value ?? "";
-
-  const rawHour = Number(get("hour"));
-
-  return {
-    dateKey: `${get("year")}-${get("month")}-${get("day")}`,
-    hour: rawHour === 24 ? 0 : rawHour,
-  };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -233,6 +191,9 @@ function prepareIssueHtml(html: string = "", referenceDate: Date): string {
       img {
         height: auto !important;
       }
+      .footer {
+        display: none !important;
+      }
     </style>
   `;
 
@@ -251,147 +212,44 @@ function prepareIssueHtml(html: string = "", referenceDate: Date): string {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                        METADATA + DRAFT HELPERS                            */
-/* -------------------------------------------------------------------------- */
-
-async function getLatestMeta(
-  headers: Record<string, string>
-): Promise<Campaign | null> {
-  const metaCheckNow = Date.now();
-
-  if (
-    cachedLatestMeta &&
-    metaCheckNow - cachedLatestMeta.timestamp < SENT_CHECK_TTL_MS
-  ) {
-    return cachedLatestMeta.data;
-  }
-
-  const response = await fetchWithTimeout(
-    "https://app.thepoast.com/api/campaigns?status=finished&order_by=updated_at&order=DESC&per_page=1",
-    { headers },
-    3000
-  );
-
-  if (response && response.ok) {
-    const data = await response.json();
-    const campaigns: Campaign[] = data?.data?.results || data?.data || [];
-    const latest = campaigns[0] || null;
-
-    cachedLatestMeta = { data: latest, timestamp: metaCheckNow };
-    return latest;
-  }
-
-  return cachedLatestMeta?.data ?? null;
-}
-
-async function resolveDraftIssue(
-  now: Date,
-  previewHeaders: Record<string, string>
-): Promise<LatestIssue | null> {
-  const draftCheckNow = Date.now();
-
-  if (
-    cachedDraftIssue &&
-    draftCheckNow - cachedDraftIssue.timestamp < DRAFT_CONTENT_TTL_MS
-  ) {
-    return cachedDraftIssue.data;
-  }
-
-  const draftBody = await fetchCampaignPreviewHtml(
-    DRAFT_CAMPAIGN_ID,
-    previewHeaders
-  );
-
-  if (!draftBody) {
-    return cachedDraftIssue?.data ?? null;
-  }
-
-  const draftIssue: LatestIssue = {
-    id: DRAFT_CAMPAIGN_ID,
-    subject: "Today's Edition (Live Draft)",
-    date: now.toISOString(),
-    body: prepareIssueHtml(draftBody, now),
-  };
-
-  cachedDraftIssue = { data: draftIssue, timestamp: draftCheckNow };
-  return draftIssue;
-}
-
-/* -------------------------------------------------------------------------- */
 /*                                   LOADER                                   */
 /* -------------------------------------------------------------------------- */
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const now = new Date();
-  const { dateKey: todayKey, hour: currentHour } = getZonedParts(
-    now,
-    WORK_TIMEZONE
-  );
-
   const username = process.env.LISTMONK_USERNAME;
   const token = process.env.LISTMONK_TOKEN;
 
   if (!username || !token) {
-    return issueResponse("sent", cachedSentIssue?.data ?? null);
+    return issueResponse(cachedIssue?.data ?? null, true);
+  }
+
+  const checkNow = Date.now();
+  if (cachedIssue && checkNow - cachedIssue.timestamp < CONTENT_TTL_MS) {
+    return issueResponse(cachedIssue.data, true);
   }
 
   const authHeader = `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`;
-
-  const headers = { Authorization: authHeader, Accept: "application/json" };
   const previewHeaders = { Authorization: authHeader, Accept: "text/html" };
 
-  const isWorkingHoursGuess = currentHour >= WORK_START_HOUR;
+  const body = await fetchCampaignPreviewHtml(
+    LIVE_CAMPAIGN_ID,
+    previewHeaders
+  );
 
-  const [latestMeta, speculativeDraftIssue] = await Promise.all([
-    getLatestMeta(headers),
-    isWorkingHoursGuess
-      ? resolveDraftIssue(now, previewHeaders)
-      : Promise.resolve(null),
-  ]);
-
-  const latestDateRaw = latestMeta?.updated_at || latestMeta?.created_at;
-  const latestKey = latestDateRaw
-    ? getZonedParts(new Date(latestDateRaw), WORK_TIMEZONE).dateKey
-    : null;
-
-  const isSentToday = latestKey === todayKey;
-  const showDraft = !isSentToday && isWorkingHoursGuess;
-
-  if (showDraft && speculativeDraftIssue) {
-    return issueResponse("draft", speculativeDraftIssue);
+  if (!body) {
+    return issueResponse(cachedIssue?.data ?? null, true);
   }
 
-  if (!latestMeta) {
-    return issueResponse("sent", cachedSentIssue?.data ?? null);
-  }
-
-  const sentCheckNow = Date.now();
-
-  if (
-    cachedSentIssue &&
-    String(cachedSentIssue.data?.id) === String(latestMeta.id) &&
-    sentCheckNow - cachedSentIssue.timestamp < SENT_CONTENT_TTL_MS
-  ) {
-    return issueResponse("sent", cachedSentIssue.data);
-  }
-
-  const sentBody = await fetchCampaignPreviewHtml(latestMeta.id, previewHeaders);
-
-  if (!sentBody) {
-    return issueResponse("sent", cachedSentIssue?.data ?? null);
-  }
-
-  const sentReferenceDate = latestDateRaw ? new Date(latestDateRaw) : now;
-
-  const sentIssue: LatestIssue = {
-    id: latestMeta.id,
-    subject: latestMeta.subject || "Untitled Issue",
-    date: latestDateRaw || now.toISOString(),
-    body: prepareIssueHtml(sentBody, sentReferenceDate),
+  const issue: LatestIssue = {
+    id: LIVE_CAMPAIGN_ID,
+    subject: "Today's Edition",
+    date: now.toISOString(),
+    body: prepareIssueHtml(body, now),
   };
 
-  cachedSentIssue = { data: sentIssue, timestamp: sentCheckNow };
-  return issueResponse("sent", sentIssue);
+  cachedIssue = { data: issue, timestamp: checkNow };
+  return issueResponse(issue, true);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -420,15 +278,12 @@ function FeedEmbed({ html, title }: { html: string; title: string }) {
       }
     };
 
-    // Initial check
     updateHeight();
 
-    // Re-check as images load inside iframe
     const doc = frame.contentDocument;
     if (doc) {
       doc.addEventListener("DOMContentLoaded", updateHeight);
-      
-      // Use ResizeObserver inside iframe document body if supported
+
       if (doc.body && typeof ResizeObserver !== "undefined") {
         const observer = new ResizeObserver(updateHeight);
         observer.observe(doc.body);
@@ -469,12 +324,17 @@ function FeedEmbed({ html, title }: { html: string; title: string }) {
 /* -------------------------------------------------------------------------- */
 
 export default function Index() {
-  const { mode, issue } = useLoaderData<typeof loader>();
-  const isDraft = mode === "draft";
+  const { issue, isDraft } = useLoaderData<typeof loader>();
 
   return (
     <div className="feed-page">
       <header className="feed-topbar">
+        {isDraft && (
+          <div className="feed-status">
+            <span className="status-dot" />
+            404 Error
+          </div>
+        )}
         <Link className="feed-mark" to="/">
           <img
             src="/img/ja.png"
@@ -483,13 +343,6 @@ export default function Index() {
             decoding="async"
           />
         </Link>
-
-        {isDraft && (
-          <div className="feed-status">
-            <span className="status-dot" />
-            404 Error
-          </div>
-        )}
 
         <a href="#subscribe" className="feed-subscribe">
           Subscribe
@@ -500,18 +353,18 @@ export default function Index() {
         {issue ? (
           <FeedEmbed key={issue.id} html={issue.body} title={issue.subject} />
         ) : (
-          <div className="feed-empty">Check back soon for today&rsquo;s issue.</div>
+          <div className="feed-empty">Check back soon for today&rsquo;s edition.</div>
         )}
       </main>
+
       <footer className="feed-footer" id="subscribe">
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">Get The Poast sent to you</p>
+          <p className="feed-subscribe-heading">Get The Poast for free</p>
 
-          {/* Single Line Input Bar */}
           <div className="feed-input-bar">
             <input
               className="feed-input email-input"
@@ -525,12 +378,10 @@ export default function Index() {
             </button>
           </div>
 
-          {/* Centered Minimalist Altcha Container */}
           <div className="feed-altcha-wrap">
             <Altcha />
           </div>
 
-          {/* Hidden Listmonk Inputs */}
           <input
             id="6d48f"
             type="hidden"
@@ -539,7 +390,6 @@ export default function Index() {
           />
           <input type="hidden" name="nonce" />
 
-          {/* Subtle Footnote */}
           <p className="feed-legal">
             By submitting, you agree to our{" "}
             <Link to="/policies/terms">Terms</Link> &amp;{" "}
@@ -550,6 +400,3 @@ export default function Index() {
     </div>
   );
 }
-
-
-
