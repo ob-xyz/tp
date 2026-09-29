@@ -1,7 +1,7 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import Altcha from "../components/altcha";
-import logo from "~/../public/img/ja.png";
+import logo from "~/../public/img/tp.png";
 import subscribeStyles from "~/style/scss/subscribe.css";
 
 export const links: LinksFunction = () => [
@@ -11,7 +11,7 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => ({
   title: "Subscribe : The Poast",
   description:
-    "Get the daily conversations that matter, delivered to your inbox.",
+    "Get caught up right here, right now.",
 });
 
 export default function Subscribe() {
@@ -24,7 +24,7 @@ export default function Subscribe() {
 
         <h1 className="subscribe-title">Get The Poast for free</h1>
         <p className="subscribe-sub">
-          Get the daily conversations that matter, delivered to your inbox.
+          Get caught up right here, right now.
         </p>
 
         <form

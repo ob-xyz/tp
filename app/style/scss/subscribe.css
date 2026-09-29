@@ -5,7 +5,6 @@
   --feed-text-muted: #536471;
   --feed-btn-bg: #0f1419;
   --feed-btn-text: #ffffff;
-  --feed-logo-glow: rgba(184, 132, 47, 0.3);
   --feed-page-glow: rgba(184, 132, 47, 0.12);
   --feed-input-bg: rgba(0, 0, 0, 0.03);
   --feed-input-border: rgba(0, 0, 0, 0.15);
@@ -26,7 +25,6 @@
     --feed-text-muted: #71767b;
     --feed-btn-bg: #ffffff;
     --feed-btn-text: #050505;
-    --feed-logo-glow: rgba(242, 209, 159, 0.35);
     --feed-page-glow: rgba(242, 209, 159, 0.08);
     --feed-input-bg: rgba(255, 255, 255, 0.03);
     --feed-input-border: rgba(255, 255, 255, 0.12);
@@ -91,8 +89,8 @@ body:has(.subscribe-page) {
 /* ---------------------------------------------------------------------- */
 .subscribe-logo {
   display: block;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 3rem;
   flex-shrink: 0;
   margin-bottom: 1.5rem;
 }
@@ -101,7 +99,6 @@ body:has(.subscribe-page) {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  box-shadow: 0 0 14px 3px var(--feed-logo-glow);
 }
 
 .subscribe-title {

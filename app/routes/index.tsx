@@ -330,7 +330,7 @@ export default function Index() {
       <header className="feed-topbar">
         <Link className="feed-mark" to="/">
           <img
-            src="/img/ja.png"
+            src="/img/tp.png"
             alt="The Poast"
             loading="eager"
             decoding="async"

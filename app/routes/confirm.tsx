@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 
 import j from "~/../public/img/ja6.png";
-import logo from "~/../public/img/ja.png";
+import logo from "~/../public/img/tp.png";
 
 export default function Confirm() {
   return (

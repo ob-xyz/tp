@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { useEffect, useState, type ReactNode } from "react";
-import logo from "~/../public/img/ja.png";
+import logo from "~/../public/img/tp.png";
 
 type TocItem = { id: string; label: string };
 
