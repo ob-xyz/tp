@@ -11,7 +11,7 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => ({
   title: "Subscribe : The Poast",
   description:
-    "Get The Poast for free. Powerful people, and posts. Plus, a side of snarky comments, every day.",
+    "Get the daily conversations that matter, delivered to your inbox.",
 });
 
 export default function Subscribe() {
