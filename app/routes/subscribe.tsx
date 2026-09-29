@@ -24,8 +24,7 @@ export default function Subscribe() {
 
         <h1 className="subscribe-title">Get The Poast for free</h1>
         <p className="subscribe-sub">
-          Powerful people and posts. Plus, a side of snarky
-          comments, every day.
+          Get the daily conversations that matter, delivered to your inbox.
         </p>
 
         <form
