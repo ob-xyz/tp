@@ -1,0 +1,350 @@
+$subscribe-max-width: 540px;
+
+.subscribe-page {
+  --feed-bg: #ffffff;
+  --feed-hairline: rgba(0, 0, 0, 0.1);
+  --feed-text: #0f1419;
+  --feed-text-muted: #536471;
+  --feed-btn-bg: #0f1419;
+  --feed-btn-text: #ffffff;
+  --feed-logo-glow: rgba(184, 132, 47, 0.3);
+  --feed-page-glow: rgba(184, 132, 47, 0.12);
+  --feed-input-bg: rgba(0, 0, 0, 0.03);
+  --feed-input-border: rgba(0, 0, 0, 0.15);
+  --feed-input-text: #0f1419;
+  --feed-input-placeholder: rgba(0, 0, 0, 0.4);
+  --feed-heading: rgba(0, 0, 0, 0.75);
+  --feed-legal: rgba(0, 0, 0, 0.5);
+  --feed-legal-link: rgba(0, 0, 0, 0.7);
+  --feed-focus: #3598db;
+  --feed-live: #00b86b;
+}
+
+@media (prefers-color-scheme: dark) {
+  .subscribe-page {
+    --feed-bg: #050505;
+    --feed-hairline: rgba(255, 255, 255, 0.08);
+    --feed-text: #e7e9ea;
+    --feed-text-muted: #71767b;
+    --feed-btn-bg: #ffffff;
+    --feed-btn-text: #050505;
+    --feed-logo-glow: rgba(242, 209, 159, 0.35);
+    --feed-page-glow: rgba(242, 209, 159, 0.08);
+    --feed-input-bg: rgba(255, 255, 255, 0.03);
+    --feed-input-border: rgba(255, 255, 255, 0.12);
+    --feed-input-text: #ffffff;
+    --feed-input-placeholder: rgba(255, 255, 255, 0.35);
+    --feed-heading: rgba(255, 255, 255, 0.75);
+    --feed-legal: rgba(255, 255, 255, 0.35);
+    --feed-legal-link: rgba(255, 255, 255, 0.55);
+    --feed-live: #2bff92;
+  }
+}
+
+/* Keep overscroll / address-bar area matching the theme */
+html:has(.subscribe-page),
+body:has(.subscribe-page) {
+  background: var(--feed-bg, #050505);
+}
+
+/* ---------------------------------------------------------------------- */
+/*                                  PAGE                                   */
+/* ---------------------------------------------------------------------- */
+
+.subscribe-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  padding-top: max(2rem, env(safe-area-inset-top, 0px));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
+  color: var(--feed-text);
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background:
+    radial-gradient(
+      50rem 22rem at 50% -6rem,
+      var(--feed-page-glow),
+      transparent 70%
+    ),
+    var(--feed-bg);
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+.subscribe-card {
+  width: 100%;
+  max-width: $subscribe-max-width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: subscribe-rise 0.5s ease both;
+}
+
+/* ---------------------------------------------------------------------- */
+/*                                 CONTENT                                 */
+/* ---------------------------------------------------------------------- */
+
+.subscribe-logo {
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  margin-bottom: 1.5rem;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    box-shadow: 0 0 14px 3px var(--feed-logo-glow);
+  }
+}
+
+.subscribe-title {
+  margin: 0;
+  font-family: "ku";
+  font-size: 2.25rem;
+  font-weight: normal;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--feed-text);
+}
+
+.subscribe-sub {
+  margin: 0.85rem 0 0;
+  max-width: 26rem;
+  font-family: "kl";
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--feed-text-muted);
+}
+
+/* ---------------------------------------------------------------------- */
+/*                                  FORM                                   */
+/* ---------------------------------------------------------------------- */
+
+.subscribe-form {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscribe-input-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 999px;
+  padding: 0.25rem 0.35rem 0.25rem 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--feed-focus);
+    box-shadow: 0 0 12px var(--feed-focus);
+  }
+}
+
+.subscribe-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--feed-input-text);
+  font-family: "kl";
+  font-size: 1rem; /* 16px+ prevents iOS zoom-on-focus */
+  padding: 0.6rem 1.5rem;
+
+  &::placeholder {
+    color: var(--feed-input-placeholder);
+  }
+}
+
+.subscribe-submit {
+  flex-shrink: 0;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem;
+  font-family: "bold";
+  font-size: 0.9rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--feed-focus);
+    outline-offset: 2px;
+  }
+}
+
+.subscribe-altcha {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.85rem;
+
+  altcha-widget {
+    --altcha-max-width: 280px;
+    --altcha-color-bg: transparent;
+    --altcha-color-border: var(--feed-input-border);
+    --altcha-color-text: var(--feed-heading);
+    --altcha-color-border-focus: var(--feed-live);
+    --altcha-border-radius: 8px;
+    font-size: 0.8rem;
+  }
+}
+
+.subscribe-legal {
+  margin: 1.1rem 0 0;
+  font-family: "kl";
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--feed-legal);
+
+  a {
+    color: var(--feed-legal-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+    &:hover {
+      color: var(--feed-focus);
+    }
+  }
+
+}
+
+.subscribe-back {
+  margin-top: 2.25rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--feed-hairline);
+  border-radius: 999px;
+  font-family: "bold";
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--feed-text);
+  transition: transform 0.15s ease, opacity 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes subscribe-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/*                                RESPONSIVE                               */
+/* ---------------------------------------------------------------------- */
+
+/* Phones: stack the input and button so nothing gets cramped */
+@media (max-width: 540px) {
+  .subscribe-page {
+    align-items: flex-start;
+    padding-top: max(3rem, env(safe-area-inset-top, 0px));
+  }
+
+  .subscribe-title {
+    font-size: 1.85rem;
+  }
+
+  .subscribe-form {
+    margin-top: 1.5rem;
+  }
+
+  .subscribe-input-bar {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .subscribe-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7rem 1rem;
+    text-align: center;
+  }
+
+  .subscribe-submit {
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Very narrow phones */
+@media (max-width: 380px) {
+  .subscribe-page {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .subscribe-title {
+    font-size: 1.6rem;
+  }
+
+  .subscribe-sub {
+    font-size: 0.95rem;
+  }
+}
+
+/* Short landscape phones: don't vertically center, let it scroll */
+@media (max-height: 520px) {
+  .subscribe-page {
+    align-items: flex-start;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/*                             REDUCED MOTION                              */
+/* ---------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .subscribe-card,
+  .subscribe-submit,
+  .subscribe-back,
+  .subscribe-input-bar {
+    transition: none !important;
+    animation: none !important;
+  }
+}
