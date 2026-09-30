@@ -1,0 +1,280 @@
+$ad-max-width: 580px;
+
+/* ---------------------------------------------------------------------- */
+/*                        ADVERTISING BOOKING PAGE                        */
+/* ---------------------------------------------------------------------- */
+
+.ad-booking-page {
+  --feed-page-glow: rgba(184, 132, 47, 0.12);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--feed-text);
+  color-scheme: light dark;
+  background:
+    radial-gradient(
+      50rem 24rem at 50% -6rem,
+      var(--feed-page-glow),
+      transparent 70%
+    ),
+    var(--feed-bg);
+
+  /* Nav bar centered alignment */
+  .feed-topbar-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .feed-mark {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ad-booking-page {
+    --feed-page-glow: rgba(242, 209, 159, 0.08);
+  }
+}
+
+/* Page Card Container */
+.ad-booking-card {
+  width: 100%;
+  max-width: $ad-max-width;
+  padding: 2.5rem 1rem 4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretches children to full container width */
+  animation: subscribe-rise 0.5s ease both;
+}
+
+/* Heading & Subtitle Styles */
+.ad-booking-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  .ad-booking-title {
+    margin: 0;
+    font-family: "ku";
+    font-size: 2.25rem;
+    font-weight: normal;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--feed-text);
+  }
+
+  .ad-booking-sub {
+    margin: 0.85rem auto 0;
+    max-width: 28rem;
+    font-family: "kl";
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--feed-text-muted);
+  }
+}
+
+/* Booking Form Elements */
+.ad-booking-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  .form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-family: "bold";
+      font-size: 0.75rem;
+      color: var(--feed-heading);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: left; /* Left-aligned label for wide inputs */
+      padding-left: 0.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--feed-input-bg);
+      border: 1px solid var(--feed-input-border);
+      border-radius: 999px;
+      padding: 0.85rem 1.25rem;
+      font-family: "kl";
+      font-size: 1rem; /* 16px+ prevents iOS zoom-on-focus */
+      color: var(--feed-input-text);
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &::placeholder {
+        color: var(--feed-input-placeholder);
+      }
+
+      &:focus {
+        border-color: var(--feed-focus);
+        box-shadow: 0 0 12px var(--feed-focus);
+      }
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      background-size: 1rem;
+      padding-right: 2.75rem;
+    }
+
+    textarea {
+      border-radius: 1.25rem;
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+    }
+
+    input[type="date"] {
+      color-scheme: light dark;
+      &::-webkit-calendar-picker-indicator {
+        opacity: 0.6;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .ad-submit-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    background: var(--feed-btn-bg);
+    color: var(--feed-btn-text);
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.5rem;
+    font-family: "bold";
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--feed-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  .ad-legal {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+}
+
+@keyframes subscribe-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/*                                RESPONSIVE                               */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 540px) {
+  .ad-booking-card {
+    padding: 1.5rem 0.75rem 3rem; /* Maximize edge-to-edge space for wide boxes */
+  }
+
+  .ad-booking-header {
+    .ad-booking-title {
+      font-size: 1.85rem;
+    }
+
+    .ad-booking-sub {
+      font-size: 0.95rem;
+    }
+  }
+
+  .ad-booking-form {
+    gap: 1.25rem;
+
+    .form-group-row {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-field {
+      label {
+        text-align: left;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      select {
+        width: 100%;
+        padding: 0.9rem 1.25rem; /* Taller, wide tap targets */
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .ad-booking-card {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .ad-booking-header {
+    .ad-booking-title {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ad-booking-card,
+  .ad-submit-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
