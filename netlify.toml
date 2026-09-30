@@ -8,7 +8,7 @@
   port = 3000
 
 [[redirects]]
-  from = "/live"
+  from = "/now"
   to = "https://app.thepoast.com/campaign/bb3d0d27-6689-4162-8844-207a9c597182/644045f5-a135-42b3-bb76-6d9557c055d9"
   status = 200
   force = true

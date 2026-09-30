@@ -1001,53 +1001,66 @@ export function warmIssues(ids: string[], max = 8) {
 /* -------------------------------------------------------------------------- */
 /*                     LIVE "TODAY'S EDITION" (index route)                   */
 /* -------------------------------------------------------------------------- */
-
 const LIVE_CAMPAIGN_ID = 1;
 const LIVE_KEY = "live:issue";
 
-/**
- * The live campaign's preview, always served from memory when possible.
- * Fresh for 20s, then stale-while-revalidate for up to 15 minutes.
- * Never throws.
- */
+const LIVE_FRESH_MS = 30_000;
+const LIVE_STALE_MS = 10 * MIN;
+const LIVE_WARM_INTERVAL_MS = 25_000;
+
 export async function getLiveIssue(): Promise<Issue | null> {
   try {
-    return await cached<Issue | null>(LIVE_KEY, 20_000, 15 * MIN, async () => {
-      const html = await upstream(
-        `/api/campaigns/${LIVE_CAMPAIGN_ID}/preview`,
-        "text/html",
-        6000
-      );
+    return await cached<Issue | null>(
+      LIVE_KEY,
+      LIVE_FRESH_MS,
+      LIVE_STALE_MS,
+      async () => {
+        const html = await upstream(
+          `/api/campaigns/${LIVE_CAMPAIGN_ID}/preview`,
+          "text/html",
+          5000,
+          1
+        );
 
-      if (!html || !html.trim()) return null;
+        if (!html || !html.trim()) {
+          return null;
+        }
 
-      const now = new Date();
+        const now = new Date();
 
-      return {
-        id: String(LIVE_CAMPAIGN_ID),
-        subject: "Today's Edition",
-        date: now.toISOString(),
-        body: prepareIssueHtml(html, now),
-      };
-    });
+        return {
+          id: String(LIVE_CAMPAIGN_ID),
+          subject: "Today's Edition",
+          date: now.toISOString(),
+          body: prepareIssueHtml(html, now),
+        };
+      }
+    );
   } catch (error) {
-    console.error("[feeds] Live issue failed:", error);
+    console.error(
+      "[feeds] Live issue failed:",
+      error
+    );
+
     return null;
   }
 }
 
-/** Live issue if already in memory. Never hits the network. */
 export function peekLiveIssue(): Issue | null {
   return peek<Issue | null>(LIVE_KEY) ?? null;
 }
 
-// Keep the live issue warm so even the first visitor gets it instantly.
-// The interval (25s) is longer than the freshness window (20s), so every
-// tick triggers a background refresh.
-const liveGlobal = globalThis as unknown as { __poastLiveWarm?: boolean };
+const liveGlobal = globalThis as unknown as {
+  __poastLiveWarm?: boolean;
+};
 
 if (!liveGlobal.__poastLiveWarm) {
   liveGlobal.__poastLiveWarm = true;
-  setTimeout(() => void getLiveIssue(), 300);
-  setInterval(() => void getLiveIssue(), 25_000).unref?.();
+
+  // Start warming immediately instead of waiting 300ms.
+  void getLiveIssue();
+
+  setInterval(() => {
+    void getLiveIssue();
+  }, LIVE_WARM_INTERVAL_MS).unref?.();
 }

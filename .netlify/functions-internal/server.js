@@ -253,12 +253,12 @@ function getAuthHeaders(accept) {
   };
 }
 async function upstream(path, accept, timeoutMs = 7e3, attempts = 2) {
-  let headers5 = getAuthHeaders(accept), lastError;
+  let headers6 = getAuthHeaders(accept), lastError;
   for (let attempt = 0; attempt < attempts; attempt++) {
     let controller = new AbortController(), timer = setTimeout(() => controller.abort(), timeoutMs), fatal = !1;
     try {
       let res = await fetch(`${LISTMONK_BASE_URL}${path}`, {
-        headers: headers5,
+        headers: headers6,
         signal: controller.signal
       });
       if (res.status === 404)
@@ -677,34 +677,45 @@ function warmIssues(ids, max = 8) {
     warmingIssues = !1;
   });
 }
-var LIVE_CAMPAIGN_ID = 1, LIVE_KEY = "live:issue";
+var LIVE_CAMPAIGN_ID = 1, LIVE_KEY = "live:issue", LIVE_FRESH_MS = 3e4, LIVE_STALE_MS = 10 * MIN, LIVE_WARM_INTERVAL_MS = 25e3;
 async function getLiveIssue() {
   try {
-    return await cached(LIVE_KEY, 2e4, 15 * MIN, async () => {
-      let html = await upstream(
-        `/api/campaigns/${LIVE_CAMPAIGN_ID}/preview`,
-        "text/html",
-        6e3
-      );
-      if (!html || !html.trim())
-        return null;
-      let now = /* @__PURE__ */ new Date();
-      return {
-        id: String(LIVE_CAMPAIGN_ID),
-        subject: "Today's Edition",
-        date: now.toISOString(),
-        body: prepareIssueHtml(html, now)
-      };
-    });
+    return await cached(
+      LIVE_KEY,
+      LIVE_FRESH_MS,
+      LIVE_STALE_MS,
+      async () => {
+        let html = await upstream(
+          `/api/campaigns/${LIVE_CAMPAIGN_ID}/preview`,
+          "text/html",
+          5e3,
+          1
+        );
+        if (!html || !html.trim())
+          return null;
+        let now = /* @__PURE__ */ new Date();
+        return {
+          id: String(LIVE_CAMPAIGN_ID),
+          subject: "Today's Edition",
+          date: now.toISOString(),
+          body: prepareIssueHtml(html, now)
+        };
+      }
+    );
   } catch (error) {
-    return console.error("[feeds] Live issue failed:", error), null;
+    return console.error(
+      "[feeds] Live issue failed:",
+      error
+    ), null;
   }
 }
 function peekLiveIssue() {
   return peek(LIVE_KEY) ?? null;
 }
 var liveGlobal = globalThis, _a, _b;
-liveGlobal.__poastLiveWarm || (liveGlobal.__poastLiveWarm = !0, setTimeout(() => void getLiveIssue(), 300), (_b = (_a = setInterval(() => void getLiveIssue(), 25e3)).unref) == null || _b.call(_a));
+liveGlobal.__poastLiveWarm || (liveGlobal.__poastLiveWarm = !0, getLiveIssue(), (_b = (_a = setInterval(() => {
+  getLiveIssue();
+}, LIVE_WARM_INTERVAL_MS)).unref) == null || _b.call(_a));
 
 // app/routes/feeds.preview.$id.tsx
 var HTML_HEADERS = {
@@ -2317,50 +2328,101 @@ function getCachedHeight(id, interactive = !1) {
 }
 function FeedEmbed({
   id,
-  html,
   title,
+  html,
+  src,
   interactive = !1,
-  fallbackHeight = 360
+  fallbackHeight = 360,
+  onLoaded,
+  lazy = !1
 }) {
-  let key = keyFor(id, interactive), iframeRef = (0, import_react6.useRef)(null), observerRef = (0, import_react6.useRef)(null), observedBody = (0, import_react6.useRef)(null), [height, setHeight] = (0, import_react6.useState)(
+  let key = keyFor(id, interactive), iframeRef = (0, import_react6.useRef)(null), observerRef = (0, import_react6.useRef)(null), observedBody = (0, import_react6.useRef)(null), onLoadedRef = (0, import_react6.useRef)(onLoaded), firedRef = (0, import_react6.useRef)(!1);
+  onLoadedRef.current = onLoaded;
+  let [height, setHeight] = (0, import_react6.useState)(
     () => heightCache.get(key) ?? fallbackHeight
-  ), attach = (0, import_react6.useCallback)(() => {
-    var _a2, _b2, _c;
-    let body = (_b2 = (_a2 = iframeRef.current) == null ? void 0 : _a2.contentDocument) == null ? void 0 : _b2.body;
+  ), fireLoaded = (0, import_react6.useCallback)(() => {
+    var _a2;
+    firedRef.current || (firedRef.current = !0, (_a2 = onLoadedRef.current) == null || _a2.call(onLoadedRef));
+  }, []), attach = (0, import_react6.useCallback)(() => {
+    var _a2, _b2;
+    let document = (_a2 = iframeRef.current) == null ? void 0 : _a2.contentDocument, body = document == null ? void 0 : document.body;
     if (!body || body.childElementCount === 0)
       return !1;
     let measure = () => {
-      let next = Math.ceil(Math.max(body.scrollHeight, body.offsetHeight));
-      next <= 0 || (heightCache.set(key, next), setHeight((prev) => Math.abs(prev - next) > 1 ? next : prev));
+      let next = Math.ceil(
+        Math.max(
+          body.scrollHeight,
+          body.offsetHeight
+        )
+      );
+      next <= 0 || (heightCache.set(key, next), setHeight(
+        (previous) => Math.abs(previous - next) > 1 ? next : previous
+      ));
     };
-    return measure(), observedBody.current !== body && (observedBody.current = body, (_c = observerRef.current) == null || _c.disconnect(), typeof ResizeObserver < "u" && (observerRef.current = new ResizeObserver(measure), observerRef.current.observe(body))), !0;
-  }, [key]);
+    if (measure(), observedBody.current !== body && (observedBody.current = body, (_b2 = observerRef.current) == null || _b2.disconnect(), typeof ResizeObserver < "u")) {
+      let observer = new ResizeObserver(measure);
+      observer.observe(body), observerRef.current = observer;
+    }
+    return !0;
+  }, [key]), handleLoad = (0, import_react6.useCallback)(() => {
+    attach(), fireLoaded();
+  }, [attach, fireLoaded]);
   return (0, import_react6.useEffect)(() => {
-    observedBody.current = null;
-    let raf = 0, startedAt = performance.now(), tick = () => {
-      attach() || performance.now() - startedAt > 1e4 || (raf = requestAnimationFrame(tick));
+    var _a2, _b2;
+    firedRef.current = !1, observedBody.current = null;
+    let cancelled = !1, timer, startedAt = performance.now(), delays = [
+      0,
+      16,
+      50,
+      100,
+      250,
+      500,
+      1e3,
+      1500
+    ], attempt = 0, poll = () => {
+      if (cancelled)
+        return;
+      if (attach()) {
+        fireLoaded();
+        return;
+      }
+      if (performance.now() - startedAt >= 1e4)
+        return;
+      let delay = delays[Math.min(
+        attempt++,
+        delays.length - 1
+      )];
+      timer = window.setTimeout(
+        poll,
+        delay
+      );
+    }, document = (_a2 = iframeRef.current) == null ? void 0 : _a2.contentDocument;
+    return (document == null ? void 0 : document.readyState) === "complete" && ((_b2 = document.body) != null && _b2.childElementCount) ? (attach(), fireLoaded()) : poll(), () => {
+      var _a3;
+      cancelled = !0, timer !== void 0 && window.clearTimeout(timer), (_a3 = observerRef.current) == null || _a3.disconnect(), observerRef.current = null, observedBody.current = null;
     };
-    return tick(), () => {
-      var _a2;
-      cancelAnimationFrame(raf), (_a2 = observerRef.current) == null || _a2.disconnect(), observedBody.current = null;
-    };
-  }, [html, attach]), /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+  }, [
+    html,
+    src,
+    attach,
+    fireLoaded
+  ]), !src && !html ? null : /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
     "div",
     {
       style: {
         position: "relative",
         width: "100%",
-        height,
-        contain: "content"
+        height
       },
       children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
         "iframe",
         {
           ref: iframeRef,
           title,
-          srcDoc: html,
+          ...src ? { src } : { srcDoc: html ?? "" },
           scrolling: "no",
-          onLoad: attach,
+          loading: lazy ? "lazy" : "eager",
+          onLoad: handleLoad,
           sandbox: interactive ? "allow-same-origin allow-popups allow-popups-to-escape-sandbox" : "allow-same-origin",
           style: {
             display: "block",
@@ -2369,14 +2431,16 @@ function FeedEmbed({
             border: 0,
             margin: 0,
             padding: 0,
-            overflow: "hidden"
+            overflow: "hidden",
+            background: "light-dark(#fff, #000)",
+            colorScheme: "light dark"
           }
         },
         void 0,
         !1,
         {
           fileName: "app/components/feed-embed.tsx",
-          lineNumber: 94,
+          lineNumber: 208,
           columnNumber: 7
         },
         this
@@ -2386,12 +2450,13 @@ function FeedEmbed({
     !1,
     {
       fileName: "app/components/feed-embed.tsx",
-      lineNumber: 86,
+      lineNumber: 201,
       columnNumber: 5
     },
     this
   );
 }
+var feed_embed_default = (0, import_react6.memo)(FeedEmbed);
 
 // app/routes/feeds.$id.tsx
 var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime"), links4 = () => [
@@ -2514,7 +2579,7 @@ function FeedDetail() {
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)("main", { className: "feed-detail-stream", children: /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(
-      FeedEmbed,
+      feed_embed_default,
       {
         id: feed.id,
         html: feed.body,
@@ -3087,7 +3152,7 @@ function FeedCard({ feed, priority }) {
       controller.abort(), observer.disconnect();
     };
   }, [feed.id, html, failed, priority]), /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("section", { className: "feed-archive-item", "data-feed-id": feed.id, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { ref, children: html ? /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-    FeedEmbed,
+    feed_embed_default,
     {
       id: feed.id,
       html,
@@ -3384,7 +3449,7 @@ function Index() {
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "feed-embed loaded", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
-      FeedEmbed,
+      feed_embed_default,
       {
         id: "live",
         html: issue.body,
@@ -3651,7 +3716,7 @@ function FeedCard2({ feed }) {
       controller.abort(), observer.disconnect();
     };
   }, [feed.id, html, failed]), /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("section", { className: "feed-archive-item", "data-feed-id": feed.id, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { ref, style: { position: "relative" }, children: html ? /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_jsx_dev_runtime13.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(FeedEmbed, { id: feed.id, html, title: feed.subject }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(feed_embed_default, { id: feed.id, html, title: feed.subject }, void 0, !1, {
       fileName: "app/routes/today.tsx",
       lineNumber: 202,
       columnNumber: 13
@@ -3893,251 +3958,92 @@ function Today() {
   }, this);
 }
 
+// app/routes/live.tsx
+var live_exports = {};
+__export(live_exports, {
+  default: () => Live,
+  loader: () => loader7
+});
+var LIVE_CACHE_CONTROL = "public, max-age=20, s-maxage=30, stale-while-revalidate=600";
+async function loader7() {
+  let issue = await getLiveIssue();
+  return issue ? new Response(issue.body, {
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": LIVE_CACHE_CONTROL,
+      "X-Content-Type-Options": "nosniff"
+    }
+  }) : new Response(
+    `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Poast</title>
+</head>
+<body>
+<p>The Poast is loading. Please refresh shortly.</p>
+</body>
+</html>`,
+    {
+      status: 503,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      }
+    }
+  );
+}
+function Live() {
+  return null;
+}
+
 // app/routes/$.tsx
 var __exports = {};
 __export(__exports, {
   default: () => Index2,
+  headers: () => headers5,
   links: () => links9,
-  loader: () => loader7
+  loader: () => loader8
 });
-var import_react15 = require("react"), import_react16 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
+var import_react15 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
 var import_jsx_dev_runtime14 = require("react/jsx-dev-runtime"), links9 = () => [
   { rel: "stylesheet", href: showscroll_default },
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" }
-], LIVE_CAMPAIGN_ID2 = 1, CONTENT_TTL_MS = 30 * 1e3, cachedIssue = null;
-function issueResponse(issue, isDraft = !0) {
+], headers5 = ({ loaderHeaders }) => ({
+  "Cache-Control": loaderHeaders.get("Cache-Control") ?? "no-store"
+});
+async function loader8() {
+  let issue = peekLiveIssue() ?? await getLiveIssue();
   return (0, import_node5.json)(
-    { issue, isDraft },
+    { issue, isDraft: !0 },
     {
       headers: {
-        "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=86400"
+        // Never cache an empty/failed result.
+        "Cache-Control": issue ? "public, max-age=30, s-maxage=60, stale-while-revalidate=3600" : "no-store"
       }
     }
   );
-}
-async function fetchWithTimeout(url, options, timeout = 3e3) {
-  let controller = new AbortController(), timeoutId = setTimeout(() => controller.abort(), timeout);
-  try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-async function fetchCampaignPreviewHtml(id, headers5) {
-  let response = await fetchWithTimeout(
-    `https://app.thepoast.com/api/campaigns/${id}/preview`,
-    { headers: headers5 },
-    3e3
-  );
-  return response && response.ok ? await response.text() : "";
-}
-function formatGoDate2(date, layout) {
-  let pad = (value) => String(value).padStart(2, "0"), monthNamesLong = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ], monthNamesShort = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ], weekdayLong = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ], weekdayShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate(), weekday = date.getDay(), tokens = [
-    ["Monday", weekdayLong[weekday]],
-    ["January", monthNamesLong[month - 1]],
-    ["2006", String(year)],
-    ["Mon", weekdayShort[weekday]],
-    ["Jan", monthNamesShort[month - 1]],
-    ["06", pad(year % 100)],
-    ["02", pad(day)],
-    ["01", pad(month)],
-    ["2", String(day)],
-    ["1", String(month)]
-  ], result = "", i = 0;
-  outer:
-    for (; i < layout.length; ) {
-      for (let [token, value] of tokens)
-        if (layout.startsWith(token, i)) {
-          result += value, i += token.length;
-          continue outer;
-        }
-      result += layout[i], i += 1;
-    }
-  return result;
-}
-function resolveTemplateTags2(html, referenceDate) {
-  return html.replace(
-    /\{\{\s*Date\s+"([^"]*)"\s*\}\}/gi,
-    (_match, layout) => {
-      try {
-        return formatGoDate2(referenceDate, layout);
-      } catch {
-        return "";
-      }
-    }
-  ).replace(/\{\{[\s\S]*?\}\}/g, "");
-}
-function prepareIssueHtml2(html = "", referenceDate) {
-  if (!html)
-    return "";
-  let resolved = resolveTemplateTags2(html, referenceDate), injected = `
-    <base target="_blank">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        overflow-x: hidden !important;
-        -webkit-text-size-adjust: 100%;
-      }
-      img, table, td, th {
-        max-width: 100% !important;
-      }
-      img {
-        height: auto !important;
-      }
-      .footer {
-        display: none !important;
-      }
-    </style>
-  `;
-  return /<head[^>]*>/i.test(resolved) ? resolved.replace(/<head[^>]*>/i, (match) => `${match}${injected}`) : /<html[^>]*>/i.test(resolved) ? resolved.replace(
-    /<html([^>]*)>/i,
-    (match, attrs) => `<html${attrs}><head>${injected}</head>`
-  ) : `<head>${injected}</head>${resolved}`;
-}
-async function loader7({ request }) {
-  let now = /* @__PURE__ */ new Date(), username = process.env.LISTMONK_USERNAME, token = process.env.LISTMONK_TOKEN;
-  if (!username || !token)
-    return issueResponse((cachedIssue == null ? void 0 : cachedIssue.data) ?? null, !0);
-  let checkNow = Date.now();
-  if (cachedIssue && checkNow - cachedIssue.timestamp < CONTENT_TTL_MS)
-    return issueResponse(cachedIssue.data, !0);
-  let previewHeaders = { Authorization: `Basic ${Buffer.from(`${username}:${token}`).toString("base64")}`, Accept: "text/html" }, body = await fetchCampaignPreviewHtml(
-    LIVE_CAMPAIGN_ID2,
-    previewHeaders
-  );
-  if (!body)
-    return issueResponse((cachedIssue == null ? void 0 : cachedIssue.data) ?? null, !0);
-  let issue = {
-    id: LIVE_CAMPAIGN_ID2,
-    subject: "Today's Edition",
-    date: now.toISOString(),
-    body: prepareIssueHtml2(body, now)
-  };
-  return cachedIssue = { data: issue, timestamp: checkNow }, issueResponse(issue, !0);
-}
-function FeedEmbed2({ html, title }) {
-  let iframeRef = (0, import_react15.useRef)(null), [loaded, setLoaded] = (0, import_react15.useState)(!1);
-  return (0, import_react15.useEffect)(() => {
-    let frame = iframeRef.current;
-    if (!frame)
-      return;
-    let updateHeight = () => {
-      var _a2, _b2;
-      let doc2 = frame.contentDocument;
-      if (doc2) {
-        let height = Math.max(
-          ((_a2 = doc2.documentElement) == null ? void 0 : _a2.scrollHeight) || 0,
-          ((_b2 = doc2.body) == null ? void 0 : _b2.scrollHeight) || 0
-        );
-        height > 0 && (frame.style.height = `${height}px`, setLoaded(!0));
-      }
-    };
-    updateHeight();
-    let doc = frame.contentDocument;
-    if (doc && (doc.addEventListener("DOMContentLoaded", updateHeight), doc.body && typeof ResizeObserver < "u")) {
-      let observer = new ResizeObserver(updateHeight);
-      return observer.observe(doc.body), () => observer.disconnect();
-    }
-  }, [html]), /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: `feed-embed${loaded ? " loaded" : ""}`, children: [
-    !loaded && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-skeleton", style: { minHeight: "400px" } }, void 0, !1, {
-      fileName: "app/routes/$.tsx",
-      lineNumber: 297,
-      columnNumber: 19
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
-      "iframe",
-      {
-        ref: iframeRef,
-        srcDoc: html,
-        title,
-        onLoad: () => {
-          var _a2, _b2;
-          let frame = iframeRef.current;
-          if (frame != null && frame.contentDocument) {
-            let height = Math.max(
-              ((_a2 = frame.contentDocument.documentElement) == null ? void 0 : _a2.scrollHeight) || 0,
-              ((_b2 = frame.contentDocument.body) == null ? void 0 : _b2.scrollHeight) || 0
-            );
-            height > 0 && (frame.style.height = `${height}px`);
-          }
-          setLoaded(!0);
-        },
-        loading: "eager",
-        sandbox: "allow-same-origin allow-popups allow-popups-to-escape-sandbox",
-        scrolling: "no"
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/$.tsx",
-        lineNumber: 299,
-        columnNumber: 7
-      },
-      this
-    )
-  ] }, void 0, !0, {
-    fileName: "app/routes/$.tsx",
-    lineNumber: 296,
-    columnNumber: 5
-  }, this);
 }
 function Index2() {
-  let { issue, isDraft } = (0, import_react16.useLoaderData)();
+  let { issue, isDraft } = (0, import_react15.useLoaderData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-page", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("header", { className: "feed-topbar", children: [
       isDraft && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-status", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("span", { className: "status-dot" }, void 0, !1, {
           fileName: "app/routes/$.tsx",
-          lineNumber: 334,
+          lineNumber: 53,
           columnNumber: 13
         }, this),
         "404 Error"
       ] }, void 0, !0, {
         fileName: "app/routes/$.tsx",
-        lineNumber: 333,
+        lineNumber: 52,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react16.Link, { className: "feed-mark", to: "/", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react15.Link, { className: "feed-mark", to: "/", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
         "img",
         {
           src: "/img/tp.png",
@@ -4149,36 +4055,53 @@ function Index2() {
         !1,
         {
           fileName: "app/routes/$.tsx",
-          lineNumber: 339,
+          lineNumber: 59,
           columnNumber: 11
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/$.tsx",
-        lineNumber: 338,
+        lineNumber: 58,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("a", { href: "#subscribe", className: "feed-subscribe", children: "Subscribe" }, void 0, !1, {
         fileName: "app/routes/$.tsx",
-        lineNumber: 347,
+        lineNumber: 67,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/$.tsx",
-      lineNumber: 331,
+      lineNumber: 50,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(FeedEmbed2, { html: issue.body, title: issue.subject }, issue.id, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("main", { className: "feed-stream", children: issue ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-embed loaded", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+      feed_embed_default,
+      {
+        id: "live",
+        html: issue.body,
+        title: issue.subject,
+        interactive: !0,
+        fallbackHeight: 900
+      },
+      issue.id,
+      !1,
+      {
+        fileName: "app/routes/$.tsx",
+        lineNumber: 75,
+        columnNumber: 13
+      },
+      this
+    ) }, void 0, !1, {
       fileName: "app/routes/$.tsx",
-      lineNumber: 354,
+      lineNumber: 74,
       columnNumber: 9
     }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-empty", children: "Check back soon for today\u2019s edition." }, void 0, !1, {
       fileName: "app/routes/$.tsx",
-      lineNumber: 356,
+      lineNumber: 85,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/$.tsx",
-      lineNumber: 352,
+      lineNumber: 72,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("footer", { className: "feed-footer", id: "subscribe", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
@@ -4190,7 +4113,7 @@ function Index2() {
         children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { className: "feed-subscribe-heading", children: "Get The Poast for free" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 366,
+            lineNumber: 97,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-input-bar", children: [
@@ -4207,28 +4130,28 @@ function Index2() {
               !1,
               {
                 fileName: "app/routes/$.tsx",
-                lineNumber: 369,
+                lineNumber: 100,
                 columnNumber: 13
               },
               this
             ),
             /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("button", { className: "feed-submit", type: "submit", children: "Subscribe" }, void 0, !1, {
               fileName: "app/routes/$.tsx",
-              lineNumber: 376,
+              lineNumber: 107,
               columnNumber: 13
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 368,
+            lineNumber: 99,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 382,
+            lineNumber: 113,
             columnNumber: 13
           }, this) }, void 0, !1, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 381,
+            lineNumber: 112,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
@@ -4243,35 +4166,35 @@ function Index2() {
             !1,
             {
               fileName: "app/routes/$.tsx",
-              lineNumber: 385,
+              lineNumber: 116,
               columnNumber: 11
             },
             this
           ),
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("input", { type: "hidden", name: "nonce" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 391,
+            lineNumber: 122,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { className: "feed-legal", children: [
             "By submitting, you agree to our",
             " ",
-            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react16.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react15.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
               fileName: "app/routes/$.tsx",
-              lineNumber: 395,
+              lineNumber: 126,
               columnNumber: 13
             }, this),
             " &",
             " ",
-            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react16.Link, { to: "/policies/privacy", children: "Privacy Policy" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react15.Link, { to: "/policies/privacy", children: "Privacy Policy" }, void 0, !1, {
               fileName: "app/routes/$.tsx",
-              lineNumber: 396,
+              lineNumber: 127,
               columnNumber: 13
             }, this),
             "."
           ] }, void 0, !0, {
             fileName: "app/routes/$.tsx",
-            lineNumber: 393,
+            lineNumber: 124,
             columnNumber: 11
           }, this)
         ]
@@ -4280,24 +4203,24 @@ function Index2() {
       !0,
       {
         fileName: "app/routes/$.tsx",
-        lineNumber: 361,
+        lineNumber: 92,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/routes/$.tsx",
-      lineNumber: 360,
+      lineNumber: 91,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/$.tsx",
-    lineNumber: 330,
+    lineNumber: 49,
     columnNumber: 5
   }, this);
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-7QPJYKWG.js", imports: ["/build/_shared/chunk-MG463TXR.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-G46SOXIB.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-UQC3CQAX.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-K6SDVPDP.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-VXT5Y5QM.js", imports: ["/build/_shared/chunk-Y4OZZ37Y.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-GCDSDWKX.js", imports: ["/build/_shared/chunk-Y4OZZ37Y.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-Z2BJ7SSL.js", imports: ["/build/_shared/chunk-Y4OZZ37Y.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YVQKJPPY.js", imports: ["/build/_shared/chunk-CQPJTLHL.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-3C647DNU.js", imports: ["/build/_shared/chunk-CQPJTLHL.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-KO2HFZ5D.js", imports: ["/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/today": { id: "routes/today", parentId: "root", path: "today", index: void 0, caseSensitive: void 0, module: "/build/routes/today-YNT6URMH.js", imports: ["/build/_shared/chunk-Y4OZZ37Y.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "68b73fc9", hmr: void 0, url: "/build/manifest-68B73FC9.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-7QPJYKWG.js", imports: ["/build/_shared/chunk-MG463TXR.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-G46SOXIB.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-H7NN3NGV.js", imports: ["/build/_shared/chunk-DLZW6RRA.js", "/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-K6SDVPDP.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-P3EIQIDL.js", imports: ["/build/_shared/chunk-DLZW6RRA.js", "/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-VZRYXTN4.js", imports: ["/build/_shared/chunk-DLZW6RRA.js", "/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-G4XHXIHV.js", imports: ["/build/_shared/chunk-DLZW6RRA.js", "/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-LTVE7YST.js", imports: ["/build/_shared/chunk-SHUQLU4M.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-YVQKJPPY.js", imports: ["/build/_shared/chunk-CQPJTLHL.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-3C647DNU.js", imports: ["/build/_shared/chunk-CQPJTLHL.js", "/build/_shared/chunk-MG3UHPBD.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-KO2HFZ5D.js", imports: ["/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/today": { id: "routes/today", parentId: "root", path: "today", index: void 0, caseSensitive: void 0, module: "/build/routes/today-OKJMHCYK.js", imports: ["/build/_shared/chunk-DLZW6RRA.js", "/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-3QGVQ3TW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f8d0c9c7", hmr: void 0, url: "/build/manifest-F8D0C9C7.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -4388,6 +4311,14 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     index: void 0,
     caseSensitive: void 0,
     module: today_exports
+  },
+  "routes/live": {
+    id: "routes/live",
+    parentId: "root",
+    path: "live",
+    index: void 0,
+    caseSensitive: void 0,
+    module: live_exports
   },
   "routes/$": {
     id: "routes/$",

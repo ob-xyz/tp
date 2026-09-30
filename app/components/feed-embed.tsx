@@ -1,75 +1,105 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-// Survives client-side navigation, so returning to the list doesn't re-jump.
 const heightCache = new Map<string, number>();
 
 const keyFor = (id: string, interactive: boolean) =>
   `${interactive ? "full" : "lead"}:${id}`;
 
-export function getCachedHeight(id: string, interactive = false) {
+export function getCachedHeight(
+  id: string,
+  interactive = false
+) {
   return heightCache.get(keyFor(id, interactive));
 }
 
 type Props = {
   id: string;
-  html: string;
   title: string;
+  html?: string;
+  src?: string;
   interactive?: boolean;
   fallbackHeight?: number;
-  /** Fires once the iframe has fully loaded (images included). */
   onLoaded?: () => void;
-  /** Defer loading until near the viewport (for below-the-fold cards). */
   lazy?: boolean;
 };
 
-export default function FeedEmbed({
+function FeedEmbed({
   id,
-  html,
   title,
+  html,
+  src,
   interactive = false,
   fallbackHeight = 360,
   onLoaded,
   lazy = false,
 }: Props) {
   const key = keyFor(id, interactive);
+
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const observerRef = useRef<ResizeObserver | null>(null);
   const observedBody = useRef<HTMLElement | null>(null);
-
   const onLoadedRef = useRef(onLoaded);
-  onLoadedRef.current = onLoaded;
   const firedRef = useRef(false);
+
+  onLoadedRef.current = onLoaded;
 
   const [height, setHeight] = useState(
     () => heightCache.get(key) ?? fallbackHeight
   );
 
-  const fire = useCallback(() => {
+  const fireLoaded = useCallback(() => {
     if (firedRef.current) return;
+
     firedRef.current = true;
     onLoadedRef.current?.();
   }, []);
 
   const attach = useCallback(() => {
-    const body = iframeRef.current?.contentDocument?.body;
-    if (!body || body.childElementCount === 0) return false;
+    const document = iframeRef.current?.contentDocument;
+    const body = document?.body;
+
+    if (!body || body.childElementCount === 0) {
+      return false;
+    }
 
     const measure = () => {
-      const next = Math.ceil(Math.max(body.scrollHeight, body.offsetHeight));
+      const next = Math.ceil(
+        Math.max(
+          body.scrollHeight,
+          body.offsetHeight
+        )
+      );
+
       if (next <= 0) return;
+
       heightCache.set(key, next);
-      setHeight((prev) => (Math.abs(prev - next) > 1 ? next : prev));
+
+      setHeight((previous) =>
+        Math.abs(previous - next) > 1
+          ? next
+          : previous
+      );
     };
 
     measure();
 
-    // Don't re-observe the same body twice.
     if (observedBody.current !== body) {
       observedBody.current = body;
+
       observerRef.current?.disconnect();
+
       if (typeof ResizeObserver !== "undefined") {
-        observerRef.current = new ResizeObserver(measure);
-        observerRef.current.observe(body);
+        const observer = new ResizeObserver(measure);
+
+        observer.observe(body);
+
+        observerRef.current = observer;
       }
     }
 
@@ -78,39 +108,94 @@ export default function FeedEmbed({
 
   const handleLoad = useCallback(() => {
     attach();
-    fire();
-  }, [attach, fire]);
+    fireLoaded();
+  }, [attach, fireLoaded]);
 
-  // Don't wait for the iframe "load" event to show content (it waits for
-  // every image). Poll each frame until the document has content.
   useEffect(() => {
-    observedBody.current = null;
     firedRef.current = false;
+    observedBody.current = null;
 
-    // Server-rendered iframes can finish loading before hydration, so
-    // React's onLoad never fires for them. Catch that case here.
-    const doc = iframeRef.current?.contentDocument;
-    if (doc && doc.readyState === "complete" && doc.body?.childElementCount) {
-      fire();
-    }
+    let cancelled = false;
+    let timer: number | undefined;
 
-    let raf = 0;
     const startedAt = performance.now();
 
-    const tick = () => {
-      if (attach()) return;
-      if (performance.now() - startedAt > 10_000) return;
-      raf = requestAnimationFrame(tick);
+    const delays = [
+      0,
+      16,
+      50,
+      100,
+      250,
+      500,
+      1000,
+      1500,
+    ];
+
+    let attempt = 0;
+
+    const poll = () => {
+      if (cancelled) return;
+
+      if (attach()) {
+        fireLoaded();
+        return;
+      }
+
+      if (
+        performance.now() - startedAt >= 10_000
+      ) {
+        return;
+      }
+
+      const delay =
+        delays[
+          Math.min(
+            attempt++,
+            delays.length - 1
+          )
+        ];
+
+      timer = window.setTimeout(
+        poll,
+        delay
+      );
     };
 
-    tick();
+    const document =
+      iframeRef.current?.contentDocument;
+
+    if (
+      document?.readyState === "complete" &&
+      document.body?.childElementCount
+    ) {
+      attach();
+      fireLoaded();
+    } else {
+      poll();
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelled = true;
+
+      if (timer !== undefined) {
+        window.clearTimeout(timer);
+      }
+
       observerRef.current?.disconnect();
+
+      observerRef.current = null;
       observedBody.current = null;
     };
-  }, [html, attach, fire]);
+  }, [
+    html,
+    src,
+    attach,
+    fireLoaded,
+  ]);
+
+  if (!src && !html) {
+    return null;
+  }
 
   return (
     <div
@@ -118,15 +203,20 @@ export default function FeedEmbed({
         position: "relative",
         width: "100%",
         height,
-        contain: "content",
       }}
     >
       <iframe
         ref={iframeRef}
         title={title}
-        srcDoc={html}
+        {...(
+          src
+            ? { src }
+            : { srcDoc: html ?? "" }
+        )}
         scrolling="no"
-        loading={lazy ? "lazy" : "eager"}
+        loading={
+          lazy ? "lazy" : "eager"
+        }
         onLoad={handleLoad}
         sandbox={
           interactive
@@ -141,8 +231,13 @@ export default function FeedEmbed({
           margin: 0,
           padding: 0,
           overflow: "hidden",
+          background:
+            "light-dark(#fff, #000)",
+          colorScheme: "light dark",
         }}
       />
     </div>
   );
 }
+
+export default memo(FeedEmbed);
