@@ -16,6 +16,10 @@ type Props = {
   title: string;
   interactive?: boolean;
   fallbackHeight?: number;
+  /** Fires once the iframe has fully loaded (images included). */
+  onLoaded?: () => void;
+  /** Defer loading until near the viewport (for below-the-fold cards). */
+  lazy?: boolean;
 };
 
 export default function FeedEmbed({
@@ -24,15 +28,27 @@ export default function FeedEmbed({
   title,
   interactive = false,
   fallbackHeight = 360,
+  onLoaded,
+  lazy = false,
 }: Props) {
   const key = keyFor(id, interactive);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const observerRef = useRef<ResizeObserver | null>(null);
   const observedBody = useRef<HTMLElement | null>(null);
 
+  const onLoadedRef = useRef(onLoaded);
+  onLoadedRef.current = onLoaded;
+  const firedRef = useRef(false);
+
   const [height, setHeight] = useState(
     () => heightCache.get(key) ?? fallbackHeight
   );
+
+  const fire = useCallback(() => {
+    if (firedRef.current) return;
+    firedRef.current = true;
+    onLoadedRef.current?.();
+  }, []);
 
   const attach = useCallback(() => {
     const body = iframeRef.current?.contentDocument?.body;
@@ -60,10 +76,24 @@ export default function FeedEmbed({
     return true;
   }, [key]);
 
-  // Don't wait for the iframe "load" event (it waits for every image).
-  // Poll each frame until the document has content, then attach.
+  const handleLoad = useCallback(() => {
+    attach();
+    fire();
+  }, [attach, fire]);
+
+  // Don't wait for the iframe "load" event to show content (it waits for
+  // every image). Poll each frame until the document has content.
   useEffect(() => {
     observedBody.current = null;
+    firedRef.current = false;
+
+    // Server-rendered iframes can finish loading before hydration, so
+    // React's onLoad never fires for them. Catch that case here.
+    const doc = iframeRef.current?.contentDocument;
+    if (doc && doc.readyState === "complete" && doc.body?.childElementCount) {
+      fire();
+    }
+
     let raf = 0;
     const startedAt = performance.now();
 
@@ -80,7 +110,7 @@ export default function FeedEmbed({
       observerRef.current?.disconnect();
       observedBody.current = null;
     };
-  }, [html, attach]);
+  }, [html, attach, fire]);
 
   return (
     <div
@@ -96,7 +126,8 @@ export default function FeedEmbed({
         title={title}
         srcDoc={html}
         scrolling="no"
-        onLoad={attach}
+        loading={lazy ? "lazy" : "eager"}
+        onLoad={handleLoad}
         sandbox={
           interactive
             ? "allow-same-origin allow-popups allow-popups-to-escape-sandbox"
