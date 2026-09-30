@@ -1,26 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLoaderData } from "@remix-run/react";
-import { json, type HeadersFunction, type LinksFunction } from "@remix-run/node";
+import {
+  json,
+  type HeadersFunction,
+  type LinksFunction,
+} from "@remix-run/node";
 
 import Altcha from "../components/altcha";
-import FeedEmbed, { getCachedHeight } from "../components/feed-embed";
+import FeedEmbed, {
+  getCachedHeight,
+} from "../components/feed-embed";
 
 import {
   listFinishedCampaigns,
   getLatestCampaignPerDay,
   getCampaignDate,
-  getIssueWithin,
-  peekIssue,
   warmIssues,
 } from "../utils/poast-feeds.server";
 
 export const links: LinksFunction = () => [
-  { rel: "preconnect", href: "https://img.thepoast.com" },
-  { rel: "dns-prefetch", href: "https://img.thepoast.com" },
+  {
+    rel: "preconnect",
+    href: "https://img.thepoast.com",
+  },
+  {
+    rel: "dns-prefetch",
+    href: "https://img.thepoast.com",
+  },
 ];
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => ({
-  "Cache-Control": loaderHeaders.get("Cache-Control") ?? "no-store",
+export const headers: HeadersFunction = ({
+  loaderHeaders,
+}) => ({
+  "Cache-Control":
+    loaderHeaders.get("Cache-Control") ?? "no-store",
 });
 
 export function shouldRevalidate() {
@@ -33,11 +46,6 @@ export function shouldRevalidate() {
 
 const FEED_LIMIT = 30;
 
-// The newest issue is rendered into the first server response. If Listmonk
-// hasn't produced it within this long, the page ships without it and the
-// browser fetches it immediately (with priority) instead.
-const TOP_WAIT_MS = 4000;
-
 const WORK_TIMEZONE = "America/Toronto";
 
 type Feed = {
@@ -45,7 +53,6 @@ type Feed = {
   subject: string;
   date: string;
   dateLabel: string;
-  html?: string;
 };
 
 function formatDateLabel(rawDate: string) {
@@ -66,44 +73,55 @@ function formatDateLabel(rawDate: string) {
 /* -------------------------------------------------------------------------- */
 
 export async function loader() {
-  const campaigns = await listFinishedCampaigns(); // cached, stale-on-error
-  const daily = getLatestCampaignPerDay(campaigns, FEED_LIMIT);
+  /*
+   * Only fetch lightweight campaign metadata here.
+   *
+   * The actual issue HTML is deliberately NOT fetched during
+   * the initial document request.
+   */
+  const campaigns = await listFinishedCampaigns();
+
+  const daily = getLatestCampaignPerDay(
+    campaigns,
+    FEED_LIMIT
+  );
 
   const feeds: Feed[] = daily.map((campaign) => {
     const id = String(campaign.id);
-    const date = getCampaignDate(campaign) || new Date().toISOString();
+
+    const date =
+      getCampaignDate(campaign) ||
+      new Date().toISOString();
 
     return {
       id,
-      subject: campaign.subject || "The Poast",
+      subject:
+        campaign.subject || "The Poast",
       date,
       dateLabel: formatDateLabel(date),
     };
   });
 
-  // 1) The newest issue: wait for it (bounded) and inline it. Instant when warm.
-  if (feeds[0]) {
-    const top = peekIssue(feeds[0].id) ?? (await getIssueWithin(feeds[0].id, TOP_WAIT_MS));
-    if (top) feeds[0].html = top.body;
+  /*
+   * Warm the server-side issue cache in the background.
+   *
+   * This does NOT block the initial response.
+   */
+  if (feeds.length > 0) {
+    warmIssues(
+      feeds.map((feed) => feed.id)
+    );
   }
-
-  // 2) The second issue, only if it's already in memory (never waits).
-  if (feeds[1]) {
-    const second = peekIssue(feeds[1].id);
-    if (second) feeds[1].html = second.body;
-  }
-
-  // 3) Everything else warms in the background, AFTER the top issue
-  //    has resolved, so it never competes with it.
-  warmIssues(feeds.slice(1).map((f) => f.id));
 
   const degraded = campaigns.length === 0;
 
   return json(
-    { feeds, degraded },
+    {
+      feeds,
+      degraded,
+    },
     {
       headers: {
-        // Never cache an empty/failed result.
         "Cache-Control": degraded
           ? "no-store"
           : "public, max-age=30, s-maxage=60, stale-while-revalidate=3600",
@@ -113,56 +131,129 @@ export async function loader() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*            CLIENT-SIDE FETCH QUEUE (max 2 in flight, with priority)        */
+/*            CLIENT-SIDE FETCH QUEUE (max 2 in flight, priority)             */
 /* -------------------------------------------------------------------------- */
 
 const MAX_CONCURRENT = 2;
+
 let active = 0;
+
 const waiting: Array<() => void> = [];
 
-function schedule<T>(task: () => Promise<T>, priority = false): Promise<T> {
-  return new Promise<T>((resolve, reject) => {
-    const run = () => {
-      active++;
-      task()
-        .then(resolve, reject)
-        .finally(() => {
-          active--;
-          waiting.shift()?.();
-        });
-    };
+function schedule<T>(
+  task: () => Promise<T>,
+  priority = false
+): Promise<T> {
+  return new Promise<T>(
+    (resolve, reject) => {
+      const run = () => {
+        active++;
 
-    // Priority work never waits behind other cards.
-    if (priority || active < MAX_CONCURRENT) run();
-    else waiting.push(run);
-  });
+        task()
+          .then(resolve, reject)
+          .finally(() => {
+            active--;
+            waiting.shift()?.();
+          });
+      };
+
+      /*
+       * Priority requests start immediately.
+       *
+       * Normal archive requests wait behind the
+       * active concurrency limit.
+       */
+      if (
+        priority ||
+        active < MAX_CONCURRENT
+      ) {
+        run();
+      } else {
+        waiting.push(run);
+      }
+    }
+  );
 }
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms: number) =>
+  new Promise((resolve) =>
+    setTimeout(resolve, ms)
+  );
 
-/** Returns HTML, or null if the issue doesn't exist (404). */
-async function fetchIssue(id: string, signal: AbortSignal) {
-  const url = `/feeds/full/${encodeURIComponent(id)}`;
+/* -------------------------------------------------------------------------- */
+/*                              FETCH FULL ISSUE                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Returns full issue HTML, or null when the issue
+ * doesn't have a usable page.
+ */
+async function fetchIssue(
+  id: string,
+  signal: AbortSignal
+) {
+  const url =
+    `/feeds/full/${encodeURIComponent(id)}`;
+
   let lastError: unknown;
 
-  for (let attempt = 0; attempt < 3; attempt++) {
-    if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+  for (
+    let attempt = 0;
+    attempt < 3;
+    attempt++
+  ) {
+    if (signal.aborted) {
+      throw new DOMException(
+        "Aborted",
+        "AbortError"
+      );
+    }
+
     try {
-      const res = await fetch(url, {
+      const response = await fetch(url, {
         signal,
-        headers: { Accept: "text/html" },
+        headers: {
+          Accept: "text/html",
+        },
       });
-      if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`Issue request failed: ${res.status}`);
-      const text = await res.text();
-      if (!text) throw new Error("Empty issue");
+
+      if (response.status === 404) {
+        return null;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `Issue request failed: ${response.status}`
+        );
+      }
+
+      const text =
+        await response.text();
+
+      if (!text) {
+        throw new Error(
+          "Empty issue"
+        );
+      }
+
       return text;
     } catch (error) {
-      if (signal.aborted) throw error;
+      if (signal.aborted) {
+        throw error;
+      }
+
       lastError = error;
-      await sleep(300 * (attempt + 1));
+
+      /*
+       * Retry quickly. In the normal case the
+       * server-side cache makes this unnecessary.
+       */
+      await sleep(
+        300 * (attempt + 1)
+      );
     }
   }
+
   throw lastError;
 }
 
@@ -170,46 +261,110 @@ async function fetchIssue(id: string, signal: AbortSignal) {
 /*                                  FEED CARD                                 */
 /* -------------------------------------------------------------------------- */
 
-function FeedCard({ feed, priority }: { feed: Feed; priority: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [html, setHtml] = useState<string | null>(feed.html ?? null);
-  const [failed, setFailed] = useState(false);
+function FeedCard({
+  feed,
+  priority,
+}: {
+  feed: Feed;
+  priority: boolean;
+}) {
+  const ref =
+    useRef<HTMLDivElement>(null);
+
+  const [html, setHtml] =
+    useState<string | null>(null);
+
+  const [failed, setFailed] =
+    useState(false);
 
   useEffect(() => {
-    if (html || failed) return;
+    if (html || failed) {
+      return;
+    }
 
-    const controller = new AbortController();
+    const controller =
+      new AbortController();
 
-    const load = () =>
-      schedule(() => fetchIssue(feed.id, controller.signal), priority)
+    const load = () => {
+      schedule(
+        () =>
+          fetchIssue(
+            feed.id,
+            controller.signal
+          ),
+        priority
+      )
         .then((result) => {
-          if (controller.signal.aborted) return;
-          if (result) setHtml(result);
-          else setFailed(true);
+          if (
+            controller.signal.aborted
+          ) {
+            return;
+          }
+
+          if (result) {
+            setHtml(result);
+          } else {
+            setFailed(true);
+          }
         })
         .catch((error) => {
-          if (controller.signal.aborted) return;
-          console.error(`[feeds] Failed to load issue ${feed.id}:`, error);
+          if (
+            controller.signal.aborted
+          ) {
+            return;
+          }
+
+          console.error(
+            `[feeds] Failed to load issue ${feed.id}:`,
+            error
+          );
+
           setFailed(true);
         });
+    };
 
-    // Top card: no observer, no waiting. Start the moment we mount.
+    /*
+     * The first issue starts immediately.
+     *
+     * No IntersectionObserver means there is
+     * absolutely no waiting for the first card.
+     */
     if (priority) {
       load();
-      return () => controller.abort();
+
+      return () => {
+        controller.abort();
+      };
     }
 
     const element = ref.current;
-    if (!element) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        observer.disconnect();
-        load();
-      },
-      { rootMargin: "1200px 0px", threshold: 0 }
-    );
+    if (!element) {
+      return;
+    }
+
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          if (
+            !entry?.isIntersecting
+          ) {
+            return;
+          }
+
+          observer.disconnect();
+
+          load();
+        },
+        {
+          /*
+           * Load substantially ahead of the
+           * reader so scrolling feels instant.
+           */
+          rootMargin: "1800px 0px",
+          threshold: 0,
+        }
+      );
 
     observer.observe(element);
 
@@ -217,10 +372,18 @@ function FeedCard({ feed, priority }: { feed: Feed; priority: boolean }) {
       controller.abort();
       observer.disconnect();
     };
-  }, [feed.id, html, failed, priority]);
+  }, [
+    feed.id,
+    html,
+    failed,
+    priority,
+  ]);
 
   return (
-    <section className="feed-archive-item" data-feed-id={feed.id}>
+    <section
+      className="feed-archive-item"
+      data-feed-id={feed.id}
+    >
       <div ref={ref}>
         {html ? (
           <FeedEmbed
@@ -243,11 +406,29 @@ function FeedCard({ feed, priority }: { feed: Feed; priority: boolean }) {
               color: "inherit",
             }}
           >
-            <strong>{feed.subject}</strong>
+            <strong>
+              {feed.subject}
+            </strong>
+
             {feed.dateLabel && (
-              <div style={{ opacity: 0.6, marginTop: 6 }}>{feed.dateLabel}</div>
+              <div
+                style={{
+                  opacity: 0.6,
+                  marginTop: 6,
+                }}
+              >
+                {feed.dateLabel}
+              </div>
             )}
-            <div style={{ opacity: 0.6, marginTop: 6 }}>Read this edition</div>
+
+            <div
+              style={{
+                opacity: 0.6,
+                marginTop: 6,
+              }}
+            >
+              Read this edition
+            </div>
           </Link>
         ) : (
           <div
@@ -255,7 +436,11 @@ function FeedCard({ feed, priority }: { feed: Feed; priority: boolean }) {
             aria-hidden="true"
             style={{
               width: "100%",
-              height: getCachedHeight(feed.id, true) ?? 900,
+              height:
+                getCachedHeight(
+                  feed.id,
+                  true
+                ) ?? 900,
             }}
           />
         )}
@@ -269,16 +454,32 @@ function FeedCard({ feed, priority }: { feed: Feed; priority: boolean }) {
 /* -------------------------------------------------------------------------- */
 
 export default function Feeds() {
-  const { feeds, degraded } = useLoaderData<typeof loader>();
+  const {
+    feeds,
+    degraded,
+  } = useLoaderData<
+    typeof loader
+  >();
 
   return (
     <div className="feeds-page">
       <header className="feed-topbar">
-        <Link className="feed-mark" to="/">
-          <img src="/img/tp.png" alt="The Poast" loading="eager" decoding="async" />
+        <Link
+          className="feed-mark"
+          to="/"
+        >
+          <img
+            src="/img/tp.png"
+            alt="The Poast"
+            loading="eager"
+            decoding="async"
+          />
         </Link>
 
-        <a href="#subscribe" className="feed-subscribe">
+        <a
+          href="#subscribe"
+          className="feed-subscribe"
+        >
           Subscribe
         </a>
       </header>
@@ -291,19 +492,30 @@ export default function Feeds() {
               : "No feeds yet."}
           </div>
         ) : (
-          feeds.map((feed, index) => (
-            <FeedCard key={feed.id} feed={feed} priority={index === 0} />
-          ))
+          feeds.map(
+            (feed, index) => (
+              <FeedCard
+                key={feed.id}
+                feed={feed}
+                priority={index === 0}
+              />
+            )
+          )
         )}
       </main>
 
-      <footer className="feed-footer" id="subscribe">
+      <footer
+        className="feed-footer"
+        id="subscribe"
+      >
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">Get The Poast for free</p>
+          <p className="feed-subscribe-heading">
+            Get The Poast for free
+          </p>
 
           <div className="feed-input-bar">
             <input
@@ -313,7 +525,11 @@ export default function Feeds() {
               required
               placeholder="Email Address *"
             />
-            <button className="feed-submit" type="submit">
+
+            <button
+              className="feed-submit"
+              type="submit"
+            >
               Subscribe
             </button>
           </div>
@@ -328,11 +544,22 @@ export default function Feeds() {
             name="l"
             value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
           />
-          <input type="hidden" name="nonce" />
+
+          <input
+            type="hidden"
+            name="nonce"
+          />
 
           <p className="feed-legal">
-            By submitting, you agree to our <Link to="/policies/terms">Terms</Link>{" "}
-            &amp; <Link to="/policies/privacy">Privacy Policy</Link>.
+            By submitting, you agree to our{" "}
+            <Link to="/policies/terms">
+              Terms
+            </Link>{" "}
+            &amp;{" "}
+            <Link to="/policies/privacy">
+              Privacy Policy
+            </Link>
+            .
           </p>
         </form>
       </footer>

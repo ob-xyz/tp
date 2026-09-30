@@ -7,24 +7,34 @@ import {
 } from "@remix-run/node";
 
 import Altcha from "../components/altcha";
-import FeedEmbed, { getCachedHeight } from "../components/feed-embed";
+import FeedEmbed, {
+  getCachedHeight,
+} from "../components/feed-embed";
 
 import {
   listFinishedCampaigns,
   getLatestCampaignPerDay,
   getCampaignDate,
   getDateKey,
-  peekLeadStoryHtml,
   warmLeadStories,
 } from "../utils/poast-feeds.server";
 
 export const links: LinksFunction = () => [
-  { rel: "preconnect", href: "https://img.thepoast.com" },
-  { rel: "dns-prefetch", href: "https://img.thepoast.com" },
+  {
+    rel: "preconnect",
+    href: "https://img.thepoast.com",
+  },
+  {
+    rel: "dns-prefetch",
+    href: "https://img.thepoast.com",
+  },
 ];
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => ({
-  "Cache-Control": loaderHeaders.get("Cache-Control") ?? "no-store",
+export const headers: HeadersFunction = ({
+  loaderHeaders,
+}) => ({
+  "Cache-Control":
+    loaderHeaders.get("Cache-Control") ?? "no-store",
 });
 
 export function shouldRevalidate() {
@@ -32,53 +42,72 @@ export function shouldRevalidate() {
 }
 
 const FEED_LIMIT = 30;
-const INLINE_COUNT = 3; // first N cards ship with HTML if already warm
 const FEED_START_DATE = "2026-09-23";
 
 type Feed = {
   id: string;
   subject: string;
   date: string;
-  html?: string;
 };
 
+/* -------------------------------------------------------------------------- */
+/*                                   LOADER                                   */
+/* -------------------------------------------------------------------------- */
+
 export async function loader() {
-  const campaigns = await listFinishedCampaigns(); // cached + stale-on-error
+  const campaigns = await listFinishedCampaigns();
 
   const sinceCutoff = campaigns.filter((campaign) => {
-    const d = getCampaignDate(campaign);
-    if (!d) return false;
+    const date = getCampaignDate(campaign);
+
+    if (!date) return false;
+
     try {
-      return getDateKey(d) >= FEED_START_DATE;
+      return getDateKey(date) >= FEED_START_DATE;
     } catch {
       return false;
     }
   });
 
-  const daily = getLatestCampaignPerDay(sinceCutoff, FEED_LIMIT);
+  const daily = getLatestCampaignPerDay(
+    sinceCutoff,
+    FEED_LIMIT
+  );
 
-  const feeds: Feed[] = daily.map((campaign, index) => {
-    const id = String(campaign.id);
-    return {
-      id,
-      subject: campaign.subject || "The Poast",
-      date: getCampaignDate(campaign) || new Date().toISOString(),
-      // Only present if already rendered in server memory (never waits).
-      html: index < INLINE_COUNT ? peekLeadStoryHtml(id) ?? undefined : undefined,
-    };
-  });
+  /*
+   * IMPORTANT:
+   *
+   * The initial /today response contains only lightweight
+   * campaign metadata.
+   *
+   * Lead-story HTML is fetched independently by FeedCard
+   * when the card approaches the viewport.
+   */
+  const feeds: Feed[] = daily.map((campaign) => ({
+    id: String(campaign.id),
+    subject: campaign.subject || "The Poast",
+    date:
+      getCampaignDate(campaign) ||
+      new Date().toISOString(),
+  }));
 
-  // Fire-and-forget: render lead stories + issues in the background
-  // so previews and click-throughs are instant.
-  warmLeadStories(feeds.map((f) => f.id));
+  /*
+   * Warm the server-side preview cache without making the
+   * browser wait for the HTML.
+   */
+  if (feeds.length > 0) {
+    warmLeadStories(feeds.map((feed) => feed.id));
+  }
 
   const degraded = campaigns.length === 0;
 
   return json(
-    { feeds, degraded },
+    {
+      feeds,
+      degraded,
+    },
     {
       headers: {
-        // Never cache an empty/failed result.
         "Cache-Control": degraded
           ? "no-store"
           : "public, max-age=30, s-maxage=60, stale-while-revalidate=3600",
@@ -92,13 +121,18 @@ export async function loader() {
 /* -------------------------------------------------------------------------- */
 
 const MAX_CONCURRENT = 3;
+
 let active = 0;
+
 const waiting: Array<() => void> = [];
 
-function schedule<T>(task: () => Promise<T>): Promise<T> {
+function schedule<T>(
+  task: () => Promise<T>
+): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const run = () => {
       active++;
+
       task()
         .then(resolve, reject)
         .finally(() => {
@@ -106,85 +140,178 @@ function schedule<T>(task: () => Promise<T>): Promise<T> {
           waiting.shift()?.();
         });
     };
-    if (active < MAX_CONCURRENT) run();
-    else waiting.push(run);
+
+    if (active < MAX_CONCURRENT) {
+      run();
+    } else {
+      waiting.push(run);
+    }
   });
 }
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms: number) =>
+  new Promise((resolve) =>
+    setTimeout(resolve, ms)
+  );
 
-/** Returns HTML, or null if the campaign has no lead story (404). */
-async function fetchLead(id: string, signal: AbortSignal) {
+/* -------------------------------------------------------------------------- */
+/*                              FETCH LEAD STORY                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Returns HTML, or null if the campaign has no lead story.
+ */
+async function fetchLead(
+  id: string,
+  signal: AbortSignal
+) {
   const url = `/feeds/preview/${encodeURIComponent(id)}`;
+
   let lastError: unknown;
 
   for (let attempt = 0; attempt < 3; attempt++) {
-    if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+    if (signal.aborted) {
+      throw new DOMException(
+        "Aborted",
+        "AbortError"
+      );
+    }
+
     try {
-      const res = await fetch(url, {
+      const response = await fetch(url, {
         signal,
-        headers: { Accept: "text/html" },
+        headers: {
+          Accept: "text/html",
+        },
       });
-      if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`Preview failed: ${res.status}`);
-      const text = await res.text();
-      if (!text) throw new Error("Empty preview");
+
+      if (response.status === 404) {
+        return null;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `Preview failed: ${response.status}`
+        );
+      }
+
+      const text = await response.text();
+
+      if (!text) {
+        throw new Error("Empty preview");
+      }
+
       return text;
     } catch (error) {
-      if (signal.aborted) throw error;
+      if (signal.aborted) {
+        throw error;
+      }
+
       lastError = error;
+
+      /*
+       * Small retry delay. Normally this never matters because
+       * the server-side preview cache is already warm.
+       */
       await sleep(500 * (attempt + 1));
     }
   }
+
   throw lastError;
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                  FEED CARD                                 */
+/*                                  DATE                                      */
 /* -------------------------------------------------------------------------- */
 
 function formatDate(date: string) {
   try {
-    return new Date(date).toLocaleDateString("en-CA", {
-      timeZone: "America/Toronto",
-      dateStyle: "long",
-    });
+    return new Date(date).toLocaleDateString(
+      "en-CA",
+      {
+        timeZone: "America/Toronto",
+        dateStyle: "long",
+      }
+    );
   } catch {
     return "";
   }
 }
 
-function FeedCard({ feed }: { feed: Feed }) {
+/* -------------------------------------------------------------------------- */
+/*                                 FEED CARD                                  */
+/* -------------------------------------------------------------------------- */
+
+function FeedCard({
+  feed,
+}: {
+  feed: Feed;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const [html, setHtml] = useState<string | null>(feed.html ?? null);
+
+  const [html, setHtml] = useState<string | null>(
+    null
+  );
+
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (html || failed) return;
+
     const element = ref.current;
+
     if (!element) return;
 
     const controller = new AbortController();
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        observer.disconnect();
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          if (!entry?.isIntersecting) {
+            return;
+          }
 
-        schedule(() => fetchLead(feed.id, controller.signal))
-          .then((result) => {
-            if (controller.signal.aborted) return;
-            if (result) setHtml(result);
-            else setFailed(true);
-          })
-          .catch((error) => {
-            if (controller.signal.aborted) return;
-            console.error(`[feeds] Failed to load feed ${feed.id}:`, error);
-            setFailed(true);
-          });
-      },
-      { rootMargin: "1200px 0px", threshold: 0 }
-    );
+          observer.disconnect();
+
+          schedule(() =>
+            fetchLead(
+              feed.id,
+              controller.signal
+            )
+          )
+            .then((result) => {
+              if (controller.signal.aborted) {
+                return;
+              }
+
+              if (result) {
+                setHtml(result);
+              } else {
+                setFailed(true);
+              }
+            })
+            .catch((error) => {
+              if (controller.signal.aborted) {
+                return;
+              }
+
+              console.error(
+                `[feeds] Failed to load feed ${feed.id}:`,
+                error
+              );
+
+              setFailed(true);
+            });
+        },
+        {
+          /*
+           * Start loading well before the user reaches
+           * the card so scrolling feels instantaneous.
+           */
+          rootMargin: "1800px 0px",
+          threshold: 0,
+        }
+      );
 
     observer.observe(element);
 
@@ -192,20 +319,40 @@ function FeedCard({ feed }: { feed: Feed }) {
       controller.abort();
       observer.disconnect();
     };
-  }, [feed.id, html, failed]);
+  }, [
+    feed.id,
+    html,
+    failed,
+  ]);
 
   return (
-    <section className="feed-archive-item" data-feed-id={feed.id}>
-      <div ref={ref} style={{ position: "relative" }}>
+    <section
+      className="feed-archive-item"
+      data-feed-id={feed.id}
+    >
+      <div
+        ref={ref}
+        style={{
+          position: "relative",
+        }}
+      >
         {html ? (
           <>
-            <FeedEmbed id={feed.id} html={html} title={feed.subject} />
-            {/* Real client-side link: prefetches the campaign on hover/touch. */}
+            <FeedEmbed
+              id={feed.id}
+              html={html}
+              title={feed.subject}
+            />
+
             <Link
               to={`/feeds/${feed.id}`}
               prefetch="intent"
               aria-label={`Read: ${feed.subject}`}
-              style={{ position: "absolute", inset: 0, zIndex: 1 }}
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: 1,
+              }}
             />
           </>
         ) : failed ? (
@@ -221,8 +368,16 @@ function FeedCard({ feed }: { feed: Feed }) {
               color: "inherit",
             }}
           >
-            <strong>{feed.subject}</strong>
-            <div style={{ opacity: 0.6, marginTop: 6 }}>
+            <strong>
+              {feed.subject}
+            </strong>
+
+            <div
+              style={{
+                opacity: 0.6,
+                marginTop: 6,
+              }}
+            >
               {formatDate(feed.date)}
             </div>
           </Link>
@@ -232,7 +387,9 @@ function FeedCard({ feed }: { feed: Feed }) {
             aria-hidden="true"
             style={{
               width: "100%",
-              height: getCachedHeight(feed.id) ?? 360,
+              height:
+                getCachedHeight(feed.id) ??
+                360,
             }}
           />
         )}
@@ -246,16 +403,30 @@ function FeedCard({ feed }: { feed: Feed }) {
 /* -------------------------------------------------------------------------- */
 
 export default function Today() {
-  const { feeds, degraded } = useLoaderData<typeof loader>();
+  const {
+    feeds,
+    degraded,
+  } = useLoaderData<typeof loader>();
 
   return (
     <div className="feeds-page">
       <header className="feed-topbar">
-        <Link className="feed-mark" to="/">
-          <img src="/img/tp.png" alt="The Poast" loading="eager" decoding="async" />
+        <Link
+          className="feed-mark"
+          to="/"
+        >
+          <img
+            src="/img/tp.png"
+            alt="The Poast"
+            loading="eager"
+            decoding="async"
+          />
         </Link>
 
-        <a href="#subscribe" className="feed-subscribe">
+        <a
+          href="#subscribe"
+          className="feed-subscribe"
+        >
           Subscribe
         </a>
       </header>
@@ -270,17 +441,27 @@ export default function Today() {
             </p>
           </section>
         ) : (
-          feeds.map((feed) => <FeedCard key={feed.id} feed={feed} />)
+          feeds.map((feed) => (
+            <FeedCard
+              key={feed.id}
+              feed={feed}
+            />
+          ))
         )}
       </main>
 
-      <footer className="feed-footer" id="subscribe">
+      <footer
+        className="feed-footer"
+        id="subscribe"
+      >
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">Get The Poast for free</p>
+          <p className="feed-subscribe-heading">
+            Get The Poast for free
+          </p>
 
           <div className="feed-input-bar">
             <input
@@ -290,7 +471,11 @@ export default function Today() {
               required
               placeholder="Email Address *"
             />
-            <button className="feed-submit" type="submit">
+
+            <button
+              className="feed-submit"
+              type="submit"
+            >
               Subscribe
             </button>
           </div>
@@ -305,11 +490,22 @@ export default function Today() {
             name="l"
             value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
           />
-          <input type="hidden" name="nonce" />
+
+          <input
+            type="hidden"
+            name="nonce"
+          />
 
           <p className="feed-legal">
-            By submitting, you agree to our <Link to="/policies/terms">Terms</Link>{" "}
-            &amp; <Link to="/policies/privacy">Privacy Policy</Link>.
+            By submitting, you agree to our{" "}
+            <Link to="/policies/terms">
+              Terms
+            </Link>{" "}
+            &amp;{" "}
+            <Link to="/policies/privacy">
+              Privacy Policy
+            </Link>
+            .
           </p>
         </form>
       </footer>
