@@ -1,11 +1,7 @@
-import type {
-  LinksFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 import Altcha from "../components/altcha";
-import logo from "~/../public/img/tp.png";
 import subscribeStyles from "~/style/scss/subscribe.css";
 
 export const links: LinksFunction = () => [
@@ -15,16 +11,12 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const meta: MetaFunction = () => [
-  {
+export const meta: MetaFunction = () => {
+  return {
     title: "Subscribe : The Poast",
-  },
-  {
-    name: "description",
-    content:
-      "Get caught up right here, right now.",
-  },
-];
+    description: "Get caught up right here, right now.",
+  };
+};
 
 export default function Subscribe() {
   return (
@@ -36,7 +28,7 @@ export default function Subscribe() {
           aria-label="The Poast home"
         >
           <img
-            src={logo}
+            src="/img/tp.png"
             alt="The Poast"
             decoding="async"
           />
