@@ -12,8 +12,25 @@ export async function loader() {
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Poast</title>
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: #000;
+    color: #fff;
+  }
+}
+</style>
 </head>
 <body>
 <p>The Poast is loading. Please refresh shortly.</p>
@@ -31,14 +48,11 @@ export async function loader() {
   }
 
   return new Response(issue.body, {
+    status: 200,
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": LIVE_CACHE_CONTROL,
       "X-Content-Type-Options": "nosniff",
     },
   });
-}
-
-export default function Live() {
-  return null;
 }
