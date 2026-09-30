@@ -9,15 +9,18 @@ export const headers: HeadersFunction = () => ({
 export default function Advertise() {
   return (
     <div className="feed-page ad-booking-page">
-      {/* Top Bar with Logo Only */}
-      <header className="feed-topbar feed-topbar-centered">
-        <Link className="feed-mark" to="/" aria-label="The Poast Home">
+      <header className="feed-topbar">
+        <Link className="feed-mark" to="/">
           <img
             src="/img/tp.png"
             alt="The Poast"
             loading="eager"
             decoding="async"
           />
+        </Link>
+
+        <Link to="/subscribe" className="feed-subscribe">
+          Subscribe
         </Link>
       </header>
 

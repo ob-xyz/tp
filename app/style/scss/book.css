@@ -13,24 +13,13 @@
   color: var(--feed-text);
   color-scheme: light dark;
   background: radial-gradient(50rem 24rem at 50% -6rem, var(--feed-page-glow), transparent 70%), var(--feed-bg);
-  /* Nav bar centered alignment */
 }
-.ad-booking-page .feed-topbar-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.ad-booking-page .feed-topbar-centered .feed-mark {
-  display: flex;
-  justify-content: center;
-}
-
 @media (prefers-color-scheme: dark) {
-  .ad-booking-page {
+  .ad-booking-page .ad-booking-page {
     --feed-page-glow: rgba(242, 209, 159, 0.08);
   }
 }
+
 /* Page Card Container */
 .ad-booking-card {
   width: 100%;
