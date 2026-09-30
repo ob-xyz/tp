@@ -25,11 +25,10 @@ $ad-max-width: 580px;
     var(--feed-bg);
 
   @media (prefers-color-scheme: dark) {
-    .ad-booking-page {
-      --feed-page-glow: rgba(242, 209, 159, 0.08);
-    }
+    --feed-page-glow: rgba(242, 209, 159, 0.08);
   }
 }
+
 /* Page Card Container */
 .ad-booking-card {
   width: 100%;
@@ -189,6 +188,44 @@ $ad-max-width: 580px;
   }
 }
 
+/* ---------------------------------------------------------------------- */
+/*                           BACK BUTTON (PILL)                           */
+/* ---------------------------------------------------------------------- */
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  padding: 0.55rem 1.25rem;
+  border: 1px solid var(--feed-hairline, rgba(255, 255, 255, 0.12));
+  border-radius: 999px;
+  font-family: ku !important;
+  font-weight: 100;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--feed-text);
+  background: transparent;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    stroke: currentColor;
+  }
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    background: var(--feed-surface, rgba(255, 255, 255, 0.05));
+    border-color: var(--feed-text-muted);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 @keyframes subscribe-rise {
   from {
     opacity: 0;
@@ -201,12 +238,102 @@ $ad-max-width: 580px;
 }
 
 /* ---------------------------------------------------------------------- */
+/*                        SUCCESS / THANK YOU STATE                       */
+/* ---------------------------------------------------------------------- */
+
+.ad-success-card {
+  align-items: center;
+  text-align: center;
+  padding-top: 3.5rem;
+
+  .ad-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    background: var(--feed-input-bg);
+    border: 1px solid var(--feed-input-border);
+    margin-bottom: 1.5rem;
+    color: var(--feed-text);
+
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  .ad-booking-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.ad-success-steps {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--feed-input-bg);
+    border: 1px solid var(--feed-input-border);
+    border-radius: 1rem;
+
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 999px;
+      background: var(--feed-btn-bg);
+      color: var(--feed-btn-text);
+      font-family: "bold";
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .step-content {
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        font-family: "bold";
+        font-size: 0.95rem;
+        color: var(--feed-text);
+        margin-bottom: 0.2rem;
+      }
+
+      p {
+        margin: 0;
+        font-family: "kl";
+        font-size: 0.85rem;
+        color: var(--feed-text-muted);
+        line-height: 1.45;
+      }
+    }
+  }
+}
+
+.ad-success-btn {
+  margin-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------------------- */
 /*                                RESPONSIVE                               */
 /* ---------------------------------------------------------------------- */
 
 @media (max-width: 540px) {
   .ad-booking-card {
-    padding: 1.5rem 0.75rem 3rem; /* Maximize edge-to-edge space for wide boxes */
+    padding: 1.5rem 0.75rem 3rem;
   }
 
   .ad-booking-header {
@@ -237,8 +364,18 @@ $ad-max-width: 580px;
       input[type="date"],
       select {
         width: 100%;
-        padding: 0.9rem 1.25rem; /* Taller, wide tap targets */
+        padding: 0.9rem 1.25rem;
       }
+    }
+  }
+
+  .ad-success-card {
+    padding-top: 2rem;
+  }
+
+  .ad-success-steps {
+    .step-item {
+      padding: 0.85rem 1rem;
     }
   }
 }
@@ -256,10 +393,12 @@ $ad-max-width: 580px;
   }
 }
 
-/* Reduced motion preference */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .ad-booking-card,
-  .ad-submit-btn {
+  .ad-submit-btn,
+  .back-btn,
+  .legal-top {
     transition: none !important;
     animation: none !important;
   }

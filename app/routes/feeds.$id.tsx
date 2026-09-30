@@ -182,7 +182,7 @@ export function ErrorBoundary() {
             Try again
           </button>
 
-          <Link to="/today">
+          <Link to="/latest">
             Back to archive
           </Link>
         </p>

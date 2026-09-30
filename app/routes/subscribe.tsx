@@ -109,11 +109,8 @@ export default function Subscribe() {
           </p>
         </form>
 
-        <Link
-          to="/"
-          className="subscribe-back"
-        >
-          Read today&rsquo;s edition first &rarr;
+        <Link to="/" className="back-btn">
+          ← Return to The Poast
         </Link>
       </main>
     </div>

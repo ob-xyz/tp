@@ -1,12 +1,37 @@
-import type { HeadersFunction } from "@remix-run/node";
-import { Link, Form } from "@remix-run/react";
+import type { ActionFunctionArgs, HeadersFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import { Link, Form, useActionData } from "@remix-run/react";
 import Altcha from "~/components/altcha";
 
 export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=600",
 });
 
+// 1. Add an action function to handle the form submission on the server
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+
+  const company = formData.get("company");
+  const website = formData.get("website");
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const targetDate = formData.get("targetDate");
+  const budget = formData.get("budget");
+  const notes = formData.get("notes");
+  const altcha = formData.get("altcha"); // Payload from Altcha widget
+
+  // TODO: Add your logic here (e.g., validate Altcha, save to DB, send email via Resend/SendGrid)
+
+  // Option A: Redirect to a thank-you page upon successful submission
+  return redirect("/thank-you");
+
+  // Option B: Or return a success JSON response to render state directly on this page
+  // return json({ success: true });
+}
+
 export default function Advertise() {
+  const actionData = useActionData<typeof action>();
+
   return (
     <div className="feed-page ad-booking-page">
       <header className="feed-topbar">

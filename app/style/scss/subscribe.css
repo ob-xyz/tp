@@ -220,19 +220,36 @@ body:has(.subscribe-page) {
   color: var(--feed-focus);
 }
 
-.subscribe-back {
-  margin-top: 2.25rem;
-  padding: 0.5rem 1.1rem;
-  border: 1px solid var(--feed-hairline);
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  padding: 0.55rem 1.25rem;
+  border: 1px solid var(--feed-hairline, rgba(255, 255, 255, 0.12));
   border-radius: 999px;
-  font-family: "bold";
+  font-family: ku !important;
+  font-weight: 100;
   font-size: 0.85rem;
   text-decoration: none;
   color: var(--feed-text);
-  transition: transform 0.15s ease, opacity 0.2s ease;
+  background: transparent;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
-.subscribe-back:hover {
+.back-btn svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke: currentColor;
+}
+.back-btn:hover {
+  opacity: 1;
   transform: translateY(-1px);
+  background: var(--feed-surface, rgba(255, 255, 255, 0.05));
+  border-color: var(--feed-text-muted);
+}
+.back-btn:active {
+  transform: translateY(0);
 }
 
 @keyframes subscribe-rise {
