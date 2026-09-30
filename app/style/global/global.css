@@ -476,6 +476,9 @@ body:has(.feed-page) {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  /* Top-of-form error banner */
+  /* Per-field error text */
+  /* Honeypot: invisible to humans, still present in the DOM for bots */
 }
 .ad-booking-form .form-group-row {
   display: grid;
@@ -555,6 +558,52 @@ body:has(.feed-page) {
   opacity: 0.6;
   cursor: pointer;
 }
+.ad-booking-form .ad-form-error {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(220, 70, 70, 0.55);
+  background: rgba(220, 70, 70, 0.1);
+  color: var(--feed-text);
+  font-family: "kl";
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.ad-booking-form .ad-form-error-debug {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: left;
+  word-break: break-word;
+  color: var(--feed-text-muted);
+}
+.ad-booking-form .ad-field-error {
+  margin-top: 0.4rem;
+  padding-left: 0.5rem;
+  font-family: "kl";
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: #e05a5a;
+  text-align: left;
+}
+.ad-booking-form .form-field input[aria-invalid=true],
+.ad-booking-form .form-field select[aria-invalid=true],
+.ad-booking-form .form-field textarea[aria-invalid=true] {
+  border-color: #e05a5a;
+}
+.ad-booking-form .hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden;
+}
 .ad-booking-form .ad-submit-btn {
   width: 100%;
   margin-top: 0.5rem;
@@ -578,6 +627,11 @@ body:has(.feed-page) {
 .ad-booking-form .ad-submit-btn:focus-visible {
   outline: 2px solid var(--feed-focus);
   outline-offset: 2px;
+}
+.ad-booking-form .ad-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 .ad-booking-form .ad-legal {
   margin-top: 0.75rem;
@@ -756,6 +810,13 @@ body:has(.feed-page) {
     font-size: 1.6rem;
   }
 }
+/* Altcha error message */
+.ad-booking-form .subscribe-altcha .ad-field-error {
+  display: block;
+  text-align: center;
+  padding-left: 0;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .ad-booking-card,

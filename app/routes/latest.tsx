@@ -418,7 +418,6 @@ export default function Today() {
           <img
             src="/img/tp.png"
             alt="The Poast"
-            loading="eager"
             decoding="async"
           />
         </Link>
