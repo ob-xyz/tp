@@ -1,8 +1,7 @@
-/* ---------------------------------------------------------------------- */
-/*                                TIPS PAGE                                */
-/*   The form reuses .ad-booking-form from book.scss, so this file only   */
-/*   holds the small differences.                                          */
-/* ---------------------------------------------------------------------- */
+html:has(.tips-page),
+body:has(.tips-page) {
+  scroll-behavior: smooth;
+}
 
 .tips-page {
   .ad-booking-form {

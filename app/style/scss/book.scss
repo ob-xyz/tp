@@ -3,6 +3,10 @@ $ad-max-width: 580px;
 /* ---------------------------------------------------------------------- */
 /*                        ADVERTISING BOOKING PAGE                        */
 /* ---------------------------------------------------------------------- */
+html:has(.ad-booking-page),
+body:has(.ad-booking-page) {
+  scroll-behavior: smooth;
+}
 
 .ad-booking-page {
   --feed-page-glow: rgba(184, 132, 47, 0.12);
