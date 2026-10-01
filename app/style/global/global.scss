@@ -2,7 +2,6 @@
 '../global/Colors.scss',
 '../global/Buttons.scss',
 '../scss/index.scss',
-'../scss/latest.scss',
 '../scss/book.scss',
 '../scss/about.scss',
 '../scss/media-kit.scss',
@@ -18,13 +17,13 @@
   margin:auto;
 } 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 html,
 body {
   margin: auto;
-  width:100%;
-  height: 100vh;
+  width: 100%;
+  min-height: 100%;
   background-color: #fff;
 }
 body {

@@ -52,6 +52,7 @@
 html:has(.feed-page),
 body:has(.feed-page) {
   background: var(--feed-bg);
+  scroll-behavior: smooth;
 }
 
 .feed-page {
@@ -101,7 +102,6 @@ body:has(.feed-page) {
 .feed-topbar .feed-mark img {
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: 100%;
 }
 .feed-topbar .feed-subscribe {
   grid-column: 3;
