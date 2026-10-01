@@ -36,6 +36,7 @@ type FieldName =
   | "targetDate"
   | "budget"
   | "notes"
+  | "source"
   | "altcha";
 
 type ActionData = {
@@ -52,6 +53,7 @@ type Lead = {
   targetDate: string;
   budget: string;
   notes: string;
+  previousCampaign: string; // optional; "" when not provided
 };
 
 const str = (value: FormDataEntryValue | null, max: number): string =>
@@ -158,8 +160,11 @@ async function saveAdvertiserLead(lead: Lead) {
     start_date: lead.targetDate,
     budget: lead.budget,
     notes: lead.notes,
+    previous_campaign: lead.previousCampaign,
   };
 
+  // NOTE: `source` is already used above as the lead-origin attribute
+  // ("advertise-form"), so the user's link is stored as `previous_campaign`.
   const attribs = {
     subscriber_type: "advertiser",
     source: "advertise-form",
@@ -169,6 +174,11 @@ async function saveAdvertiserLead(lead: Lead) {
     start_date: lead.targetDate,
     budget: lead.budget,
     notes: lead.notes,
+    // Only set when provided, so a later submission without a link
+    // doesn't wipe a previously saved one when merging.
+    ...(lead.previousCampaign
+      ? { previous_campaign: lead.previousCampaign }
+      : {}),
     last_submitted_at: now,
     ad_requests: [bookingRequest],
   };
@@ -268,6 +278,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const targetDate = str(formData.get("targetDate"), 10);
   const budget = str(formData.get("budget"), 50);
   const notes = str(formData.get("notes"), 5000);
+  const sourceRaw = str(formData.get("source"), 300);
   const altcha = str(formData.get("altcha"), 20000);
 
   const fieldErrors: ActionData["fieldErrors"] = {};
@@ -278,6 +289,17 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const website = normalizeWebsite(websiteRaw);
   if (!website) fieldErrors.website = "Please enter a valid website.";
+
+  // Optional: only validated if the person filled it in.
+  let previousCampaign = "";
+  if (sourceRaw) {
+    const normalized = normalizeWebsite(sourceRaw);
+    if (normalized) {
+      previousCampaign = normalized;
+    } else {
+      fieldErrors.source = "Please enter a valid link, or leave this blank.";
+    }
+  }
 
   if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate) || Number.isNaN(Date.parse(targetDate))) {
     fieldErrors.targetDate = "Please choose a start date.";
@@ -305,6 +327,7 @@ export async function action({ request }: ActionFunctionArgs) {
       targetDate,
       budget,
       notes,
+      previousCampaign,
     });
   } catch (err) {
     console.error("[book] failed to save advertiser lead:", err);
@@ -391,7 +414,7 @@ export default function Advertise() {
                 name="company"
                 required
                 autoComplete="organization"
-                placeholder="Your Company Name *"
+                placeholder="Company Name *"
                 aria-invalid={errors.company ? true : undefined}
                 aria-describedby={errors.company ? "company-error" : undefined}
               />
@@ -407,7 +430,7 @@ export default function Advertise() {
                 required
                 autoComplete="url"
                 inputMode="url"
-                placeholder="https://company.com"
+                placeholder="https://"
                 aria-invalid={errors.website ? true : undefined}
                 aria-describedby={errors.website ? "website-error" : undefined}
               />
@@ -424,7 +447,7 @@ export default function Advertise() {
                 name="name"
                 required
                 autoComplete="name"
-                placeholder="Alex Smith"
+                placeholder="Name *"
                 aria-invalid={errors.name ? true : undefined}
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
@@ -440,7 +463,7 @@ export default function Advertise() {
                 required
                 autoComplete="email"
                 inputMode="email"
-                placeholder="alex@company.com"
+                placeholder="Email *"
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
@@ -481,14 +504,29 @@ export default function Advertise() {
 
           {/* Campaign Goals / Notes */}
           <div className="form-field full-width">
-            <label htmlFor="notes">Campaign Details &amp; Goals</label>
+            <label htmlFor="notes">Campaign Details (optional)</label>
             <textarea
               id="notes"
               name="notes"
               rows={4}
               maxLength={5000}
-              placeholder="Paste a link to an existing ad campaign from social media here..."
+              placeholder="Tell us about your campaign..."
             />
+          </div>
+
+          <div className="form-field full-width">
+            <label htmlFor="source">Link to previous campaign (optional)</label>
+            <input
+              type="text"
+              id="source"
+              name="source"
+              autoComplete="off"
+              inputMode="url"
+              placeholder="https://"
+              aria-invalid={errors.source ? true : undefined}
+              aria-describedby={errors.source ? "source-error" : undefined}
+            />
+            {fieldError("source")}
           </div>
 
           {/* Honeypot: hidden from humans, bots fill it in */}

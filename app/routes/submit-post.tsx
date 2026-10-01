@@ -10,7 +10,7 @@ import { Link, Form, useActionData } from "@remix-run/react";
 import Altcha from "~/components/altcha";
 import subscribeStyles from "~/style/scss/subscribe.css";
 import bookStyles from "~/style/scss/book.css";
-import tipsStyles from "~/style/scss/tips.css";
+import tipsStyles from "~/style/scss/submit-post.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: subscribeStyles },
@@ -20,8 +20,8 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Send a Tip : The Poast",
-    description: "Got a story or a tip? Send it our way.",
+    title: "Submit a Post : The Poast",
+    description: "Got a story or a post? Send it our way.",
   };
 };
 
@@ -55,7 +55,7 @@ type Tip = {
   credit: string;
 };
 
-const TOPICS = ["News tip", "Story idea", "Correction", "Something else"];
+const TOPICS = ["New post", "Story idea", "Correction", "Something else"];
 const CREDIT_OPTIONS = [
   { value: "credit", label: "You can credit me" },
   { value: "anonymous", label: "Keep me anonymous" },
@@ -368,7 +368,7 @@ export default function Tips() {
           </div>
 
           <div className="ad-booking-header">
-            <h1 className="ad-booking-title">Tip received</h1>
+            <h1 className="ad-booking-title">Post received</h1>
             <p className="ad-booking-sub">
               Thank you for sending this our way. We'll take a look.
             </p>
@@ -389,9 +389,9 @@ export default function Tips() {
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <h1 className="ad-booking-title">Send a tip</h1>
+          <h1 className="ad-booking-title">Submit a post</h1>
           <p className="ad-booking-sub">
-            Got a story, a lead, or a correction? Tell us about it.
+            Got a story, meme, or good post? Tell us about it.
           </p>
         </div>
 
@@ -413,7 +413,7 @@ export default function Tips() {
                 id="name"
                 name="name"
                 autoComplete="name"
-                placeholder="Alex Smith"
+                placeholder="Name *"
               />
             </div>
 
@@ -426,7 +426,7 @@ export default function Tips() {
                 required
                 autoComplete="email"
                 inputMode="email"
-                placeholder="alex@email.com"
+                placeholder="Email *"
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
@@ -452,7 +452,7 @@ export default function Tips() {
 
             <div className="form-field">
               <label htmlFor="credit">If we use it</label>
-              <select id="credit" name="credit" defaultValue="anonymous">
+              <select id="credit" name="credit" defaultValue="credit">
                 {CREDIT_OPTIONS.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
@@ -463,13 +463,13 @@ export default function Tips() {
           </div>
 
           <div className="form-field full-width">
-            <label htmlFor="tip">Your tip</label>
+            <label htmlFor="tip">Description</label>
             <textarea
               id="tip"
               name="tip"
               rows={6}
-              required
               maxLength={5000}
+              required
               placeholder="What should we know?"
               aria-invalid={errors.tip ? true : undefined}
               aria-describedby={errors.tip ? "tip-error" : undefined}
@@ -478,7 +478,7 @@ export default function Tips() {
           </div>
 
           <div className="form-field full-width">
-            <label htmlFor="source">Link or source (optional)</label>
+            <label htmlFor="source">Link to post (optional)</label>
             <input
               type="text"
               id="source"
@@ -512,11 +512,11 @@ export default function Tips() {
           </div>
 
           <button type="submit" className="ad-submit-btn">
-            Send Tip
+            Submit Post
           </button>
 
           <p className="subscribe-legal ad-legal">
-            We'll use your email only to follow up on this tip. By submitting,
+            We'll use your email only to follow up on this post. By submitting,
             you agree to our <Link to="/policies/terms">Terms</Link> &amp;{" "}
             <Link to="/policies/privacy">Privacy Policy</Link>.
           </p>

@@ -102,15 +102,15 @@ export default function Subscribe() {
             .
             <br />
             <br />
-            <Link to="/tips">Tips</Link>
+            <Link to="/submit-post">Submit Post</Link>
+            {" · "}
+            <Link to="/read-more">Read More</Link>
             {" · "}
             <Link to="/media-kit">Media Kit</Link>
             {" · "}
-            <Link to="/about">About</Link>
-            {" · "}
-            <Link to="/latest">Latest</Link>
-            {" · "}
             <Link to="/book">Advertise</Link>
+            {" · "}
+            <Link to="/about">About</Link>
           </p>
         </form>
 

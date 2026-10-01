@@ -128,6 +128,17 @@ export default function NotFound() {
               Privacy Policy
             </Link>
             .
+            <br />
+            <br />
+            <Link to="/submit-post">Submit Post</Link>
+            {" · "}
+            <Link to="/read-more">Read More</Link>
+            {" · "}
+            <Link to="/media-kit">Media Kit</Link>
+            {" · "}
+            <Link to="/book">Advertise</Link>
+            {" · "}
+            <Link to="/about">About</Link>
           </p>
         </form>
       </footer>
