@@ -81,7 +81,7 @@
 html:has(.feed-page),
 body:has(.feed-page) {
   background: var(--feed-bg);
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
 }
 
 .feed-page {
@@ -1611,7 +1611,6 @@ body:has(.feed-detail-page) {
 html:has(.subscribe-page),
 body:has(.subscribe-page) {
   background: var(--feed-bg, #050505);
-  scroll-behavior: smooth;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1933,11 +1932,6 @@ body:has(.subscribe-page) {
 html:has(.content-privacy),
 body:has(.content-privacy) {
   background: var(--feed-bg, #050505);
-}
-
-/* Smooth anchor scrolling for the table of contents / back to top */
-html:has(.content-privacy) {
-  scroll-behavior: smooth;
 }
 
 /* ---------------------------------------------------------------------- */

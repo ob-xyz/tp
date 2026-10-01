@@ -40,7 +40,6 @@
 html:has(.subscribe-page),
 body:has(.subscribe-page) {
   background: var(--feed-bg, #050505);
-  scroll-behavior: smooth;
 }
 
 /* ---------------------------------------------------------------------- */

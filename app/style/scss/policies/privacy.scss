@@ -38,11 +38,6 @@ body:has(.content-privacy) {
   background: var(--feed-bg, #050505);
 }
 
-/* Smooth anchor scrolling for the table of contents / back to top */
-html:has(.content-privacy) {
-  scroll-behavior: smooth;
-}
-
 /* ---------------------------------------------------------------------- */
 /*                                  PAGE                                   */
 /* ---------------------------------------------------------------------- */

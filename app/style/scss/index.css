@@ -52,7 +52,7 @@
 html:has(.feed-page),
 body:has(.feed-page) {
   background: var(--feed-bg);
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
 }
 
 .feed-page {
