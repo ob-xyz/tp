@@ -3,11 +3,6 @@ $ad-max-width: 580px;
 /* ---------------------------------------------------------------------- */
 /*                        ADVERTISING BOOKING PAGE                        */
 /* ---------------------------------------------------------------------- */
-html:has(.ad-booking-page),
-body:has(.ad-booking-page) {
-  scroll-behavior: smooth;
-}
-
 .ad-booking-page {
   --feed-page-glow: rgba(184, 132, 47, 0.12);
 
@@ -80,9 +75,15 @@ body:has(.ad-booking-page) {
 
   .form-group-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1rem;
     width: 100%;
+  }
+
+  /* Lets grid/flex children shrink below their intrinsic size (fixes iOS date overflow) */
+  .form-group-row > *,
+  .form-field {
+    min-width: 0;
   }
 
   .form-field {
@@ -111,6 +112,11 @@ body:has(.ad-booking-page) {
     select,
     textarea {
       width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      margin: 0; /* global.scss sets * { margin: auto } */
+      -webkit-appearance: none;
+      appearance: none;
       background: var(--feed-input-bg);
       border: 1px solid var(--feed-input-border);
       border-radius: 999px;
@@ -151,6 +157,15 @@ body:has(.ad-booking-page) {
 
     input[type="date"] {
       color-scheme: light dark;
+      display: block;
+      min-height: 3rem; /* iOS collapses empty date inputs */
+      text-align: left;
+
+      &::-webkit-date-and-time-value {
+        text-align: left;
+        min-width: 0;
+      }
+
       &::-webkit-calendar-picker-indicator {
         opacity: 0.6;
         cursor: pointer;
@@ -413,7 +428,7 @@ body:has(.ad-booking-page) {
     gap: 1.25rem;
 
     .form-group-row {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 1.25rem;
     }
 

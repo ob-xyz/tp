@@ -1,11 +1,6 @@
 /* ---------------------------------------------------------------------- */
 /*                        ADVERTISING BOOKING PAGE                        */
 /* ---------------------------------------------------------------------- */
-html:has(.ad-booking-page),
-body:has(.ad-booking-page) {
-  scroll-behavior: smooth;
-}
-
 .ad-booking-page {
   --feed-page-glow: rgba(184, 132, 47, 0.12);
   min-height: 100vh;
@@ -67,15 +62,20 @@ body:has(.ad-booking-page) {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  /* Lets grid/flex children shrink below their intrinsic size (fixes iOS date overflow) */
   /* Top-of-form error banner */
   /* Per-field error text */
   /* Honeypot: invisible to humans, still present in the DOM for bots */
 }
 .ad-booking-form .form-group-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   width: 100%;
+}
+.ad-booking-form .form-group-row > *,
+.ad-booking-form .form-field {
+  min-width: 0;
 }
 .ad-booking-form .form-field {
   display: flex;
@@ -101,6 +101,11 @@ body:has(.ad-booking-page) {
 .ad-booking-form .form-field select,
 .ad-booking-form .form-field textarea {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0; /* global.scss sets * { margin: auto } */
+  -webkit-appearance: none;
+  appearance: none;
   background: var(--feed-input-bg);
   border: 1px solid var(--feed-input-border);
   border-radius: 999px;
@@ -144,6 +149,13 @@ body:has(.ad-booking-page) {
 }
 .ad-booking-form .form-field input[type=date] {
   color-scheme: light dark;
+  display: block;
+  min-height: 3rem; /* iOS collapses empty date inputs */
+  text-align: left;
+}
+.ad-booking-form .form-field input[type=date]::-webkit-date-and-time-value {
+  text-align: left;
+  min-width: 0;
 }
 .ad-booking-form .form-field input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0.6;
@@ -371,7 +383,7 @@ body:has(.ad-booking-page) {
     gap: 1.25rem;
   }
   .ad-booking-form .form-group-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.25rem;
   }
   .ad-booking-form .form-field label {

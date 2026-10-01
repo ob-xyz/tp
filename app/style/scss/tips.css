@@ -1,8 +1,3 @@
-html:has(.tips-page),
-body:has(.tips-page) {
-  scroll-behavior: smooth;
-}
-
 .tips-page {
   /* Success state: keep the check icon and button centered */
 }
