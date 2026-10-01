@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
 
@@ -7,8 +8,10 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
+import { useNavigationType } from "react-router-dom";
 
 import globalStyles from "~/style/global/global.css";
 
@@ -32,6 +35,31 @@ export const meta: MetaFunction = () => ({
   description: "Get caught up right here, right now. Find out what's happening, then get back to it. That's The Poast.",
   viewport: "width=device-width,initial-scale=1"
 });
+
+/**
+ * Forces every new page navigation to start at the top.
+ *
+ * Uses behavior "instant" so it overrides any `scroll-behavior: smooth`
+ * left in a stylesheet (which can cancel or stall ScrollRestoration).
+ * Skips back/forward (POP) so the browser's saved position still works,
+ * and skips #hash links so anchors still jump to their target.
+ */
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    if (hash || navType === "POP") return;
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant" as ScrollBehavior,
+    });
+  }, [pathname, hash, navType]);
+
+  return null;
+}
 
 export default function App() {
   const schemaData = {
@@ -69,7 +97,9 @@ export default function App() {
       </head>
       <body>
         <Outlet />
+        {/* ScrollToTop must come after ScrollRestoration so it runs last */}
         <ScrollRestoration />
+        <ScrollToTop />
         <Scripts />
         <LiveReload />
       </body>
