@@ -5994,77 +5994,6 @@ __export(tips_exports, {
 });
 var import_node5 = require("@remix-run/node"), import_react19 = require("@remix-run/react");
 
-// app/utils/poast.server.ts
-function config() {
-  let baseUrl = (process.env.LISTMONK_URL || "https://app.thepoast.com").replace(/\/+$/, ""), apiUser = process.env.LISTMONK_API_USER || process.env.LISTMONK_USERNAME, apiToken = process.env.LISTMONK_API_TOKEN || process.env.LISTMONK_TOKEN, missing = [];
-  if (apiUser || missing.push("LISTMONK_USERNAME"), apiToken || missing.push("LISTMONK_TOKEN"), missing.length)
-    throw new Error(`Missing env vars: ${missing.join(", ")}`);
-  return { baseUrl, apiUser, apiToken };
-}
-async function listmonk2(path, init = {}) {
-  let { baseUrl, apiUser, apiToken } = config();
-  return fetch(`${baseUrl}${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `token ${apiUser}:${apiToken}`,
-      ...init.headers || {}
-    }
-  });
-}
-function explain(step, status, body) {
-  let hint = "";
-  return status === 401 ? hint = "Credentials rejected. Check LISTMONK_USERNAME / LISTMONK_TOKEN." : status === 403 ? hint = "API user lacks permission (needs subscribers:manage and access to the list)." : status === 404 ? hint = "Path not found. Check LISTMONK_URL." : status === 400 && (hint = "Listmonk rejected the data (often a wrong list ID)."), `Listmonk ${step} failed (HTTP ${status}). ${hint} Response: ${body.slice(0, 300)}`;
-}
-async function upsertSubscriber(opts) {
-  var _a2, _b2, _c;
-  let { email, name, listId, attribs, historyKey, historyEntry } = opts, lists = listId ? [listId] : [], createRes = await listmonk2("/api/subscribers", {
-    method: "POST",
-    body: JSON.stringify({
-      email,
-      name,
-      status: "enabled",
-      lists,
-      preconfirm_subscriptions: !0,
-      attribs: { ...attribs, [historyKey]: [historyEntry] }
-    })
-  });
-  if (createRes.ok)
-    return;
-  if (createRes.status !== 409)
-    throw new Error(explain("create", createRes.status, await createRes.text()));
-  let query = `subscribers.email = '${email.replace(/'/g, "''")}'`, findRes = await listmonk2(
-    `/api/subscribers?per_page=1&query=${encodeURIComponent(query)}`
-  );
-  if (!findRes.ok)
-    throw new Error(explain("lookup", findRes.status, await findRes.text()));
-  let existing = (_c = (_b2 = (_a2 = await findRes.json()) == null ? void 0 : _a2.data) == null ? void 0 : _b2.results) == null ? void 0 : _c[0];
-  if (!existing)
-    throw new Error("Email exists but lookup returned nothing");
-  let existingAttribs = existing.attribs ?? {}, history = Array.isArray(existingAttribs[historyKey]) ? existingAttribs[historyKey] : [], listIds = Array.from(
-    /* @__PURE__ */ new Set([
-      ...(existing.lists ?? []).map((l) => l.id),
-      ...lists
-    ])
-  ), updateRes = await listmonk2(`/api/subscribers/${existing.id}`, {
-    method: "PUT",
-    body: JSON.stringify({
-      email: existing.email,
-      name: opts.overwriteName ? name : existing.name || name,
-      status: existing.status,
-      lists: listIds,
-      preconfirm_subscriptions: !0,
-      attribs: {
-        ...existingAttribs,
-        ...attribs,
-        [historyKey]: [...history, historyEntry].slice(-20)
-      }
-    })
-  });
-  if (!updateRes.ok)
-    throw new Error(explain("update", updateRes.status, await updateRes.text()));
-}
-
 // app/style/scss/tips.css
 var tips_default = "/build/_assets/tips-F6I2JL5P.css";
 
@@ -6078,10 +6007,118 @@ var import_jsx_dev_runtime18 = require("react/jsx-dev-runtime"), links13 = () =>
   description: "Got a story or a tip? Send it our way."
 }), headers6 = () => ({
   "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=600"
-}), TOPICS = ["News tip", "Story idea", "Correction", "Something else"], CREDIT_OPTIONS = [
+}), SHOW_ERROR_DETAILS2 = !0, TOPICS = ["News tip", "Story idea", "Correction", "Something else"], CREDIT_OPTIONS = [
   { value: "credit", label: "You can credit me" },
   { value: "anonymous", label: "Keep me anonymous" }
-], str2 = (value, max) => typeof value == "string" ? value.trim().slice(0, max) : "", EMAIL_RE2 = /^[^\s@'"\\]+@[^\s@'"\\]+\.[^\s@'"\\]+$/;
+], TIPS_LIST_UUID = "a1d1ab8d-81e1-47fe-adab-4f4a555689a1", TIPS_LIST_FIELD_ID = "a1d1a", str2 = (value, max) => typeof value == "string" ? value.trim().slice(0, max) : "", EMAIL_RE2 = /^[^\s@'"\\]+@[^\s@'"\\]+\.[^\s@'"\\]+$/;
+function listmonkConfig2() {
+  let baseUrl = (process.env.LISTMONK_URL || "https://app.thepoast.com").replace(/\/+$/, ""), apiUser = process.env.LISTMONK_API_USER || process.env.LISTMONK_USERNAME, apiToken = process.env.LISTMONK_API_TOKEN || process.env.LISTMONK_TOKEN, missing = [];
+  if (apiUser || missing.push("LISTMONK_USERNAME"), apiToken || missing.push("LISTMONK_TOKEN"), missing.length)
+    throw new Error(`Missing or invalid env vars: ${missing.join(", ")}`);
+  return { baseUrl, apiUser, apiToken };
+}
+async function listmonk2(path, init = {}) {
+  let { baseUrl, apiUser, apiToken } = listmonkConfig2();
+  return fetch(`${baseUrl}${path}`, {
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `token ${apiUser}:${apiToken}`,
+      ...init.headers || {}
+    }
+  });
+}
+function explainListmonkFailure2(step, status, body) {
+  let hint = "";
+  return status === 401 ? hint = "Listmonk rejected the credentials. Check LISTMONK_API_USER / LISTMONK_API_TOKEN (the user must be an API user, and the token is shown only once when it's created)." : status === 403 ? hint = "The API user is authenticated but lacks permission. Give its role 'subscribers:manage' (and 'subscribers:get_all') plus 'lists:get_all' and access to the Tips list." : status === 404 ? hint = "Listmonk URL/path not found. Check LISTMONK_URL (no trailing path, e.g. https://app.thepoast.com)." : status === 400 && (hint = "Listmonk rejected the data. This is often a wrong list ID (the API needs the numeric list ID, not the UUID)."), `Listmonk ${step} failed (HTTP ${status}). ${hint} Response: ${body.slice(0, 300)}`;
+}
+var cachedTipsListId = null;
+async function getTipsListId() {
+  var _a2;
+  let fromEnv = Number(process.env.LISTMONK_TIPS_LIST_ID);
+  if (Number.isInteger(fromEnv) && fromEnv > 0)
+    return fromEnv;
+  if (cachedTipsListId)
+    return cachedTipsListId;
+  let res = await listmonk2("/api/lists?per_page=all&minimal=true");
+  if (!res.ok)
+    throw new Error(
+      explainListmonkFailure2("list lookup", res.status, await res.text())
+    );
+  let body = await res.json(), match = (((_a2 = body == null ? void 0 : body.data) == null ? void 0 : _a2.results) ?? []).find((l) => l.uuid === TIPS_LIST_UUID);
+  if (!match)
+    throw new Error(
+      `Could not find the Tips list (UUID ${TIPS_LIST_UUID}) in Listmonk. Set LISTMONK_TIPS_LIST_ID to its numeric ID.`
+    );
+  return cachedTipsListId = match.id, match.id;
+}
+async function saveTip(input) {
+  var _a2, _b2;
+  let listId = await getTipsListId(), now = (/* @__PURE__ */ new Date()).toISOString(), tipEntry = {
+    submitted_at: now,
+    topic: input.topic,
+    tip: input.tip,
+    source: input.source,
+    credit: input.credit
+  }, attribs = {
+    is_tipster: !0,
+    last_tip_at: now,
+    tips: [tipEntry]
+  }, name = input.name || input.email.split("@")[0], createRes = await listmonk2("/api/subscribers", {
+    method: "POST",
+    body: JSON.stringify({
+      email: input.email,
+      name,
+      status: "enabled",
+      lists: [listId],
+      preconfirm_subscriptions: !0,
+      attribs
+    })
+  });
+  if (createRes.ok)
+    return;
+  if (createRes.status !== 409)
+    throw new Error(
+      explainListmonkFailure2("create", createRes.status, await createRes.text())
+    );
+  let query = `subscribers.email = '${input.email.replace(/'/g, "''")}'`, findRes = await listmonk2(
+    `/api/subscribers?per_page=1&query=${encodeURIComponent(query)}`
+  );
+  if (!findRes.ok)
+    throw new Error(
+      explainListmonkFailure2("lookup", findRes.status, await findRes.text())
+    );
+  let found = await findRes.json(), existing = (_b2 = (_a2 = found == null ? void 0 : found.data) == null ? void 0 : _a2.results) == null ? void 0 : _b2[0];
+  if (!existing)
+    throw new Error("Listmonk said the email exists but lookup returned nothing");
+  let existingAttribs = existing.attribs ?? {}, history = Array.isArray(existingAttribs.tips) ? existingAttribs.tips : [], listIds = Array.from(
+    /* @__PURE__ */ new Set(
+      [
+        ...(existing.lists ?? []).map((l) => l.id),
+        listId
+      ]
+    )
+  ), updateRes = await listmonk2(`/api/subscribers/${existing.id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      email: existing.email,
+      // Keep the name they already have unless they gave one this time.
+      name: input.name || existing.name || name,
+      status: existing.status,
+      lists: listIds,
+      preconfirm_subscriptions: !0,
+      attribs: {
+        ...existingAttribs,
+        ...attribs,
+        tips: [...history, tipEntry].slice(-20)
+      }
+    })
+  });
+  if (!updateRes.ok)
+    throw new Error(
+      explainListmonkFailure2("update", updateRes.status, await updateRes.text())
+    );
+}
 async function action2({ request }) {
   let formData = await request.formData();
   if (str2(formData.get("nonce"), 200))
@@ -6092,21 +6129,8 @@ async function action2({ request }) {
       { error: "Please fix the highlighted fields.", fieldErrors },
       { status: 400 }
     );
-  let now = (/* @__PURE__ */ new Date()).toISOString();
   try {
-    await upsertSubscriber({
-      email,
-      name: name || email.split("@")[0],
-      // Optional: set LISTMONK_TIPS_LIST_ID to put tipsters on a list.
-      // Without it they are saved as subscribers on no list.
-      listId: Number(process.env.LISTMONK_TIPS_LIST_ID) || void 0,
-      attribs: {
-        is_tipster: !0,
-        last_tip_at: now
-      },
-      historyKey: "tips",
-      historyEntry: { submitted_at: now, topic, tip, source, credit }
-    });
+    await saveTip({ name, email, topic, tip, source, credit });
   } catch (err) {
     console.error("[tips] failed to save tip:", err);
     let cause = err == null ? void 0 : err.cause, reason = (err instanceof Error ? err.message : String(err)) + (cause ? ` [${cause.code || cause.message}]` : "");
@@ -6114,7 +6138,7 @@ async function action2({ request }) {
       {
         error: "Something went wrong sending your tip. Please try again in a moment.",
         // Set BOOK_DEBUG=true in your env to see the real reason on the page.
-        debug: process.env.BOOK_DEBUG === "true" ? reason : void 0
+        debug: SHOW_ERROR_DETAILS2 || process.env.BOOK_DEBUG === "true" ? reason : void 0
       },
       { status: 500 }
     );
@@ -6124,7 +6148,7 @@ async function action2({ request }) {
 function Tips() {
   let actionData = (0, import_react19.useActionData)(), errors = (actionData == null ? void 0 : actionData.fieldErrors) ?? {}, fieldError = (field) => errors[field] ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("span", { className: "ad-field-error", id: `${field}-error`, role: "alert", children: errors[field] }, void 0, !1, {
     fileName: "app/routes/tips.tsx",
-    lineNumber: 139,
+    lineNumber: 330,
     columnNumber: 3
   }, this) : null, header = /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("header", { className: "feed-topbar", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { className: "feed-mark", to: "/", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -6139,85 +6163,82 @@ function Tips() {
       !1,
       {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 147,
+        lineNumber: 338,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/routes/tips.tsx",
-      lineNumber: 146,
+      lineNumber: 337,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/subscribe", className: "feed-subscribe", children: "Subscribe" }, void 0, !1, {
       fileName: "app/routes/tips.tsx",
-      lineNumber: 155,
+      lineNumber: 346,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/tips.tsx",
-    lineNumber: 145,
+    lineNumber: 336,
     columnNumber: 3
   }, this);
-  return actionData != null && actionData.success ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-page ad-booking-page tips-page", children: [
-    header,
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("main", { className: "ad-booking-card ad-success-card", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "ad-success-icon", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-        "svg",
-        {
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          strokeWidth: "2",
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("polyline", { points: "20 6 9 17 4 12" }, void 0, !1, {
-            fileName: "app/routes/tips.tsx",
-            lineNumber: 177,
-            columnNumber: 15
-          }, this)
-        },
-        void 0,
-        !1,
-        {
+  return actionData != null && actionData.success ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-page ad-booking-page tips-page", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("main", { className: "ad-booking-card ad-success-card", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "ad-success-icon", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+      "svg",
+      {
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("polyline", { points: "20 6 9 17 4 12" }, void 0, !1, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 169,
-          columnNumber: 13
-        },
-        this
-      ) }, void 0, !1, {
-        fileName: "app/routes/tips.tsx",
-        lineNumber: 168,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "ad-booking-header", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { className: "ad-booking-title", children: "Tip received" }, void 0, !1, {
-          fileName: "app/routes/tips.tsx",
-          lineNumber: 182,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "ad-booking-sub", children: "Thank you for sending this our way. We'll take a look." }, void 0, !1, {
-          fileName: "app/routes/tips.tsx",
-          lineNumber: 183,
-          columnNumber: 13
+          lineNumber: 366,
+          columnNumber: 15
         }, this)
-      ] }, void 0, !0, {
+      },
+      void 0,
+      !1,
+      {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 181,
-        columnNumber: 11
+        lineNumber: 358,
+        columnNumber: 13
+      },
+      this
+    ) }, void 0, !1, {
+      fileName: "app/routes/tips.tsx",
+      lineNumber: 357,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "ad-booking-header", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { className: "ad-booking-title", children: "Tip received" }, void 0, !1, {
+        fileName: "app/routes/tips.tsx",
+        lineNumber: 371,
+        columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/", className: "back-btn ad-success-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "ad-booking-sub", children: "Thank you for sending this our way. We'll take a look." }, void 0, !1, {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 188,
-        columnNumber: 11
+        lineNumber: 372,
+        columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/tips.tsx",
-      lineNumber: 167,
-      columnNumber: 9
+      lineNumber: 370,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/", className: "back-btn ad-success-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
+      fileName: "app/routes/tips.tsx",
+      lineNumber: 377,
+      columnNumber: 11
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/tips.tsx",
-    lineNumber: 164,
+    lineNumber: 356,
+    columnNumber: 9
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/tips.tsx",
+    lineNumber: 355,
     columnNumber: 7
   }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-page ad-booking-page tips-page", children: [
     header,
@@ -6225,17 +6246,17 @@ function Tips() {
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "ad-booking-header", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { className: "ad-booking-title", children: "Send a tip" }, void 0, !1, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 203,
+          lineNumber: 392,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "ad-booking-sub", children: "Got a story, a lead, or a correction? Tell us about it." }, void 0, !1, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 204,
+          lineNumber: 393,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 202,
+        lineNumber: 391,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Form, { method: "post", className: "ad-booking-form", children: [
@@ -6243,19 +6264,19 @@ function Tips() {
           actionData.error,
           actionData.debug && /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("code", { className: "ad-form-error-debug", children: actionData.debug }, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 214,
+            lineNumber: 403,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 211,
+          lineNumber: 400,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-group-row", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "name", children: "Your Name (optional)" }, void 0, !1, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 221,
+              lineNumber: 410,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -6271,20 +6292,20 @@ function Tips() {
               !1,
               {
                 fileName: "app/routes/tips.tsx",
-                lineNumber: 222,
+                lineNumber: 411,
                 columnNumber: 15
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 220,
+            lineNumber: 409,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "email", children: "Email" }, void 0, !1, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 232,
+              lineNumber: 421,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -6304,7 +6325,7 @@ function Tips() {
               !1,
               {
                 fileName: "app/routes/tips.tsx",
-                lineNumber: 233,
+                lineNumber: 422,
                 columnNumber: 15
               },
               this
@@ -6312,76 +6333,76 @@ function Tips() {
             fieldError("email")
           ] }, void 0, !0, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 231,
+            lineNumber: 420,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 219,
+          lineNumber: 408,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-group-row", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "topic", children: "Type" }, void 0, !1, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 250,
+              lineNumber: 439,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("select", { id: "topic", name: "topic", defaultValue: "", children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("option", { value: "", disabled: !0, children: "Select one..." }, void 0, !1, {
                 fileName: "app/routes/tips.tsx",
-                lineNumber: 252,
+                lineNumber: 441,
                 columnNumber: 17
               }, this),
               TOPICS.map(
                 (t) => /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("option", { value: t, children: t }, t, !1, {
                   fileName: "app/routes/tips.tsx",
-                  lineNumber: 256,
+                  lineNumber: 445,
                   columnNumber: 17
                 }, this)
               )
             ] }, void 0, !0, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 251,
+              lineNumber: 440,
               columnNumber: 15
             }, this),
             fieldError("topic")
           ] }, void 0, !0, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 249,
+            lineNumber: 438,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "credit", children: "If we use it" }, void 0, !1, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 265,
+              lineNumber: 454,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("select", { id: "credit", name: "credit", defaultValue: "anonymous", children: CREDIT_OPTIONS.map(
               (o) => /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("option", { value: o.value, children: o.label }, o.value, !1, {
                 fileName: "app/routes/tips.tsx",
-                lineNumber: 268,
+                lineNumber: 457,
                 columnNumber: 17
               }, this)
             ) }, void 0, !1, {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 266,
+              lineNumber: 455,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 264,
+            lineNumber: 453,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 248,
+          lineNumber: 437,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field full-width", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "tip", children: "Your tip" }, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 277,
+            lineNumber: 466,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -6400,7 +6421,7 @@ function Tips() {
             !1,
             {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 278,
+              lineNumber: 467,
               columnNumber: 13
             },
             this
@@ -6408,13 +6429,13 @@ function Tips() {
           fieldError("tip")
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 276,
+          lineNumber: 465,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "form-field full-width", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "source", children: "Link or source (optional)" }, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 292,
+            lineNumber: 481,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -6429,16 +6450,33 @@ function Tips() {
             !1,
             {
               fileName: "app/routes/tips.tsx",
-              lineNumber: 293,
+              lineNumber: 482,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 291,
+          lineNumber: 480,
           columnNumber: 11
         }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+          "input",
+          {
+            id: TIPS_LIST_FIELD_ID,
+            type: "hidden",
+            name: "l",
+            value: TIPS_LIST_UUID
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/tips.tsx",
+            lineNumber: 492,
+            columnNumber: 11
+          },
+          this
+        ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
           "input",
           {
@@ -6453,7 +6491,7 @@ function Tips() {
           !1,
           {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 302,
+            lineNumber: 500,
             columnNumber: 11
           },
           this
@@ -6461,58 +6499,58 @@ function Tips() {
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "subscribe-altcha", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 312,
+            lineNumber: 510,
             columnNumber: 13
           }, this),
           fieldError("altcha")
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 311,
+          lineNumber: 509,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("button", { type: "submit", className: "ad-submit-btn", children: "Send Tip" }, void 0, !1, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 316,
+          lineNumber: 514,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "subscribe-legal ad-legal", children: [
           "We'll use your email only to follow up on this tip. By submitting, you agree to our ",
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 322,
+            lineNumber: 520,
             columnNumber: 30
           }, this),
           " &",
           " ",
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/policies/privacy", children: "Privacy Policy" }, void 0, !1, {
             fileName: "app/routes/tips.tsx",
-            lineNumber: 323,
+            lineNumber: 521,
             columnNumber: 13
           }, this),
           "."
         ] }, void 0, !0, {
           fileName: "app/routes/tips.tsx",
-          lineNumber: 320,
+          lineNumber: 518,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 209,
+        lineNumber: 398,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react19.Link, { to: "/", className: "back-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
         fileName: "app/routes/tips.tsx",
-        lineNumber: 327,
+        lineNumber: 525,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/tips.tsx",
-      lineNumber: 201,
+      lineNumber: 390,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/tips.tsx",
-    lineNumber: 198,
+    lineNumber: 387,
     columnNumber: 5
   }, this);
 }
@@ -6786,7 +6824,7 @@ function NotFound() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-FSQW6YC2.js", imports: ["/build/_shared/chunk-77KVK7YT.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-HEOJ6J27.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-3VWOCR33.js", imports: ["/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-OA3PC5FB.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-QJC7BTK7.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-6JLUWPCT.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-AWZWHP7W.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-JKFKQQWV.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-IMIQYYDS.js", imports: ["/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/latest": { id: "routes/latest", parentId: "root", path: "latest", index: void 0, caseSensitive: void 0, module: "/build/routes/latest-U5LYBFBQ.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-JLKLOBAQ.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-4WXT4P7B.js", imports: ["/build/_shared/chunk-ZJJYDLUJ.js", "/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-EC4X4Z6A.js", imports: ["/build/_shared/chunk-ZJJYDLUJ.js", "/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-H42AAZ4F.js", imports: ["/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-ZYJJ2MBX.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/tips": { id: "routes/tips", parentId: "root", path: "tips", index: void 0, caseSensitive: void 0, module: "/build/routes/tips-DDWNW2IE.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f8edc5dd", hmr: void 0, url: "/build/manifest-F8EDC5DD.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-FSQW6YC2.js", imports: ["/build/_shared/chunk-77KVK7YT.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-HEOJ6J27.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-3VWOCR33.js", imports: ["/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-OA3PC5FB.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-QJC7BTK7.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-6JLUWPCT.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-AWZWHP7W.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-JKFKQQWV.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-IMIQYYDS.js", imports: ["/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/latest": { id: "routes/latest", parentId: "root", path: "latest", index: void 0, caseSensitive: void 0, module: "/build/routes/latest-U5LYBFBQ.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-UJL6FION.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-JLKLOBAQ.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-4WXT4P7B.js", imports: ["/build/_shared/chunk-ZJJYDLUJ.js", "/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-EC4X4Z6A.js", imports: ["/build/_shared/chunk-ZJJYDLUJ.js", "/build/_shared/chunk-3YPO5SKL.js", "/build/_shared/chunk-MG3UHPBD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-H42AAZ4F.js", imports: ["/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-ZYJJ2MBX.js", imports: ["/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/tips": { id: "routes/tips", parentId: "root", path: "tips", index: void 0, caseSensitive: void 0, module: "/build/routes/tips-7JFUUAJZ.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-WU4J6WKT.js", "/build/_shared/chunk-BYU2QCAV.js", "/build/_shared/chunk-OARJLLWB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "d9c09be0", hmr: void 0, url: "/build/manifest-D9C09BE0.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
