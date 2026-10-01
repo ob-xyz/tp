@@ -565,9 +565,9 @@ export default function Feeds() {
             {" · "}
             <Link to="/read-more">Read More</Link>
             {" · "}
-            <Link to="/media-kit">Media Kit</Link>
-            {" · "}
             <Link to="/book">Advertise</Link>
+            {" · "}
+            <Link to="/media-kit">Media Kit</Link>
             {" · "}
             <Link to="/about">About</Link>
           </p>
