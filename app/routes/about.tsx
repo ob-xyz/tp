@@ -34,7 +34,7 @@ const PRINCIPLES = [
     body: "Subscribe with just your email. No subscription fee always free",
   },
   {
-    title: "Send us a tip",
+    title: "We love tips",
     body: "Got a story or a tip? Send it our way and we'll reply within 24 hours",
   },
 ];
@@ -60,7 +60,7 @@ export default function About() {
       <main className="ad-booking-card about-card">
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">About The Poast</h1>
-          <p className="ad-booking-sub">Get caught up right here, right now.</p>
+          <p className="ad-booking-sub">Trusted by 25,000+</p>
         </div>
 
         <section className="about-section" aria-labelledby="about-what">

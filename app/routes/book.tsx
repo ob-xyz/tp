@@ -367,7 +367,7 @@ export default function Advertise() {
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">Advertise with us</h1>
           <p className="ad-booking-sub">
-            Try an ad you've already run on social media
+            Run your next ad in The Poast
           </p>
         </div>
 
