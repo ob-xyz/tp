@@ -1,0 +1,204 @@
+/* app/style/scss/media-kit.css */
+.ad-booking-card.mk-card {
+  max-width: 860px;
+}
+.mk-section {
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+.mk-section-title {
+  margin: 0 0 1rem;
+  padding-left: .5rem;
+  font-family: bold;
+  font-size: .75rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-align: left;
+  color: var(--feed-heading);
+}
+.mk-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 1rem;
+}
+.mk-stats .mk-stat {
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
+  width: auto;
+  height: 100%;
+  margin: 0;
+}
+.mk-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  padding: 1.35rem 1rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+  text-align: center;
+}
+.mk-stat .mk-stat-value {
+  font-family: ku;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  color: var(--feed-text);
+}
+.mk-stat .mk-stat-label {
+  font-family: kl;
+  font-size: .8rem;
+  line-height: 1.3;
+  color: var(--feed-text-muted);
+}
+.mk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.mk-chip {
+  padding: .55rem 1.1rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 999px;
+  font-family: kl;
+  font-size: .95rem;
+  color: var(--feed-text);
+}
+.mk-formats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 1rem;
+}
+.mk-formats .mk-format {
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  text-align: left;
+}
+.mk-format {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.25rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+}
+.mk-format h3 {
+  margin: 0 0 .5rem;
+  font-family: bold;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--feed-text);
+}
+.mk-format p {
+  margin: 0 0 1rem;
+  font-family: kl;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: var(--feed-text-muted);
+}
+.mk-format .mk-format-note {
+  margin-top: auto;
+  font-family: bold;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--feed-heading);
+}
+.mk-section .ad-success-steps {
+  align-items: stretch;
+  gap: 1rem;
+  margin-bottom: 0;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-item {
+  align-self: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 5.25rem;
+  margin: 0;
+  align-items: center;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-num {
+  margin-top: 0;
+}
+.mk-section .ad-success-steps .step-content {
+  flex: 1;
+  min-width: 0;
+  align-items: flex-start;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-content strong,
+.mk-section .ad-success-steps .step-content p {
+  width: 100%;
+  text-align: left;
+}
+.mk-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.mk-cta .back-btn {
+  margin-top: 0;
+}
+.mk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .85rem 1.75rem;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
+  border: none;
+  border-radius: 999px;
+  font-family: bold !important;
+  font-weight: 100;
+  font-size: .95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, opacity .2s ease;
+}
+.mk-btn:hover {
+  opacity: .85;
+  transform: translateY(-1px);
+}
+.mk-btn:active {
+  transform: translateY(0);
+}
+.mk-btn:focus-visible {
+  outline: 2px solid var(--feed-focus);
+  outline-offset: 2px;
+}
+@media (max-width: 720px) {
+  .mk-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mk-formats {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+}
+@media (max-width: 380px) {
+  .mk-stat .mk-stat-value {
+    font-size: 1.55rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk-btn {
+    transition: none !important;
+  }
+}

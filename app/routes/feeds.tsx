@@ -559,6 +559,17 @@ export default function Feeds() {
               Privacy Policy
             </Link>
             .
+            <br />
+            <br />
+            <Link to="/tips">Tips</Link>
+            {" · "}
+            <Link to="/media-kit">Media Kit</Link>
+            {" · "}
+            <Link to="/about">About</Link>
+            {" · "}
+            <Link to="/latest">Latest</Link>
+            {" · "}
+            <Link to="/book">Advertise</Link>
           </p>
         </form>
       </footer>

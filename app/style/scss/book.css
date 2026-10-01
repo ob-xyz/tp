@@ -236,8 +236,7 @@
   padding: 0.55rem 1.25rem;
   border: 1px solid var(--feed-hairline, rgba(255, 255, 255, 0.12));
   border-radius: 999px;
-  font-family: ku !important;
-  font-weight: 100;
+  font-family: bold !important;
   font-size: 0.85rem;
   text-decoration: none;
   color: var(--feed-text);

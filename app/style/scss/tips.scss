@@ -1,0 +1,26 @@
+/* ---------------------------------------------------------------------- */
+/*                                TIPS PAGE                                */
+/*   The form reuses .ad-booking-form from book.scss, so this file only   */
+/*   holds the small differences.                                          */
+/* ---------------------------------------------------------------------- */
+
+.tips-page {
+  .ad-booking-form {
+    /* Give the tip box more room than the booking notes */
+    textarea {
+      min-height: 180px;
+    }
+
+    /* Second column select on the same row as the first */
+    .form-group-row .form-field select {
+      width: 100%;
+    }
+  }
+
+  /* Success state: keep the check icon and button centered */
+  .ad-success-card {
+    .ad-booking-header {
+      margin-bottom: 2rem;
+    }
+  }
+}

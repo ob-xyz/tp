@@ -650,8 +650,7 @@ body:has(.feed-page) {
   padding: 0.55rem 1.25rem;
   border: 1px solid var(--feed-hairline, rgba(255, 255, 255, 0.12));
   border-radius: 999px;
-  font-family: ku !important;
-  font-weight: 100;
+  font-family: bold !important;
   font-size: 0.85rem;
   text-decoration: none;
   color: var(--feed-text);
@@ -827,6 +826,404 @@ body:has(.feed-page) {
     animation: none !important;
   }
 }
+/* ---------------------------------------------------------------------- */
+/*                                ABOUT PAGE                               */
+/*   Builds on book.scss (page shell, header, back button).               */
+/* ---------------------------------------------------------------------- */
+.ad-booking-card.about-card {
+  max-width: 680px;
+}
+
+.about-section {
+  width: 100%;
+  margin-bottom: 2.25rem;
+}
+
+.about-section-title {
+  margin: 0 0 0.85rem;
+  padding-left: 0.5rem;
+  font-family: "bold";
+  font-size: 0.75rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: var(--feed-heading);
+}
+
+.about-text {
+  margin: 0 0 1rem;
+  padding: 0 0.5rem;
+  font-family: "kl";
+  font-size: 1.05rem;
+  line-height: 1.7;
+  text-align: left;
+  color: var(--feed-text);
+}
+
+/* Audience chips */
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0 0.5rem;
+}
+
+.about-chip {
+  padding: 0.5rem 1.1rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 999px;
+  font-family: "kl";
+  font-size: 0.95rem;
+  color: var(--feed-text);
+}
+
+/* Principle cards: equal width, equal height, top-aligned */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 1rem;
+}
+
+.about-grid .about-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  padding: 1.25rem 1.1rem;
+  text-align: left;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+}
+.about-grid .about-item h3 {
+  margin: 0 0 0.45rem;
+  font-family: "bold";
+  font-size: 0.95rem;
+  font-weight: normal;
+  color: var(--feed-text);
+}
+.about-grid .about-item p {
+  margin: 0;
+  font-family: "kl";
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--feed-text-muted);
+}
+
+/* Call to action */
+.about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+.about-cta .back-btn {
+  margin-top: 0;
+}
+
+.about-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.75rem;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
+  border: none;
+  border-radius: 999px;
+  font-family: bold !important;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.about-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.about-btn:active {
+  transform: translateY(0);
+}
+.about-btn:focus-visible {
+  outline: 2px solid var(--feed-focus);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .about-text {
+    font-size: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-btn {
+    transition: none !important;
+  }
+}
+/* ---------------------------------------------------------------------- */
+/*                               MEDIA KIT PAGE                            */
+/*   Builds on book.scss (page shell, header, steps, back button).        */
+/* ---------------------------------------------------------------------- */
+.ad-booking-card.mk-card {
+  max-width: 860px;
+}
+
+.mk-section {
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.mk-section-title {
+  margin: 0 0 1rem;
+  padding-left: 0.5rem;
+  font-family: "bold";
+  font-size: 0.75rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: var(--feed-heading);
+}
+
+/* Stats */
+.mk-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 1rem;
+}
+
+.mk-stats .mk-stat {
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
+  width: auto;
+  height: 100%;
+  margin: 0;
+}
+
+.mk-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1.35rem 1rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+  text-align: center;
+}
+.mk-stat .mk-stat-value {
+  font-family: "ku";
+  font-size: 1.85rem;
+  line-height: 1.1;
+  color: var(--feed-text);
+}
+.mk-stat .mk-stat-label {
+  font-family: "kl";
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--feed-text-muted);
+}
+
+/* Audience chips */
+.mk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.mk-chip {
+  padding: 0.55rem 1.1rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 999px;
+  font-family: "kl";
+  font-size: 0.95rem;
+  color: var(--feed-text);
+}
+
+/* Ad formats */
+.mk-formats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 1rem;
+}
+
+.mk-formats .mk-format {
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.mk-format {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.25rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+}
+.mk-format h3 {
+  margin: 0 0 0.5rem;
+  font-family: "bold";
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--feed-text);
+}
+.mk-format p {
+  margin: 0 0 1rem;
+  font-family: "kl";
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--feed-text-muted);
+}
+.mk-format .mk-format-note {
+  margin-top: auto;
+  font-family: "bold";
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--feed-heading);
+}
+
+/* How it works: every step is the same width and height, left-aligned */
+.mk-section .ad-success-steps {
+  align-items: stretch;
+  gap: 1rem;
+  margin-bottom: 0;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-item {
+  align-self: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 5.25rem;
+  margin: 0;
+  align-items: center;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-num {
+  margin-top: 0;
+}
+.mk-section .ad-success-steps .step-content {
+  flex: 1;
+  min-width: 0;
+  align-items: flex-start;
+  text-align: left;
+}
+.mk-section .ad-success-steps .step-content strong,
+.mk-section .ad-success-steps .step-content p {
+  width: 100%;
+  text-align: left;
+}
+
+/* Call to action */
+.mk-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.mk-cta .back-btn {
+  margin-top: 0;
+}
+
+.mk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.75rem;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
+  border: none;
+  border-radius: 999px;
+  font-family: bold !important;
+  font-weight: 100;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.mk-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.mk-btn:active {
+  transform: translateY(0);
+}
+.mk-btn:focus-visible {
+  outline: 2px solid var(--feed-focus);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .mk-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mk-formats {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+}
+@media (max-width: 380px) {
+  .mk-stat .mk-stat-value {
+    font-size: 1.55rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk-btn {
+    transition: none !important;
+  }
+}
+/* ---------------------------------------------------------------------- */
+/*                                TIPS PAGE                                */
+/*   The form reuses .ad-booking-form from book.scss, so this file only   */
+/*   holds the small differences.                                          */
+/* ---------------------------------------------------------------------- */
+.tips-page {
+  /* Success state: keep the check icon and button centered */
+}
+.tips-page .ad-booking-form {
+  /* Give the tip box more room than the booking notes */
+  /* Second column select on the same row as the first */
+}
+.tips-page .ad-booking-form textarea {
+  min-height: 180px;
+}
+.tips-page .ad-booking-form .form-group-row .form-field select {
+  width: 100%;
+}
+.tips-page .ad-success-card .ad-booking-header {
+  margin-bottom: 2rem;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   THEME                                    */
 /* -------------------------------------------------------------------------- */

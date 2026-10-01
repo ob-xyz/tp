@@ -92,20 +92,25 @@ export default function Subscribe() {
 
           <p className="subscribe-legal">
             By submitting, you agree to our{" "}
-            <Link
-              className="sm"
-              to="/policies/terms"
-            >
+            <Link to="/policies/terms">
               Terms
             </Link>{" "}
             &amp;{" "}
-            <Link
-              className="sm"
-              to="/policies/privacy"
-            >
+            <Link to="/policies/privacy">
               Privacy Policy
             </Link>
             .
+            <br />
+            <br />
+            <Link to="/tips">Tips</Link>
+            {" · "}
+            <Link to="/media-kit">Media Kit</Link>
+            {" · "}
+            <Link to="/about">About</Link>
+            {" · "}
+            <Link to="/latest">Latest</Link>
+            {" · "}
+            <Link to="/book">Advertise</Link>
           </p>
         </form>
 
