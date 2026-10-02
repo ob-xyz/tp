@@ -28,32 +28,31 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Stretches children to full container width */
+  align-items: stretch;
   animation: subscribe-rise 0.5s ease both;
 }
 
-/* Heading & Subtitle Styles */
+/* Header Container & Pill Badge */
 .ad-booking-header {
   text-align: center;
   margin-bottom: 2rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.ad-booking-header .ad-booking-title {
-  margin: 0;
-  font-family: "ku";
-  font-size: 2.25rem;
-  font-weight: normal;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--feed-text);
-}
-.ad-booking-header .ad-booking-sub {
-  margin: 0.85rem auto 0;
-  max-width: 28rem;
-  font-family: "kl";
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--feed-text-muted);
+.ad-booking-header .ad-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
+  color: var(--feed-heading, var(--feed-text));
 }
 
 /* Booking Form Elements */
@@ -62,10 +61,12 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  /* Lets grid/flex children shrink below their intrinsic size (fixes iOS date overflow) */
+  /* ------------------------------------------------------------------ */
+  /*                          PILL SELECTORS                            */
+  /* ------------------------------------------------------------------ */
   /* Top-of-form error banner */
   /* Per-field error text */
-  /* Honeypot: invisible to humans, still present in the DOM for bots */
+  /* Honeypot */
 }
 .ad-booking-form .form-group-row {
   display: grid;
@@ -92,18 +93,17 @@
   margin-bottom: 0.45rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  text-align: left; /* Left-aligned label for wide inputs */
+  text-align: left;
   padding-left: 0.5rem;
 }
 .ad-booking-form .form-field input[type=text],
 .ad-booking-form .form-field input[type=email],
 .ad-booking-form .form-field input[type=date],
-.ad-booking-form .form-field select,
 .ad-booking-form .form-field textarea {
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  margin: 0; /* global.scss sets * { margin: auto } */
+  margin: 0;
   -webkit-appearance: none;
   appearance: none;
   background: var(--feed-input-bg);
@@ -111,7 +111,7 @@
   border-radius: 999px;
   padding: 0.85rem 1.25rem;
   font-family: "kl";
-  font-size: 1rem; /* 16px+ prevents iOS zoom-on-focus */
+  font-size: 1rem;
   color: var(--feed-input-text);
   outline: none;
   box-sizing: border-box;
@@ -120,26 +120,15 @@
 .ad-booking-form .form-field input[type=text]::placeholder,
 .ad-booking-form .form-field input[type=email]::placeholder,
 .ad-booking-form .form-field input[type=date]::placeholder,
-.ad-booking-form .form-field select::placeholder,
 .ad-booking-form .form-field textarea::placeholder {
   color: var(--feed-input-placeholder);
 }
 .ad-booking-form .form-field input[type=text]:focus,
 .ad-booking-form .form-field input[type=email]:focus,
 .ad-booking-form .form-field input[type=date]:focus,
-.ad-booking-form .form-field select:focus,
 .ad-booking-form .form-field textarea:focus {
   border-color: var(--feed-focus);
   box-shadow: 0 0 12px var(--feed-focus);
-}
-.ad-booking-form .form-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 1.2rem center;
-  background-size: 1rem;
-  padding-right: 2.75rem;
 }
 .ad-booking-form .form-field textarea {
   border-radius: 1.25rem;
@@ -150,7 +139,7 @@
 .ad-booking-form .form-field input[type=date] {
   color-scheme: light dark;
   display: block;
-  min-height: 3rem; /* iOS collapses empty date inputs */
+  min-height: 3rem;
   text-align: left;
 }
 .ad-booking-form .form-field input[type=date]::-webkit-date-and-time-value {
@@ -160,6 +149,39 @@
 .ad-booking-form .form-field input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0.6;
   cursor: pointer;
+}
+.ad-booking-form .pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+}
+.ad-booking-form .pill-group.budget-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+}
+.ad-booking-form .pill-group .pill-btn {
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  color: var(--feed-text);
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  font-family: "kl";
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+.ad-booking-form .pill-group .pill-btn:hover {
+  border-color: var(--feed-focus);
+}
+.ad-booking-form .pill-group .pill-btn.active {
+  background: var(--feed-btn-bg, #ffffff);
+  color: var(--feed-btn-text, #000000);
+  border-color: var(--feed-btn-bg, #ffffff);
+  font-family: "bold";
 }
 .ad-booking-form .ad-form-error {
   width: 100%;
@@ -194,7 +216,6 @@
   text-align: left;
 }
 .ad-booking-form .form-field input[aria-invalid=true],
-.ad-booking-form .form-field select[aria-invalid=true],
 .ad-booking-form .form-field textarea[aria-invalid=true] {
   border-color: #e05a5a;
 }
@@ -241,9 +262,7 @@
   text-align: center;
 }
 
-/* ---------------------------------------------------------------------- */
-/*                           BACK BUTTON (PILL)                           */
-/* ---------------------------------------------------------------------- */
+/* Back Button */
 .back-btn {
   display: inline-flex;
   align-items: center;
@@ -259,11 +278,6 @@
   color: var(--feed-text);
   background: transparent;
   transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
-}
-.back-btn svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  stroke: currentColor;
 }
 .back-btn:hover {
   opacity: 1;
@@ -285,99 +299,10 @@
     transform: translateY(0);
   }
 }
-/* ---------------------------------------------------------------------- */
-/*                        SUCCESS / THANK YOU STATE                       */
-/* ---------------------------------------------------------------------- */
-.ad-success-card {
-  align-items: center;
-  text-align: center;
-  padding-top: 3.5rem;
-}
-.ad-success-card .ad-success-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 999px;
-  background: var(--feed-input-bg);
-  border: 1px solid var(--feed-input-border);
-  margin-bottom: 1.5rem;
-  color: var(--feed-text);
-}
-.ad-success-card .ad-success-icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-.ad-success-card .ad-booking-header {
-  margin-bottom: 2.5rem;
-}
-
-.ad-success-steps {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
-  text-align: left;
-}
-.ad-success-steps .step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  background: var(--feed-input-bg);
-  border: 1px solid var(--feed-input-border);
-  border-radius: 1rem;
-}
-.ad-success-steps .step-item .step-num {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 999px;
-  background: var(--feed-btn-bg);
-  color: var(--feed-btn-text);
-  font-family: "bold";
-  font-size: 0.85rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-.ad-success-steps .step-item .step-content {
-  display: flex;
-  flex-direction: column;
-}
-.ad-success-steps .step-item .step-content strong {
-  font-family: "bold";
-  font-size: 0.95rem;
-  color: var(--feed-text);
-  margin-bottom: 0.2rem;
-}
-.ad-success-steps .step-item .step-content p {
-  margin: 0;
-  font-family: "kl";
-  font-size: 0.85rem;
-  color: var(--feed-text-muted);
-  line-height: 1.45;
-}
-
-.ad-success-btn {
-  margin-top: 0.5rem;
-}
-
-/* ---------------------------------------------------------------------- */
-/*                                RESPONSIVE                               */
-/* ---------------------------------------------------------------------- */
+/* Responsive */
 @media (max-width: 540px) {
   .ad-booking-card {
     padding: 1.5rem 0.75rem 3rem;
-  }
-  .ad-booking-header .ad-booking-title {
-    font-size: 1.85rem;
-  }
-  .ad-booking-header .ad-booking-sub {
-    font-size: 0.95rem;
   }
   .ad-booking-form {
     gap: 1.25rem;
@@ -386,47 +311,8 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 1.25rem;
   }
-  .ad-booking-form .form-field label {
-    text-align: left;
-  }
-  .ad-booking-form .form-field input[type=text],
-  .ad-booking-form .form-field input[type=email],
-  .ad-booking-form .form-field input[type=date],
-  .ad-booking-form .form-field select {
-    width: 100%;
-    padding: 0.9rem 1.25rem;
-  }
-  .ad-success-card {
-    padding-top: 2rem;
-  }
-  .ad-success-steps .step-item {
-    padding: 0.85rem 1rem;
-  }
-}
-@media (max-width: 380px) {
-  .ad-booking-card {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  .ad-booking-header .ad-booking-title {
-    font-size: 1.6rem;
-  }
-}
-/* Altcha error message */
-.ad-booking-form .subscribe-altcha .ad-field-error {
-  display: block;
-  text-align: center;
-  padding-left: 0;
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .ad-booking-card,
-  .ad-submit-btn,
-  .back-btn,
-  .legal-top {
-    transition: none !important;
-    animation: none !important;
+  .ad-booking-form .pill-group.budget-pills {
+    grid-template-columns: 1fr 1fr;
   }
 }
 

@@ -1,22 +1,12 @@
 import type {
   ActionFunctionArgs,
   HeadersFunction,
-  LinksFunction,
   MetaFunction,
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, Form, useActionData } from "@remix-run/react";
 
 import Altcha from "~/components/altcha";
-import subscribeStyles from "~/style/scss/subscribe.css";
-import bookStyles from "~/style/scss/book.css";
-import tipsStyles from "~/style/scss/submit-post.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: subscribeStyles },
-  { rel: "stylesheet", href: bookStyles },
-  { rel: "stylesheet", href: tipsStyles },
-];
 
 export const meta: MetaFunction = () => {
   return {

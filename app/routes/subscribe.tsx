@@ -1,15 +1,7 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 import Altcha from "../components/altcha";
-import subscribeStyles from "~/style/scss/subscribe.css";
-
-export const links: LinksFunction = () => [
-  {
-    rel: "stylesheet",
-    href: subscribeStyles,
-  },
-];
 
 export const meta: MetaFunction = () => {
   return {

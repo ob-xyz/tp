@@ -15,15 +15,10 @@ import {
 import Altcha from "../components/altcha";
 import FeedEmbed from "../components/feed-embed";
 
-import scroll from "~/style/scss/components/showscroll.css";
 
 import { getIssue } from "../utils/poast-feeds.server";
 
 export const links: LinksFunction = () => [
-  {
-    rel: "stylesheet",
-    href: scroll,
-  },
   {
     rel: "preconnect",
     href: "https://img.thepoast.com",

@@ -1,0 +1,817 @@
+.ad-booking-page {
+  --feed-page-glow: rgba(184, 132, 47, 0.12);
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--feed-text);
+  color-scheme: light dark;
+  background: radial-gradient(60rem 30rem at 50% -8rem, var(--feed-page-glow), transparent 70%), var(--feed-bg);
+}
+@media (prefers-color-scheme: dark) {
+  .ad-booking-page {
+    --feed-page-glow: rgba(242, 209, 159, 0.08);
+  }
+}
+
+.ad-booking-card {
+  width: 100%;
+  max-width: 680px;
+  padding: 2rem 1.25rem 5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  animation: subscribe-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.ad-booking-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Page title + subtitle (used on the thank-you page) */
+}
+.ad-booking-header .ad-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
+  color: var(--feed-heading, var(--feed-text));
+  margin-bottom: 1rem;
+}
+.ad-booking-header .ad-booking-title {
+  margin: 0;
+  font-family: "ku", system-ui, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--feed-text, #0f1419);
+}
+@media (prefers-color-scheme: dark) {
+  .ad-booking-header .ad-booking-title {
+    color: #ffffff;
+  }
+}
+.ad-booking-header .ad-booking-sub {
+  margin: 1rem auto 0;
+  max-width: 32rem;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--feed-text-muted, #536471);
+}
+@media (prefers-color-scheme: dark) {
+  .ad-booking-header .ad-booking-sub {
+    color: rgba(255, 255, 255, 0.72);
+  }
+}
+
+.ad-booking-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  /* Date Input Styling */
+  /* Campaign Name Card */
+  /* Target Budget Range Section */
+  /* Objective Cards */
+  /* Dynamic Detail Panel matching X.com layout */
+}
+.ad-booking-form .ad-section-heading {
+  margin: 0 0 -0.25rem;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--feed-heading, var(--feed-text-muted));
+  text-align: center;
+}
+.ad-booking-form .form-group-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
+.ad-booking-form .form-group-row > *,
+.ad-booking-form .form-field {
+  min-width: 0;
+}
+.ad-booking-form .form-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ad-booking-form .form-field.full-width {
+  grid-column: 1/-1;
+}
+.ad-booking-form .form-field label {
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--feed-heading, var(--feed-text));
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 0;
+}
+.ad-booking-form .form-field input[type=text],
+.ad-booking-form .form-field input[type=email],
+.ad-booking-form .form-field select,
+.ad-booking-form .form-field textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--feed-input-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.25));
+  border-radius: 0.85rem;
+  padding: 0.85rem 1.15rem;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.98rem;
+  color: var(--feed-input-text, var(--feed-text));
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.ad-booking-form .form-field input[type=text]::placeholder,
+.ad-booking-form .form-field input[type=email]::placeholder,
+.ad-booking-form .form-field select::placeholder,
+.ad-booking-form .form-field textarea::placeholder {
+  color: var(--feed-input-placeholder, rgba(128, 128, 128, 0.6));
+}
+.ad-booking-form .form-field input[type=text]:hover,
+.ad-booking-form .form-field input[type=email]:hover,
+.ad-booking-form .form-field select:hover,
+.ad-booking-form .form-field textarea:hover {
+  border-color: color-mix(in srgb, var(--feed-text) 35%, transparent);
+}
+.ad-booking-form .form-field input[type=text]:focus,
+.ad-booking-form .form-field input[type=email]:focus,
+.ad-booking-form .form-field select:focus,
+.ad-booking-form .form-field textarea:focus {
+  border-color: var(--feed-focus, #3b82f6);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--feed-focus, #3b82f6) 20%, transparent);
+  background: color-mix(in srgb, var(--feed-text) 2%, transparent);
+}
+.ad-booking-form .form-field textarea {
+  border-radius: 1rem;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+.ad-booking-form .ad-date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.85rem;
+  background: var(--feed-input-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.25));
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.ad-booking-form .ad-date-input-wrapper:hover {
+  border-color: color-mix(in srgb, var(--feed-text) 40%, transparent);
+  background: color-mix(in srgb, var(--feed-text) 2%, transparent);
+}
+.ad-booking-form .ad-date-input-wrapper:focus-within {
+  border-color: var(--feed-focus, #3b82f6);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--feed-focus, #3b82f6) 20%, transparent);
+  background: color-mix(in srgb, var(--feed-text) 2%, transparent);
+}
+.ad-booking-form .ad-date-input-wrapper input[type=date] {
+  width: 100%;
+  min-width: 0;
+  height: 3.1rem;
+  margin: 0;
+  padding: 0.85rem 3rem 0.85rem 1.15rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  color: var(--feed-input-text, var(--feed-text));
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.98rem;
+  cursor: pointer;
+  color-scheme: light dark;
+}
+.ad-booking-form .ad-date-input-wrapper input[type=date]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.ad-booking-form .ad-date-input-wrapper input[type=date]::-webkit-date-and-time-value {
+  text-align: left;
+}
+.ad-booking-form .ad-date-input-wrapper .ad-date-icon {
+  position: absolute;
+  right: 1.15rem;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--feed-text-muted);
+  transition: color 0.15s ease;
+}
+.ad-booking-form .ad-date-input-wrapper .ad-date-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.ad-booking-form .ad-date-input-wrapper:hover .ad-date-icon {
+  color: var(--feed-text);
+}
+.ad-booking-form .ad-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.ad-booking-form .ad-form-setup {
+  gap: 2rem;
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--feed-hairline, color-mix(in srgb, var(--feed-text) 10%, transparent));
+}
+.ad-booking-form .ad-form-submit {
+  gap: 1.25rem;
+}
+.ad-booking-form .ad-field-hint {
+  margin: 0.5rem 0 0;
+  padding: 0 0.25rem;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--feed-text-muted);
+}
+.ad-booking-form .form-field.ad-name-card {
+  box-sizing: border-box;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.2));
+  border-radius: 1.15rem;
+  background: color-mix(in srgb, var(--feed-text) 3%, transparent);
+}
+.ad-booking-form .form-field.ad-name-card label {
+  margin: 0 0 0.6rem;
+  padding: 0;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--feed-text);
+  text-align: center;
+}
+.ad-booking-form .ad-budget {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ad-booking-form .ad-budget legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 0.8rem;
+  padding: 0;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--feed-heading, var(--feed-text));
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.ad-booking-form .ad-budget legend + * {
+  clear: both;
+}
+.ad-booking-form .ad-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+.ad-booking-form .form-field .ad-chip {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.92rem;
+  color: var(--feed-text);
+  cursor: pointer;
+}
+.ad-booking-form .form-field .ad-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ad-booking-form .form-field .ad-chip span {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  color: var(--feed-text);
+  background: var(--feed-input-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.25));
+  border-radius: 999px;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.ad-booking-form .form-field .ad-chip:hover span {
+  border-color: color-mix(in srgb, var(--feed-text) 40%, transparent);
+  background: color-mix(in srgb, var(--feed-text) 5%, transparent);
+}
+.ad-booking-form .form-field .ad-chip input:checked + span {
+  background: var(--feed-text);
+  border-color: var(--feed-text);
+  color: var(--feed-bg);
+  font-weight: 600;
+}
+.ad-booking-form .form-field .ad-chip input:focus-visible + span {
+  outline: 2px solid var(--feed-focus, #3b82f6);
+  outline-offset: 2px;
+}
+.ad-booking-form .ad-objective-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  /* Same style as .ad-section-heading (e.g. "Advertiser Information") */
+}
+.ad-booking-form .ad-objective-group legend {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--feed-heading, var(--feed-text-muted));
+}
+.ad-booking-form .ad-objective-group legend + * {
+  clear: both;
+}
+.ad-booking-form .ad-objectives {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.85rem;
+  width: 100%;
+  margin: 1.2rem 0 0;
+}
+.ad-booking-form .form-field .ad-objective {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-family: "kl", system-ui, sans-serif;
+  text-align: left;
+  color: var(--feed-text);
+  cursor: pointer;
+}
+.ad-booking-form .form-field .ad-objective input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ad-booking-form .form-field .ad-objective .ad-objective-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 1.25rem;
+  text-align: left;
+  background: var(--feed-input-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.2));
+  border-radius: 1.1rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  will-change: border-color, background-color;
+}
+.ad-booking-form .form-field .ad-objective .ad-objective-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.25;
+  color: var(--feed-text);
+}
+.ad-booking-form .form-field .ad-objective .ad-objective-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
+  color: var(--feed-text);
+}
+.ad-booking-form .form-field .ad-objective .ad-objective-icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.ad-booking-form .form-field .ad-objective .ad-objective-desc {
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--feed-text-muted);
+}
+.ad-booking-form .form-field .ad-objective:hover .ad-objective-card {
+  border-color: color-mix(in srgb, var(--feed-text) 35%, transparent);
+  background: color-mix(in srgb, var(--feed-text) 4%, transparent);
+}
+.ad-booking-form .form-field .ad-objective input:checked + .ad-objective-card {
+  border-color: var(--feed-text);
+  box-shadow: 0 0 0 1px var(--feed-text);
+  background: color-mix(in srgb, var(--feed-text) 6%, transparent);
+}
+.ad-booking-form .form-field .ad-objective input:checked + .ad-objective-card .ad-objective-icon {
+  background: var(--feed-text);
+  color: var(--feed-bg);
+}
+.ad-booking-form .form-field .ad-objective input:focus-visible + .ad-objective-card {
+  outline: 2px solid var(--feed-focus, #3b82f6);
+  outline-offset: 3px;
+}
+.ad-booking-form .ad-objective-detail {
+  width: 100%;
+  margin: 1.1rem 0 0;
+  padding: 1.6rem 1.75rem;
+  box-sizing: border-box;
+  text-align: left;
+  background: color-mix(in srgb, var(--feed-text) 3.5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
+  border-radius: 1.15rem;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-inner {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: ad-detail-in 0.15s ease-out both;
+  will-change: transform, opacity;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-head {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--feed-text) 10%, transparent);
+  color: var(--feed-text);
+}
+.ad-booking-form .ad-objective-detail .ad-detail-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-name {
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--feed-text);
+}
+.ad-booking-form .ad-objective-detail .ad-detail-lead,
+.ad-booking-form .ad-objective-detail .ad-detail-text {
+  margin: 0;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+  color: var(--feed-text-muted);
+}
+.ad-booking-form .ad-objective-detail .ad-detail-lead {
+  margin-top: 0.85rem;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-heading {
+  margin: 1.25rem 0 0.35rem;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  text-align: left;
+  color: var(--feed-text);
+}
+.ad-booking-form .ad-objective-detail .ad-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ad-booking-form .ad-objective-detail .ad-detail-tags li {
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.5rem;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--feed-text);
+  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--feed-text) 10%, transparent);
+}
+.ad-booking-form .ad-form-error {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.95rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(220, 53, 69, 0.5);
+  background: rgba(220, 53, 69, 0.08);
+  color: var(--feed-text);
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.ad-booking-form .ad-form-error-debug {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: left;
+  word-break: break-word;
+  color: var(--feed-text-muted);
+}
+.ad-booking-form .ad-field-error {
+  margin-top: 0.4rem;
+  padding-left: 0;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  color: #ef4444;
+  text-align: center;
+}
+.ad-booking-form .form-field input[aria-invalid=true],
+.ad-booking-form .form-field select[aria-invalid=true],
+.ad-booking-form .form-field textarea[aria-invalid=true],
+.ad-booking-form .ad-date-input-wrapper:has(input[aria-invalid=true]) {
+  border-color: #ef4444;
+}
+.ad-booking-form .hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden;
+}
+.ad-booking-form .ad-submit-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  background: var(--feed-text);
+  color: var(--feed-bg);
+  border: none;
+  border-radius: 0.85rem;
+  padding: 1rem 1.5rem;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+.ad-booking-form .ad-submit-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--feed-text) 15%, transparent);
+}
+.ad-booking-form .ad-submit-btn:active {
+  transform: translateY(0);
+}
+.ad-booking-form .ad-submit-btn:focus-visible {
+  outline: 2px solid var(--feed-focus, #3b82f6);
+  outline-offset: 2px;
+}
+.ad-booking-form .ad-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.ad-booking-form .ad-legal {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--feed-text-muted);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-top: 2.5rem;
+  padding: 0.6rem 1.35rem;
+  border: 1px solid color-mix(in srgb, var(--feed-text) 15%, transparent);
+  border-radius: 999px;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: var(--feed-text);
+  background: transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.back-btn:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--feed-text) 5%, transparent);
+  border-color: color-mix(in srgb, var(--feed-text) 30%, transparent);
+}
+.back-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes ad-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes subscribe-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 580px) {
+  .ad-booking-card {
+    padding: 1.5rem 0.85rem 3.5rem;
+  }
+  .ad-booking-header .ad-booking-title {
+    font-size: 2rem;
+  }
+  .ad-booking-header .ad-booking-sub {
+    font-size: 0.95rem;
+  }
+  .ad-booking-form {
+    gap: 2rem;
+  }
+  .ad-booking-form .form-group-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+  .ad-booking-form .ad-objectives {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* ---------------------------------------------------------------------- */
+/*                         THANK-YOU / SUCCESS PAGE                       */
+/* ---------------------------------------------------------------------- */
+.ad-success-card {
+  align-items: stretch;
+  padding-top: 4rem;
+}
+.ad-success-card .ad-booking-header {
+  margin-bottom: 2rem;
+}
+
+.ad-success-icon {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  color: #22c55e;
+  background: color-mix(in srgb, #22c55e 14%, transparent);
+  border: 1px solid color-mix(in srgb, #22c55e 35%, transparent);
+  animation: ad-success-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.ad-success-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.ad-success-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+.ad-success-steps .step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 1.15rem 1.35rem;
+  text-align: left;
+  background: color-mix(in srgb, var(--feed-text) 3.5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
+  border-radius: 1.1rem;
+}
+.ad-success-steps .step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--feed-bg);
+  background: var(--feed-text);
+}
+.ad-success-steps .step-content {
+  min-width: 0;
+}
+.ad-success-steps .step-content strong {
+  display: block;
+  font-family: "bold", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--feed-text);
+}
+.ad-success-steps .step-content p {
+  margin: 0.3rem 0 0;
+  font-family: "kl", system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--feed-text-muted);
+}
+
+.ad-success-btn {
+  margin-top: 2rem;
+}
+
+@keyframes ad-success-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-width: 580px) {
+  .ad-success-card {
+    padding-top: 2.5rem;
+  }
+  .ad-success-steps .step-item {
+    padding: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad-booking-card,
+  .ad-success-icon,
+  .ad-detail-inner {
+    animation: none !important;
+  }
+  .ad-submit-btn,
+  .back-btn {
+    transition: none;
+  }
+}
+
+/*# sourceMappingURL=manager.css.map */

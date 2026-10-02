@@ -1,18 +1,20 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-import subscribeStyles from "~/style/scss/subscribe.css";
-// NOTE: adjust this path if your compiled book.scss lives somewhere else.
-import bookStyles from "~/style/scss/book.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: subscribeStyles },
-  { rel: "stylesheet", href: bookStyles },
-];
+export const meta: MetaFunction = () => ({
+  title: "Request received | The Poast",
+  robots: "noindex",
+});
 
 export default function ThankYou() {
   return (
     <div className="feed-page ad-booking-page">
+      <header className="feed-topbar">
+        <Link className="feed-mark" to="/" aria-label="Return to The Poast homepage">
+          <img src="/img/tp.png" alt="The Poast" decoding="async" />
+        </Link>
+      </header>
+
       <main className="ad-booking-card ad-success-card">
         <div className="ad-success-icon" aria-hidden="true">
           <svg

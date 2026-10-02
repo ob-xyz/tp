@@ -3,6 +3,7 @@
 '../global/Buttons.scss',
 '../scss/index.scss',
 '../scss/book.scss',
+'../scss/manager.scss',
 '../scss/about.scss',
 '../scss/media-kit.scss',
 '../scss/submit-post.scss',
@@ -25,14 +26,20 @@ body {
   width: 100%;
   min-height: 100%;
   background-color: #fff;
+  overflow-y: auto;
+  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;  /* IE and legacy Edge */
+
+  &::-webkit-scrollbar {     /* Chrome, Safari, Opera, modern Edge */
+    display: none;
+  }
 }
 body {
   overflow-x: hidden;
-}   
+}
 main{
   padding:0;
   margin:0 auto;
-  // background:#fff7ed;
 }
 img {
   display: block;

@@ -1,15 +1,5 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
-
-import subscribeStyles from "~/style/scss/subscribe.css";
-import bookStyles from "~/style/scss/book.css";
-import mediaKitStyles from "~/style/scss/media-kit.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: subscribeStyles },
-  { rel: "stylesheet", href: bookStyles },
-  { rel: "stylesheet", href: mediaKitStyles },
-];
 
 export const meta: MetaFunction = () => {
   return {

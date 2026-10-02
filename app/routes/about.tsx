@@ -1,16 +1,6 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-import subscribeStyles from "~/style/scss/subscribe.css";
-import bookStyles from "~/style/scss/book.css";
-import aboutStyles from "~/style/scss/about.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: subscribeStyles },
-  { rel: "stylesheet", href: bookStyles },
-  { rel: "stylesheet", href: aboutStyles },
-];
-
 export const meta: MetaFunction = () => {
   return {
     title: "About : The Poast",

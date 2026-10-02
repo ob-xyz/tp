@@ -5,10 +5,10 @@ import type {
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData } from "@remix-run/react";
+import { useState } from "react";
 
 import Altcha from "~/components/altcha";
 import subscribeStyles from "~/style/scss/subscribe.css";
-// NOTE: adjust this path if your compiled book.scss lives somewhere else.
 import bookStyles from "~/style/scss/book.css";
 
 export const links: LinksFunction = () => [
@@ -16,8 +16,6 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: bookStyles },
 ];
 
-// TEMPORARY: shows the real error under the banner so we can diagnose.
-// Set to false (or delete) once the form works.
 const SHOW_ERROR_DETAILS = true;
 
 export const headers: HeadersFunction = () => ({
@@ -35,6 +33,7 @@ type FieldName =
   | "email"
   | "targetDate"
   | "budget"
+  | "objective"
   | "notes"
   | "source"
   | "altcha";
@@ -52,15 +51,14 @@ type Lead = {
   email: string;
   targetDate: string;
   budget: string;
+  objective: string;
   notes: string;
-  previousCampaign: string; // optional; "" when not provided
+  previousCampaign: string;
 };
 
 const str = (value: FormDataEntryValue | null, max: number): string =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
 
-// Deliberately strict: no quotes or whitespace (the email is also used in a
-// Listmonk query string on the duplicate-lookup path).
 const EMAIL_RE = /^[^\s@'"\\]+@[^\s@'"\\]+\.[^\s@'"\\]+$/;
 
 function normalizeWebsite(raw: string): string | null {
@@ -75,12 +73,6 @@ function normalizeWebsite(raw: string): string | null {
   }
 }
 
-/**
- * Listmonk only has a single `name` column. Its templates split that on the
- * first space: FirstName = first word, LastName = everything after.
- * So "Alex Acme Inc" => FirstName "Alex", LastName "Acme Inc".
- * The real full contact name is preserved in attribs.contact_name.
- */
 function buildSubscriberName(contactName: string, company: string): string {
   const first = contactName.split(/\s+/)[0] || contactName;
   return `${first} ${company}`.trim();
@@ -91,21 +83,18 @@ function buildSubscriberName(contactName: string, company: string): string {
 /* -------------------------------------------------------------------------- */
 
 function listmonkConfig() {
-  // Accepts either naming style; URL falls back to your Listmonk domain.
   const baseUrl = (
     process.env.LISTMONK_URL || "https://app.thepoast.com"
   ).replace(/\/+$/, "");
   const apiUser = process.env.LISTMONK_API_USER || process.env.LISTMONK_USERNAME;
   const apiToken = process.env.LISTMONK_API_TOKEN || process.env.LISTMONK_TOKEN;
-  // Advertiser list = numeric ID 31 (UUID 36b8c160-7d12-4103-aaba-8e3cd90d9d64).
-  // Override with LISTMONK_ADVERTISER_LIST_ID if it ever changes.
   const listId = Number(process.env.LISTMONK_ADVERTISER_LIST_ID || 31);
 
   const missing: string[] = [];
   if (!apiUser) missing.push("LISTMONK_USERNAME");
   if (!apiToken) missing.push("LISTMONK_TOKEN");
   if (!Number.isInteger(listId) || listId < 1) {
-    missing.push("LISTMONK_ADVERTISER_LIST_ID (numeric list ID, e.g. 31)");
+    missing.push("LISTMONK_ADVERTISER_LIST_ID");
   }
   if (missing.length) {
     throw new Error(`Missing or invalid env vars: ${missing.join(", ")}`);
@@ -129,26 +118,17 @@ async function listmonk(path: string, init: RequestInit = {}) {
 function explainListmonkFailure(step: string, status: number, body: string) {
   let hint = "";
   if (status === 401) {
-    hint =
-      "Listmonk rejected the credentials. Check LISTMONK_API_USER / LISTMONK_API_TOKEN (the user must be an API user, and the token is shown only once when it's created).";
+    hint = "Listmonk rejected credentials.";
   } else if (status === 403) {
-    hint =
-      "The API user is authenticated but lacks permission. Give its role 'subscribers:manage' (and 'subscribers:get_all') plus access to the advertiser list.";
+    hint = "API user lacks permission.";
   } else if (status === 404) {
-    hint =
-      "Listmonk URL/path not found. Check LISTMONK_URL (no trailing path, e.g. https://app.thepoast.com).";
+    hint = "Listmonk URL/path not found.";
   } else if (status === 400) {
-    hint =
-      "Listmonk rejected the data. This is often a wrong LISTMONK_ADVERTISER_LIST_ID (it must be the numeric list ID, not the UUID).";
+    hint = "Listmonk rejected data. Check list ID.";
   }
   return `Listmonk ${step} failed (HTTP ${status}). ${hint} Response: ${body.slice(0, 300)}`;
 }
 
-/**
- * Creates the advertiser in Listmonk's `subscribers` table (and adds them to the
- * advertiser list). If the email already exists (409), we merge the new booking
- * into the existing subscriber instead of failing.
- */
 async function saveAdvertiserLead(lead: Lead) {
   const { listId } = listmonkConfig();
   const now = new Date().toISOString();
@@ -159,12 +139,11 @@ async function saveAdvertiserLead(lead: Lead) {
     website: lead.website,
     start_date: lead.targetDate,
     budget: lead.budget,
+    objective: lead.objective,
     notes: lead.notes,
     previous_campaign: lead.previousCampaign,
   };
 
-  // NOTE: `source` is already used above as the lead-origin attribute
-  // ("advertise-form"), so the user's link is stored as `previous_campaign`.
   const attribs = {
     subscriber_type: "advertiser",
     source: "advertise-form",
@@ -173,19 +152,15 @@ async function saveAdvertiserLead(lead: Lead) {
     contact_name: lead.contactName,
     start_date: lead.targetDate,
     budget: lead.budget,
+    objective: lead.objective,
     notes: lead.notes,
-    // Only set when provided, so a later submission without a link
-    // doesn't wipe a previously saved one when merging.
-    ...(lead.previousCampaign
-      ? { previous_campaign: lead.previousCampaign }
-      : {}),
+    ...(lead.previousCampaign ? { previous_campaign: lead.previousCampaign } : {}),
     last_submitted_at: now,
     ad_requests: [bookingRequest],
   };
 
   const name = buildSubscriberName(lead.contactName, lead.company);
 
-  // 1) Try to create
   const createRes = await listmonk("/api/subscribers", {
     method: "POST",
     body: JSON.stringify({
@@ -206,7 +181,6 @@ async function saveAdvertiserLead(lead: Lead) {
     );
   }
 
-  // 2) Already exists: look them up and merge
   const query = `subscribers.email = '${lead.email.replace(/'/g, "''")}'`;
   const findRes = await listmonk(
     `/api/subscribers?per_page=1&query=${encodeURIComponent(query)}`
@@ -227,7 +201,6 @@ async function saveAdvertiserLead(lead: Lead) {
     ? existingAttribs.ad_requests
     : [];
 
-  // PUT replaces list memberships, so keep every list they're already on.
   const listIds = Array.from(
     new Set<number>([
       ...((existing.lists ?? []) as { id: number }[]).map((l) => l.id),
@@ -265,8 +238,6 @@ async function saveAdvertiserLead(lead: Lead) {
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  // Honeypot (same field name Listmonk's own form uses). Bots fill it, humans
-  // never see it. Pretend success so they don't retry.
   if (str(formData.get("nonce"), 200)) {
     return redirect("/thank-you");
   }
@@ -277,6 +248,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const email = str(formData.get("email"), 254).toLowerCase();
   const targetDate = str(formData.get("targetDate"), 10);
   const budget = str(formData.get("budget"), 50);
+  const objective = str(formData.get("objective"), 100);
   const notes = str(formData.get("notes"), 5000);
   const sourceRaw = str(formData.get("source"), 300);
   const altcha = str(formData.get("altcha"), 20000);
@@ -290,7 +262,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const website = normalizeWebsite(websiteRaw);
   if (!website) fieldErrors.website = "Please enter a valid website.";
 
-  // Optional: only validated if the person filled it in.
   let previousCampaign = "";
   if (sourceRaw) {
     const normalized = normalizeWebsite(sourceRaw);
@@ -305,8 +276,6 @@ export async function action({ request }: ActionFunctionArgs) {
     fieldErrors.targetDate = "Please choose a start date.";
   }
 
-  // The Altcha widget adds its solved payload as the `altcha` field.
-  // Set ALTCHA_REQUIRED=false in your env to disable this check.
   if (process.env.ALTCHA_REQUIRED !== "false" && !altcha) {
     fieldErrors.altcha = "Please complete the verification and try again.";
   }
@@ -326,14 +295,12 @@ export async function action({ request }: ActionFunctionArgs) {
       email,
       targetDate,
       budget,
+      objective,
       notes,
       previousCampaign,
     });
   } catch (err) {
     console.error("[book] failed to save advertiser lead:", err);
-
-    // Network-level failures (DNS, TLS, refused) surface as "fetch failed"
-    // with the real reason on err.cause.
     const cause = (err as { cause?: { code?: string; message?: string } })?.cause;
     const reason =
       (err instanceof Error ? err.message : String(err)) +
@@ -341,13 +308,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json<ActionData>(
       {
-        error:
-          "Something went wrong sending your request. Please try again in a moment.",
-        // Set BOOK_DEBUG=true in your env to see the real reason on the page.
-        debug:
-          SHOW_ERROR_DETAILS || process.env.BOOK_DEBUG === "true"
-            ? reason
-            : undefined,
+        error: "Something went wrong sending your request. Please try again in a moment.",
+        debug: SHOW_ERROR_DETAILS || process.env.BOOK_DEBUG === "true" ? reason : undefined,
       },
       { status: 500 }
     );
@@ -360,9 +322,27 @@ export async function action({ request }: ActionFunctionArgs) {
 /*                                    PAGE                                    */
 /* -------------------------------------------------------------------------- */
 
+const OBJECTIVES = [
+  "Reach",
+  "Engagements",
+  "Website traffic",
+  "Video views",
+  "Sales",
+];
+
+const BUDGET_RANGES = [
+  "$1,500 – $3,000",
+  "$3,000 – $7,500",
+  "$7,500 – $15,000",
+  "$15,000+",
+];
+
 export default function Advertise() {
   const actionData = useActionData<ActionData>();
   const errors = actionData?.fieldErrors ?? {};
+
+  const [selectedObjective, setSelectedObjective] = useState("Reach");
+  const [selectedBudget, setSelectedBudget] = useState("$1,500 – $3,000");
 
   const fieldError = (name: FieldName) =>
     errors[name] ? (
@@ -374,24 +354,14 @@ export default function Advertise() {
   return (
     <div className="feed-page ad-booking-page">
       <header className="feed-topbar">
-        <Link
-          className="feed-mark"
-          to="/"
-        >
-          <img
-            src="/img/tp.png"
-            alt="The Poast"
-            decoding="async"
-          />
+        <Link className="feed-mark" to="/">
+          <img src="/img/tp.png" alt="The Poast" decoding="async" />
         </Link>
       </header>
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <h1 className="ad-booking-title">Advertise with us</h1>
-          <p className="ad-booking-sub">
-            Find your next customer in The Poast
-          </p>
+          <span className="ad-badge">ADVERTISE IN THE POAST</span>
         </div>
 
         <Form method="post" className="ad-booking-form">
@@ -471,38 +441,59 @@ export default function Advertise() {
             </div>
           </div>
 
-          {/* Campaign Details */}
+          {/* Objective Row (Simplified Pill Selector) */}
+          <div className="form-field full-width">
+            <label>Ad Objective</label>
+            <input type="hidden" name="objective" value={selectedObjective} />
+            <div className="pill-group">
+              {OBJECTIVES.map((obj) => (
+                <button
+                  type="button"
+                  key={obj}
+                  className={`pill-btn ${selectedObjective === obj ? "active" : ""}`}
+                  onClick={() => setSelectedObjective(obj)}
+                >
+                  {obj}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Campaign Start Date */}
           <div className="form-group-row">
-            <div className="form-field">
-              <label htmlFor="targetDate">Start Date</label>
+            <div className="form-field full-width">
+              <label htmlFor="targetDate">Target Start Date</label>
               <input
                 type="date"
                 id="targetDate"
                 name="targetDate"
                 required
                 aria-invalid={errors.targetDate ? true : undefined}
-                aria-describedby={
-                  errors.targetDate ? "targetDate-error" : undefined
-                }
+                aria-describedby={errors.targetDate ? "targetDate-error" : undefined}
               />
               {fieldError("targetDate")}
             </div>
+          </div>
 
-            <div className="form-field">
-              <label htmlFor="budget">Ad Budget</label>
-              <select id="budget" name="budget" defaultValue="">
-                <option value="" disabled>
-                  Select range...
-                </option>
-                <option value="$1,000-$10,000">$1,000 – $10,000</option>
-                <option value="$10,000-$50,000">$10,000 – $50,000</option>
-                <option value="$50,000-$100,000">$50,000 – $100,000</option>
-                <option value="$100,000+">$100,000+</option>
-              </select>
+          {/* Budget Selector (Sleek Pills) */}
+          <div className="form-field full-width">
+            <label>Estimated Budget</label>
+            <input type="hidden" name="budget" value={selectedBudget} />
+            <div className="pill-group budget-pills">
+              {BUDGET_RANGES.map((b) => (
+                <button
+                  type="button"
+                  key={b}
+                  className={`pill-btn ${selectedBudget === b ? "active" : ""}`}
+                  onClick={() => setSelectedBudget(b)}
+                >
+                  {b}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Campaign Goals / Notes */}
+          {/* Campaign Details */}
           <div className="form-field full-width">
             <label htmlFor="notes">Campaign Details (optional)</label>
             <textarea
@@ -529,7 +520,7 @@ export default function Advertise() {
             {fieldError("source")}
           </div>
 
-          {/* Honeypot: hidden from humans, bots fill it in */}
+          {/* Honeypot */}
           <input
             type="text"
             name="nonce"
