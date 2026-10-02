@@ -1,6 +1,3 @@
-/* -------------------------------------------------------------------------- */
-/*                                   THEME                                    */
-/* -------------------------------------------------------------------------- */
 :root {
   --feeds-bg: #ffffff;
   --feeds-surface: #f7f9f9;
@@ -19,6 +16,8 @@
   --feeds-legal: rgba(0, 0, 0, 0.45);
   --feeds-legal-link: rgba(0, 0, 0, 0.65);
   --feeds-live: #ff2b2b;
+  --feeds-hover: rgba(0, 0, 0, 0.03);
+  --feeds-press: rgba(0, 0, 0, 0.06);
   --feeds-skeleton-a: #f0f0f0;
   --feeds-skeleton-b: #e2e2e2;
 }
@@ -41,6 +40,8 @@
     --feeds-heading: rgba(255, 255, 255, 0.6);
     --feeds-legal: rgba(255, 255, 255, 0.3);
     --feeds-legal-link: rgba(255, 255, 255, 0.5);
+    --feeds-hover: rgba(255, 255, 255, 0.035);
+    --feeds-press: rgba(255, 255, 255, 0.07);
     --feeds-skeleton-a: #0a0a0a;
     --feeds-skeleton-b: #161616;
   }
@@ -84,9 +85,44 @@ body:has(.feeds-page) {
 /*                              ARCHIVE ITEM                                  */
 /* -------------------------------------------------------------------------- */
 .feed-archive-item {
+  position: relative;
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid var(--feeds-hairline);
+  /*
+   * X-style highlight. Drawn as an overlay (not a background) so it
+   * shows on top of the iframe no matter what the email HTML paints.
+   * pointer-events: none keeps clicks going to the card link beneath.
+   */
+  /* Only cards that are actually clickable (loaded or fallback) react */
+}
+.feed-archive-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--feeds-hover);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+.feed-archive-item:has(a) {
+  /* Mouse / trackpad: hover highlight */
+  /* Keyboard focus */
+  /* Touch / click press feedback */
+}
+@media (hover: hover) {
+  .feed-archive-item:has(a):hover::after {
+    opacity: 1;
+  }
+}
+.feed-archive-item:has(a):has(a:focus-visible)::after {
+  opacity: 1;
+}
+.feed-archive-item:has(a):active::after {
+  background: var(--feeds-press);
+  opacity: 1;
+  transition-duration: 0s;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -183,6 +219,7 @@ body:has(.feeds-page) {
 /*                            REDUCED MOTION                                  */
 /* -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+  .feed-archive-item::after,
   .feeds-embed iframe,
   .feeds-subscribe,
   .feeds-skeleton {

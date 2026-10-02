@@ -77,7 +77,7 @@ export default function About() {
             Who reads it?
           </h2>
           <p className="about-text">
-             Frequently read by people who like to get things done
+             Frequently read by people who like to get stuff done
           </p>
           <div className="about-chips">
             {AUDIENCE.map((group) => (
@@ -106,8 +106,8 @@ export default function About() {
           <Link to="/subscribe" className="about-btn">
             Subscribe for free
           </Link>
-          <Link to="/tips" className="back-btn">
-            Send a tip
+          <Link to="/submit-post" className="back-btn">
+            Submit Post
           </Link>
           <Link to="/book" className="back-btn">
             Advertise with us

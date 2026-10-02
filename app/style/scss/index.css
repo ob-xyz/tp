@@ -118,6 +118,16 @@ body:has(.feed-page) {
   transform: translateY(-1px);
 }
 
+/*
+ * Pages with a soft glow behind the content (Advertise, About, Media Kit,
+ * Submit Post). The topbar is normally solid var(--feed-bg), which shows as
+ * a brighter strip on top of the glow. Let the page background show through
+ * instead so the header blends in. The blur keeps scrolled content readable.
+ */
+body:has(.ad-booking-card, .tips-page) .feed-topbar {
+  background: transparent;
+}
+
 .feed-status {
   display: flex;
   align-items: start;

@@ -84,7 +84,7 @@ export default function MediaKit() {
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">The Poast</h1>
           <p className="ad-booking-sub">
-            Frequently read by people who like to get things done
+            Frequently read by people who like to get stuff done
           </p>
         </div>
 
