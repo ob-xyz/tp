@@ -27,10 +27,6 @@
   font-family: "ku";
   src: url("../global/fonts/Kinetika-Ultra.woff2") format("woff2");
 }
-/* ---------------------------------------------------------------------- */
-/*                               THEME TOKENS                              */
-/* ---------------------------------------------------------------------- */
-/* Light is the base; dark overrides follow the system setting */
 :root {
   --feed-bg: #ffffff;
   --feed-surface: #f7f9f9;
