@@ -32,18 +32,10 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast",
-  description: "Get caught up right here, right now. Find out what's happening, then get back to it. That's The Poast.",
+  description: "Get caught up. That's it. That's The Poast.",
   viewport: "width=device-width,initial-scale=1"
 });
 
-/**
- * Forces every new page navigation to start at the top.
- *
- * Uses behavior "instant" so it overrides any `scroll-behavior: smooth`
- * left in a stylesheet (which can cancel or stall ScrollRestoration).
- * Skips back/forward (POP) so the browser's saved position still works,
- * and skips #hash links so anchors still jump to their target.
- */
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   const navType = useNavigationType();
@@ -66,7 +58,7 @@ export default function App() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "The Poast",
-    "alternateName": ["ThePoast", "The Poast Newsletter", "thepoast.com", "the poast feed"],
+    "alternateName": ["thepoast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast", "poast"],
     "url": "https://thepoast.com",
     "logo": "https://thepoast.com/favicon.ico",
     "description": "Get caught up right here, right now. Find out what's happening, then get back to it. That's The Poast"
