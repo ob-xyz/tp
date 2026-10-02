@@ -390,7 +390,7 @@ export default function Advertise() {
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">Advertise with us</h1>
           <p className="ad-booking-sub">
-            Run your next ad in The Poast
+            Find your next customer in The Poast
           </p>
         </div>
 
