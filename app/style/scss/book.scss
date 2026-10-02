@@ -105,6 +105,7 @@ $ad-max-width: 580px;
 
     input[type="text"],
     input[type="email"],
+    input[type="tel"],
     input[type="date"],
     textarea {
       width: 100%;
@@ -115,7 +116,7 @@ $ad-max-width: 580px;
       appearance: none;
       background: var(--feed-input-bg);
       border: 1px solid var(--feed-input-border);
-      border-radius: 999px;
+      border-radius: 0.5rem;
       padding: 0.85rem 1.25rem;
       font-family: "kl";
       font-size: 1rem;
@@ -134,6 +135,15 @@ $ad-max-width: 580px;
       }
     }
 
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"] {
+      height: 3.1rem;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
     textarea {
       border-radius: 1.25rem;
       resize: vertical;
@@ -144,8 +154,8 @@ $ad-max-width: 580px;
     input[type="date"] {
       color-scheme: light dark;
       display: block;
-      min-height: 3rem;
       text-align: left;
+      cursor: pointer;
 
       &::-webkit-date-and-time-value {
         text-align: left;
@@ -155,6 +165,12 @@ $ad-max-width: 580px;
       &::-webkit-calendar-picker-indicator {
         opacity: 0.6;
         cursor: pointer;
+        margin-left: 0.5rem;
+        transition: opacity 0.2s ease;
+      }
+
+      &:hover::-webkit-calendar-picker-indicator {
+        opacity: 1;
       }
     }
   }
@@ -165,13 +181,27 @@ $ad-max-width: 580px;
   .pill-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.6rem;
     width: 100%;
 
+    /* Objective pills stretch to fill each row evenly (no ragged edges) */
+    .pill-btn {
+      flex: 1 1 auto;
+    }
+
+    /* Budget pills: equal-width columns */
     &.budget-pills {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.6rem;
+
+      .pill-btn {
+        flex: none;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.84rem;
+      }
     }
 
     .pill-btn {
@@ -334,6 +364,12 @@ $ad-max-width: 580px;
 }
 
 /* Responsive */
+@media (max-width: 640px) {
+  .ad-booking-form .pill-group.budget-pills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 540px) {
   .ad-booking-card {
     padding: 1.5rem 0.75rem 3rem;

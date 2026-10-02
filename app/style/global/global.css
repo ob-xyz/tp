@@ -518,6 +518,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .ad-booking-form .form-field input[type=text],
 .ad-booking-form .form-field input[type=email],
+.ad-booking-form .form-field input[type=tel],
 .ad-booking-form .form-field input[type=date],
 .ad-booking-form .form-field textarea {
   width: 100%;
@@ -528,7 +529,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   appearance: none;
   background: var(--feed-input-bg);
   border: 1px solid var(--feed-input-border);
-  border-radius: 999px;
+  border-radius: 0.5rem;
   padding: 0.85rem 1.25rem;
   font-family: "kl";
   font-size: 1rem;
@@ -539,16 +540,26 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .ad-booking-form .form-field input[type=text]::placeholder,
 .ad-booking-form .form-field input[type=email]::placeholder,
+.ad-booking-form .form-field input[type=tel]::placeholder,
 .ad-booking-form .form-field input[type=date]::placeholder,
 .ad-booking-form .form-field textarea::placeholder {
   color: var(--feed-input-placeholder);
 }
 .ad-booking-form .form-field input[type=text]:focus,
 .ad-booking-form .form-field input[type=email]:focus,
+.ad-booking-form .form-field input[type=tel]:focus,
 .ad-booking-form .form-field input[type=date]:focus,
 .ad-booking-form .form-field textarea:focus {
   border-color: var(--feed-focus);
   box-shadow: 0 0 12px var(--feed-focus);
+}
+.ad-booking-form .form-field input[type=text],
+.ad-booking-form .form-field input[type=email],
+.ad-booking-form .form-field input[type=tel],
+.ad-booking-form .form-field input[type=date] {
+  height: 3.1rem;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .ad-booking-form .form-field textarea {
   border-radius: 1.25rem;
@@ -559,8 +570,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .ad-booking-form .form-field input[type=date] {
   color-scheme: light dark;
   display: block;
-  min-height: 3rem;
   text-align: left;
+  cursor: pointer;
 }
 .ad-booking-form .form-field input[type=date]::-webkit-date-and-time-value {
   text-align: left;
@@ -569,17 +580,34 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .ad-booking-form .form-field input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0.6;
   cursor: pointer;
+  margin-left: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+.ad-booking-form .form-field input[type=date]:hover::-webkit-calendar-picker-indicator {
+  opacity: 1;
 }
 .ad-booking-form .pill-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.6rem;
   width: 100%;
+  /* Objective pills stretch to fill each row evenly (no ragged edges) */
+  /* Budget pills: equal-width columns */
+}
+.ad-booking-form .pill-group .pill-btn {
+  flex: 1 1 auto;
 }
 .ad-booking-form .pill-group.budget-pills {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.6rem;
+}
+.ad-booking-form .pill-group.budget-pills .pill-btn {
+  flex: none;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.84rem;
 }
 .ad-booking-form .pill-group .pill-btn {
   background: var(--feed-input-bg);
@@ -720,6 +748,11 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   }
 }
 /* Responsive */
+@media (max-width: 640px) {
+  .ad-booking-form .pill-group.budget-pills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @media (max-width: 540px) {
   .ad-booking-card {
     padding: 1.5rem 0.75rem 3rem;
@@ -825,6 +858,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   /* Date Input Styling */
   /* Campaign Name Card */
   /* Target Budget Range Section */
+  /* Budget chips: equal-width columns */
   /* Objective Cards */
   /* Dynamic Detail Panel matching X.com layout */
 }
@@ -916,7 +950,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   display: flex;
   align-items: center;
   width: 100%;
-  cursor: pointer;
+  cursor: auto;
   border-radius: 0.85rem;
   background: var(--feed-input-bg, rgba(255, 255, 255, 0.04));
   border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.25));
@@ -944,16 +978,17 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   color: var(--feed-input-text, var(--feed-text));
   font-family: "kl", system-ui, sans-serif;
   font-size: 0.98rem;
-  cursor: pointer;
+  cursor: auto;
   color-scheme: light dark;
+  /* Hide the browser's own picker icon entirely (it flashes in on hover).
+     The wrapper's onClick calls showPicker(), and our custom SVG icon is
+     shown instead. */
 }
 .ad-booking-form .ad-date-input-wrapper input[type=date]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
+  display: none;
+  -webkit-appearance: none;
+  background: none;
+  pointer-events: none;
 }
 .ad-booking-form .ad-date-input-wrapper input[type=date]::-webkit-date-and-time-value {
   text-align: left;
@@ -972,9 +1007,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   width: 1.25rem;
   height: 1.25rem;
 }
-.ad-booking-form .ad-date-input-wrapper:hover .ad-date-icon {
-  color: var(--feed-text);
-}
 .ad-booking-form .ad-form-section {
   display: flex;
   flex-direction: column;
@@ -985,8 +1017,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .ad-booking-form .ad-form-setup {
   gap: 2rem;
-  padding-bottom: 2.25rem;
-  border-bottom: 1px solid var(--feed-hairline, color-mix(in srgb, var(--feed-text) 10%, transparent));
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--feed-hairline, color-mix(in srgb, var(--feed-text) 10%, transparent));
 }
 .ad-booking-form .ad-form-submit {
   gap: 1.25rem;
@@ -1032,18 +1064,18 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   margin: 0 0 0.8rem;
   padding: 0;
   font-family: "bold", system-ui, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
   color: var(--feed-heading, var(--feed-text));
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-align: center;
 }
 .ad-booking-form .ad-budget legend + * {
   clear: both;
 }
 .ad-booking-form .ad-chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.6rem;
   width: 100%;
 }
@@ -1066,8 +1098,10 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   cursor: pointer;
 }
 .ad-booking-form .form-field .ad-chip span {
-  display: inline-block;
-  padding: 0.6rem 1.25rem;
+  display: block;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding: 0.6rem 0.5rem;
   color: var(--feed-text);
   background: var(--feed-input-bg, rgba(255, 255, 255, 0.04));
   border: 1px solid var(--feed-input-border, rgba(128, 128, 128, 0.25));
@@ -1337,8 +1371,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .ad-booking-form .ad-submit-btn {
   width: 100%;
   margin-top: 0.5rem;
-  background: var(--feed-text);
-  color: var(--feed-bg);
+  background: var(--feed-btn-bg, #ffffff);
+  color: var(--feed-btn-text, #000000);
   border: none;
   border-radius: 0.85rem;
   padding: 1rem 1.5rem;
@@ -1435,6 +1469,12 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   }
   .ad-booking-form .ad-objectives {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Budget chips: 2x2 on narrow screens so long labels never clip */
+@media (max-width: 640px) {
+  .ad-booking-form .ad-chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 /* ---------------------------------------------------------------------- */

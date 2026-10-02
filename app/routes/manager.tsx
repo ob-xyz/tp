@@ -504,6 +504,16 @@ export default function Advertise() {
 
   const [startDate, setStartDate] = useState("");
   const [minDate, setMinDate] = useState<string | undefined>(undefined);
+  const [campaignName, setCampaignName] = useState("");
+
+  // Default campaign name like "Campaign — Oct 2 — 1:54 PM".
+  // Computed on the client only (avoids SSR hydration mismatch / stale server time).
+  useEffect(() => {
+    const now = new Date();
+    const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+    setCampaignName((current) => current || `Campaign — ${date} — ${time}`);
+  }, []);
 
   // Local "today" computed on the client only (avoids SSR hydration mismatch).
   useEffect(() => {
@@ -558,7 +568,7 @@ export default function Advertise() {
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <div className="ad-badge">New Campaign</div>
+          <div className="ad-badge">Advertise In The Poast</div>
         </div>
 
         <Form method="post" className="ad-booking-form">
@@ -571,85 +581,8 @@ export default function Advertise() {
             </div>
           )}
 
-          {/* Section 1: Campaign Setup & Objectives */}
-          <div className="ad-form-section ad-form-setup">
-            <div className="form-field ad-name-card">
-              <input
-                type="text"
-                id="campaignName"
-                name="campaignName"
-                maxLength={120}
-                autoComplete="off"
-                placeholder="Campaign Name *"
-                aria-describedby="campaignName-hint"
-              />
-              <p className="ad-field-hint" id="campaignName-hint">
-                Leave blank and we'll generate one automatically.
-              </p>
-            </div>
-
-            <fieldset
-              className="form-field ad-objective-group"
-              aria-describedby={errors.objective ? "objective-error" : "objective-hint"}
-            >
-              <legend>Ad Objective</legend>
-              <p className="ad-field-hint" id="objective-hint">
-                Pick the objective that best matches your goals.
-              </p>
-
-              <div className="ad-objectives">
-                {OBJECTIVES.map((option) => (
-                  <label key={option.value} className="ad-objective">
-                    <input
-                      type="radio"
-                      name="objective"
-                      value={option.value}
-                      checked={objectiveValue === option.value}
-                      onChange={() => setObjectiveValue(option.value)}
-                    />
-                    <span className="ad-objective-card">
-                      <span className="ad-objective-head">
-                        <span className="ad-objective-icon">
-                          <ObjectiveIconSvg name={option.icon} />
-                        </span>
-                        {option.label}
-                      </span>
-                      <span className="ad-objective-desc">{option.description}</span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-
-              {/* Dynamic Objective Detail Card matching X-style layout */}
-              <div className="ad-objective-detail" aria-live="polite">
-                <div className="ad-detail-inner" key={selectedObjective.value}>
-                  <div className="ad-detail-head">
-                    <span className="ad-detail-icon">
-                      <ObjectiveIconSvg name={selectedObjective.icon} />
-                    </span>
-                    <span className="ad-detail-name">{selectedObjective.label}</span>
-                  </div>
-                  <p className="ad-detail-lead">{selectedObjective.description}</p>
-
-                  <p className="ad-detail-heading">How it works</p>
-                  <p className="ad-detail-text">{selectedObjective.howItWorks}</p>
-
-                  <p className="ad-detail-heading">Good for</p>
-                  <ul className="ad-detail-tags">
-                    {selectedObjective.goodFor.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {fieldError("objective")}
-            </fieldset>
-          </div>
-
-          {/* Section 2: Contact Details */}
+          {/* Section 1: Contact Details (first: who you are) */}
           <div className="ad-form-section">
-            <h2 className="ad-section-heading">Advertiser Information</h2>
             <div className="form-group-row">
               <div className="form-field">
                 <label htmlFor="company">Company</label>
@@ -716,6 +649,85 @@ export default function Advertise() {
               </div>
             </div>
           </div>
+          {/* Section 2: Campaign Setup & Objectives */}
+          <div className="ad-form-section ad-form-setup">
+            <div className="form-field ad-name-card">
+            <h2 className="ad-section-heading">Campaign Name</h2>
+            <br />
+              <input
+                type="text"
+                id="campaignName"
+                name="campaignName"
+                maxLength={120}
+                autoComplete="off"
+                placeholder="Campaign Name"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+                aria-describedby="campaignName-hint"
+              />
+              <p className="ad-field-hint" id="campaignName-hint">
+                Give your campaign a name so you can find it later.
+              </p>
+            </div>
+
+            <fieldset
+              className="form-field ad-objective-group"
+              aria-describedby={errors.objective ? "objective-error" : "objective-hint"}
+            >
+              <legend>Ad Objective</legend>
+              <p className="ad-field-hint" id="objective-hint">
+                Pick the objective that best matches your goals.
+              </p>
+
+              <div className="ad-objectives">
+                {OBJECTIVES.map((option) => (
+                  <label key={option.value} className="ad-objective">
+                    <input
+                      type="radio"
+                      name="objective"
+                      value={option.value}
+                      checked={objectiveValue === option.value}
+                      onChange={() => setObjectiveValue(option.value)}
+                    />
+                    <span className="ad-objective-card">
+                      <span className="ad-objective-head">
+                        <span className="ad-objective-icon">
+                          <ObjectiveIconSvg name={option.icon} />
+                        </span>
+                        {option.label}
+                      </span>
+                      <span className="ad-objective-desc">{option.description}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+
+              {/* Dynamic Objective Detail Card matching X-style layout */}
+              <div className="ad-objective-detail" aria-live="polite">
+                <div className="ad-detail-inner" key={selectedObjective.value}>
+                  <div className="ad-detail-head">
+                    <span className="ad-detail-icon">
+                      <ObjectiveIconSvg name={selectedObjective.icon} />
+                    </span>
+                    <span className="ad-detail-name">{selectedObjective.label}</span>
+                  </div>
+                  <p className="ad-detail-lead">{selectedObjective.description}</p>
+
+                  <p className="ad-detail-heading">How it works</p>
+                  <p className="ad-detail-text">{selectedObjective.howItWorks}</p>
+
+                  <p className="ad-detail-heading">Good for</p>
+                  <ul className="ad-detail-tags">
+                    {selectedObjective.goodFor.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {fieldError("objective")}
+            </fieldset>
+          </div>
 
           {/* Section 3: Schedule & Budget */}
           <div className="ad-form-section">
@@ -779,6 +791,7 @@ export default function Advertise() {
             </div>
 
             <fieldset className="form-field ad-budget">
+              <legend>Estimated Budget</legend>
               <div className="ad-chips">
                 {BUDGET_OPTIONS.map((option) => (
                   <label key={option.value} className="ad-chip">
@@ -803,7 +816,7 @@ export default function Advertise() {
               />
             </div>
             
-            <h2 className="ad-section-heading">Submit Existing Campaign</h2>
+            <h2 className="ad-section-heading">Existing Campaign (Optional)</h2>
             <div className="form-field full-width">
               <input
                 type="text"
@@ -811,7 +824,7 @@ export default function Advertise() {
                 name="source"
                 autoComplete="off"
                 inputMode="url"
-                placeholder="https://"
+                placeholder="Link to a previous or existing campaign (https://)"
                 aria-invalid={errors.source ? true : undefined}
                 aria-describedby={errors.source ? "source-error" : undefined}
               />

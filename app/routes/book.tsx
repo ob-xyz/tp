@@ -22,20 +22,14 @@ export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=600",
 });
 
-/* -------------------------------------------------------------------------- */
-/*                               TYPES & HELPERS                              */
-/* -------------------------------------------------------------------------- */
-
 type FieldName =
   | "company"
   | "website"
   | "name"
   | "email"
-  | "targetDate"
-  | "budget"
-  | "objective"
+  | "phone"
   | "notes"
-  | "source"
+  | "paymentMethod"
   | "altcha";
 
 type ActionData = {
@@ -47,13 +41,12 @@ type ActionData = {
 type Lead = {
   company: string;
   website: string;
-  contactName: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  targetDate: string;
-  budget: string;
-  objective: string;
+  phone: string;
   notes: string;
-  previousCampaign: string;
+  paymentMethod: string;
 };
 
 const str = (value: FormDataEntryValue | null, max: number): string =>
@@ -73,14 +66,13 @@ function normalizeWebsite(raw: string): string | null {
   }
 }
 
-function buildSubscriberName(contactName: string, company: string): string {
-  const first = contactName.split(/\s+/)[0] || contactName;
-  return `${first} ${company}`.trim();
+function buildSubscriberName(
+  firstName: string,
+  lastName: string,
+  company: string,
+): string {
+  return `${firstName} ${lastName}`.trim() || company;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                LISTMONK API                                */
-/* -------------------------------------------------------------------------- */
 
 function listmonkConfig() {
   const baseUrl = (
@@ -137,11 +129,11 @@ async function saveAdvertiserLead(lead: Lead) {
     submitted_at: now,
     company: lead.company,
     website: lead.website,
-    start_date: lead.targetDate,
-    budget: lead.budget,
-    objective: lead.objective,
+    first_name: lead.firstName,
+    last_name: lead.lastName,
+    phone: lead.phone,
     notes: lead.notes,
-    previous_campaign: lead.previousCampaign,
+    payment_method: lead.paymentMethod,
   };
 
   const attribs = {
@@ -149,17 +141,17 @@ async function saveAdvertiserLead(lead: Lead) {
     source: "advertise-form",
     company: lead.company,
     website: lead.website,
-    contact_name: lead.contactName,
-    start_date: lead.targetDate,
-    budget: lead.budget,
-    objective: lead.objective,
+    contact_name: `${lead.firstName} ${lead.lastName}`.trim(),
+    first_name: lead.firstName,
+    last_name: lead.lastName,
+    phone: lead.phone,
     notes: lead.notes,
-    ...(lead.previousCampaign ? { previous_campaign: lead.previousCampaign } : {}),
+    payment_method: lead.paymentMethod,
     last_submitted_at: now,
     ad_requests: [bookingRequest],
   };
 
-  const name = buildSubscriberName(lead.contactName, lead.company);
+  const name = buildSubscriberName(lead.firstName, lead.lastName, lead.company);
 
   const createRes = await listmonk("/api/subscribers", {
     method: "POST",
@@ -244,36 +236,26 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const company = str(formData.get("company"), 200);
   const websiteRaw = str(formData.get("website"), 300);
-  const contactName = str(formData.get("name"), 200);
+  const firstName = str(formData.get("firstName"), 100);
+  const lastName = str(formData.get("lastName"), 100);
   const email = str(formData.get("email"), 254).toLowerCase();
-  const targetDate = str(formData.get("targetDate"), 10);
-  const budget = str(formData.get("budget"), 50);
-  const objective = str(formData.get("objective"), 100);
+  const phone = str(formData.get("phone"), 50);
   const notes = str(formData.get("notes"), 5000);
-  const sourceRaw = str(formData.get("source"), 300);
+  const paymentMethod = str(formData.get("paymentMethod"), 50);
   const altcha = str(formData.get("altcha"), 20000);
 
   const fieldErrors: ActionData["fieldErrors"] = {};
 
   if (!company) fieldErrors.company = "Please enter your company.";
-  if (!contactName) fieldErrors.name = "Please enter your name.";
+  if (!firstName) fieldErrors.name = "Please enter your first name.";
+  if (!lastName) fieldErrors.name = "Please enter your last name.";
   if (!EMAIL_RE.test(email)) fieldErrors.email = "Please enter a valid work email.";
 
   const website = normalizeWebsite(websiteRaw);
   if (!website) fieldErrors.website = "Please enter a valid website.";
 
-  let previousCampaign = "";
-  if (sourceRaw) {
-    const normalized = normalizeWebsite(sourceRaw);
-    if (normalized) {
-      previousCampaign = normalized;
-    } else {
-      fieldErrors.source = "Please enter a valid link, or leave this blank.";
-    }
-  }
-
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate) || Number.isNaN(Date.parse(targetDate))) {
-    fieldErrors.targetDate = "Please choose a start date.";
+  if (!["Credit Card", "Insertion Order"].includes(paymentMethod)) {
+    fieldErrors.paymentMethod = "Please choose a payment method.";
   }
 
   if (process.env.ALTCHA_REQUIRED !== "false" && !altcha) {
@@ -291,13 +273,12 @@ export async function action({ request }: ActionFunctionArgs) {
     await saveAdvertiserLead({
       company,
       website: website as string,
-      contactName,
+      firstName,
+      lastName,
       email,
-      targetDate,
-      budget,
-      objective,
+      phone,
       notes,
-      previousCampaign,
+      paymentMethod,
     });
   } catch (err) {
     console.error("[book] failed to save advertiser lead:", err);
@@ -322,27 +303,12 @@ export async function action({ request }: ActionFunctionArgs) {
 /*                                    PAGE                                    */
 /* -------------------------------------------------------------------------- */
 
-const OBJECTIVES = [
-  "Reach",
-  "Engagements",
-  "Website traffic",
-  "Video views",
-  "Sales",
-];
-
-const BUDGET_RANGES = [
-  "$1,500 – $3,000",
-  "$3,000 – $7,500",
-  "$7,500 – $15,000",
-  "$15,000+",
-];
-
 export default function Advertise() {
   const actionData = useActionData<ActionData>();
   const errors = actionData?.fieldErrors ?? {};
 
-  const [selectedObjective, setSelectedObjective] = useState("Reach");
-  const [selectedBudget, setSelectedBudget] = useState("$1,500 – $3,000");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState("Credit Card");
 
   const fieldError = (name: FieldName) =>
     errors[name] ? (
@@ -384,7 +350,7 @@ export default function Advertise() {
                 name="company"
                 required
                 autoComplete="organization"
-                placeholder="Company Name *"
+                placeholder="Company *"
                 aria-invalid={errors.company ? true : undefined}
                 aria-describedby={errors.company ? "company-error" : undefined}
               />
@@ -410,20 +376,34 @@ export default function Advertise() {
 
           <div className="form-group-row">
             <div className="form-field">
-              <label htmlFor="name">Your Name</label>
+              <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id="firstName"
+                name="firstName"
                 required
-                autoComplete="name"
-                placeholder="Name *"
+                autoComplete="given-name"
+                placeholder="First Name *"
                 aria-invalid={errors.name ? true : undefined}
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
               {fieldError("name")}
             </div>
 
+            <div className="form-field">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                autoComplete="family-name"
+                placeholder="Last Name *"
+              />
+            </div>
+          </div>
+
+          <div className="form-group-row">
             <div className="form-field">
               <label htmlFor="email">Work Email</label>
               <input
@@ -433,91 +413,64 @@ export default function Advertise() {
                 required
                 autoComplete="email"
                 inputMode="email"
-                placeholder="Email *"
+                placeholder="Work Email *"
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
               {fieldError("email")}
             </div>
-          </div>
 
-          {/* Objective Row (Simplified Pill Selector) */}
-          <div className="form-field full-width">
-            <label>Ad Objective</label>
-            <input type="hidden" name="objective" value={selectedObjective} />
-            <div className="pill-group">
-              {OBJECTIVES.map((obj) => (
-                <button
-                  type="button"
-                  key={obj}
-                  className={`pill-btn ${selectedObjective === obj ? "active" : ""}`}
-                  onClick={() => setSelectedObjective(obj)}
-                >
-                  {obj}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Campaign Start Date */}
-          <div className="form-group-row">
-            <div className="form-field full-width">
-              <label htmlFor="targetDate">Target Start Date</label>
+            <div className="form-field">
+              <label htmlFor="phone">Phone Number</label>
               <input
-                type="date"
-                id="targetDate"
-                name="targetDate"
-                required
-                aria-invalid={errors.targetDate ? true : undefined}
-                aria-describedby={errors.targetDate ? "targetDate-error" : undefined}
+                type="tel"
+                id="phone"
+                name="phone"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="Phone Number *"
+                aria-invalid={errors.phone ? true : undefined}
+                aria-describedby={errors.phone ? "phone-error" : undefined}
               />
-              {fieldError("targetDate")}
+              {fieldError("phone")}
             </div>
           </div>
 
-          {/* Budget Selector (Sleek Pills) */}
+          {/* Payment Method */}
           <div className="form-field full-width">
-            <label>Estimated Budget</label>
-            <input type="hidden" name="budget" value={selectedBudget} />
-            <div className="pill-group budget-pills">
-              {BUDGET_RANGES.map((b) => (
+            <label>Payment Method</label>
+            <input
+              type="hidden"
+              name="paymentMethod"
+              value={selectedPaymentMethod}
+            />
+            <div className="pill-group">
+              {["Credit Card", "Insertion Order"].map((method) => (
                 <button
                   type="button"
-                  key={b}
-                  className={`pill-btn ${selectedBudget === b ? "active" : ""}`}
-                  onClick={() => setSelectedBudget(b)}
+                  key={method}
+                  className={`pill-btn ${
+                    selectedPaymentMethod === method ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedPaymentMethod(method)}
                 >
-                  {b}
+                  {method}
                 </button>
               ))}
             </div>
+            {fieldError("paymentMethod")}
           </div>
 
           {/* Campaign Details */}
           <div className="form-field full-width">
-            <label htmlFor="notes">Campaign Details (optional)</label>
+            <label htmlFor="notes">How can we help you?</label>
             <textarea
               id="notes"
               name="notes"
               rows={4}
               maxLength={5000}
-              placeholder="Tell us about your campaign..."
+              placeholder="I'm looking for help with ads"
             />
-          </div>
-
-          <div className="form-field full-width">
-            <label htmlFor="source">Link to previous campaign (optional)</label>
-            <input
-              type="text"
-              id="source"
-              name="source"
-              autoComplete="off"
-              inputMode="url"
-              placeholder="https://"
-              aria-invalid={errors.source ? true : undefined}
-              aria-describedby={errors.source ? "source-error" : undefined}
-            />
-            {fieldError("source")}
           </div>
 
           {/* Honeypot */}
