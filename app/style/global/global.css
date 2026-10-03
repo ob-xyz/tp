@@ -352,7 +352,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   margin: 0 0.45rem;
 }
 .feed-subscribe-form .copyright {
-  margin: 0.75rem 0 15rem;
+  margin: 0.875rem 0 15rem;
   font-size: 0.7rem;
   color: var(--feed-legal);
   text-align: center;
