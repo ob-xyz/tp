@@ -127,7 +127,6 @@ export default function NotFound() {
             <Link className="space" to="/about">About</Link>
             <Link className="space" to="/archive">Archive</Link>
             <Link className="space" to="/submit-post">Submit Post</Link>
-            <Link className="space" to="/media-kit">Media Kit</Link>
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
           </p>
