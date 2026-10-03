@@ -101,6 +101,9 @@ export default function Subscribe() {
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
           </p>
+          <p className="copyright">
+            © 2026 The Poast
+          </p>
         </form>
 
         <Link to="/" className="back-btn">

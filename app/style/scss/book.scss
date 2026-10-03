@@ -116,7 +116,7 @@ $ad-max-width: 580px;
       appearance: none;
       background: var(--feed-input-bg);
       border: 1px solid var(--feed-input-border);
-      border-radius: 0.5rem;
+      border-radius: 0.8rem;
       padding: 0.85rem 1.25rem;
       font-family: "kl";
       font-size: 1rem;
@@ -286,6 +286,7 @@ $ad-max-width: 580px;
   .ad-submit-btn {
     width: 100%;
     margin-top: 0.5rem;
+    margin-bottom: -1rem;
     background: var(--feed-btn-bg);
     color: var(--feed-btn-text);
     border: none;
@@ -295,9 +296,9 @@ $ad-max-width: 580px;
     font-size: 0.95rem;
     cursor: pointer;
     transition: transform 0.15s ease, opacity 0.2s ease;
-
+  
     &:hover {
-      opacity: 0.85;
+      opacity: 0.85; 
       transform: translateY(-1px);
     }
 

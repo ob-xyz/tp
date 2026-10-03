@@ -351,13 +351,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   }
 
   .feed-legal {
-    margin: .5rem 0 15rem;
+    margin: .5rem 0 0rem;
     font-size: 0.75rem;
     color: var(--feed-legal);
     text-align: center;
 
     a {
-      color: var(--feed-legal-link);
+      color: var(--feed-legal);
       text-decoration: none;
 
       &:hover {
@@ -367,6 +367,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     .space{
       margin:0 .45rem;
     } 
+  }
+  .copyright{
+    margin: .5rem 0 15rem;
+    font-size: 0.7rem;
+    color: var(--feed-legal);
+    text-align: center;
+    font-weight: 100;
   }
 }
 

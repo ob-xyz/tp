@@ -1,10 +1,12 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
+import Altcha from "~/components/altcha";
+
 export const meta: MetaFunction = () => {
   return {
     title: "About : The Poast",
-    description: "Get caught up right here, right now",
+    description: "Get caught up.",
   };
 };
 
@@ -42,7 +44,7 @@ export default function About() {
           />
         </Link>
 
-        <Link to="/subscribe" className="feed-subscribe">
+        <Link to="#subscribe" className="feed-subscribe">
           Subscribe
         </Link>
       </header>
@@ -50,7 +52,6 @@ export default function About() {
       <main className="ad-booking-card about-card">
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">About The Poast</h1>
-          <p className="ad-booking-sub">Trusted by 25,000+</p>
         </div>
 
         <section className="about-section" aria-labelledby="about-what">
@@ -67,7 +68,7 @@ export default function About() {
             Who reads it?
           </h2>
           <p className="about-text">
-             Frequently read by people who like to get stuff done
+             People who like to get things done.
           </p>
           <div className="about-chips">
             {AUDIENCE.map((group) => (
@@ -93,16 +94,83 @@ export default function About() {
         </section>
 
         <div className="about-cta">
-          <Link to="/subscribe" className="about-btn">
-            Subscribe for free
-          </Link>
-          <Link to="/submit-post" className="back-btn">
-            Submit Post
+          <Link to="/" className="about-btn">
+            Return to The Poast
           </Link>
           <Link to="/book" className="back-btn">
             Advertise with us
           </Link>
         </div>
+              <footer
+                className="feed-footer"
+                id="subscribe"
+              >
+                <form
+                  method="post"
+                  action="https://app.thepoast.com/subscription/form"
+                  className="feed-subscribe-form"
+                >
+                  <p className="feed-subscribe-heading">
+                    Get The Poast for free
+                  </p>
+        
+                  <div className="feed-input-bar">
+                    <input
+                      className="feed-input email-input"
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Email Address *"
+                    />
+        
+                    <button
+                      className="feed-submit"
+                      type="submit"
+                    >
+                      Subscribe
+                    </button>
+                  </div>
+        
+                  <div className="feed-altcha-wrap">
+                    <Altcha />
+                  </div>
+        
+                  <input
+                    id="6d48f"
+                    type="hidden"
+                    name="l"
+                    value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                  />
+        
+                  <input
+                    type="hidden"
+                    name="nonce"
+                  />
+        
+                  <p className="feed-legal">
+                    By submitting, you agree to our{" "}
+                    <Link to="/policies/terms">
+                      Terms
+                    </Link>{" "}
+                    &amp;{" "}
+                    <Link to="/policies/privacy">
+                      Privacy
+                    </Link>
+                    .
+                    <br />
+                    <br />
+                    <Link className="space" to="/about">About</Link>
+                    <Link className="space" to="/archive">Archive</Link>
+                    <Link className="space" to="/submit-post">Submit Post</Link>
+                    <Link className="space" to="/media-kit">Media Kit</Link>
+                    <Link className="space" to="/partner">Partner</Link>
+                    <Link className="space" to="/book">Advertise</Link>
+                  </p>
+                  <p className="copyright">
+                    © 2026 The Poast
+                  </p>
+                </form>
+              </footer>
       </main>
     </div>
   );

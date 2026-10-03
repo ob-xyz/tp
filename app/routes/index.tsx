@@ -117,6 +117,9 @@ export default function Index() {
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
           </p>
+          <p className="copyright">
+            © 2026 The Poast
+          </p>
         </form>
       </footer>
     </div>

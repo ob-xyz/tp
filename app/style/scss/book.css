@@ -109,7 +109,7 @@
   appearance: none;
   background: var(--feed-input-bg);
   border: 1px solid var(--feed-input-border);
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   padding: 0.85rem 1.25rem;
   font-family: "kl";
   font-size: 1rem;
@@ -259,6 +259,7 @@
 .ad-booking-form .ad-submit-btn {
   width: 100%;
   margin-top: 0.5rem;
+  margin-bottom: -1rem;
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   border: none;

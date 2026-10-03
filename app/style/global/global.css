@@ -336,13 +336,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   font-size: 0.75rem;
 }
 .feed-subscribe-form .feed-legal {
-  margin: 0.5rem 0 15rem;
+  margin: 0.5rem 0 0rem;
   font-size: 0.75rem;
   color: var(--feed-legal);
   text-align: center;
 }
 .feed-subscribe-form .feed-legal a {
-  color: var(--feed-legal-link);
+  color: var(--feed-legal);
   text-decoration: none;
 }
 .feed-subscribe-form .feed-legal a:hover {
@@ -350,6 +350,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .feed-subscribe-form .feed-legal .space {
   margin: 0 0.45rem;
+}
+.feed-subscribe-form .copyright {
+  margin: 0.5rem 0 15rem;
+  font-size: 0.7rem;
+  color: var(--feed-legal);
+  text-align: center;
+  font-weight: 100;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -532,7 +539,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   appearance: none;
   background: var(--feed-input-bg);
   border: 1px solid var(--feed-input-border);
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   padding: 0.85rem 1.25rem;
   font-family: "kl";
   font-size: 1rem;
@@ -682,6 +689,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .ad-booking-form .ad-submit-btn {
   width: 100%;
   margin-top: 0.5rem;
+  margin-bottom: -1rem;
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   border: none;
@@ -1695,6 +1703,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   justify-content: center;
   gap: 0.85rem;
   margin-top: 0.5rem;
+  margin-bottom: 5rem;
 }
 .about-cta .back-btn {
   margin-top: 0;

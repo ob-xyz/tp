@@ -307,13 +307,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   font-size: 0.75rem;
 }
 .feed-subscribe-form .feed-legal {
-  margin: 0.5rem 0 15rem;
+  margin: 0.5rem 0 0rem;
   font-size: 0.75rem;
   color: var(--feed-legal);
   text-align: center;
 }
 .feed-subscribe-form .feed-legal a {
-  color: var(--feed-legal-link);
+  color: var(--feed-legal);
   text-decoration: none;
 }
 .feed-subscribe-form .feed-legal a:hover {
@@ -321,6 +321,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .feed-subscribe-form .feed-legal .space {
   margin: 0 0.45rem;
+}
+.feed-subscribe-form .copyright {
+  margin: 0.5rem 0 15rem;
+  font-size: 0.7rem;
+  color: var(--feed-legal);
+  text-align: center;
+  font-weight: 100;
 }
 
 /* ---------------------------------------------------------------------- */

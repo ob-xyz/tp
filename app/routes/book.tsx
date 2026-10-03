@@ -485,11 +485,40 @@ export default function Advertise() {
             Submit Booking Request
           </button>
 
-          <p className="subscribe-legal ad-legal">
-            We review all inquiries within 24 hours. By submitting, you agree to
-            our <Link to="/policies/terms">Terms</Link> &amp;{" "}
-            <Link to="/policies/privacy">Privacy</Link>.
+      <footer
+        className="feed-footer"
+        id="subscribe"
+      >
+        <form
+          method="post"
+          action="https://app.thepoast.com/subscription/form"
+          className="feed-subscribe-form"
+        >
+
+          <p className="feed-legal">
+            By submitting, you agree to our{" "}
+            <Link to="/policies/terms">
+              Terms
+            </Link>{" "}
+            &amp;{" "}
+            <Link to="/policies/privacy">
+              Privacy
+            </Link>
+            .
+            <br />
+            <br />
+            <Link className="space" to="/about">About</Link>
+            <Link className="space" to="/archive">Archive</Link>
+            <Link className="space" to="/submit-post">Submit Post</Link>
+            <Link className="space" to="/media-kit">Media Kit</Link>
+            <Link className="space" to="/partner">Partner</Link>
+            <Link className="space" to="/book">Advertise</Link>
           </p>
+          <p className="copyright">
+            © 2026 The Poast
+          </p>
+        </form>
+      </footer>
         </Form>
 
         <Link to="/" className="back-btn">

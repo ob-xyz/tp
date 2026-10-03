@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
+import Altcha from "~/components/altcha";
+
 export const meta: MetaFunction = () => {
   return {
     title: "Media Kit : The Poast",
@@ -59,7 +61,7 @@ export default function MediaKit() {
           />
         </Link>
 
-        <Link to="/subscribe" className="feed-subscribe">
+        <Link to="#subscribe" className="feed-subscribe">
           Subscribe
         </Link>
       </header>
@@ -145,6 +147,76 @@ export default function MediaKit() {
           </Link>
         </div>
       </main>
+            <footer
+              className="feed-footer"
+              id="subscribe"
+            >
+              <form
+                method="post"
+                action="https://app.thepoast.com/subscription/form"
+                className="feed-subscribe-form"
+              >
+                <p className="feed-subscribe-heading">
+                  Get The Poast for free
+                </p>
+      
+                <div className="feed-input-bar">
+                  <input
+                    className="feed-input email-input"
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Email Address *"
+                  />
+      
+                  <button
+                    className="feed-submit"
+                    type="submit"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+      
+                <div className="feed-altcha-wrap">
+                  <Altcha />
+                </div>
+      
+                <input
+                  id="6d48f"
+                  type="hidden"
+                  name="l"
+                  value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                />
+      
+                <input
+                  type="hidden"
+                  name="nonce"
+                />
+      
+                <p className="feed-legal">
+                  By submitting, you agree to our{" "}
+                  <Link to="/policies/terms">
+                    Terms
+                  </Link>{" "}
+                  &amp;{" "}
+                  <Link to="/policies/privacy">
+                    Privacy
+                  </Link>
+                  .
+                  <br />
+                  <br />
+                  <Link className="space" to="/about">About</Link>
+                  <Link className="space" to="/archive">Archive</Link>
+                  <Link className="space" to="/submit-post">Submit Post</Link>
+                  <Link className="space" to="/media-kit">Media Kit</Link>
+                  <Link className="space" to="/partner">Partner</Link>
+                  <Link className="space" to="/book">Advertise</Link>
+                </p>
+                <p className="copyright">
+                  © 2026 The Poast
+                </p>
+              </form>
+            </footer>
     </div>
   );
 }

@@ -477,8 +477,6 @@ export default function Tips() {
             />
           </div>
 
-          {/* Tips list from the Listmonk form (id "a1d1a", name "l").
-              The server always uses TIPS_LIST_UUID, so this can't be tampered with. */}
           <input
             id={TIPS_LIST_FIELD_ID}
             type="hidden"
@@ -504,13 +502,43 @@ export default function Tips() {
           <button type="submit" className="ad-submit-btn">
             Submit Post
           </button>
+                <footer
+                  className="feed-footer"
+                  id="subscribe"
+                >
+                  <form
+                    method="post"
+                    action="https://app.thepoast.com/subscription/form"
+                    className="feed-subscribe-form"
+                  >
 
-          <p className="subscribe-legal ad-legal">
-            We'll use your email only to follow up on this post. By submitting,
-            you agree to our <Link to="/policies/terms">Terms</Link> &amp;{" "}
-            <Link to="/policies/privacy">Privacy Policy</Link>.
-          </p>
+                    <p className="feed-legal">
+                      By submitting, you agree to our{" "}
+                      <Link to="/policies/terms">
+                        Terms
+                      </Link>{" "}
+                      &amp;{" "}
+                      <Link to="/policies/privacy">
+                        Privacy
+                      </Link>
+                      .
+                      <br />
+                      <br />
+                      <Link className="space" to="/about">About</Link>
+                      <Link className="space" to="/archive">Archive</Link>
+                      <Link className="space" to="/submit-post">Submit Post</Link>
+                      <Link className="space" to="/media-kit">Media Kit</Link>
+                      <Link className="space" to="/partner">Partner</Link>
+                      <Link className="space" to="/book">Advertise</Link>
+                    </p>
+                    <p className="copyright">
+                      © 2026 The Poast
+                    </p>
+                  </form>
+                </footer>
         </Form>
+
+        
 
         <Link to="/" className="back-btn">
           ← Return to The Poast
