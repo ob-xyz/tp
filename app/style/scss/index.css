@@ -365,8 +365,11 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     width: 100%;
   }
   .feed-subscribe-form .feed-legal {
-    margin: 0.8rem 0 4rem;
+    margin: 0.8rem 0 0rem;
     padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .feed-subscribe-form .copyright {
+    margin-top: -3.1rem;
   }
 }
 @media (max-width: 380px) {
