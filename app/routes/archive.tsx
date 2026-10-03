@@ -502,20 +502,17 @@ export default function Today() {
             </Link>{" "}
             &amp;{" "}
             <Link to="/policies/privacy">
-              Privacy Policy
+              Privacy
             </Link>
             .
             <br />
             <br />
-            <Link to="/submit-post">Submit Post</Link>
-            {" · "}
-            <Link to="/read-more">Read More</Link>
-            {" · "}
-            <Link to="/book">Advertise</Link>
-            {" · "}
-            <Link to="/media-kit">Media Kit</Link>
-            {" · "}
-            <Link to="/about">About</Link>
+            <Link className="space" to="/about">About</Link>
+            <Link className="space" to="/archive">Archive</Link>
+            <Link className="space" to="/submit-post">Submit Post</Link>
+            <Link className="space" to="/media-kit">Media Kit</Link>
+            <Link className="space" to="/partner">Partner</Link>
+            <Link className="space" to="/book">Advertise</Link>
           </p>
         </form>
       </footer>

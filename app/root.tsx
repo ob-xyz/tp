@@ -61,7 +61,7 @@ export default function App() {
     "alternateName": ["thepoast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast", "poast"],
     "url": "https://thepoast.com",
     "logo": "https://thepoast.com/favicon.ico",
-    "description": "Get caught up right here, right now. Find out what's happening, then get back to it. That's The Poast"
+    "description": "Get caught up. That's it. That's The Poast"
   };
 
   return (

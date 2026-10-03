@@ -259,7 +259,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .feed-subscribe-form {
   max-width: 540px;
-  margin: 2.5rem auto 1rem;
+  margin: 1rem auto 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -336,17 +336,20 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   font-size: 0.75rem;
 }
 .feed-subscribe-form .feed-legal {
-  margin: 0.8rem 0 15rem;
-  font-size: 0.7rem;
+  margin: 0.5rem 0 15rem;
+  font-size: 0.75rem;
   color: var(--feed-legal);
   text-align: center;
 }
 .feed-subscribe-form .feed-legal a {
   color: var(--feed-legal-link);
-  text-decoration: underline;
+  text-decoration: none;
 }
 .feed-subscribe-form .feed-legal a:hover {
-  color: var(--feed-focus);
+  text-decoration: underline;
+}
+.feed-subscribe-form .feed-legal .space {
+  margin: 0 0.45rem;
 }
 
 /* ---------------------------------------------------------------------- */

@@ -7,12 +7,6 @@ export const meta: MetaFunction = () => {
     description: "Who reads The Poast and how to reach them.",
   };
 };
-
-/* -------------------------------------------------------------------------- */
-/*   EDIT THIS SECTION: replace the placeholders with your real numbers.      */
-/*   Only publish figures you can back up; advertisers will ask.              */
-/* -------------------------------------------------------------------------- */
-
 const STATS = [
   { value: "25,500", label: "Subscribers" },
   { value: "36.6%", label: "Average open rate" },

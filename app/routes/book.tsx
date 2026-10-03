@@ -1,20 +1,12 @@
 import type {
   ActionFunctionArgs,
   HeadersFunction,
-  LinksFunction,
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData } from "@remix-run/react";
 import { useState } from "react";
 
 import Altcha from "~/components/altcha";
-import subscribeStyles from "~/style/scss/subscribe.css";
-import bookStyles from "~/style/scss/book.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: subscribeStyles },
-  { rel: "stylesheet", href: bookStyles },
-];
 
 const SHOW_ERROR_DETAILS = true;
 
@@ -496,7 +488,7 @@ export default function Advertise() {
           <p className="subscribe-legal ad-legal">
             We review all inquiries within 24 hours. By submitting, you agree to
             our <Link to="/policies/terms">Terms</Link> &amp;{" "}
-            <Link to="/policies/privacy">Privacy Policy</Link>.
+            <Link to="/policies/privacy">Privacy</Link>.
           </p>
         </Form>
 
