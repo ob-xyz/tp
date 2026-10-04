@@ -32,7 +32,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Poast",
-  description: "Get caught up. That's it. That's The Poast.",
+  description: "Get caught up.",
   viewport: "width=device-width,initial-scale=1"
 });
 
@@ -58,10 +58,10 @@ export default function App() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "The Poast",
-    "alternateName": ["thepoast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast", "poast"],
+    "alternateName": ["the poast", "thepoast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast", "poast", "poast app", "the poast app", "the poast news"],
     "url": "https://thepoast.com",
     "logo": "https://thepoast.com/favicon.ico",
-    "description": "Get caught up. That's it. That's The Poast"
+    "description": "Get caught up."
   };
 
   return (
