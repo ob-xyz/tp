@@ -6,30 +6,30 @@ import Altcha from "~/components/altcha";
 export const meta: MetaFunction = () => {
   return {
     title: "Media Kit : The Poast",
-    description: "Who reads The Poast and how to reach them.",
+    description: "This is who reads The Poast.",
   };
 };
 const STATS = [
-  { value: "25,500", label: "Subscribers" },
-  { value: "36.6%", label: "Average open rate" },
-  { value: "2.2%", label: "Average click rate" },
-  { value: "30", label: "Issues per month" },
+  { value: "27k+", label: "Email subscribers" },
+  { value: "10k+", label: "Daily readers" },
+  { value: "55k+", label: "Monthly web visitors" },
+  { value: "36%", label: "Average open rate" },
 ];
 
 const AUDIENCE = ["Founders", "Executives", "Builders", "Investors", "Marketers"];
 
 const FORMATS = [
   {
-    title: "Sponsored placement",
-    body: "Your message placed inside the issue, written to fit the format readers already know.",
+    title: "Full creative control",
+    body: "It's your ad, run your way. Use images, videos, or plain-jane text to find your next customer.",
   },
   {
-    title: "Existing social ads",
-    body: "Bring an ad that's already performing on social and we'll adapt it for our audience.",
+    title: "Link clicks that land",
+    body: "Every ad click lands on your landing page, not some pesky in-app browser.",
   },
   {
-    title: "Custom campaign",
-    body: "Multi-issue or multi-channel plans built around your launch or goal.",
+    title: "Use existing campaigns",
+    body: "Already have a proven ad that works? Run it in The Poast. Measure its performance.",
   },
 ];
 
@@ -68,10 +68,7 @@ export default function MediaKit() {
 
       <main className="ad-booking-card mk-card">
         <div className="ad-booking-header">
-          <h1 className="ad-booking-title">The Poast</h1>
-          <p className="ad-booking-sub">
-            Frequently read by people who like to get stuff done
-          </p>
+          <div className="ad-badge">Media Kit</div>
         </div>
 
         {/* By the numbers */}
@@ -106,7 +103,7 @@ export default function MediaKit() {
         {/* Formats */}
         <section className="mk-section" aria-labelledby="mk-formats-title">
           <h2 className="mk-section-title" id="mk-formats-title">
-            Ways to advertise
+            Why advertise with us?
           </h2>
           <div className="mk-formats">
             {FORMATS.map((format) => (
