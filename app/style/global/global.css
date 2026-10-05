@@ -1428,7 +1428,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   padding: 0.6rem 1.35rem;
   border: 1px solid color-mix(in srgb, var(--feed-text) 15%, transparent);
   border-radius: 999px;
-  font-family: "bold", system-ui, sans-serif;
+  font-family: bold !important;
   font-size: 0.88rem;
   text-decoration: none;
   color: var(--feed-text);
@@ -1615,6 +1615,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .about-section {
   width: 100%;
   margin-bottom: 2.25rem;
+  margin-top: 1rem;
 }
 
 .about-section-title {
@@ -1705,7 +1706,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
-  margin-top: 0.5rem;
+  margin-top: 5rem;
   margin-bottom: 5rem;
 }
 .about-cta .back-btn {
@@ -2599,7 +2600,7 @@ body:has(.subscribe-page) {
   padding: 0.55rem 1.25rem;
   border: 1px solid var(--feed-hairline, rgba(255, 255, 255, 0.12));
   border-radius: 999px;
-  font-family: ku !important;
+  font-family: bold !important;
   font-weight: 100;
   font-size: 0.85rem;
   text-decoration: none;

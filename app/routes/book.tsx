@@ -397,7 +397,7 @@ export default function Advertise() {
 
           <div className="form-group-row">
             <div className="form-field">
-              <label htmlFor="email">Work Email</label>
+              <label htmlFor="email">Business Email</label>
               <input
                 type="email"
                 id="email"
@@ -405,7 +405,7 @@ export default function Advertise() {
                 required
                 autoComplete="email"
                 inputMode="email"
-                placeholder="Work Email *"
+                placeholder="Business Email *"
                 aria-invalid={errors.email ? true : undefined}
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
@@ -461,7 +461,7 @@ export default function Advertise() {
               name="notes"
               rows={4}
               maxLength={5000}
-              placeholder="I'm looking for help with ads"
+              placeholder="I'm looking for help with ads..."
             />
           </div>
 

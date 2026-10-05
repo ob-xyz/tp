@@ -568,7 +568,7 @@ export default function Advertise() {
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <div className="ad-badge">Advertise In The Poast</div>
+          <div className="ad-badge">Partner with The Poast</div>
         </div>
 
         <Form method="post" className="ad-booking-form">
@@ -618,7 +618,7 @@ export default function Advertise() {
 
             <div className="form-group-row">
               <div className="form-field">
-                <label htmlFor="name">Your Name</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   id="name"
@@ -633,7 +633,7 @@ export default function Advertise() {
               </div>
 
               <div className="form-field">
-                <label htmlFor="email">Work Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   id="email"
@@ -812,7 +812,7 @@ export default function Advertise() {
                 name="notes"
                 rows={4}
                 maxLength={5000}
-                placeholder="Share your UTM tracking code, landing page URL, or a few details about your campaign..."
+                placeholder="Share your UTM code, landing page URL, or a few campaign details..."
               />
             </div>
             
@@ -824,7 +824,7 @@ export default function Advertise() {
                 name="source"
                 autoComplete="off"
                 inputMode="url"
-                placeholder="Link to a previous or existing campaign (https://)"
+                placeholder="Link previous or existing campaign — https://"
                 aria-invalid={errors.source ? true : undefined}
                 aria-describedby={errors.source ? "source-error" : undefined}
               />

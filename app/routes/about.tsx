@@ -10,24 +10,20 @@ export const meta: MetaFunction = () => {
   };
 };
 
-/* -------------------------------------------------------------------------- */
-/*   EDIT THIS SECTION: adjust the copy so it sounds like you.                */
-/* -------------------------------------------------------------------------- */
-
 const AUDIENCE = ["Founders", "Executives", "Builders"];
 
 const PRINCIPLES = [
   {
-    title: "Free to read",
-    body: "Read it for free every day at thepoast.com",
+    title: "Read it for free",
+    body: "Read it every day at thepoast.com",
   },
   {
-    title: "Free to join",
-    body: "Subscribe with just your email. No subscription fee always free",
+    title: "Subscribe for free",
+    body: "Get it in your inbox daily",
   },
   {
-    title: "We love tips",
-    body: "Got a story or a tip? Send it our way and we'll reply within 24 hours",
+    title: "Submit a post",
+    body: "Wanna submit a post? Just send it our way",
   },
 ];
 
@@ -51,7 +47,7 @@ export default function About() {
 
       <main className="ad-booking-card about-card">
         <div className="ad-booking-header">
-          <h1 className="ad-booking-title">About The Poast</h1>
+          <div className="ad-badge">About The Poast</div>
         </div>
 
         <section className="about-section" aria-labelledby="about-what">
@@ -59,7 +55,7 @@ export default function About() {
             What's The Poast?
           </h2>
           <p className="about-text">
-            We're the easiest way to know what's happening in the world
+            We're a daily feed of snarky comments and posts from across the business world.
           </p>
         </section>
 
@@ -68,7 +64,7 @@ export default function About() {
             Who reads it?
           </h2>
           <p className="about-text">
-             People who like to get things done.
+             We're frequently read by people who like to get things done.
           </p>
           <div className="about-chips">
             {AUDIENCE.map((group) => (

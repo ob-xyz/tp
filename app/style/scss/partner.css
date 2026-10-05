@@ -644,7 +644,7 @@
   padding: 0.6rem 1.35rem;
   border: 1px solid color-mix(in srgb, var(--feed-text) 15%, transparent);
   border-radius: 999px;
-  font-family: "bold", system-ui, sans-serif;
+  font-family: bold !important;
   font-size: 0.88rem;
   text-decoration: none;
   color: var(--feed-text);

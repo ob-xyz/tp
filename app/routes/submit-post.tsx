@@ -379,11 +379,9 @@ export default function Tips() {
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <h1 className="ad-booking-title">Submit a post</h1>
-          <p className="ad-booking-sub">
-            Got a story, meme, or good post? Tell us about it.
-          </p>
+          <div className="ad-badge">Submit a Post</div>
         </div>
+
 
         <Form method="post" className="ad-booking-form">
           {actionData?.error && (
@@ -397,7 +395,7 @@ export default function Tips() {
 
           <div className="form-group-row">
             <div className="form-field">
-              <label htmlFor="name">Your Name (optional)</label>
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 id="name"
@@ -426,10 +424,10 @@ export default function Tips() {
 
           <div className="form-group-row">
             <div className="form-field">
-              <label htmlFor="topic">Type</label>
+              <label htmlFor="topic">Submission</label>
               <select id="topic" name="topic" defaultValue="">
                 <option value="" disabled>
-                  Select one...
+                  Pick one...
                 </option>
                 {TOPICS.map((t) => (
                   <option key={t} value={t}>
