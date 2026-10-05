@@ -6,7 +6,7 @@ import Altcha from "~/components/altcha";
 export const meta: MetaFunction = () => {
   return {
     title: "Media Kit : The Poast",
-    description: "This is who reads The Poast.",
+    description: "We find the good stuff and bring it to you every day.",
   };
 };
 const STATS = [

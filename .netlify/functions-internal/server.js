@@ -78,8 +78,8 @@ var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), links = () => [
   }
 ], meta = () => ({
   charset: "utf-8",
-  title: "The Poast",
-  description: "Get caught up.",
+  title: "The Poast : See the good stuff",
+  description: "We find the good stuff and bring it to you every day.",
   viewport: "width=device-width,initial-scale=1"
 });
 function ScrollToTop() {
@@ -712,12 +712,6 @@ liveGlobal.__poastLiveWarm || (liveGlobal.__poastLiveWarm = !0, getLiveIssue(), 
 // app/routes/feeds.preview.$id.tsx
 var HTML_HEADERS = {
   "Content-Type": "text/html; charset=utf-8",
-  /*
-   * Browser can reuse the preview for 10 minutes.
-   * CDN/server can keep it for 1 hour.
-   * Stale content can continue serving for 24 hours
-   * while the cache refreshes in the background.
-   */
   "Cache-Control": "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400",
   "X-Content-Type-Options": "nosniff"
 };
@@ -805,30 +799,30 @@ function LegalPage({
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("div", { className: `sticky-nav${showStickyNav ? " visible" : ""}`, children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react4.Link, { className: "sticky-logo", to: "/", "aria-label": "The Poast home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("img", { src: tp_default, alt: "The Poast", loading: "lazy", decoding: "async" }, void 0, !1, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 36,
+        lineNumber: 35,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 35,
+        lineNumber: 34,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react4.Link, { to: "/subscribe", className: "sticky-subscribe", children: "Subscribe" }, void 0, !1, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 38,
+        lineNumber: 37,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/legal-page.tsx",
-      lineNumber: 34,
+      lineNumber: 33,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react4.Link, { to: "/", className: "logo", "aria-label": "The Poast home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("img", { src: tp_default, alt: "The Poast Logo" }, void 0, !1, {
       fileName: "app/components/legal-page.tsx",
-      lineNumber: 44,
+      lineNumber: 43,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/components/legal-page.tsx",
-      lineNumber: 43,
+      lineNumber: 42,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("main", { className: "content-privacy2", children: [
@@ -838,12 +832,12 @@ function LegalPage({
           "."
         ] }, void 0, !0, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 49,
+          lineNumber: 48,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("br", {}, void 0, !1, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 50,
+          lineNumber: 49,
           columnNumber: 11
         }, this),
         "Effective: ",
@@ -851,47 +845,47 @@ function LegalPage({
         "."
       ] }, void 0, !0, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 48,
+        lineNumber: 47,
         columnNumber: 9
       }, this),
       toc3 && toc3.length > 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("nav", { className: "legal-toc", "aria-label": "On this page", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("p", { className: "legal-toc-label", children: "On this page" }, void 0, !1, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 56,
+          lineNumber: 55,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("ol", { children: toc3.map((item) => /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("li", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: `#${item.id}`, children: item.label }, void 0, !1, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 60,
+          lineNumber: 59,
           columnNumber: 19
         }, this) }, item.id, !1, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 59,
+          lineNumber: 58,
           columnNumber: 17
         }, this)) }, void 0, !1, {
           fileName: "app/components/legal-page.tsx",
-          lineNumber: 57,
+          lineNumber: 56,
           columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 55,
+        lineNumber: 54,
         columnNumber: 11
       }, this),
       children,
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { className: "legal-top", href: "#top-of-page", children: "Back to top \u2191" }, void 0, !1, {
         fileName: "app/components/legal-page.tsx",
-        lineNumber: 69,
+        lineNumber: 68,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/legal-page.tsx",
-      lineNumber: 47,
+      lineNumber: 46,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/legal-page.tsx",
-    lineNumber: 32,
+    lineNumber: 31,
     columnNumber: 5
   }, this);
 }
@@ -900,8 +894,8 @@ function LegalPage({
 var import_jsx_dev_runtime4 = require("react/jsx-dev-runtime"), links2 = () => [
   { rel: "stylesheet", href: showscroll_default }
 ], meta2 = () => ({
-  title: "Privacy Policy |: The Poast",
-  description: "How The Poast collects, uses, and protects your information, and the choices you have."
+  title: "Privacy Policy : The Poast",
+  description: "We find the good stuff and bring it to you every day."
 }), toc = [
   { id: "about", label: "About this Policy and us" },
   { id: "collect", label: "Information we collect" },
@@ -1643,8 +1637,8 @@ __export(terms_exports, {
 var import_jsx_dev_runtime5 = require("react/jsx-dev-runtime"), links3 = () => [
   { rel: "stylesheet", href: showscroll_default }
 ], meta3 = () => ({
-  title: "Terms and Conditions : The Poast",
-  description: "The terms that govern your use of The Poast websites, newsletters, and products."
+  title: "Terms : The Poast",
+  description: "We find the good stuff and bring it to you every day."
 }), toc2 = [
   { id: "about", label: "About this Policy and us" },
   { id: "collect", label: "Information we collect" },
@@ -2370,7 +2364,7 @@ function AltchaWrapper() {
 // app/routes/submit-post.tsx
 var import_jsx_dev_runtime7 = require("react/jsx-dev-runtime"), meta4 = () => ({
   title: "Submit a Post : The Poast",
-  description: "Got a story or a post? Send it our way."
+  description: "Wanna submit a post? Do it here."
 }), headers = () => ({
   "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=600"
 }), SHOW_ERROR_DETAILS = !0, TOPICS = ["New post", "Story idea", "Correction", "Something else"], CREDIT_OPTIONS = [
@@ -3563,7 +3557,7 @@ __export(media_kit_exports, {
 var import_react10 = require("@remix-run/react");
 var import_jsx_dev_runtime10 = require("react/jsx-dev-runtime"), meta5 = () => ({
   title: "Media Kit : The Poast",
-  description: "This is who reads The Poast."
+  description: "We find the good stuff and bring it to you every day."
 }), STATS = [
   { value: "27k+", label: "Email subscribers" },
   { value: "10k+", label: "Daily readers" },
@@ -3987,7 +3981,7 @@ __export(subscribe_exports, {
 var import_react11 = require("@remix-run/react");
 var import_jsx_dev_runtime11 = require("react/jsx-dev-runtime"), meta6 = () => ({
   title: "Subscribe : The Poast",
-  description: "Get caught up right here, right now."
+  description: "We find the good stuff and bring it to you every day."
 });
 function Subscribe() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "subscribe-page", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("main", { className: "subscribe-card", children: [
@@ -4236,7 +4230,7 @@ __export(thank_you_exports, {
   meta: () => meta7
 });
 var import_react12 = require("@remix-run/react"), import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), meta7 = () => ({
-  title: "Request received | The Poast",
+  title: "Request received : The Poast",
   robots: "noindex"
 });
 function ThankYou() {
@@ -6352,7 +6346,7 @@ __export(about_exports, {
 var import_react18 = require("@remix-run/react");
 var import_jsx_dev_runtime16 = require("react/jsx-dev-runtime"), meta8 = () => ({
   title: "About : The Poast",
-  description: "Get caught up."
+  description: "We find the good stuff and bring it to you every day."
 }), AUDIENCE2 = ["Founders", "Executives", "Builders"], PRINCIPLES = [
   {
     title: "Read it for free",
@@ -8182,18 +8176,12 @@ var live_exports = {};
 __export(live_exports, {
   loader: () => loader6
 });
-var LIVE_CACHE_CONTROL = "public, max-age=20, s-maxage=30, stale-while-revalidate=600";
+var LIVE_CACHE_CONTROL = "public, max-age=20, s-maxage=30, stale-while-revalidate=600", EMAIL_LOGO_BLOCK = /<p\b[^>]*class=["']tac["'][^>]*>\s*<a\b[^>]*>\s*<img\b[^>]*src=["']https:\/\/img\.thepoast\.com\/tp_u6yYte\.png["'][^>]*>\s*<\/a>\s*<\/p>/i;
 async function loader6() {
   let issue = await getLiveIssue();
-  return issue ? new Response(issue.body, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": LIVE_CACHE_CONTROL,
-      "X-Content-Type-Options": "nosniff"
-    }
-  }) : new Response(
-    `<!doctype html>
+  if (!issue)
+    return new Response(
+      `<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -8221,15 +8209,24 @@ body {
 <p>The Poast is loading. Please refresh shortly.</p>
 </body>
 </html>`,
-    {
-      status: 503,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-store",
-        "X-Content-Type-Options": "nosniff"
+      {
+        status: 503,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff"
+        }
       }
+    );
+  let body = issue.body.replace(EMAIL_LOGO_BLOCK, "");
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": LIVE_CACHE_CONTROL,
+      "X-Content-Type-Options": "nosniff"
     }
-  );
+  });
 }
 
 // app/routes/$.tsx
@@ -8537,7 +8534,7 @@ function NotFound() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-NFLTSOBZ.js", imports: ["/build/_shared/chunk-5S7OIOFF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GRS3DO5U.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-3XUM4LOR.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-XEXDJ5UQ.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/archive": { id: "routes/archive", parentId: "root", path: "archive", index: void 0, caseSensitive: void 0, module: "/build/routes/archive-XSDOXGQJ.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-VA3BBKQN.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-B5NQ5FHZ.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-4AOYL4HN.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-I2EFKIY2.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-HFZO22BK.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-QXRN5NRI.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/partner": { id: "routes/partner", parentId: "root", path: "partner", index: void 0, caseSensitive: void 0, module: "/build/routes/partner-3IYDPAWH.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-I3OPVLRS.js", imports: ["/build/_shared/chunk-UCW3Q3BK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-FIVRPBPJ.js", imports: ["/build/_shared/chunk-UCW3Q3BK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/submit-post": { id: "routes/submit-post", parentId: "root", path: "submit-post", index: void 0, caseSensitive: void 0, module: "/build/routes/submit-post-SOJYPFCZ.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-3YKFW3AR.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-BTOGZ4IZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "10562577", hmr: void 0, url: "/build/manifest-10562577.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NFLTSOBZ.js", imports: ["/build/_shared/chunk-5S7OIOFF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-L7QV7M5B.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-3XUM4LOR.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-3TJPXBX5.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/archive": { id: "routes/archive", parentId: "root", path: "archive", index: void 0, caseSensitive: void 0, module: "/build/routes/archive-XSDOXGQJ.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-VA3BBKQN.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-B5NQ5FHZ.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-4AOYL4HN.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-I2EFKIY2.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-HFZO22BK.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-E5KXFFVW.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/partner": { id: "routes/partner", parentId: "root", path: "partner", index: void 0, caseSensitive: void 0, module: "/build/routes/partner-3IYDPAWH.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-3RKPI64S.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-ORD3SNMA.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/submit-post": { id: "routes/submit-post", parentId: "root", path: "submit-post", index: void 0, caseSensitive: void 0, module: "/build/routes/submit-post-J3KIN3XM.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-OQ5ECV7B.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-4MD42CJF.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "72cec85e", hmr: void 0, url: "/build/manifest-72CEC85E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

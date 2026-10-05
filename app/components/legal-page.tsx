@@ -19,7 +19,6 @@ export default function LegalPage({
 }: LegalPageProps) {
   const [showStickyNav, setShowStickyNav] = useState(false);
 
-  /* ------------------------------ STICKY NAV ------------------------------ */
   useEffect(() => {
     const handleScroll = () => setShowStickyNav(window.scrollY > 50);
 

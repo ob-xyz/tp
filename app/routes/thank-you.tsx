@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => ({
-  title: "Request received | The Poast",
+  title: "Request received : The Poast",
   robots: "noindex",
 });
 

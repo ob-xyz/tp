@@ -3,6 +3,9 @@ import { getLiveIssue } from "../utils/poast-feeds.server";
 const LIVE_CACHE_CONTROL =
   "public, max-age=20, s-maxage=30, stale-while-revalidate=600";
 
+const EMAIL_LOGO_BLOCK =
+  /<p\b[^>]*class=["']tac["'][^>]*>\s*<a\b[^>]*>\s*<img\b[^>]*src=["']https:\/\/img\.thepoast\.com\/tp_u6yYte\.png["'][^>]*>\s*<\/a>\s*<\/p>/i;
+
 export async function loader() {
   const issue = await getLiveIssue();
 
@@ -47,7 +50,11 @@ body {
     );
   }
 
-  return new Response(issue.body, {
+  // Website only: remove the email-template logo so it doesn't double up
+  // with the site's own header logo. The email itself is untouched.
+  const body = issue.body.replace(EMAIL_LOGO_BLOCK, "");
+
+  return new Response(body, {
     status: 200,
     headers: {
       "Content-Type": "text/html; charset=utf-8",
