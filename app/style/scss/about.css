@@ -3,7 +3,7 @@
 /*   Builds on book.scss (page shell, header, back button).               */
 /* ---------------------------------------------------------------------- */
 .ad-booking-card.about-card {
-  max-width: 680px;
+  max-width: 620px;
 }
 
 .about-section {
@@ -39,7 +39,7 @@
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .about-chip {
@@ -95,6 +95,7 @@
 
 /* Call to action */
 .about-cta {
+  margin: 1.5rem auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

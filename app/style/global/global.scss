@@ -25,7 +25,6 @@ body {
   width: 100%;
   min-height: 100%;
   background-color: #fff;
-  overflow-y: auto;
   scrollbar-width: none;     /* Firefox */
   -ms-overflow-style: none;  /* IE and legacy Edge */
 
@@ -33,8 +32,11 @@ body {
     display: none;
   }
 }
+html {
+  overflow-y: auto;
+}
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 main{
   padding:0;

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@remix-run/react";
 import type {
   HeadersFunction,
@@ -23,10 +24,36 @@ export const headers: HeadersFunction = () => ({
     "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
 });
 
+/**
+ * Hides the sticky top bar once the footer (with its own subscribe CTA)
+ * scrolls into view. Increase the % in rootMargin to hide it sooner.
+ */
+function useHideTopbarNearFooter() {
+  const footerRef = useRef<HTMLElement>(null);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const el = footerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setHidden(entry.isIntersecting),
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { footerRef, hidden };
+}
+
 export default function Index() {
+  const { footerRef, hidden } = useHideTopbarNearFooter();
+
   return (
     <div className="feed-page">
-      <header className="feed-topbar">
+      <header className={`feed-topbar${hidden ? " is-hidden" : ""}`}>
         <Link className="feed-mark" to="/">
           <img
             src="/img/tp.png"
@@ -53,18 +80,17 @@ export default function Index() {
       </main>
 
       <footer
+        ref={footerRef}
         className="feed-footer"
         id="subscribe"
       >
-
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-        <div className="feed-header">
-          Get The Poast
-        </div>
+          <div className="feed-header">Get The Poast</div>
+
           <div className="feed-input-bar">
             <input
               className="feed-input email-input"
@@ -98,27 +124,22 @@ export default function Index() {
             name="nonce"
           />
 
-          <p className="feed-legal">
+          {/* div, not p: a <div>/<p> inside a <p> is invalid HTML and
+              causes hydration warnings */}
+          <div className="feed-legal">
             By submitting, you agree to our{" "}
-            <Link to="/policies/terms">
-              Terms
-            </Link>{" "}
+            <Link to="/policies/terms">Terms</Link>{" "}
             &amp;{" "}
-            <Link to="/policies/privacy">
-              Privacy
-            </Link>
-            <br />
+            <Link to="/policies/privacy">Privacy</Link>
             <div className="innerfeed-legal">
-            <Link className="space" to="/about">About</Link>
-            <Link className="space" to="/archive">Archive</Link>
-            <Link className="space" to="/submit-post">Submit Post</Link>
-            <Link className="space" to="/partner">Partner</Link>
-            <Link className="space" to="/book">Advertise</Link>
-            <p className="copyright">
-              © 2026 The Poast
-            </p>
+              <Link className="space" to="/about">About</Link>
+              <Link className="space" to="/archive">Archive</Link>
+              <Link className="space" to="/submit-post">Submit Post</Link>
+              <Link className="space" to="/partner">Partner</Link>
+              <Link className="space" to="/book">Advertise</Link>
+              <p className="copyright">© 2026 The Poast</p>
             </div>
-          </p>
+          </div>
         </form>
       </footer>
     </div>

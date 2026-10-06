@@ -118,6 +118,15 @@ body:has(.feed-page) {
   border-bottom: 1px solid var(--feed-hairline);
   box-sizing: border-box;
   overflow: hidden;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s;
+  /* Slides away once the footer CTA is on screen (class toggled in JS) */
+}
+.feed-topbar.is-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s 0.25s;
 }
 .feed-topbar .feed-mark {
   grid-column: 2;
@@ -424,7 +433,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   .feed-page .feed-embed,
   .feed-page .feed-embed iframe,
   .feed-page .feed-skeleton,
-  .feed-page .feed-subscribe {
+  .feed-page .feed-subscribe,
+  .feed-page .feed-topbar {
     transition: none !important;
     animation: none !important;
   }
@@ -800,7 +810,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .ad-booking-card {
   width: 100%;
-  max-width: 680px;
+  max-width: 620px;
   padding: 2rem 1.25rem 5rem;
   box-sizing: border-box;
   display: flex;
@@ -1606,7 +1616,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 /*   Builds on book.scss (page shell, header, back button).               */
 /* ---------------------------------------------------------------------- */
 .ad-booking-card.about-card {
-  max-width: 680px;
+  max-width: 620px;
 }
 
 .about-section {
@@ -1642,7 +1652,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .about-chip {
@@ -1698,6 +1708,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 /* Call to action */
 .about-cta {
+  margin: 1.5rem auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -3147,7 +3158,6 @@ body {
   width: 100%;
   min-height: 100%;
   background-color: #fff;
-  overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and legacy Edge */
 }
@@ -3156,8 +3166,12 @@ body::-webkit-scrollbar { /* Chrome, Safari, Opera, modern Edge */
   display: none;
 }
 
+html {
+  overflow-y: auto;
+}
+
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 main {

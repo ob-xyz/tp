@@ -1,4 +1,4 @@
-$about-max-width: 680px;
+$about-max-width: 620px;
 
 /* ---------------------------------------------------------------------- */
 /*                                ABOUT PAGE                               */
@@ -42,7 +42,7 @@ $about-max-width: 680px;
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0 0.5rem;
-  margin-bottom:1rem;
+  margin-bottom:1.25rem;
 }
 
 .about-chip {
@@ -100,6 +100,7 @@ $about-max-width: 680px;
 
 /* Call to action */
 .about-cta {
+  margin:1.5rem auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

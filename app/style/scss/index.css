@@ -89,6 +89,15 @@ body:has(.feed-page) {
   border-bottom: 1px solid var(--feed-hairline);
   box-sizing: border-box;
   overflow: hidden;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s;
+  /* Slides away once the footer CTA is on screen (class toggled in JS) */
+}
+.feed-topbar.is-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s 0.25s;
 }
 .feed-topbar .feed-mark {
   grid-column: 2;
@@ -395,7 +404,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   .feed-page .feed-embed,
   .feed-page .feed-embed iframe,
   .feed-page .feed-skeleton,
-  .feed-page .feed-subscribe {
+  .feed-page .feed-subscribe,
+  .feed-page .feed-topbar {
     transition: none !important;
     animation: none !important;
   }
