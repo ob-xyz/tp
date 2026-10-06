@@ -364,16 +364,19 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
         text-decoration: underline;
       }
     }
+    .innerfeed-legal{
+      margin-top:.4rem;
     .space{
       margin:0 .45rem;
-    } 
-  }
-  .copyright{
-    margin:.875rem 0 15rem;
+    }  
+    .copyright{
+    margin:.45rem 0 15rem;
     font-size: 0.7rem;
     color: var(--feed-legal);
     text-align: center;
     font-weight: 100;
+    }
+   }
   }
 }
 
@@ -424,9 +427,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
       margin: 0.8rem 0 0rem;
       padding-bottom: env(safe-area-inset-bottom, 0px);
     }
-    .copyright{
-    margin-top:-6rem;
-  }
   }
 }
 

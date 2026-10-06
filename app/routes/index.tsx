@@ -109,15 +109,16 @@ export default function Index() {
             </Link>
             .
             <br />
-            <br />
+            <div className="innerfeed-legal">
             <Link className="space" to="/about">About</Link>
             <Link className="space" to="/archive">Archive</Link>
             <Link className="space" to="/submit-post">Submit Post</Link>
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
-          </p>
-          <p className="copyright">
-            © 2026 The Poast
+            <p className="copyright">
+              © 2026 The Poast
+            </p>
+            </div>
           </p>
         </form>
       </footer>

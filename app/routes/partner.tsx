@@ -9,9 +9,7 @@ import { Link, Form, useActionData, useNavigation } from "@remix-run/react";
 
 import Altcha from "~/components/altcha";
 
-
 // Where customers land after a successful (or honeypot-caught) submission.
-// Must match the route file name: app/routes/thank-you.tsx -> "/thank-you".
 const THANK_YOU_PATH = "/thank-you";
 
 // Never leak server error details to visitors unless explicitly enabled

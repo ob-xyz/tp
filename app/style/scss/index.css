@@ -319,11 +319,14 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 .feed-subscribe-form .feed-legal a:hover {
   text-decoration: underline;
 }
-.feed-subscribe-form .feed-legal .space {
+.feed-subscribe-form .feed-legal .innerfeed-legal {
+  margin-top: 0.4rem;
+}
+.feed-subscribe-form .feed-legal .innerfeed-legal .space {
   margin: 0 0.45rem;
 }
-.feed-subscribe-form .copyright {
-  margin: 0.875rem 0 15rem;
+.feed-subscribe-form .feed-legal .innerfeed-legal .copyright {
+  margin: 0.45rem 0 15rem;
   font-size: 0.7rem;
   color: var(--feed-legal);
   text-align: center;
@@ -367,9 +370,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   .feed-subscribe-form .feed-legal {
     margin: 0.8rem 0 0rem;
     padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  .feed-subscribe-form .copyright {
-    margin-top: -6rem;
   }
 }
 @media (max-width: 380px) {
