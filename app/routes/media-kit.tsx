@@ -5,14 +5,14 @@ import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Media Kit : The Poast",
+    title: "Media Kit - The Poast",
     description: "We find everything worth seeing and bring it to you every day.",
   };
 };
 const STATS = [
   { value: "27k+", label: "Email subscribers" },
   { value: "10k+", label: "Daily readers" },
-  { value: "55k+", label: "Monthly web visitors" },
+  { value: "30k+", label: "Monthly web visitors" },
   { value: "36%", label: "Average open rate" },
 ];
 
