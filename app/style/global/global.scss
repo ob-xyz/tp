@@ -1,17 +1,16 @@
-@import '../global/Fonts.scss',
-'../global/Colors.scss',
-'../global/Buttons.scss',
-'../scss/index.scss',
-'../scss/book.scss',
-'../scss/partner.scss',
-'../scss/about.scss',
-'../scss/media-kit.scss',
-'../scss/submit-post.scss',
-'../scss/feeds.scss',
-'../scss/feed-detail.scss',
-'../scss/subscribe.scss',
-'../scss/policies/privacy.scss',
-'../scss/components/altcha.scss';
+@use '../global/Fonts.scss';
+@use '../global/Colors.scss';
+@use '../scss/index.scss';
+@use '../scss/book.scss';
+@use '../scss/partner.scss';
+@use '../scss/about.scss';
+@use '../scss/media-kit.scss';
+@use '../scss/submit-post.scss';
+@use '../scss/feeds.scss';
+@use '../scss/feed-detail.scss';
+@use '../scss/subscribe.scss';
+@use '../scss/policies/privacy.scss';
+@use '../scss/components/altcha.scss';
 
 * {
   box-sizing: border-box;
@@ -57,7 +56,7 @@ h1 {
   font-size: 1.35rem;
   font-family: 'book';
   font-weight: 100;
-  color: $black;
+  color: Colors.$black;
   text-decoration: none;
   line-height: normal;
 }
@@ -65,7 +64,7 @@ h2 {
   font-size: 0.8rem;
   font-family: medium;
   font-weight: 100;
-  color: $black;
+  color: Colors.$black;
   text-decoration: none;
   line-height: normal;
 }
@@ -74,24 +73,24 @@ h4,
 h5,
 h6 {
   font-family: 'medium';
-  color: $black;
+  color: Colors.$black;
   line-height: normal;
 }
 p {
   font-family: 'book';
   font-size: 1.1rem;
-  color: $black;
+  color: Colors.$black;
   line-height: normal;
 }
 li {
   font-family: 'book';
   font-size: 1.1rem;
-  color: $black;
+  color: Colors.$black;
   line-height: normal;
 }
 span {
   font-family: bold;
-  color: $black;
+  color: Colors.$black;
   line-height: normal;
 }
 button {

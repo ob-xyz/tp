@@ -1,3 +1,16 @@
+:root {
+  --feed-foot: rgba(0, 0, 0, 0.45) !important;
+  --feed-input-border: rgba(0, 0, 0, 0.15);
+  --feed-live: #ff2b2b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --feed-foot: rgba(255, 255, 255, 0.3) !important;
+    --feed-input-border: rgba(255, 255, 255, 0.12);
+    --feed-live: #ff2b2b;
+  }
+}
 altcha-widget {
   position: relative;
   margin-left: 0;
@@ -5,7 +18,13 @@ altcha-widget {
   max-width: 200px;
   --altcha-max-width: 300px;
   --altcha-border-width: 0;
-  font-size: 1.25rem;
+  --altcha-color-text: var(--feed-foot);
+  --altcha-max-width: 280px;
+  --altcha-color-bg: transparent;
+  --altcha-border-radius: 8px;
+  font-size: 0.75rem;
+  --altcha-color-border: var(--feed-input-border);
+  --altcha-color-border-focus: var(--feed-live);
   font-family: bold;
 }
 

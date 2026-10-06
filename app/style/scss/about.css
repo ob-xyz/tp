@@ -8,8 +8,7 @@
 
 .about-section {
   width: 100%;
-  margin-bottom: 2.25rem;
-  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .about-section-title {
@@ -40,6 +39,7 @@
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .about-chip {
@@ -100,8 +100,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
 }
 .about-cta .back-btn {
   margin-top: 0;

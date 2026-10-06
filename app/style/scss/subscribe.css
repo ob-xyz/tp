@@ -191,16 +191,7 @@ body:has(.subscribe-page) {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 0.85rem;
-}
-.subscribe-altcha altcha-widget {
-  --altcha-max-width: 280px;
-  --altcha-color-bg: transparent;
-  --altcha-color-border: var(--feed-input-border);
-  --altcha-color-text: var(--feed-heading);
-  --altcha-color-border-focus: var(--feed-live);
-  --altcha-border-radius: 8px;
-  font-size: 0.8rem;
+  margin-bottom: -3.5rem;
 }
 
 .subscribe-legal {

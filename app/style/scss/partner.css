@@ -599,8 +599,8 @@
   overflow: hidden;
 }
 .ad-booking-form .ad-submit-btn {
+  margin-bottom: -2rem !important;
   width: 100%;
-  margin-top: 0.5rem;
   background: var(--feed-btn-bg, #ffffff);
   color: var(--feed-btn-text, #000000);
   border: none;

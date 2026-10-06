@@ -35,6 +35,7 @@
 /* Header Container & Pill Badge */
 .ad-booking-header {
   text-align: center;
+  margin-top: 0.75rem;
   margin-bottom: 2rem;
   width: 100%;
   display: flex;
@@ -258,8 +259,6 @@
 }
 .ad-booking-form .ad-submit-btn {
   width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: -1rem;
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   border: none;

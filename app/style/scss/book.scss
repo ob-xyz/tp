@@ -43,6 +43,7 @@ $ad-max-width: 580px;
 /* Header Container & Pill Badge */
 .ad-booking-header {
   text-align: center;
+  margin-top:.75rem;
   margin-bottom: 2rem;
   width: 100%;
   display: flex;
@@ -285,8 +286,6 @@ $ad-max-width: 580px;
 
   .ad-submit-btn {
     width: 100%;
-    margin-top: 0.5rem;
-    margin-bottom: -1rem;
     background: var(--feed-btn-bg);
     color: var(--feed-btn-text);
     border: none;

@@ -63,7 +63,7 @@ __export(root_exports, {
 var import_react2 = require("react"), import_react3 = require("@remix-run/react"), import_react_router_dom = require("react-router-dom");
 
 // app/style/global/global.css
-var global_default = "/build/_assets/global-FGIAWCAW.css";
+var global_default = "/build/_assets/global-QIOS44NP.css";
 
 // app/root.tsx
 var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), links = () => [
@@ -2843,21 +2843,21 @@ function Tips() {
           },
           this
         ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("button", { type: "submit", className: "ad-submit-btn", children: "Submit Post" }, void 0, !1, {
+          fileName: "app/routes/submit-post.tsx",
+          lineNumber: 495,
+          columnNumber: 11
+        }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "subscribe-altcha", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
             fileName: "app/routes/submit-post.tsx",
-            lineNumber: 496,
+            lineNumber: 499,
             columnNumber: 13
           }, this),
           fieldError("altcha")
         ] }, void 0, !0, {
           fileName: "app/routes/submit-post.tsx",
-          lineNumber: 495,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("button", { type: "submit", className: "ad-submit-btn", children: "Submit Post" }, void 0, !1, {
-          fileName: "app/routes/submit-post.tsx",
-          lineNumber: 500,
+          lineNumber: 498,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
@@ -2865,184 +2865,90 @@ function Tips() {
           {
             className: "feed-footer",
             id: "subscribe",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-                fileName: "app/routes/submit-post.tsx",
-                lineNumber: 508,
-                columnNumber: 11
-              }, this) }, void 0, !1, {
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+              "form",
+              {
+                method: "post",
+                action: "https://app.thepoast.com/subscription/form",
+                className: "feed-subscribe-form",
+                children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("p", { className: "feed-legal", children: [
+                  "By submitting, you agree to our",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                    fileName: "app/routes/submit-post.tsx",
+                    lineNumber: 514,
+                    columnNumber: 13
+                  }, this),
+                  " ",
+                  "&",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                    fileName: "app/routes/submit-post.tsx",
+                    lineNumber: 518,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("br", {}, void 0, !1, {
+                    fileName: "app/routes/submit-post.tsx",
+                    lineNumber: 521,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 523,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 524,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 525,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 526,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 527,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                      fileName: "app/routes/submit-post.tsx",
+                      lineNumber: 528,
+                      columnNumber: 13
+                    }, this)
+                  ] }, void 0, !0, {
+                    fileName: "app/routes/submit-post.tsx",
+                    lineNumber: 522,
+                    columnNumber: 13
+                  }, this)
+                ] }, void 0, !0, {
+                  fileName: "app/routes/submit-post.tsx",
+                  lineNumber: 512,
+                  columnNumber: 11
+                }, this)
+              },
+              void 0,
+              !1,
+              {
                 fileName: "app/routes/submit-post.tsx",
                 lineNumber: 507,
                 columnNumber: 9
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-                "form",
-                {
-                  method: "post",
-                  action: "https://app.thepoast.com/subscription/form",
-                  className: "feed-subscribe-form",
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "feed-input-bar", children: [
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-                        "input",
-                        {
-                          className: "feed-input email-input",
-                          type: "email",
-                          name: "email",
-                          required: !0,
-                          placeholder: "Email Address *"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 517,
-                          columnNumber: 13
-                        },
-                        this
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-                        "button",
-                        {
-                          className: "feed-submit",
-                          type: "submit",
-                          children: "Subscribe"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 525,
-                          columnNumber: 13
-                        },
-                        this
-                      )
-                    ] }, void 0, !0, {
-                      fileName: "app/routes/submit-post.tsx",
-                      lineNumber: 516,
-                      columnNumber: 11
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-                      fileName: "app/routes/submit-post.tsx",
-                      lineNumber: 534,
-                      columnNumber: 13
-                    }, this) }, void 0, !1, {
-                      fileName: "app/routes/submit-post.tsx",
-                      lineNumber: 533,
-                      columnNumber: 11
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-                      "input",
-                      {
-                        id: "6d48f",
-                        type: "hidden",
-                        name: "l",
-                        value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 537,
-                        columnNumber: 11
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-                      "input",
-                      {
-                        type: "hidden",
-                        name: "nonce"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 544,
-                        columnNumber: 11
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("p", { className: "feed-legal", children: [
-                      "By submitting, you agree to our",
-                      " ",
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 551,
-                        columnNumber: 13
-                      }, this),
-                      " ",
-                      "&",
-                      " ",
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 555,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("br", {}, void 0, !1, {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 558,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 560,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 561,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 562,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 563,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 564,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                          fileName: "app/routes/submit-post.tsx",
-                          lineNumber: 565,
-                          columnNumber: 13
-                        }, this)
-                      ] }, void 0, !0, {
-                        fileName: "app/routes/submit-post.tsx",
-                        lineNumber: 559,
-                        columnNumber: 13
-                      }, this)
-                    ] }, void 0, !0, {
-                      fileName: "app/routes/submit-post.tsx",
-                      lineNumber: 549,
-                      columnNumber: 11
-                    }, this)
-                  ]
-                },
-                void 0,
-                !0,
-                {
-                  fileName: "app/routes/submit-post.tsx",
-                  lineNumber: 510,
-                  columnNumber: 9
-                },
-                this
-              )
-            ]
+              },
+              this
+            )
           },
           void 0,
-          !0,
+          !1,
           {
             fileName: "app/routes/submit-post.tsx",
-            lineNumber: 503,
+            lineNumber: 502,
             columnNumber: 7
           },
           this
@@ -3054,7 +2960,7 @@ function Tips() {
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react7.Link, { to: "/", className: "back-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
         fileName: "app/routes/submit-post.tsx",
-        lineNumber: 576,
+        lineNumber: 539,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
@@ -3457,181 +3363,175 @@ function FeedDetail() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/feeds.$id.tsx",
-            lineNumber: 212,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/feeds.$id.tsx",
-            lineNumber: 211,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 221,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 229,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/feeds.$id.tsx",
+                lineNumber: 217,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/feeds.$id.tsx",
+                    lineNumber: 221,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/feeds.$id.tsx",
+                    lineNumber: 229,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/feeds.$id.tsx",
+                lineNumber: 220,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/feeds.$id.tsx",
+                lineNumber: 238,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/feeds.$id.tsx",
+                lineNumber: 237,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/feeds.$id.tsx",
-                  lineNumber: 220,
+                  lineNumber: 241,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/feeds.$id.tsx",
-                  lineNumber: 238,
+                  lineNumber: 248,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/feeds.$id.tsx",
+                  lineNumber: 255,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/feeds.$id.tsx",
-                  lineNumber: 237,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/feeds.$id.tsx",
+                  lineNumber: 259,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/feeds.$id.tsx",
+                  lineNumber: 262,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 241,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 248,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 255,
+                    lineNumber: 264,
                     columnNumber: 13
                   }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                     fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 259,
+                    lineNumber: 265,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("br", {}, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                     fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 262,
+                    lineNumber: 266,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 264,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 265,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 266,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 267,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 268,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/feeds.$id.tsx",
-                      lineNumber: 269,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                     fileName: "app/routes/feeds.$id.tsx",
-                    lineNumber: 263,
+                    lineNumber: 267,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react9.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/feeds.$id.tsx",
+                    lineNumber: 268,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/feeds.$id.tsx",
+                    lineNumber: 269,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/feeds.$id.tsx",
-                  lineNumber: 253,
-                  columnNumber: 11
+                  lineNumber: 263,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/feeds.$id.tsx",
-              lineNumber: 214,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/feeds.$id.tsx",
+                lineNumber: 253,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/feeds.$id.tsx",
+            lineNumber: 212,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/feeds.$id.tsx",
         lineNumber: 207,
@@ -3887,184 +3787,178 @@ function MediaKit() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/media-kit.tsx",
-            lineNumber: 152,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/media-kit.tsx",
-            lineNumber: 151,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 161,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 169,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/media-kit.tsx",
+                lineNumber: 158,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/media-kit.tsx",
+                    lineNumber: 162,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/media-kit.tsx",
+                    lineNumber: 170,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/media-kit.tsx",
+                lineNumber: 161,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/media-kit.tsx",
+                lineNumber: 179,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/media-kit.tsx",
+                lineNumber: 178,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/media-kit.tsx",
-                  lineNumber: 160,
+                  lineNumber: 182,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/media-kit.tsx",
-                  lineNumber: 178,
+                  lineNumber: 189,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/media-kit.tsx",
+                  lineNumber: 196,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/media-kit.tsx",
-                  lineNumber: 177,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/media-kit.tsx",
+                  lineNumber: 200,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/media-kit.tsx",
+                  lineNumber: 203,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 181,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 188,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 195,
+                    lineNumber: 205,
                     columnNumber: 13
                   }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                     fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 199,
+                    lineNumber: 206,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("br", {}, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                     fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 202,
+                    lineNumber: 207,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 204,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 205,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 206,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 207,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 208,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/media-kit.tsx",
-                      lineNumber: 209,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                     fileName: "app/routes/media-kit.tsx",
-                    lineNumber: 203,
+                    lineNumber: 208,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react10.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/media-kit.tsx",
+                    lineNumber: 209,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/media-kit.tsx",
+                    lineNumber: 210,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/media-kit.tsx",
-                  lineNumber: 193,
-                  columnNumber: 11
+                  lineNumber: 204,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/media-kit.tsx",
-              lineNumber: 154,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/media-kit.tsx",
+                lineNumber: 194,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/media-kit.tsx",
+            lineNumber: 153,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/media-kit.tsx",
-        lineNumber: 147,
+        lineNumber: 148,
         columnNumber: 7
       },
       this
@@ -4126,191 +4020,185 @@ function Subscribe() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/subscribe.tsx",
-            lineNumber: 35,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/subscribe.tsx",
-            lineNumber: 34,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 44,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 52,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/subscribe.tsx",
+                lineNumber: 39,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 43,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 51,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/subscribe.tsx",
+                lineNumber: 42,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/subscribe.tsx",
+                lineNumber: 60,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/subscribe.tsx",
+                lineNumber: 59,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/subscribe.tsx",
-                  lineNumber: 43,
+                  lineNumber: 63,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/subscribe.tsx",
-                  lineNumber: 61,
+                  lineNumber: 70,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/subscribe.tsx",
+                  lineNumber: 77,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/subscribe.tsx",
-                  lineNumber: 60,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/subscribe.tsx",
-                    lineNumber: 64,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/subscribe.tsx",
-                    lineNumber: 71,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/subscribe.tsx",
-                    lineNumber: 78,
-                    columnNumber: 13
-                  }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
-                    fileName: "app/routes/subscribe.tsx",
-                    lineNumber: 82,
-                    columnNumber: 13
-                  }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("br", {}, void 0, !1, {
-                    fileName: "app/routes/subscribe.tsx",
-                    lineNumber: 85,
-                    columnNumber: 13
-                  }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 87,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 88,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 89,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 90,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 91,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/subscribe.tsx",
-                      lineNumber: 92,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/subscribe.tsx",
+                  lineNumber: 81,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/subscribe.tsx",
+                  lineNumber: 84,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/subscribe.tsx",
                     lineNumber: 86,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 87,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 88,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 89,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 90,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/subscribe.tsx",
+                    lineNumber: 91,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/subscribe.tsx",
-                  lineNumber: 76,
-                  columnNumber: 11
+                  lineNumber: 85,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/subscribe.tsx",
-              lineNumber: 37,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/subscribe.tsx",
+                lineNumber: 75,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/subscribe.tsx",
+            lineNumber: 34,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/subscribe.tsx",
-        lineNumber: 30,
+        lineNumber: 29,
         columnNumber: 7
       },
       this
     ),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react11.Link, { to: "/", className: "back-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
       fileName: "app/routes/subscribe.tsx",
-      lineNumber: 100,
+      lineNumber: 99,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
@@ -4894,181 +4782,175 @@ function Today() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/archive.tsx",
-            lineNumber: 457,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/archive.tsx",
-            lineNumber: 456,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 466,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 474,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/archive.tsx",
+                lineNumber: 462,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/archive.tsx",
+                    lineNumber: 466,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/archive.tsx",
+                    lineNumber: 474,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/archive.tsx",
+                lineNumber: 465,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/archive.tsx",
+                lineNumber: 483,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/archive.tsx",
+                lineNumber: 482,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/archive.tsx",
-                  lineNumber: 465,
+                  lineNumber: 486,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/archive.tsx",
-                  lineNumber: 483,
+                  lineNumber: 493,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/archive.tsx",
+                  lineNumber: 500,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/archive.tsx",
-                  lineNumber: 482,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/archive.tsx",
+                  lineNumber: 504,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/archive.tsx",
+                  lineNumber: 507,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/archive.tsx",
-                    lineNumber: 486,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/archive.tsx",
-                    lineNumber: 493,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/archive.tsx",
-                    lineNumber: 500,
+                    lineNumber: 509,
                     columnNumber: 13
                   }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                     fileName: "app/routes/archive.tsx",
-                    lineNumber: 504,
+                    lineNumber: 510,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("br", {}, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                     fileName: "app/routes/archive.tsx",
-                    lineNumber: 507,
+                    lineNumber: 511,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 509,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 510,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 511,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 512,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 513,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/archive.tsx",
-                      lineNumber: 514,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                     fileName: "app/routes/archive.tsx",
-                    lineNumber: 508,
+                    lineNumber: 512,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react14.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/archive.tsx",
+                    lineNumber: 513,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/archive.tsx",
+                    lineNumber: 514,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/archive.tsx",
-                  lineNumber: 498,
-                  columnNumber: 11
+                  lineNumber: 508,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/archive.tsx",
-              lineNumber: 459,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/archive.tsx",
+                lineNumber: 498,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/archive.tsx",
+            lineNumber: 457,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/archive.tsx",
         lineNumber: 452,
@@ -6291,227 +6173,133 @@ function Advertise() {
           },
           this
         ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
+          "button",
+          {
+            type: "submit",
+            className: "ad-submit-btn",
+            disabled: submitting,
+            "aria-busy": submitting,
+            children: submitting ? "Submitting Request..." : "Submit Booking Request"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/partner.tsx",
+            lineNumber: 843,
+            columnNumber: 13
+          },
+          this
+        ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "ad-form-section ad-form-submit", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "subscribe-altcha", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
               fileName: "app/routes/partner.tsx",
-              lineNumber: 846,
+              lineNumber: 854,
               columnNumber: 15
             }, this),
             fieldError("altcha")
           ] }, void 0, !0, {
             fileName: "app/routes/partner.tsx",
-            lineNumber: 845,
+            lineNumber: 853,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-            "button",
-            {
-              type: "submit",
-              className: "ad-submit-btn",
-              disabled: submitting,
-              "aria-busy": submitting,
-              children: submitting ? "Submitting Request..." : "Submit Booking Request"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/partner.tsx",
-              lineNumber: 850,
-              columnNumber: 13
-            },
-            this
-          ),
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
             "footer",
             {
               className: "feed-footer",
               id: "subscribe",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-                  fileName: "app/routes/partner.tsx",
-                  lineNumber: 864,
-                  columnNumber: 11
-                }, this) }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
+                "form",
+                {
+                  method: "post",
+                  action: "https://app.thepoast.com/subscription/form",
+                  className: "feed-subscribe-form",
+                  children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { className: "feed-legal", children: [
+                    "By submitting, you agree to our",
+                    " ",
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                      fileName: "app/routes/partner.tsx",
+                      lineNumber: 870,
+                      columnNumber: 13
+                    }, this),
+                    " ",
+                    "&",
+                    " ",
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                      fileName: "app/routes/partner.tsx",
+                      lineNumber: 874,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
+                      fileName: "app/routes/partner.tsx",
+                      lineNumber: 877,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 879,
+                        columnNumber: 13
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 880,
+                        columnNumber: 13
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 881,
+                        columnNumber: 13
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 882,
+                        columnNumber: 13
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 883,
+                        columnNumber: 13
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                        fileName: "app/routes/partner.tsx",
+                        lineNumber: 884,
+                        columnNumber: 13
+                      }, this)
+                    ] }, void 0, !0, {
+                      fileName: "app/routes/partner.tsx",
+                      lineNumber: 878,
+                      columnNumber: 13
+                    }, this)
+                  ] }, void 0, !0, {
+                    fileName: "app/routes/partner.tsx",
+                    lineNumber: 868,
+                    columnNumber: 11
+                  }, this)
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/partner.tsx",
                   lineNumber: 863,
                   columnNumber: 9
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-                  "form",
-                  {
-                    method: "post",
-                    action: "https://app.thepoast.com/subscription/form",
-                    className: "feed-subscribe-form",
-                    children: [
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "feed-input-bar", children: [
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-                          "input",
-                          {
-                            className: "feed-input email-input",
-                            type: "email",
-                            name: "email",
-                            required: !0,
-                            placeholder: "Email Address *"
-                          },
-                          void 0,
-                          !1,
-                          {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 873,
-                            columnNumber: 13
-                          },
-                          this
-                        ),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-                          "button",
-                          {
-                            className: "feed-submit",
-                            type: "submit",
-                            children: "Subscribe"
-                          },
-                          void 0,
-                          !1,
-                          {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 881,
-                            columnNumber: 13
-                          },
-                          this
-                        )
-                      ] }, void 0, !0, {
-                        fileName: "app/routes/partner.tsx",
-                        lineNumber: 872,
-                        columnNumber: 11
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-                        fileName: "app/routes/partner.tsx",
-                        lineNumber: 890,
-                        columnNumber: 13
-                      }, this) }, void 0, !1, {
-                        fileName: "app/routes/partner.tsx",
-                        lineNumber: 889,
-                        columnNumber: 11
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-                        "input",
-                        {
-                          id: "6d48f",
-                          type: "hidden",
-                          name: "l",
-                          value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 893,
-                          columnNumber: 11
-                        },
-                        this
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-                        "input",
-                        {
-                          type: "hidden",
-                          name: "nonce"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 900,
-                          columnNumber: 11
-                        },
-                        this
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { className: "feed-legal", children: [
-                        "By submitting, you agree to our",
-                        " ",
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 907,
-                          columnNumber: 13
-                        }, this),
-                        " ",
-                        "&",
-                        " ",
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 911,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 914,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 916,
-                            columnNumber: 13
-                          }, this),
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 917,
-                            columnNumber: 13
-                          }, this),
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 918,
-                            columnNumber: 13
-                          }, this),
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 919,
-                            columnNumber: 13
-                          }, this),
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react17.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 920,
-                            columnNumber: 13
-                          }, this),
-                          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                            fileName: "app/routes/partner.tsx",
-                            lineNumber: 921,
-                            columnNumber: 13
-                          }, this)
-                        ] }, void 0, !0, {
-                          fileName: "app/routes/partner.tsx",
-                          lineNumber: 915,
-                          columnNumber: 13
-                        }, this)
-                      ] }, void 0, !0, {
-                        fileName: "app/routes/partner.tsx",
-                        lineNumber: 905,
-                        columnNumber: 11
-                      }, this)
-                    ]
-                  },
-                  void 0,
-                  !0,
-                  {
-                    fileName: "app/routes/partner.tsx",
-                    lineNumber: 866,
-                    columnNumber: 9
-                  },
-                  this
-                )
-              ]
+                },
+                this
+              )
             },
             void 0,
-            !0,
+            !1,
             {
               fileName: "app/routes/partner.tsx",
-              lineNumber: 859,
+              lineNumber: 858,
               columnNumber: 7
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/partner.tsx",
-          lineNumber: 844,
+          lineNumber: 852,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
@@ -6692,184 +6480,178 @@ function About() {
         {
           className: "feed-footer",
           id: "subscribe",
-          children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-              fileName: "app/routes/about.tsx",
-              lineNumber: 105,
-              columnNumber: 11
-            }, this) }, void 0, !1, {
-              fileName: "app/routes/about.tsx",
-              lineNumber: 104,
-              columnNumber: 9
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
-              "form",
-              {
-                method: "post",
-                action: "https://app.thepoast.com/subscription/form",
-                className: "feed-subscribe-form",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-input-bar", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
-                      "input",
-                      {
-                        className: "feed-input email-input",
-                        type: "email",
-                        name: "email",
-                        required: !0,
-                        placeholder: "Email Address *"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 114,
-                        columnNumber: 13
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
-                      "button",
-                      {
-                        className: "feed-submit",
-                        type: "submit",
-                        children: "Subscribe"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 122,
-                        columnNumber: 13
-                      },
-                      this
-                    )
-                  ] }, void 0, !0, {
+          children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+            "form",
+            {
+              method: "post",
+              action: "https://app.thepoast.com/subscription/form",
+              className: "feed-subscribe-form",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                  fileName: "app/routes/about.tsx",
+                  lineNumber: 111,
+                  columnNumber: 9
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-input-bar", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+                    "input",
+                    {
+                      className: "feed-input email-input",
+                      type: "email",
+                      name: "email",
+                      required: !0,
+                      placeholder: "Email Address *"
+                    },
+                    void 0,
+                    !1,
+                    {
+                      fileName: "app/routes/about.tsx",
+                      lineNumber: 115,
+                      columnNumber: 13
+                    },
+                    this
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+                    "button",
+                    {
+                      className: "feed-submit",
+                      type: "submit",
+                      children: "Subscribe"
+                    },
+                    void 0,
+                    !1,
+                    {
+                      fileName: "app/routes/about.tsx",
+                      lineNumber: 123,
+                      columnNumber: 13
+                    },
+                    this
+                  )
+                ] }, void 0, !0, {
+                  fileName: "app/routes/about.tsx",
+                  lineNumber: 114,
+                  columnNumber: 11
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                  fileName: "app/routes/about.tsx",
+                  lineNumber: 132,
+                  columnNumber: 13
+                }, this) }, void 0, !1, {
+                  fileName: "app/routes/about.tsx",
+                  lineNumber: 131,
+                  columnNumber: 11
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+                  "input",
+                  {
+                    id: "6d48f",
+                    type: "hidden",
+                    name: "l",
+                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                  },
+                  void 0,
+                  !1,
+                  {
                     fileName: "app/routes/about.tsx",
-                    lineNumber: 113,
+                    lineNumber: 135,
                     columnNumber: 11
-                  }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+                  "input",
+                  {
+                    type: "hidden",
+                    name: "nonce"
+                  },
+                  void 0,
+                  !1,
+                  {
                     fileName: "app/routes/about.tsx",
-                    lineNumber: 131,
+                    lineNumber: 142,
+                    columnNumber: 11
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { className: "feed-legal", children: [
+                  "By submitting, you agree to our",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                    fileName: "app/routes/about.tsx",
+                    lineNumber: 149,
                     columnNumber: 13
-                  }, this) }, void 0, !1, {
-                    fileName: "app/routes/about.tsx",
-                    lineNumber: 130,
-                    columnNumber: 11
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
-                    "input",
-                    {
-                      id: "6d48f",
-                      type: "hidden",
-                      name: "l",
-                      value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                    },
-                    void 0,
-                    !1,
-                    {
+                  " ",
+                  "&",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                    fileName: "app/routes/about.tsx",
+                    lineNumber: 153,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+                    fileName: "app/routes/about.tsx",
+                    lineNumber: 156,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                       fileName: "app/routes/about.tsx",
-                      lineNumber: 134,
-                      columnNumber: 11
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
-                    "input",
-                    {
-                      type: "hidden",
-                      name: "nonce"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/about.tsx",
-                      lineNumber: 141,
-                      columnNumber: 11
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { className: "feed-legal", children: [
-                    "By submitting, you agree to our",
-                    " ",
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                      fileName: "app/routes/about.tsx",
-                      lineNumber: 148,
+                      lineNumber: 158,
                       columnNumber: 13
                     }, this),
-                    " ",
-                    "&",
-                    " ",
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                       fileName: "app/routes/about.tsx",
-                      lineNumber: 152,
+                      lineNumber: 159,
                       columnNumber: 13
                     }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                       fileName: "app/routes/about.tsx",
-                      lineNumber: 155,
+                      lineNumber: 160,
                       columnNumber: 13
                     }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 157,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 158,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 159,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 160,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 161,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                        fileName: "app/routes/about.tsx",
-                        lineNumber: 162,
-                        columnNumber: 13
-                      }, this)
-                    ] }, void 0, !0, {
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                       fileName: "app/routes/about.tsx",
-                      lineNumber: 156,
+                      lineNumber: 161,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react18.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                      fileName: "app/routes/about.tsx",
+                      lineNumber: 162,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                      fileName: "app/routes/about.tsx",
+                      lineNumber: 163,
                       columnNumber: 13
                     }, this)
                   ] }, void 0, !0, {
                     fileName: "app/routes/about.tsx",
-                    lineNumber: 146,
-                    columnNumber: 11
+                    lineNumber: 157,
+                    columnNumber: 13
                   }, this)
-                ]
-              },
-              void 0,
-              !0,
-              {
-                fileName: "app/routes/about.tsx",
-                lineNumber: 107,
-                columnNumber: 9
-              },
-              this
-            )
-          ]
+                ] }, void 0, !0, {
+                  fileName: "app/routes/about.tsx",
+                  lineNumber: 147,
+                  columnNumber: 11
+                }, this)
+              ]
+            },
+            void 0,
+            !0,
+            {
+              fileName: "app/routes/about.tsx",
+              lineNumber: 106,
+              columnNumber: 9
+            },
+            this
+          )
         },
         void 0,
-        !0,
+        !1,
         {
           fileName: "app/routes/about.tsx",
-          lineNumber: 100,
+          lineNumber: 101,
           columnNumber: 7
         },
         this
@@ -7274,181 +7056,175 @@ function Feeds() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/feeds.tsx",
-            lineNumber: 511,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/feeds.tsx",
-            lineNumber: 510,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 520,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 528,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/feeds.tsx",
+                lineNumber: 516,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/feeds.tsx",
+                    lineNumber: 520,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/feeds.tsx",
+                    lineNumber: 528,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/feeds.tsx",
+                lineNumber: 519,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/feeds.tsx",
+                lineNumber: 537,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/feeds.tsx",
+                lineNumber: 536,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/feeds.tsx",
-                  lineNumber: 519,
+                  lineNumber: 540,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/feeds.tsx",
-                  lineNumber: 537,
+                  lineNumber: 547,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/feeds.tsx",
+                  lineNumber: 554,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/feeds.tsx",
-                  lineNumber: 536,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/feeds.tsx",
+                  lineNumber: 558,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/feeds.tsx",
+                  lineNumber: 561,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/feeds.tsx",
-                    lineNumber: 540,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/feeds.tsx",
-                    lineNumber: 547,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/feeds.tsx",
-                    lineNumber: 554,
+                    lineNumber: 563,
                     columnNumber: 13
                   }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                     fileName: "app/routes/feeds.tsx",
-                    lineNumber: 558,
+                    lineNumber: 564,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                     fileName: "app/routes/feeds.tsx",
-                    lineNumber: 561,
+                    lineNumber: 565,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 563,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 564,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 565,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 566,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 567,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/feeds.tsx",
-                      lineNumber: 568,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                     fileName: "app/routes/feeds.tsx",
-                    lineNumber: 562,
+                    lineNumber: 566,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_react20.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/feeds.tsx",
+                    lineNumber: 567,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/feeds.tsx",
+                    lineNumber: 568,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/feeds.tsx",
-                  lineNumber: 552,
-                  columnNumber: 11
+                  lineNumber: 562,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/feeds.tsx",
-              lineNumber: 513,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/feeds.tsx",
+                lineNumber: 552,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/feeds.tsx",
+            lineNumber: 511,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/feeds.tsx",
         lineNumber: 506,
@@ -7547,181 +7323,175 @@ function Index() {
       {
         className: "feed-footer",
         id: "subscribe",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 60,
-            columnNumber: 11
-          }, this) }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 59,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-            "form",
-            {
-              method: "post",
-              action: "https://app.thepoast.com/subscription/form",
-              className: "feed-subscribe-form",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-input-bar", children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-                    "input",
-                    {
-                      className: "feed-input email-input",
-                      type: "email",
-                      name: "email",
-                      required: !0,
-                      placeholder: "Email Address *"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 69,
-                      columnNumber: 13
-                    },
-                    this
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-                    "button",
-                    {
-                      className: "feed-submit",
-                      type: "submit",
-                      children: "Subscribe"
-                    },
-                    void 0,
-                    !1,
-                    {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 77,
-                      columnNumber: 13
-                    },
-                    this
-                  )
-                ] }, void 0, !0, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+          "form",
+          {
+            method: "post",
+            action: "https://app.thepoast.com/subscription/form",
+            className: "feed-subscribe-form",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 65,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-input-bar", children: [
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+                  "input",
+                  {
+                    className: "feed-input email-input",
+                    type: "email",
+                    name: "email",
+                    required: !0,
+                    placeholder: "Email Address *"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/index.tsx",
+                    lineNumber: 69,
+                    columnNumber: 13
+                  },
+                  this
+                ),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+                  "button",
+                  {
+                    className: "feed-submit",
+                    type: "submit",
+                    children: "Subscribe"
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/index.tsx",
+                    lineNumber: 77,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              ] }, void 0, !0, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 68,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 86,
+                columnNumber: 13
+              }, this) }, void 0, !1, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 85,
+                columnNumber: 11
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+                "input",
+                {
+                  id: "6d48f",
+                  type: "hidden",
+                  name: "l",
+                  value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 68,
+                  lineNumber: 89,
                   columnNumber: 11
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+                "input",
+                {
+                  type: "hidden",
+                  name: "nonce"
+                },
+                void 0,
+                !1,
+                {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 86,
+                  lineNumber: 96,
+                  columnNumber: 11
+                },
+                this
+              ),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "feed-legal", children: [
+                "By submitting, you agree to our",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 103,
                   columnNumber: 13
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/index.tsx",
-                  lineNumber: 85,
-                  columnNumber: 11
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-                  "input",
-                  {
-                    id: "6d48f",
-                    type: "hidden",
-                    name: "l",
-                    value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                  },
-                  void 0,
-                  !1,
-                  {
+                " ",
+                "&",
+                " ",
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 107,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+                  fileName: "app/routes/index.tsx",
+                  lineNumber: 110,
+                  columnNumber: 13
+                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                     fileName: "app/routes/index.tsx",
-                    lineNumber: 89,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-                  "input",
-                  {
-                    type: "hidden",
-                    name: "nonce"
-                  },
-                  void 0,
-                  !1,
-                  {
-                    fileName: "app/routes/index.tsx",
-                    lineNumber: 96,
-                    columnNumber: 11
-                  },
-                  this
-                ),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "feed-legal", children: [
-                  "By submitting, you agree to our",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                    fileName: "app/routes/index.tsx",
-                    lineNumber: 103,
+                    lineNumber: 112,
                     columnNumber: 13
                   }, this),
-                  " ",
-                  "&",
-                  " ",
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                     fileName: "app/routes/index.tsx",
-                    lineNumber: 107,
+                    lineNumber: 113,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
                     fileName: "app/routes/index.tsx",
-                    lineNumber: 110,
+                    lineNumber: 114,
                     columnNumber: 13
                   }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 112,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 113,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 114,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 115,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 116,
-                      columnNumber: 13
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                      fileName: "app/routes/index.tsx",
-                      lineNumber: 117,
-                      columnNumber: 13
-                    }, this)
-                  ] }, void 0, !0, {
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
                     fileName: "app/routes/index.tsx",
-                    lineNumber: 111,
+                    lineNumber: 115,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react21.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/index.tsx",
+                    lineNumber: 116,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/index.tsx",
+                    lineNumber: 117,
                     columnNumber: 13
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/index.tsx",
-                  lineNumber: 101,
-                  columnNumber: 11
+                  lineNumber: 111,
+                  columnNumber: 13
                 }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 62,
-              columnNumber: 9
-            },
-            this
-          )
-        ]
+              ] }, void 0, !0, {
+                fileName: "app/routes/index.tsx",
+                lineNumber: 101,
+                columnNumber: 11
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/routes/index.tsx",
+            lineNumber: 60,
+            columnNumber: 9
+          },
+          this
+        )
       },
       void 0,
-      !0,
+      !1,
       {
         fileName: "app/routes/index.tsx",
         lineNumber: 55,
@@ -8249,21 +8019,21 @@ function Advertise2() {
           },
           this
         ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("button", { type: "submit", className: "ad-submit-btn", children: "Submit Booking Request" }, void 0, !1, {
+          fileName: "app/routes/book.tsx",
+          lineNumber: 478,
+          columnNumber: 11
+        }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "subscribe-altcha", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
             fileName: "app/routes/book.tsx",
-            lineNumber: 480,
+            lineNumber: 483,
             columnNumber: 13
           }, this),
           fieldError("altcha")
         ] }, void 0, !0, {
           fileName: "app/routes/book.tsx",
-          lineNumber: 479,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("button", { type: "submit", className: "ad-submit-btn", children: "Submit Booking Request" }, void 0, !1, {
-          fileName: "app/routes/book.tsx",
-          lineNumber: 484,
+          lineNumber: 482,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
@@ -8271,184 +8041,90 @@ function Advertise2() {
           {
             className: "feed-footer",
             id: "subscribe",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "feed-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "feed-badge", children: "Get The Poast" }, void 0, !1, {
-                fileName: "app/routes/book.tsx",
-                lineNumber: 493,
-                columnNumber: 11
-              }, this) }, void 0, !1, {
-                fileName: "app/routes/book.tsx",
-                lineNumber: 492,
-                columnNumber: 9
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                "form",
-                {
-                  method: "post",
-                  action: "https://app.thepoast.com/subscription/form",
-                  className: "feed-subscribe-form",
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "feed-input-bar", children: [
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                        "input",
-                        {
-                          className: "feed-input email-input",
-                          type: "email",
-                          name: "email",
-                          required: !0,
-                          placeholder: "Email Address *"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 502,
-                          columnNumber: 13
-                        },
-                        this
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                        "button",
-                        {
-                          className: "feed-submit",
-                          type: "submit",
-                          children: "Subscribe"
-                        },
-                        void 0,
-                        !1,
-                        {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 510,
-                          columnNumber: 13
-                        },
-                        this
-                      )
-                    ] }, void 0, !0, {
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              "form",
+              {
+                method: "post",
+                action: "https://app.thepoast.com/subscription/form",
+                className: "feed-subscribe-form",
+                children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { className: "feed-legal", children: [
+                  "By submitting, you agree to our",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
+                    fileName: "app/routes/book.tsx",
+                    lineNumber: 498,
+                    columnNumber: 13
+                  }, this),
+                  " ",
+                  "&",
+                  " ",
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
+                    fileName: "app/routes/book.tsx",
+                    lineNumber: 502,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
+                    fileName: "app/routes/book.tsx",
+                    lineNumber: 505,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
                       fileName: "app/routes/book.tsx",
-                      lineNumber: 501,
-                      columnNumber: 11
-                    }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
-                      fileName: "app/routes/book.tsx",
-                      lineNumber: 519,
+                      lineNumber: 507,
                       columnNumber: 13
-                    }, this) }, void 0, !1, {
-                      fileName: "app/routes/book.tsx",
-                      lineNumber: 518,
-                      columnNumber: 11
                     }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                      "input",
-                      {
-                        id: "6d48f",
-                        type: "hidden",
-                        name: "l",
-                        value: "6d48fffe-7d37-4c14-b317-3e4cda33a647"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 522,
-                        columnNumber: 11
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                      "input",
-                      {
-                        type: "hidden",
-                        name: "nonce"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 529,
-                        columnNumber: 11
-                      },
-                      this
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { className: "feed-legal", children: [
-                      "By submitting, you agree to our",
-                      " ",
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 536,
-                        columnNumber: 13
-                      }, this),
-                      " ",
-                      "&",
-                      " ",
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 540,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 543,
-                        columnNumber: 13
-                      }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "innerfeed-legal", children: [
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 545,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 546,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 547,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 548,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 549,
-                          columnNumber: 13
-                        }, this),
-                        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                          fileName: "app/routes/book.tsx",
-                          lineNumber: 550,
-                          columnNumber: 13
-                        }, this)
-                      ] }, void 0, !0, {
-                        fileName: "app/routes/book.tsx",
-                        lineNumber: 544,
-                        columnNumber: 13
-                      }, this)
-                    ] }, void 0, !0, {
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
                       fileName: "app/routes/book.tsx",
-                      lineNumber: 534,
-                      columnNumber: 11
+                      lineNumber: 508,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
+                      fileName: "app/routes/book.tsx",
+                      lineNumber: 509,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
+                      fileName: "app/routes/book.tsx",
+                      lineNumber: 510,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                      fileName: "app/routes/book.tsx",
+                      lineNumber: 511,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                      fileName: "app/routes/book.tsx",
+                      lineNumber: 512,
+                      columnNumber: 13
                     }, this)
-                  ]
-                },
-                void 0,
-                !0,
-                {
+                  ] }, void 0, !0, {
+                    fileName: "app/routes/book.tsx",
+                    lineNumber: 506,
+                    columnNumber: 13
+                  }, this)
+                ] }, void 0, !0, {
                   fileName: "app/routes/book.tsx",
-                  lineNumber: 495,
-                  columnNumber: 9
-                },
-                this
-              )
-            ]
+                  lineNumber: 496,
+                  columnNumber: 11
+                }, this)
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/book.tsx",
+                lineNumber: 491,
+                columnNumber: 9
+              },
+              this
+            )
           },
           void 0,
-          !0,
+          !1,
           {
             fileName: "app/routes/book.tsx",
-            lineNumber: 488,
+            lineNumber: 487,
             columnNumber: 7
           },
           this
@@ -8460,7 +8136,7 @@ function Advertise2() {
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react22.Link, { to: "/", className: "back-btn", children: "\u2190 Return to The Poast" }, void 0, !1, {
         fileName: "app/routes/book.tsx",
-        lineNumber: 559,
+        lineNumber: 521,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
@@ -8659,10 +8335,10 @@ function NotFound() {
             action: "https://app.thepoast.com/subscription/form",
             className: "feed-subscribe-form",
             children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { className: "feed-subscribe-heading", children: "Get The Poast for free" }, void 0, !1, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "feed-header", children: "Get The Poast" }, void 0, !1, {
                 fileName: "app/routes/$.tsx",
-                lineNumber: 76,
-                columnNumber: 11
+                lineNumber: 77,
+                columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "feed-input-bar", children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
@@ -8672,8 +8348,6 @@ function NotFound() {
                     type: "email",
                     name: "email",
                     required: !0,
-                    autoComplete: "email",
-                    inputMode: "email",
                     placeholder: "Email Address *"
                   },
                   void 0,
@@ -8696,7 +8370,7 @@ function NotFound() {
                   !1,
                   {
                     fileName: "app/routes/$.tsx",
-                    lineNumber: 91,
+                    lineNumber: 89,
                     columnNumber: 13
                   },
                   this
@@ -8708,11 +8382,11 @@ function NotFound() {
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "feed-altcha-wrap", children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(AltchaWrapper, {}, void 0, !1, {
                 fileName: "app/routes/$.tsx",
-                lineNumber: 100,
+                lineNumber: 98,
                 columnNumber: 13
               }, this) }, void 0, !1, {
                 fileName: "app/routes/$.tsx",
-                lineNumber: 99,
+                lineNumber: 97,
                 columnNumber: 11
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
@@ -8727,7 +8401,7 @@ function NotFound() {
                 !1,
                 {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 103,
+                  lineNumber: 101,
                   columnNumber: 11
                 },
                 this
@@ -8742,7 +8416,7 @@ function NotFound() {
                 !1,
                 {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 110,
+                  lineNumber: 108,
                   columnNumber: 11
                 },
                 this
@@ -8752,7 +8426,7 @@ function NotFound() {
                 " ",
                 /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { to: "/policies/terms", children: "Terms" }, void 0, !1, {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 117,
+                  lineNumber: 115,
                   columnNumber: 13
                 }, this),
                 " ",
@@ -8760,53 +8434,53 @@ function NotFound() {
                 " ",
                 /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { to: "/policies/privacy", children: "Privacy" }, void 0, !1, {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 121,
-                  columnNumber: 13
-                }, this),
-                ".",
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
-                  fileName: "app/routes/$.tsx",
-                  lineNumber: 125,
+                  lineNumber: 119,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 126,
+                  lineNumber: 122,
                   columnNumber: 13
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
+                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "innerfeed-legal", children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/about", children: "About" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 124,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 125,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 126,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 127,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 128,
+                    columnNumber: 13
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
+                    fileName: "app/routes/$.tsx",
+                    lineNumber: 129,
+                    columnNumber: 13
+                  }, this)
+                ] }, void 0, !0, {
                   fileName: "app/routes/$.tsx",
-                  lineNumber: 127,
-                  columnNumber: 13
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/archive", children: "Archive" }, void 0, !1, {
-                  fileName: "app/routes/$.tsx",
-                  lineNumber: 128,
-                  columnNumber: 13
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/submit-post", children: "Submit Post" }, void 0, !1, {
-                  fileName: "app/routes/$.tsx",
-                  lineNumber: 129,
-                  columnNumber: 13
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/partner", children: "Partner" }, void 0, !1, {
-                  fileName: "app/routes/$.tsx",
-                  lineNumber: 130,
-                  columnNumber: 13
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react24.Link, { className: "space", to: "/book", children: "Advertise" }, void 0, !1, {
-                  fileName: "app/routes/$.tsx",
-                  lineNumber: 131,
+                  lineNumber: 123,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/$.tsx",
-                lineNumber: 115,
-                columnNumber: 11
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { className: "copyright", children: "\xA9 2026 The Poast" }, void 0, !1, {
-                fileName: "app/routes/$.tsx",
-                lineNumber: 133,
+                lineNumber: 113,
                 columnNumber: 11
               }, this)
             ]
@@ -8815,7 +8489,7 @@ function NotFound() {
           !0,
           {
             fileName: "app/routes/$.tsx",
-            lineNumber: 71,
+            lineNumber: 72,
             columnNumber: 9
           },
           this
@@ -8838,7 +8512,7 @@ function NotFound() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-NFLTSOBZ.js", imports: ["/build/_shared/chunk-5S7OIOFF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-H63DKUOR.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-3XUM4LOR.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-MDMR7ZSA.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/archive": { id: "routes/archive", parentId: "root", path: "archive", index: void 0, caseSensitive: void 0, module: "/build/routes/archive-BDQFYN3P.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-AMW33KEF.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-B5NQ5FHZ.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-I5X3AMTV.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-4FZ7NDN2.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-UHA4JVIJ.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-ZVIL6AIQ.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/partner": { id: "routes/partner", parentId: "root", path: "partner", index: void 0, caseSensitive: void 0, module: "/build/routes/partner-LSBFTR75.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-3RKPI64S.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-ORD3SNMA.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/submit-post": { id: "routes/submit-post", parentId: "root", path: "submit-post", index: void 0, caseSensitive: void 0, module: "/build/routes/submit-post-OKCPENIE.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-BFEK5OIM.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-4MD42CJF.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "12aea351", hmr: void 0, url: "/build/manifest-12AEA351.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NFLTSOBZ.js", imports: ["/build/_shared/chunk-5S7OIOFF.js", "/build/_shared/chunk-IU43IUTG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LCPYIFY5.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-ZD7E7PNU.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-3ABAZ2BS.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/archive": { id: "routes/archive", parentId: "root", path: "archive", index: void 0, caseSensitive: void 0, module: "/build/routes/archive-RK7S3YOK.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/book": { id: "routes/book", parentId: "root", path: "book", index: void 0, caseSensitive: void 0, module: "/build/routes/book-UGET3WV7.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/confirm": { id: "routes/confirm", parentId: "root", path: "confirm", index: void 0, caseSensitive: void 0, module: "/build/routes/confirm-B5NQ5FHZ.js", imports: ["/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds": { id: "routes/feeds", parentId: "root", path: "feeds", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds-A5CTP67N.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.$id": { id: "routes/feeds.$id", parentId: "root", path: "feeds/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.$id-TQOM2O73.js", imports: ["/build/_shared/chunk-SHUQLU4M.js", "/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/feeds.full.$id": { id: "routes/feeds.full.$id", parentId: "root", path: "feeds/full/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.full.$id-PPNRNRLN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/feeds.preview.$id": { id: "routes/feeds.preview.$id", parentId: "root", path: "feeds/preview/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/feeds.preview.$id-TSSBU4VE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-H74U5RBA.js", imports: ["/build/_shared/chunk-Q5BNSIRI.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/live": { id: "routes/live", parentId: "root", path: "live", index: void 0, caseSensitive: void 0, module: "/build/routes/live-Q6E2GHNA.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/media-kit": { id: "routes/media-kit", parentId: "root", path: "media-kit", index: void 0, caseSensitive: void 0, module: "/build/routes/media-kit-DGF5LMFF.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/partner": { id: "routes/partner", parentId: "root", path: "partner", index: void 0, caseSensitive: void 0, module: "/build/routes/partner-FWJOGWLT.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/privacy": { id: "routes/policies/privacy", parentId: "root", path: "policies/privacy", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/privacy-3RKPI64S.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/policies/terms": { id: "routes/policies/terms", parentId: "root", path: "policies/terms", index: void 0, caseSensitive: void 0, module: "/build/routes/policies/terms-ORD3SNMA.js", imports: ["/build/_shared/chunk-ANWEW5OK.js", "/build/_shared/chunk-3YPO5SKL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/submit-post": { id: "routes/submit-post", parentId: "root", path: "submit-post", index: void 0, caseSensitive: void 0, module: "/build/routes/submit-post-RG4ARAF5.js", imports: ["/build/_shared/chunk-3K2JK6MY.js", "/build/_shared/chunk-6ARFTHHB.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/subscribe": { id: "routes/subscribe", parentId: "root", path: "subscribe", index: void 0, caseSensitive: void 0, module: "/build/routes/subscribe-ULTUFCKN.js", imports: ["/build/_shared/chunk-6ARFTHHB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/thank-you": { id: "routes/thank-you", parentId: "root", path: "thank-you", index: void 0, caseSensitive: void 0, module: "/build/routes/thank-you-4MD42CJF.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "03c97c1a", hmr: void 0, url: "/build/manifest-03C97C1A.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

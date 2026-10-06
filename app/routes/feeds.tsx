@@ -507,15 +507,15 @@ export default function Feeds() {
         className="feed-footer"
         id="subscribe"
       >
-        <div className="feed-header">
-          <div className="feed-badge">Get The Poast</div>
-        </div>
+
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-
+        <div className="feed-header">
+          Get The Poast
+        </div>
           <div className="feed-input-bar">
             <input
               className="feed-input email-input"

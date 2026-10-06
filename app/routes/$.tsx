@@ -68,23 +68,21 @@ export default function NotFound() {
         className="feed-footer"
         id="subscribe"
       >
+
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">
-            Get The Poast for free
-          </p>
-
+        <div className="feed-header">
+          Get The Poast
+        </div>
           <div className="feed-input-bar">
             <input
               className="feed-input email-input"
               type="email"
               name="email"
               required
-              autoComplete="email"
-              inputMode="email"
               placeholder="Email Address *"
             />
 
@@ -121,17 +119,17 @@ export default function NotFound() {
             <Link to="/policies/privacy">
               Privacy
             </Link>
-            .
             <br />
-            <br />
+            <div className="innerfeed-legal">
             <Link className="space" to="/about">About</Link>
             <Link className="space" to="/archive">Archive</Link>
             <Link className="space" to="/submit-post">Submit Post</Link>
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
-          </p>
-          <p className="copyright">
-            © 2026 The Poast
+            <p className="copyright">
+              © 2026 The Poast
+            </p>
+            </div>
           </p>
         </form>
       </footer>

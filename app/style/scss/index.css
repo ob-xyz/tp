@@ -226,42 +226,26 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
-.feed-footer .feed-header {
+
+.feed-subscribe-form {
+  max-width: 540px;
+  margin: 0 auto 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.feed-subscribe-form .feed-header {
   text-align: center;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.feed-footer .feed-header .feed-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
-  font-family: "bold", system-ui, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
-  color: var(--feed-heading, var(--feed-text));
-}
-
-.feed-subscribe-form {
-  max-width: 540px;
-  margin: 0.5rem auto 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.feed-subscribe-form .feed-subscribe-heading {
-  font-size: 0.9rem;
-  color: var(--feed-heading);
-  margin: 0 0 0.8rem;
-  text-align: center;
   font-family: bold;
+  font-size: 0.875rem;
+  color: var(--feed-legal);
+  margin-bottom: 0.5rem;
 }
 .feed-subscribe-form .feed-input-bar {
   display: flex;
@@ -318,20 +302,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   justify-content: center;
   width: 100%;
 }
-.feed-subscribe-form .feed-altcha-wrap altcha-widget {
-  --altcha-max-width: 280px;
-  --altcha-color-bg: transparent;
-  --altcha-color-border: var(--feed-input-border);
-  --altcha-color-text: var(--feed-heading);
-  --altcha-color-border-focus: var(--feed-live);
-  --altcha-border-radius: 8px;
-  font-size: 0.75rem;
-}
 .feed-subscribe-form .feed-legal {
   margin: 0.5rem 0 0rem;
   font-size: 0.75rem;
   color: var(--feed-legal);
   text-align: center;
+  font-family: kl !important;
+  font-weight: 100;
 }
 .feed-subscribe-form .feed-legal a {
   color: var(--feed-legal);
@@ -351,7 +328,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   font-size: 0.7rem;
   color: var(--feed-legal);
   text-align: center;
-  font-weight: 100;
+  font-family: kl;
 }
 
 /* ---------------------------------------------------------------------- */

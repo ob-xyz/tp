@@ -1,7 +1,3 @@
-/* ---------------------------------------------------------------------- */
-/*                               MEDIA KIT PAGE                            */
-/*   Builds on book.scss (page shell, header, steps, back button).        */
-/* ---------------------------------------------------------------------- */
 .ad-booking-card.mk-card {
   max-width: 860px;
 }

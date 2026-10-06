@@ -255,42 +255,26 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
-.feed-footer .feed-header {
+
+.feed-subscribe-form {
+  max-width: 540px;
+  margin: 0 auto 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.feed-subscribe-form .feed-header {
   text-align: center;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.feed-footer .feed-header .feed-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
-  font-family: "bold", system-ui, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: color-mix(in srgb, var(--feed-text) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
-  color: var(--feed-heading, var(--feed-text));
-}
-
-.feed-subscribe-form {
-  max-width: 540px;
-  margin: 0.5rem auto 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.feed-subscribe-form .feed-subscribe-heading {
-  font-size: 0.9rem;
-  color: var(--feed-heading);
-  margin: 0 0 0.8rem;
-  text-align: center;
   font-family: bold;
+  font-size: 0.875rem;
+  color: var(--feed-legal);
+  margin-bottom: 0.5rem;
 }
 .feed-subscribe-form .feed-input-bar {
   display: flex;
@@ -347,20 +331,13 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   justify-content: center;
   width: 100%;
 }
-.feed-subscribe-form .feed-altcha-wrap altcha-widget {
-  --altcha-max-width: 280px;
-  --altcha-color-bg: transparent;
-  --altcha-color-border: var(--feed-input-border);
-  --altcha-color-text: var(--feed-heading);
-  --altcha-color-border-focus: var(--feed-live);
-  --altcha-border-radius: 8px;
-  font-size: 0.75rem;
-}
 .feed-subscribe-form .feed-legal {
   margin: 0.5rem 0 0rem;
   font-size: 0.75rem;
   color: var(--feed-legal);
   text-align: center;
+  font-family: kl !important;
+  font-weight: 100;
 }
 .feed-subscribe-form .feed-legal a {
   color: var(--feed-legal);
@@ -380,7 +357,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   font-size: 0.7rem;
   color: var(--feed-legal);
   text-align: center;
-  font-weight: 100;
+  font-family: kl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -489,6 +466,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 /* Header Container & Pill Badge */
 .ad-booking-header {
   text-align: center;
+  margin-top: 0.75rem;
   margin-bottom: 2rem;
   width: 100%;
   display: flex;
@@ -712,8 +690,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 .ad-booking-form .ad-submit-btn {
   width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: -1rem;
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   border: none;
@@ -1404,8 +1380,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   overflow: hidden;
 }
 .ad-booking-form .ad-submit-btn {
+  margin-bottom: -2rem !important;
   width: 100%;
-  margin-top: 0.5rem;
   background: var(--feed-btn-bg, #ffffff);
   color: var(--feed-btn-text, #000000);
   border: none;
@@ -1635,8 +1611,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .about-section {
   width: 100%;
-  margin-bottom: 2.25rem;
-  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .about-section-title {
@@ -1667,6 +1642,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .about-chip {
@@ -1727,8 +1703,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
 }
 .about-cta .back-btn {
   margin-top: 0;
@@ -1776,10 +1750,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     transition: none !important;
   }
 }
-/* ---------------------------------------------------------------------- */
-/*                               MEDIA KIT PAGE                            */
-/*   Builds on book.scss (page shell, header, steps, back button).        */
-/* ---------------------------------------------------------------------- */
 .ad-booking-card.mk-card {
   max-width: 860px;
 }
@@ -2583,16 +2553,7 @@ body:has(.subscribe-page) {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 0.85rem;
-}
-.subscribe-altcha altcha-widget {
-  --altcha-max-width: 280px;
-  --altcha-color-bg: transparent;
-  --altcha-color-border: var(--feed-input-border);
-  --altcha-color-text: var(--feed-heading);
-  --altcha-color-border-focus: var(--feed-live);
-  --altcha-border-radius: 8px;
-  font-size: 0.8rem;
+  margin-bottom: -3.5rem;
 }
 
 .subscribe-legal {
@@ -3141,6 +3102,19 @@ body:has(.content-privacy) {
     animation: none !important;
   }
 }
+:root {
+  --feed-foot: rgba(0, 0, 0, 0.45) !important;
+  --feed-input-border: rgba(0, 0, 0, 0.15);
+  --feed-live: #ff2b2b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --feed-foot: rgba(255, 255, 255, 0.3) !important;
+    --feed-input-border: rgba(255, 255, 255, 0.12);
+    --feed-live: #ff2b2b;
+  }
+}
 altcha-widget {
   position: relative;
   margin-left: 0;
@@ -3148,7 +3122,13 @@ altcha-widget {
   max-width: 200px;
   --altcha-max-width: 300px;
   --altcha-border-width: 0;
-  font-size: 1.25rem;
+  --altcha-color-text: var(--feed-foot);
+  --altcha-max-width: 280px;
+  --altcha-color-bg: transparent;
+  --altcha-border-radius: 8px;
+  font-size: 0.75rem;
+  --altcha-color-border: var(--feed-input-border);
+  --altcha-color-border-focus: var(--feed-live);
   font-family: bold;
 }
 
