@@ -369,7 +369,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .feed-subscribe-form .copyright {
-    margin-top: -3.1rem;
+    margin-top: -6rem;
   }
 }
 @media (max-width: 380px) {
