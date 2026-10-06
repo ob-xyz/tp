@@ -453,14 +453,14 @@ export default function Today() {
         className="feed-footer"
         id="subscribe"
       >
+        <div className="feed-header">
+          <div className="feed-badge">Get The Poast</div>
+        </div>
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <p className="feed-subscribe-heading">
-            Get The Poast for free
-          </p>
 
           <div className="feed-input-bar">
             <input
@@ -504,17 +504,17 @@ export default function Today() {
             <Link to="/policies/privacy">
               Privacy
             </Link>
-            .
             <br />
-            <br />
+            <div className="innerfeed-legal">
             <Link className="space" to="/about">About</Link>
             <Link className="space" to="/archive">Archive</Link>
             <Link className="space" to="/submit-post">Submit Post</Link>
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
-          </p>
-          <p className="copyright">
-            © 2026 The Poast
+            <p className="copyright">
+              © 2026 The Poast
+            </p>
+            </div>
           </p>
         </form>
       </footer>

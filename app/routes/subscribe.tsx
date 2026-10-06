@@ -26,47 +26,38 @@ export default function Subscribe() {
           />
         </Link>
 
-        <h1 className="subscribe-title">
-          Get The Poast for free
-        </h1>
 
-        <p className="subscribe-sub">
-          Get caught up right here, right now.
-        </p>
-
+      <footer
+        className="feed-footer"
+        id="subscribe"
+      >
+        <div className="feed-header">
+          <div className="feed-badge">Get The Poast</div>
+        </div>
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
-          className="subscribe-form"
+          className="feed-subscribe-form"
         >
-          <div className="subscribe-input-bar">
-            <label
-              htmlFor="subscribe-email"
-              className="sr-only"
-            >
-              Email address
-            </label>
 
+          <div className="feed-input-bar">
             <input
-              id="subscribe-email"
-              className="subscribe-input"
+              className="feed-input email-input"
               type="email"
               name="email"
               required
-              autoComplete="email"
-              inputMode="email"
               placeholder="Email Address *"
             />
 
             <button
-              className="subscribe-submit"
+              className="feed-submit"
               type="submit"
             >
               Subscribe
             </button>
           </div>
 
-          <div className="subscribe-altcha">
+          <div className="feed-altcha-wrap">
             <Altcha />
           </div>
 
@@ -82,7 +73,7 @@ export default function Subscribe() {
             name="nonce"
           />
 
-          <p className="subscribe-legal">
+          <p className="feed-legal">
             By submitting, you agree to our{" "}
             <Link to="/policies/terms">
               Terms
@@ -91,19 +82,20 @@ export default function Subscribe() {
             <Link to="/policies/privacy">
               Privacy
             </Link>
-            .
             <br />
-            <br />
+            <div className="innerfeed-legal">
             <Link className="space" to="/about">About</Link>
             <Link className="space" to="/archive">Archive</Link>
             <Link className="space" to="/submit-post">Submit Post</Link>
             <Link className="space" to="/partner">Partner</Link>
             <Link className="space" to="/book">Advertise</Link>
-          </p>
-          <p className="copyright">
-            © 2026 The Poast
+            <p className="copyright">
+              © 2026 The Poast
+            </p>
+            </div>
           </p>
         </form>
+      </footer>
 
         <Link to="/" className="back-btn">
           ← Return to The Poast

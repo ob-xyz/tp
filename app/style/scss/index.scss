@@ -259,11 +259,34 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
+  margin-top:2rem;
+  .feed-header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .feed-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-family: "bold", system-ui, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, var(--feed-text) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--feed-text) 12%, transparent);
+    color: var(--feed-heading, var(--feed-text));
+  }
+}
+
 }
 
 .feed-subscribe-form {
   max-width: 540px;
-  margin: 1rem auto 1rem;
+  margin: .5rem auto 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -365,7 +388,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
       }
     }
     .innerfeed-legal{
-      margin-top:.4rem;
+      margin-top:.45rem;
     .space{
       margin:0 .45rem;
     }  
