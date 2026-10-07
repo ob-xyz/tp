@@ -1,12 +1,20 @@
 import type {
   ActionFunctionArgs,
   HeadersFunction,
+  MetaFunction
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData } from "@remix-run/react";
 import { useState } from "react";
 
 import Altcha from "~/components/altcha";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Book Campaign - The Poast",
+    description: "Book an ad campaign for your company or brand here.",
+  };
+};
 
 const SHOW_ERROR_DETAILS = true;
 

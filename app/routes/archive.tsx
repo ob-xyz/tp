@@ -4,6 +4,7 @@ import {
   json,
   type HeadersFunction,
   type LinksFunction,
+  type MetaFunction
 } from "@remix-run/node";
 
 import Altcha from "../components/altcha";
@@ -18,6 +19,13 @@ import {
   getDateKey,
   warmLeadStories,
 } from "../utils/poast-feeds.server";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Archive - The Poast",
+    description: "Create a new ad campaign for your company or brand here.",
+  };
+};
 
 export const links: LinksFunction = () => [
   {

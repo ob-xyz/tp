@@ -11,7 +11,7 @@ import Altcha from "~/components/altcha";
 export const meta: MetaFunction = () => {
   return {
     title: "Submit a Post - The Poast",
-    description: "Wanna submit a post? Do it here.",
+    description: "Want to submit a post? Do it here.",
   };
 };
 

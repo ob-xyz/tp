@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 import Altcha from "~/components/altcha";
@@ -6,7 +6,7 @@ import Altcha from "~/components/altcha";
 export const meta: MetaFunction = () => {
   return {
     title: "About - The Poast",
-    description: "We find everything worth seeing and bring it to you every day.",
+    description: "Learn more about The Poast.",
   };
 };
 

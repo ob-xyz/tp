@@ -6,7 +6,7 @@ import Altcha from "../components/altcha";
 export const meta: MetaFunction = () => {
   return {
     title: "Subscribe - The Poast",
-    description: "We find everything worth seeing and bring it to you every day.",
+    description: "Get The Poast sent to inbox every day.",
   };
 };
 

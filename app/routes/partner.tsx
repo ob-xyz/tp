@@ -1,6 +1,7 @@
 import type {
   ActionFunctionArgs,
   HeadersFunction,
+  MetaFunction
 } from "@remix-run/node";
 import { useState, useEffect, memo, useRef } from "react";
 import type { ReactNode, RefObject } from "react";
@@ -8,6 +9,13 @@ import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData, useNavigation } from "@remix-run/react";
 
 import Altcha from "~/components/altcha";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "New Campaign - The Poast",
+    description: "Create an ad campaign for your company or brand here.",
+  };
+};
 
 // Where customers land after a successful (or honeypot-caught) submission.
 const THANK_YOU_PATH = "/thank-you";

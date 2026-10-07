@@ -4,6 +4,7 @@ import {
   json,
   type HeadersFunction,
   type LinksFunction,
+  type MetaFunction
 } from "@remix-run/node";
 
 import Altcha from "../components/altcha";
@@ -17,6 +18,13 @@ import {
   getCampaignDate,
   warmIssues,
 } from "../utils/poast-feeds.server";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Past Feeds - The Poast",
+    description: "See every feed we've ever posted.",
+  };
+};
 
 export const links: LinksFunction = () => [
   {
