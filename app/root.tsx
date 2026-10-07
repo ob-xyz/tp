@@ -31,8 +31,8 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "The Poast - No Login. No Sign Up.",
-  description: "The Poast is where people gather for a shared view of what's happening every day. No account required.",
+  title: "The Poast - no log in. no sign up.",
+  description: "The Poast has no log in or sign up. Every day, people gather here for a shared view of what's happening in the world.",
   viewport: "width=device-width,initial-scale=1"
 });
 
