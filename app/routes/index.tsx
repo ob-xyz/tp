@@ -57,7 +57,7 @@ export default function Index() {
         <Link className="feed-mark" to="/">
           <img
             src="/img/tp.png"
-            alt="The Poast"
+            alt="thepoast"
             decoding="async"
           />
         </Link>
@@ -89,7 +89,7 @@ export default function Index() {
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-          <div className="feed-header">Get The Poast</div>
+          <div className="feed-header">Get thepoast</div>
 
           <div className="feed-input-bar">
             <input
@@ -123,21 +123,18 @@ export default function Index() {
             type="hidden"
             name="nonce"
           />
-
-          {/* div, not p: a <div>/<p> inside a <p> is invalid HTML and
-              causes hydration warnings */}
           <div className="feed-legal">
-            By submitting, you agree to our{" "}
-            <Link to="/policies/terms">Terms</Link>{" "}
+            by submitting, you agree to our{" "}
+            <Link to="/policies/terms">terms</Link>{" "}
             &amp;{" "}
-            <Link to="/policies/privacy">Privacy</Link>
+            <Link to="/policies/privacy">privacy</Link>
             <div className="innerfeed-legal">
-              <Link className="space" to="/about">About</Link>
-              <Link className="space" to="/archive">Archive</Link>
-              <Link className="space" to="/submit-post">Submit Post</Link>
-              <Link className="space" to="/partner">Partner</Link>
-              <Link className="space" to="/book">Advertise</Link>
-              <p className="copyright">© 2026 The Poast</p>
+              <Link className="space" to="/about">about</Link>
+              <Link className="space" to="/archive">archive</Link>
+              <Link className="space" to="/submit-post">submit post</Link>
+              <Link className="space" to="/partner">partner</Link>
+              <Link className="space" to="/book">advertise</Link>
+              <p className="copyright">thepoast © 2026</p>
             </div>
           </div>
         </form>

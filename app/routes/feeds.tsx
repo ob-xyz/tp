@@ -21,7 +21,7 @@ import {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Past Feeds - The Poast",
+    title: "past feeds - thepoast",
     description: "See every feed we've ever posted.",
   };
 };
@@ -104,7 +104,7 @@ export async function loader() {
     return {
       id,
       subject:
-        campaign.subject || "The Poast",
+        campaign.subject || "thepoast",
       date,
       dateLabel: formatDateLabel(date),
     };
@@ -478,7 +478,7 @@ export default function Feeds() {
         >
           <img
             src="/img/tp.png"
-            alt="The Poast"
+            alt="thepoast"
             decoding="async"
           />
         </Link>
@@ -515,15 +515,13 @@ export default function Feeds() {
         className="feed-footer"
         id="subscribe"
       >
-
         <form
           method="post"
           action="https://app.thepoast.com/subscription/form"
           className="feed-subscribe-form"
         >
-        <div className="feed-header">
-          Get The Poast
-        </div>
+          <div className="feed-header">Get thepoast</div>
+
           <div className="feed-input-bar">
             <input
               className="feed-input email-input"
@@ -557,27 +555,22 @@ export default function Feeds() {
             name="nonce"
           />
 
-          <p className="feed-legal">
-            By submitting, you agree to our{" "}
-            <Link to="/policies/terms">
-              Terms
-            </Link>{" "}
+          {/* div, not p: a <div>/<p> inside a <p> is invalid HTML and
+              causes hydration warnings */}
+          <div className="feed-legal">
+            by submitting, you agree to our{" "}
+            <Link to="/policies/terms">terms</Link>{" "}
             &amp;{" "}
-            <Link to="/policies/privacy">
-              Privacy
-            </Link>
-            <br />
+            <Link to="/policies/privacy">privacy</Link>
             <div className="innerfeed-legal">
-            <Link className="space" to="/about">About</Link>
-            <Link className="space" to="/archive">Archive</Link>
-            <Link className="space" to="/submit-post">Submit Post</Link>
-            <Link className="space" to="/partner">Partner</Link>
-            <Link className="space" to="/book">Advertise</Link>
-            <p className="copyright">
-              © 2026 The Poast
-            </p>
+              <Link className="space" to="/about">about</Link>
+              <Link className="space" to="/archive">archive</Link>
+              <Link className="space" to="/submit-post">submit post</Link>
+              <Link className="space" to="/partner">partner</Link>
+              <Link className="space" to="/book">advertise</Link>
+              <p className="copyright">thepoast © 2026</p>
             </div>
-          </p>
+          </div>
         </form>
       </footer>
     </div>

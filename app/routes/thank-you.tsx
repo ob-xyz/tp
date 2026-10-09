@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => ({
-  title: "Request received - The Poast",
+  title: "request received - thepoast",
   robots: "noindex",
 });
 
@@ -10,8 +10,8 @@ export default function ThankYou() {
   return (
     <div className="feed-page ad-booking-page">
       <header className="feed-topbar">
-        <Link className="feed-mark" to="/" aria-label="Return to The Poast homepage">
-          <img src="/img/tp.png" alt="The Poast" decoding="async" />
+        <Link className="feed-mark" to="/" aria-label="Return to thepoast homepage">
+          <img src="/img/tp.png" alt="thepoast" decoding="async" />
         </Link>
       </header>
 
@@ -32,7 +32,7 @@ export default function ThankYou() {
         <div className="ad-booking-header">
           <h1 className="ad-booking-title">Request received</h1>
           <p className="ad-booking-sub">
-            Thanks for your interest in advertising with The Poast.
+            Thanks for your interest in advertising with thepoast.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function ThankYou() {
         </div>
 
         <Link to="/" className="back-btn ad-success-btn">
-          ← Return to The Poast
+          ← Return to thepoast
         </Link>
       </main>
     </div>

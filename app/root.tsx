@@ -31,8 +31,8 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "The Poast - no log in. no sign up.",
-  description: "The Poast gives you the best of the business world in one place.",
+  title: "thepoast - no log in. no sign up.",
+  description: "Just open and scroll whenever you like. No account required.",
   viewport: "width=device-width,initial-scale=1"
 });
 
@@ -57,11 +57,11 @@ export default function App() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "The Poast",
-    "alternateName": ["the poast", "thepoast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast", "poast", "poast app", "the poast app", "the poast news"],
+    "name": "thepoast",
+    "alternateName": ["the poast", "The Poast Newsletter", "thepoast.com", "the poast feed", "the poast website", "poast", "poast app", "the poast app", "the poast news"],
     "url": "https://thepoast.com",
     "logo": "https://thepoast.com/favicon.ico",
-    "description": "Get caught up."
+    "description": "Just open and scroll whenever you like. No account required."
   };
 
   return (

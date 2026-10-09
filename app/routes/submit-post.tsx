@@ -10,7 +10,7 @@ import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Submit a Post - The Poast",
+    title: "submit a post - thepoast",
     description: "Want to submit a post? Do it here.",
   };
 };
@@ -327,7 +327,7 @@ export default function Tips() {
       <Link className="feed-mark" to="/">
         <img
           src="/img/tp.png"
-          alt="The Poast"
+          alt="thepoast"
           loading="eager"
           decoding="async"
         />
@@ -365,7 +365,7 @@ export default function Tips() {
           </div>
 
           <Link to="/" className="back-btn ad-success-btn">
-            ← Return to The Poast
+            ← Return to thepoast
           </Link>
         </main>
       </div>
@@ -499,45 +499,38 @@ export default function Tips() {
             <Altcha />
             {fieldError("altcha")}
           </div>
-      <footer
-        className="feed-footer"
-        id="subscribe"
-      >
 
-        <form
-          method="post"
-          action="https://app.thepoast.com/subscription/form"
-          className="feed-subscribe-form"
-        >
-          <p className="feed-legal">
-            By submitting, you agree to our{" "}
-            <Link to="/policies/terms">
-              Terms
-            </Link>{" "}
-            &amp;{" "}
-            <Link to="/policies/privacy">
-              Privacy
-            </Link>
-            <br />
-            <div className="innerfeed-legal">
-            <Link className="space" to="/about">About</Link>
-            <Link className="space" to="/archive">Archive</Link>
-            <Link className="space" to="/submit-post">Submit Post</Link>
-            <Link className="space" to="/partner">Partner</Link>
-            <Link className="space" to="/book">Advertise</Link>
-            <p className="copyright">
-              © 2026 The Poast
-            </p>
-            </div>
-          </p>
-        </form>
-      </footer>
+          <footer
+            className="feed-footer"
+            id="subscribe"
+          >
+            <form
+              method="post"
+              action="https://app.thepoast.com/subscription/form"
+              className="feed-subscribe-form"
+            >
+              <div className="feed-legal">
+                by submitting, you agree to our{" "}
+                <Link to="/policies/terms">terms</Link>{" "}
+                &amp;{" "}
+                <Link to="/policies/privacy">privacy</Link>
+                <div className="innerfeed-legal">
+                  <Link className="space" to="/about">about</Link>
+                  <Link className="space" to="/archive">archive</Link>
+                  <Link className="space" to="/submit-post">submit post</Link>
+                  <Link className="space" to="/partner">partner</Link>
+                  <Link className="space" to="/book">advertise</Link>
+                  <p className="copyright">thepoast © 2026</p>
+                </div>
+              </div>
+            </form>
+          </footer>
         </Form>
 
         
 
         <Link to="/" className="back-btn">
-          ← Return to The Poast
+          ← Return to thepoast
         </Link>
       </main>
     </div>
