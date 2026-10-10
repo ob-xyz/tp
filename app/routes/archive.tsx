@@ -22,7 +22,7 @@ import {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "archive - thepoast",
+    title: "Archive / thepoast",
     description: "Create a new ad campaign for your company or brand here.",
   };
 };

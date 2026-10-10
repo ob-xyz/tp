@@ -12,7 +12,7 @@ import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "new campaign - thepoast",
+    title: "New Ad Campaign / thepoast",
     description: "Create an ad campaign for your company or brand here.",
   };
 };

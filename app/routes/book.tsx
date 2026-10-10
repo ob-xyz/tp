@@ -11,7 +11,7 @@ import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "book campaign - thepoast",
+    title: "Book Ad Campaign / thepoast",
     description: "Book an ad campaign for your company or brand here.",
   };
 };

@@ -5,7 +5,7 @@ import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "about - thepoast",
+    title: "About / thepoast",
     description: "Learn more about thepoast.",
   };
 };

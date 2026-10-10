@@ -7,7 +7,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => ({
-  title: "privacy - thepoast",
+  title: "Privacy / thepoast",
   description:
     "Learn about our Privacy Policy.",
 });

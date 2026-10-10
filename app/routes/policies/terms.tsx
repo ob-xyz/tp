@@ -7,9 +7,9 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => ({
-  title: "terms - thepoast",
+  title: "Terms and Conditions / thepoast",
   description:
-    "Learn about our Terms and Considitons.",
+    "Learn about our Terms and Conditions.",
 });
 
 const toc = [
