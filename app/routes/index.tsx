@@ -11,7 +11,7 @@ import FeedEmbed from "../components/feed-embed";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Home / thepoast",
+    title: "thepoast",
   };
 };
 
