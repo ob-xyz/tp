@@ -21,7 +21,7 @@ import {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Past Feeds / thepoast",
+    title: "Past feeds / thepoast",
     description: "See every feed we've ever posted.",
   };
 };
