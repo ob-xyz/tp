@@ -8,7 +8,6 @@ import type {
 import Altcha from "../components/altcha";
 import FeedEmbed from "../components/feed-embed";
 
-
 export const meta: MetaFunction = () => ({
   title: "404 - thepoast",
   robots: "noindex",

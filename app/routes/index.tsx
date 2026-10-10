@@ -3,10 +3,17 @@ import { Link } from "@remix-run/react";
 import type {
   HeadersFunction,
   LinksFunction,
+  MetaFunction
 } from "@remix-run/node";
 
 import Altcha from "../components/altcha";
 import FeedEmbed from "../components/feed-embed";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "home - thepoast",
+  };
+};
 
 export const links: LinksFunction = () => [
   {
