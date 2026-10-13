@@ -81,15 +81,13 @@ body:has(.feed-page) {
   a {
     font-family: kl;
   }
-    .feed-legal {
+  .feed-legal {
     margin-left:.85rem;
     font-family: kl;
     font-weight: 100;
     font-size: 0.7rem;
-    line-height: 1.35;
     text-align: right;
     color: var(--feed-legal);
-
     a {
       color: var(--feed-legal);
       text-decoration: none;
@@ -314,16 +312,20 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     visibility 0s 0.3s;
   }
 
-  .feed-footer-links {
+.feed-footer-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: auto;
-    gap: 0.35rem 0.3rem; // Tightened spacing significantly here (~70% reduction)
+    align-items: center;
+    width: 100%;
+    gap: 0.1rem 0.25rem; // Forces them right next to each other like a tight comma list
     font-size: 0.75rem;
+
     a {
       color: var(--feed-legal);
       text-decoration: none;
+      padding: 0; // Removes unwanted padding pushing them apart
+      margin: 0 0.4rem; // Controls exact micro-spacing between each link
 
       &:hover {
         text-decoration: underline;

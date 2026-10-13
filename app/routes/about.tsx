@@ -247,7 +247,7 @@ export default function About() {
 
       <FeedSubscribeBanner
         visible={bannerVisible}
-        initialExpanded={expandBanner}
+        forceExpanded={expandBanner}
       />
     </div>
   );

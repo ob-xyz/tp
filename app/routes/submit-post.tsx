@@ -306,13 +306,13 @@ export default function Tips() {
             <Altcha />
             {fieldError("altcha")}
           </div>
+        </Form>
 
-          <div className="feed-legal" style={{ textAlign: "center", marginTop: "1rem" }}>
+          <div className="feed-legal" >
             By submitting, you agree to our{" "}
             <Link to="/policies/terms">terms</Link> &amp;{" "}
             <Link to="/policies/privacy">privacy</Link>
           </div>
-        </Form>
 
         <Link to="/" className="back-btn">← Return to thepoast</Link>
 

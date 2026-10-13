@@ -530,13 +530,12 @@ export default function Partner() {
               {fieldError("altcha")}
             </div>
           </div>
-
-          <div className="feed-legal" style={{ textAlign: "center", marginTop: "1rem" }}>
+        </Form>
+        <div className="feed-legal" >
               By submitting, you agree to our{" "}
               <Link to="/policies/terms">terms</Link> &amp;{" "}
               <Link to="/policies/privacy">privacy</Link>
             </div>
-        </Form>
       </main>
 
       <FeedFooter />
