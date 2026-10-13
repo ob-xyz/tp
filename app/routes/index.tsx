@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 import { Link } from "@remix-run/react";
 import type {
   HeadersFunction,
@@ -32,35 +33,100 @@ export const headers: HeadersFunction = () => ({
 });
 
 /**
- * Hides the sticky top bar once the footer (with its own subscribe CTA)
- * scrolls into view. Increase the % in rootMargin to hide it sooner.
+ * How far down the screen the end of the feed has to get before the banner
+ * slides up. 0.85 = once the end of the feed is within the bottom 15% of the
+ * viewport. Lower it (e.g. 0.6) to trigger later, raise it (e.g. 1) to
+ * trigger the moment the end of the feed appears.
  */
-function useHideTopbarNearFooter() {
-  const footerRef = useRef<HTMLElement>(null);
-  const [hidden, setHidden] = useState(false);
+const BANNER_TRIGGER = 0.75;
+
+/**
+ * Watches an invisible marker placed right after the feed (i.e. right after
+ * the iframe's "You're all caught up"). Once the reader has scrolled to or
+ * past it, `reached` flips to true. Scrolling back up flips it back.
+ */
+function useReachedEndOfFeed() {
+  const endRef = useRef<HTMLDivElement>(null);
+  const [reached, setReached] = useState(false);
 
   useEffect(() => {
-    const el = footerRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    const el = endRef.current;
+    if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setHidden(entry.isIntersecting),
-      { rootMargin: "0px 0px -10% 0px" },
-    );
+    let frame = 0;
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    const check = () => {
+      frame = 0;
+      const top = el.getBoundingClientRect().top;
+      // scrollY guard: never pop the banner before the reader has scrolled
+      setReached(
+        window.scrollY > 0 && top <= window.innerHeight * BANNER_TRIGGER,
+      );
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+
+    // The iframe resizes itself as the feed loads, which moves the marker
+    // without any scrolling, so re-check when the layout changes too.
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined" && el.parentElement) {
+      resizeObserver = new ResizeObserver(schedule);
+      resizeObserver.observe(el.parentElement);
+    }
+
+    check();
+
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      resizeObserver?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
-  return { footerRef, hidden };
+  return { endRef, reached };
 }
 
 export default function Index() {
-  const { footerRef, hidden } = useHideTopbarNearFooter();
+  const { endRef, reached } = useReachedEndOfFeed();
+  const [expanded, setExpanded] = useState(false);
+  // True when the reader tapped the top bar's Subscribe (banner opens right away)
+  const [forced, setForced] = useState(false);
+
+  const footerRef = useRef<HTMLElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const prevReached = useRef(false);
+
+  const bannerVisible = reached || forced;
+
+  // If the reader scrolls back up out of the end zone, release the forced state
+  useEffect(() => {
+    if (prevReached.current && !reached) setForced(false);
+    prevReached.current = reached;
+  }, [reached]);
+
+  // Put the cursor in the email field as soon as the form appears
+  useEffect(() => {
+    if (expanded) emailRef.current?.focus({ preventScroll: true });
+  }, [expanded]);
+
+  // Top bar Subscribe: open the email form, raise the banner, glide to the end
+  const handleTopbarSubscribe = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setExpanded(true);
+    setForced(true);
+    footerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
 
   return (
     <div className="feed-page">
-      <header className={`feed-topbar${hidden ? " is-hidden" : ""}`}>
+      {/* Sticky top bar hides while the bottom banner is up (both are CTAs) */}
+      <header className={`feed-topbar${reached ? " is-hidden" : ""}`}>
         <Link className="feed-mark" to="/">
           <img
             src="/img/tp.png"
@@ -69,7 +135,10 @@ export default function Index() {
           />
         </Link>
 
-        <a href="#subscribe" className="feed-subscribe">
+        <a
+          className="feed-subscribe"
+          onClick={handleTopbarSubscribe}
+        >
           Subscribe
         </a>
       </header>
@@ -84,68 +153,92 @@ export default function Index() {
             fallbackHeight={900}
           />
         </div>
+
+        {/* Marker for the end of the feed ("You're all caught up") */}
+        <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>
 
+      {/* Fades out as the banner rises over it */}
       <footer
         ref={footerRef}
-        className="feed-footer"
-        id="subscribe"
+        className={`feed-footer${bannerVisible ? " is-covered" : ""}`}
       >
-        <form
-          method="post"
-          action="https://app.thepoast.com/subscription/form"
-          className="feed-subscribe-form"
-        >
-          <div className="feed-header">Get thepoast</div>
+        <div className="feed-footer-links">
+          <Link to="/about">about</Link>
+          <Link to="/archive">archive</Link>
+          <Link to="/privacy">privacy</Link>
+          <Link to="/terms">terms</Link>
+          <Link to="/partner">partner</Link>
+          <Link to="/submit-post">submit post</Link>
+          <Link to="/book">advertise</Link>
+        </div>
+        <p className="feed-copyright">thepoast © 2026</p>
+      </footer>
 
-          <div className="feed-input-bar">
-            <input
-              className="feed-input email-input"
-              type="email"
-              name="email"
-              required
-              placeholder="Email Address *"
-            />
+      {/* Bottom sheet banner, slides up after the end of the feed */}
+      <aside
+        className={`feed-banner${bannerVisible ? " is-visible" : ""}`}
+        aria-label="Subscribe to thepoast"
+        aria-hidden={!bannerVisible}
+      >
+        <div className="feed-banner-inner">
+          <div className="feed-banner-title">Get The Poast for free</div>
 
+          {!expanded ? (
             <button
-              className="feed-submit"
-              type="submit"
+              type="button"
+              className="feed-banner-btn"
+              onClick={() => setExpanded(true)}
             >
               Subscribe
             </button>
-          </div>
+          ) : (
+            <form
+              method="post"
+              action="https://app.thepoast.com/subscription/form"
+              className="feed-banner-form"
+            >
+              <div className="feed-input-bar">
+                <input
+                  className="feed-input email-input"
+                  type="email"
+                  name="email"
+                  required
+                  ref={emailRef}
+                  placeholder="Email Address *"
+                />
 
-          <div className="feed-altcha-wrap">
-            <Altcha />
-          </div>
+                <button className="feed-submit" type="submit">
+                  Subscribe
+                </button>
+              </div>
 
-          <input
-            id="6d48f"
-            type="hidden"
-            name="l"
-            value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
-          />
+              {/* Fixed two-column row: the legal text never shifts when
+                  the checkbox flips to "Verified" */}
+              <div className="feed-verify-row">
+                <div className="feed-altcha-wrap">
+                  <Altcha />
+                </div>
 
-          <input
-            type="hidden"
-            name="nonce"
-          />
-          <div className="feed-legal">
-            by submitting, you agree to our{" "}
-            <Link to="/policies/terms">terms</Link>{" "}
-            &amp;{" "}
-            <Link to="/policies/privacy">privacy</Link>
-            <div className="innerfeed-legal">
-              <Link className="space" to="/about">about</Link>
-              <Link className="space" to="/archive">archive</Link>
-              <Link className="space" to="/submit-post">submit post</Link>
-              <Link className="space" to="/partner">partner</Link>
-              <Link className="space" to="/book">advertise</Link>
-              <p className="copyright">thepoast © 2026</p>
-            </div>
-          </div>
-        </form>
-      </footer>
+                <div className="feed-legal">
+                  By submitting, you agree to our{" "}
+                  <Link to="/policies/terms">terms</Link> &amp;{" "}
+                  <Link to="/policies/privacy">privacy</Link>
+                </div>
+              </div>
+
+              <input
+                id="6d48f"
+                type="hidden"
+                name="l"
+                value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
+              />
+
+              <input type="hidden" name="nonce" />
+            </form>
+          )}
+        </div>
+      </aside>
     </div>
   );
 }

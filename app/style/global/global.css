@@ -260,32 +260,134 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 /* ---------------------------------------------------------------------- */
 /*                                  FOOTER                                 */
 /* ---------------------------------------------------------------------- */
-.feed-footer {
+.feed-end-marker {
+  height: 1px;
   width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  margin-top: 1rem;
+  pointer-events: none;
 }
 
-.feed-subscribe-form {
-  max-width: 540px;
-  margin: 0 auto 1rem;
+.feed-footer {
+  width: 100%;
+  /* Keep the links close to the feed instead of spanning the whole window */
+  max-width: 600px;
+  padding: 0 1rem;
+  /* Space at the very end so the banner never covers "You're all caught up" */
+  padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  text-align: center;
+  font-family: kl;
+  font-weight: 100;
+  color: var(--feed-legal);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+  /* Banner is up: links fade and sink as the banner rises over them */
+}
+.feed-footer.is-covered {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.3s;
+}
+.feed-footer .feed-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: auto;
+  gap: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+}
+.feed-footer .feed-footer-links a {
+  color: var(--feed-legal);
+  text-decoration: none;
+}
+.feed-footer .feed-footer-links a:hover {
+  text-decoration: underline;
+}
+.feed-footer .feed-copyright {
+  margin: 0.7rem 0 0;
+  font-size: 0.7rem;
+  color: var(--feed-legal);
+  font-family: kl;
+}
+
+/* ---------------------------------------------------------------------- */
+/*                            SUBSCRIBE BANNER                             */
+/* ---------------------------------------------------------------------- */
+.feed-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  /* Hidden state: parked below the screen */
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.35s;
+}
+.feed-banner.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+}
+
+.feed-banner-inner {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  background: var(--feed-bg);
+  border: 1px solid var(--feed-hairline);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
 }
-.feed-subscribe-form .feed-header {
+
+.feed-banner-title {
+  font-family: bold;
+  font-size: 1.35rem;
+  line-height: 1.2;
   text-align: center;
+  color: var(--feed-text);
+}
+
+.feed-banner-btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1rem;
+  background: var(--feed-btn-bg);
+  color: var(--feed-btn-text);
+  font-family: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.feed-banner-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.feed-banner-btn:active {
+  transform: translateY(0);
+}
+
+/* Email step (shown after tapping Subscribe in the banner) */
+.feed-banner-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: bold;
-  font-size: 0.875rem;
-  color: var(--feed-legal);
-  margin-bottom: 0.5rem;
+  /* Checkbox on the left, legal text on the right. The left column is a
+     fixed width so "I'm not a robot" -> "Verified" can't push the text. */
 }
-.feed-subscribe-form .feed-input-bar {
+.feed-banner-form .feed-input-bar {
   display: flex;
   align-items: center;
   width: 100%;
@@ -296,77 +398,71 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   padding: 0.25rem 0.35rem 0.25rem 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.feed-subscribe-form .feed-input-bar:focus-within {
+.feed-banner-form .feed-input-bar:focus-within {
   border-color: var(--feed-focus);
   box-shadow: 0 0 12px var(--feed-focus);
 }
-.feed-subscribe-form .feed-input-bar .feed-input {
+.feed-banner-form .feed-input-bar .feed-input {
+  flex: 1;
   background: transparent;
   border: none;
   outline: none;
   color: var(--feed-input-text);
-  font-size: 0.85rem;
-  padding: 0.4rem 1.5rem;
+  font-size: 16px; /* prevents iOS zoom-on-focus */
+  padding: 0.5rem 1.1rem;
   min-width: 0;
 }
-.feed-subscribe-form .feed-input-bar .feed-input::placeholder {
+.feed-banner-form .feed-input-bar .feed-input::placeholder {
   color: var(--feed-input-placeholder);
 }
-.feed-subscribe-form .feed-input-bar .feed-input.email-input {
-  flex: 1.5;
-}
-.feed-subscribe-form .feed-input-bar .feed-submit {
+.feed-banner-form .feed-input-bar .feed-submit {
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   border: none;
   border-radius: 999px;
-  padding: 0.45rem 1.1rem;
-  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   white-space: nowrap;
   font-family: bold;
   transition: transform 0.15s ease, opacity 0.2s ease;
 }
-.feed-subscribe-form .feed-input-bar .feed-submit:hover {
+.feed-banner-form .feed-input-bar .feed-submit:hover {
   opacity: 0.85;
   transform: translateY(-1px);
 }
-.feed-subscribe-form .feed-input-bar .feed-submit:active {
+.feed-banner-form .feed-input-bar .feed-submit:active {
   transform: translateY(0);
 }
-.feed-subscribe-form .feed-altcha-wrap {
-  margin-top: 0;
-  display: flex;
-  justify-content: center;
+.feed-banner-form .feed-verify-row {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: center;
   width: 100%;
+  margin-top: 0.75rem;
 }
-.feed-subscribe-form .feed-legal {
-  margin: 0.5rem 0 0rem;
-  font-size: 0.75rem;
-  color: var(--feed-legal);
-  text-align: center;
-  font-family: kl !important;
+.feed-banner-form .feed-altcha-wrap {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+.feed-banner-form .feed-legal {
+  padding-left: 0;
+  margin-left: 0;
+  font-family: kl;
   font-weight: 100;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  text-align: right;
+  color: var(--feed-legal);
 }
-.feed-subscribe-form .feed-legal a {
+.feed-banner-form .feed-legal a {
   color: var(--feed-legal);
   text-decoration: none;
 }
-.feed-subscribe-form .feed-legal a:hover {
+.feed-banner-form .feed-legal a:hover {
   text-decoration: underline;
-}
-.feed-subscribe-form .feed-legal .innerfeed-legal {
-  margin-top: 0.45rem;
-}
-.feed-subscribe-form .feed-legal .innerfeed-legal .space {
-  margin: 0 0.45rem;
-}
-.feed-subscribe-form .feed-legal .innerfeed-legal .copyright {
-  margin: 0.45rem 0 15rem;
-  font-size: 0.7rem;
-  color: var(--feed-legal);
-  text-align: center;
-  font-family: kl;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -383,29 +479,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   }
   .feed-status {
     font-size: 0.8rem;
-  }
-  .feed-subscribe-form {
-    margin: 1.5rem auto 1rem;
-  }
-}
-@media (max-width: 540px) {
-  .feed-subscribe-form .feed-input-bar {
-    flex-direction: column;
-    border-radius: 12px;
-    padding: 0.5rem;
-    gap: 0.4rem;
-  }
-  .feed-subscribe-form .feed-input-bar .feed-input {
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 16px; /* prevents iOS zoom-on-focus */
-  }
-  .feed-subscribe-form .feed-input-bar .feed-submit {
-    width: 100%;
-  }
-  .feed-subscribe-form .feed-legal {
-    margin: 0.8rem 0 0rem;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 @media (max-width: 380px) {
@@ -434,6 +507,9 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   .feed-page .feed-embed iframe,
   .feed-page .feed-skeleton,
   .feed-page .feed-subscribe,
+  .feed-page .feed-banner,
+  .feed-page .feed-footer,
+  .feed-page .feed-banner-btn,
   .feed-page .feed-topbar {
     transition: none !important;
     animation: none !important;
