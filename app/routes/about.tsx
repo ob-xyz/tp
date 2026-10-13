@@ -1,7 +1,11 @@
+import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-import Altcha from "~/components/altcha";
+import FeedTopbar from "~/components/feed-topbar";
+import FeedFooter from "~/components/feed-footer";
+import FeedSubscribeBanner from "~/components/feed-subscribe-banner";
 
 export const meta: MetaFunction = () => {
   return {
@@ -10,7 +14,11 @@ export const meta: MetaFunction = () => {
   };
 };
 
-const AUDIENCE = ["Founders", "Executives", "Builders"];
+const AUDIENCE = [
+  "Founders",
+  "Executives",
+  "Builders",
+];
 
 const PRINCIPLES = [
   {
@@ -27,61 +35,179 @@ const PRINCIPLES = [
   },
 ];
 
+const BANNER_TRIGGER = 0.75;
+
+function useReachedEndOfPage() {
+  const endRef = useRef<HTMLDivElement>(null);
+  const [reached, setReached] = useState(false);
+
+  useEffect(() => {
+    const element = endRef.current;
+
+    if (!element) return;
+
+    let frame = 0;
+
+    const check = () => {
+      frame = 0;
+
+      const top = element.getBoundingClientRect().top;
+
+      setReached(
+        window.scrollY > 0 &&
+          top <= window.innerHeight * BANNER_TRIGGER,
+      );
+    };
+
+    const schedule = () => {
+      if (!frame) {
+        frame = requestAnimationFrame(check);
+      }
+    };
+
+    window.addEventListener("scroll", schedule, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", schedule);
+
+    let resizeObserver: ResizeObserver | undefined;
+
+    if (
+      typeof ResizeObserver !== "undefined" &&
+      element.parentElement
+    ) {
+      resizeObserver = new ResizeObserver(schedule);
+      resizeObserver.observe(element.parentElement);
+    }
+
+    check();
+
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+
+      resizeObserver?.disconnect();
+
+      if (frame) {
+        cancelAnimationFrame(frame);
+      }
+    };
+  }, []);
+
+  return {
+    endRef,
+    reached,
+  };
+}
+
 export default function About() {
+  const { endRef, reached } = useReachedEndOfPage();
+
+  const [forced, setForced] = useState(false);
+
+  const footerRef = useRef<HTMLElement>(null);
+  const previousReached = useRef(false);
+
+  const bannerVisible = reached || forced;
+
+  useEffect(() => {
+    if (previousReached.current && !reached) {
+      setForced(false);
+    }
+
+    previousReached.current = reached;
+  }, [reached]);
+
+  const handleTopbarSubscribe = (
+    event: MouseEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
+
+    setForced(true);
+
+    footerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+
   return (
     <div className="feed-page ad-booking-page about-page">
-      <header className="feed-topbar">
-        <Link className="feed-mark" to="/">
-          <img
-            src="/img/tp.png"
-            alt="thepoast"
-            loading="eager"
-            decoding="async"
-          />
-        </Link>
-
-        <Link to="#subscribe" className="feed-subscribe">
-          Subscribe
-        </Link>
-      </header>
+      <FeedTopbar
+        hidden={reached}
+        onSubscribe={handleTopbarSubscribe}
+      />
 
       <main className="ad-booking-card about-card">
         <div className="ad-booking-header">
-          <div className="ad-badge">About Us</div>
+          <div className="ad-badge">
+            About Us
+          </div>
         </div>
 
-        <section className="about-section" aria-labelledby="about-what">
-          <h2 className="about-section-title" id="about-what">
+        <section
+          className="about-section"
+          aria-labelledby="about-what"
+        >
+          <h2
+            className="about-section-title"
+            id="about-what"
+          >
             What's thepoast?
           </h2>
+
           <p className="about-text">
-            We're a daily feed of snarky comments and posts from across the business world.
+            We're a daily feed of snarky comments and posts from
+            across the business world.
           </p>
         </section>
 
-        <section className="about-section" aria-labelledby="about-who">
-          <h2 className="about-section-title" id="about-who">
+        <section
+          className="about-section"
+          aria-labelledby="about-who"
+        >
+          <h2
+            className="about-section-title"
+            id="about-who"
+          >
             Who reads it?
           </h2>
+
           <p className="about-text">
-             We're frequently read by people who like to get things done.
+            We're frequently read by people who like to get things
+            done.
           </p>
+
           <div className="about-chips">
             {AUDIENCE.map((group) => (
-              <span className="about-chip" key={group}>
+              <span
+                className="about-chip"
+                key={group}
+              >
                 {group}
               </span>
             ))}
           </div>
         </section>
 
-        <section className="about-section" aria-labelledby="about-expect">
-          <h2 className="about-section-title" id="about-expect">
+        <section
+          className="about-section"
+          aria-labelledby="about-expect"
+        >
+          <h2
+            className="about-section-title"
+            id="about-expect"
+          >
             What to expect
           </h2>
+
           <div className="about-grid">
             {PRINCIPLES.map((item) => (
-              <article className="about-item" key={item.title}>
+              <article
+                className="about-item"
+                key={item.title}
+              >
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </article>
@@ -90,77 +216,35 @@ export default function About() {
         </section>
 
         <div className="about-cta">
-          <Link to="/" className="about-btn">
+          <Link
+            to="/"
+            className="about-btn"
+          >
             Return to thepoast
           </Link>
-          <Link to="/book" className="back-btn">
+
+          <Link
+            to="/book"
+            className="back-btn"
+          >
             Advertise with us
           </Link>
         </div>
 
-      <footer
-        className="feed-footer"
-        id="subscribe"
-      >
-        <form
-          method="post"
-          action="https://app.thepoast.com/subscription/form"
-          className="feed-subscribe-form"
-        >
-          <div className="feed-header">Get thepoast</div>
-
-          <div className="feed-input-bar">
-            <input
-              className="feed-input email-input"
-              type="email"
-              name="email"
-              required
-              placeholder="Email Address *"
-            />
-
-            <button
-              className="feed-submit"
-              type="submit"
-            >
-              Subscribe
-            </button>
-          </div>
-
-          <div className="feed-altcha-wrap">
-            <Altcha />
-          </div>
-
-          <input
-            id="6d48f"
-            type="hidden"
-            name="l"
-            value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
-          />
-
-          <input
-            type="hidden"
-            name="nonce"
-          />
-
-          {/* div, not p: a <div>/<p> inside a <p> is invalid HTML and
-              causes hydration warnings */}
-          <div className="feed-legal">
-            by submitting, you agree to our{" "}
-            <Link to="/policies/terms">terms</Link>{" "}
-            &amp;{" "}
-            <Link to="/policies/privacy">privacy</Link>
-            <div className="innerfeed-legal">
-              <Link className="space" to="/about">about</Link>
-              <Link className="space" to="/archive">archive</Link>
-              <Link className="space" to="/submit-post">submit post</Link>
-              <Link className="space" to="/partner">partner</Link>
-              <Link className="space" to="/book">advertise</Link>
-              <p className="copyright">thepoast © 2026</p>
-            </div>
-          </div>
-        </form>
-      </footer>
+        <div
+          ref={endRef}
+          className="feed-end-marker"
+          aria-hidden="true"
+        />
       </main>
+
+      <div ref={footerRef}>
+        <FeedFooter covered={bannerVisible} />
+      </div>
+
+      <FeedSubscribeBanner
+        visible={bannerVisible}
+      />
     </div>
   );
 }
