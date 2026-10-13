@@ -38,7 +38,7 @@ export const headers: HeadersFunction = () => ({
  * viewport. Lower it (e.g. 0.6) to trigger later, raise it (e.g. 1) to
  * trigger the moment the end of the feed appears.
  */
-const BANNER_TRIGGER = 0.725;
+const BANNER_TRIGGER = .85;
 
 /**
  * Watches an invisible marker placed right after the feed (i.e. right after
