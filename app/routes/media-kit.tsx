@@ -1,7 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 
-import Altcha from "~/components/altcha";
+import FeedTopbar from "~/components/feed-topbar";
+import FeedFooter from "~/components/feed-footer";
+import FeedSubscribeBanner from "~/components/feed-subscribe-banner";
 
 export const meta: MetaFunction = () => {
   return {
@@ -9,6 +12,7 @@ export const meta: MetaFunction = () => {
     description: "Find out who reads thepoast.",
   };
 };
+
 const STATS = [
   { value: "27k+", label: "Email subscribers" },
   { value: "10k+", label: "Daily readers" },
@@ -48,30 +52,82 @@ const STEPS = [
   },
 ];
 
+const BANNER_TRIGGER = 0.75;
+
+function useReachedEndOfPage() {
+  const endRef = useRef<HTMLDivElement>(null);
+  const [reached, setReached] = useState(false);
+
+  useEffect(() => {
+    const element = endRef.current;
+    if (!element) return;
+
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const top = element.getBoundingClientRect().top;
+      setReached(window.scrollY > 0 && top <= window.innerHeight * BANNER_TRIGGER);
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined" && element.parentElement) {
+      resizeObserver = new ResizeObserver(schedule);
+      resizeObserver.observe(element.parentElement);
+    }
+
+    check();
+
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      resizeObserver?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return { endRef, reached };
+}
+
 export default function MediaKit() {
+  const { endRef, reached } = useReachedEndOfPage();
+  const [forced, setForced] = useState(false);
+  const [expandBanner, setExpandBanner] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+  const previousReached = useRef(false);
+
+  const bannerVisible = reached || forced;
+
+  useEffect(() => {
+    if (previousReached.current && !reached) {
+      setForced(false);
+      setExpandBanner(false);
+    }
+    previousReached.current = reached;
+  }, [reached]);
+
+  const handleTopbarSubscribe = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setForced(true);
+    setExpandBanner(true);
+    footerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
   return (
     <div className="feed-page ad-booking-page mk-page">
-      <header className="feed-topbar">
-        <Link className="feed-mark" to="/">
-          <img
-            src="/img/tp.png"
-            alt="thepoast"
-            loading="eager"
-            decoding="async"
-          />
-        </Link>
-
-        <Link to="#subscribe" className="feed-subscribe">
-          Subscribe
-        </Link>
-      </header>
+      <FeedTopbar hidden={reached} onSubscribe={handleTopbarSubscribe} />
 
       <main className="ad-booking-card mk-card">
         <div className="ad-booking-header">
           <div className="ad-badge">Media Kit</div>
         </div>
 
-        {/* By the numbers */}
         <section className="mk-section" aria-labelledby="mk-stats-title">
           <h2 className="mk-section-title" id="mk-stats-title">
             By the numbers
@@ -86,7 +142,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Audience */}
         <section className="mk-section" aria-labelledby="mk-audience-title">
           <h2 className="mk-section-title" id="mk-audience-title">
             Who reads us
@@ -100,7 +155,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Formats */}
         <section className="mk-section" aria-labelledby="mk-formats-title">
           <h2 className="mk-section-title" id="mk-formats-title">
             Why advertise with us?
@@ -110,13 +164,11 @@ export default function MediaKit() {
               <article className="mk-format" key={format.title}>
                 <h3>{format.title}</h3>
                 <p>{format.body}</p>
-                <span className="mk-format-note">{format.note}</span>
               </article>
             ))}
           </div>
         </section>
 
-        {/* How it works */}
         <section className="mk-section" aria-labelledby="mk-steps-title">
           <h2 className="mk-section-title" id="mk-steps-title">
             How it works
@@ -135,7 +187,6 @@ export default function MediaKit() {
         </section>
 
         <div className="mk-cta">
-          {/* Change "/book" if your booking page lives at a different URL */}
           <Link to="/book" className="mk-btn">
             Advertise with us
           </Link>
@@ -143,70 +194,15 @@ export default function MediaKit() {
             About thepoast
           </Link>
         </div>
+
+        <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>
 
-      <footer
-        className="feed-footer"
-        id="subscribe"
-      >
-        <form
-          method="post"
-          action="https://app.thepoast.com/subscription/form"
-          className="feed-subscribe-form"
-        >
-          <div className="feed-header">Get thepoast</div>
+      <div ref={footerRef}>
+        <FeedFooter covered={bannerVisible} />
+      </div>
 
-          <div className="feed-input-bar">
-            <input
-              className="feed-input email-input"
-              type="email"
-              name="email"
-              required
-              placeholder="Email Address *"
-            />
-
-            <button
-              className="feed-submit"
-              type="submit"
-            >
-              Subscribe
-            </button>
-          </div>
-
-          <div className="feed-altcha-wrap">
-            <Altcha />
-          </div>
-
-          <input
-            id="6d48f"
-            type="hidden"
-            name="l"
-            value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
-          />
-
-          <input
-            type="hidden"
-            name="nonce"
-          />
-
-          {/* div, not p: a <div>/<p> inside a <p> is invalid HTML and
-              causes hydration warnings */}
-          <div className="feed-legal">
-            by submitting, you agree to our{" "}
-            <Link to="/policies/terms">terms</Link>{" "}
-            &amp;{" "}
-            <Link to="/policies/privacy">privacy</Link>
-            <div className="innerfeed-legal">
-              <Link className="space" to="/about">about</Link>
-              <Link className="space" to="/archive">archive</Link>
-              <Link className="space" to="/submit-post">submit post</Link>
-              <Link className="space" to="/partner">partner</Link>
-              <Link className="space" to="/book">advertise</Link>
-              <p className="copyright">thepoast © 2026</p>
-            </div>
-          </div>
-        </form>
-      </footer>
+      <FeedSubscribeBanner visible={bannerVisible} forceExpanded={expandBanner} />
     </div>
   );
 }

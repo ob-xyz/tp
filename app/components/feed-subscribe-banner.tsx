@@ -5,13 +5,22 @@ import Altcha from "~/components/altcha";
 
 interface FeedSubscribeBannerProps {
   visible: boolean;
+  forceExpanded?: boolean;
 }
 
 export default function FeedSubscribeBanner({
   visible,
+  forceExpanded = false,
 }: FeedSubscribeBannerProps) {
   const [expanded, setExpanded] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
+
+  // Sync internal expansion state if parent forces it open
+  useEffect(() => {
+    if (forceExpanded) {
+      setExpanded(true);
+    }
+  }, [forceExpanded]);
 
   useEffect(() => {
     if (expanded && visible) {

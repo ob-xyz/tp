@@ -8,6 +8,8 @@ import type { ReactNode, RefObject } from "react";
 import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData, useNavigation } from "@remix-run/react";
 
+import FeedTopbar from "~/components/feed-topbar";
+import FeedFooter from "~/components/feed-footer";
 import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
@@ -17,20 +19,12 @@ export const meta: MetaFunction = () => {
   };
 };
 
-// Where customers land after a successful (or honeypot-caught) submission.
 const THANK_YOU_PATH = "/thank-you";
-
-// Never leak server error details to visitors unless explicitly enabled
-// with BOOK_DEBUG=true in the environment.
 const SHOW_ERROR_DETAILS = false;
 
 export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=600",
 });
-
-/* -------------------------------------------------------------------------- */
-/*                               TYPES & HELPERS                              */
-/* -------------------------------------------------------------------------- */
 
 type FieldName =
   | "company"
@@ -66,15 +60,13 @@ type Lead = {
   previousCampaign: string;
 };
 
-// X-style Ad Campaign Objectives for thepoast feed
 const OBJECTIVES = [
   {
     value: "reach",
     label: "Reach",
     icon: "megaphone",
     description: "Show your ads to the maximum number of people.",
-    howItWorks:
-      "Your ads will be optimized to reach as many unique people as possible within your budget.",
+    howItWorks: "Your ads will be optimized to reach as many unique people as possible within your budget.",
     goodFor: ["Brand awareness", "Impressions"],
   },
   {
@@ -82,8 +74,7 @@ const OBJECTIVES = [
     label: "Engagements",
     icon: "heart",
     description: "Get people to engage with your post.",
-    howItWorks:
-      "Your ads will be shown to people most likely to like, reply to, or repost your content.",
+    howItWorks: "Your ads will be shown to people most likely to like, reply to, or repost your content.",
     goodFor: ["Link clicks", "Product page views"],
   },
   {
@@ -91,8 +82,7 @@ const OBJECTIVES = [
     label: "Website traffic",
     icon: "globe",
     description: "Send people to your website or landing page.",
-    howItWorks:
-      "We'll show your ads to people most likely to click through to your site and take action.",
+    howItWorks: "We'll show your ads to people most likely to click through to your site and take action.",
     goodFor: ["Link clicks", "Landing page views"],
   },
   {
@@ -100,8 +90,7 @@ const OBJECTIVES = [
     label: "Video views",
     icon: "video",
     description: "Promote your videos to people most likely to watch them.",
-    howItWorks:
-      "Your video will be served to users who are most likely to watch it, maximizing completed views.",
+    howItWorks: "Your video will be served to users who are most likely to watch it, maximizing completed views.",
     goodFor: ["Video views", "Brand awareness"],
   },
   {
@@ -109,8 +98,7 @@ const OBJECTIVES = [
     label: "App installs",
     icon: "smartphone",
     description: "Drive downloads to your mobile app.",
-    howItWorks:
-      "Ads link directly to your app store listing and target people most likely to download.",
+    howItWorks: "Ads link directly to your app store listing and target people most likely to download.",
     goodFor: ["App installs", "App clicks"],
   },
   {
@@ -118,8 +106,7 @@ const OBJECTIVES = [
     label: "Sales",
     icon: "shopping_bag",
     description: "Drive purchases, sign-ups, or other conversions on your website.",
-    howItWorks:
-      "We'll optimize delivery toward people most likely to complete a purchase or other conversion event on your site.",
+    howItWorks: "We'll optimize delivery toward people most likely to complete a purchase or other conversion event on your site.",
     goodFor: ["Conversions", "Website purchases"],
   },
 ] as const;
@@ -166,15 +153,7 @@ const ObjectiveIconSvg = memo(({ name }: { name: ObjectiveIcon }) => {
   };
 
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {paths[name]}
     </svg>
   );
@@ -211,28 +190,11 @@ function buildSubscriberName(contactName: string, company: string): string {
   return `${first} ${company}`.trim();
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                LISTMONK API                                */
-/* -------------------------------------------------------------------------- */
-
 function listmonkConfig() {
-  const baseUrl = (
-    process.env.LISTMONK_URL || "https://app.thepoast.com"
-  ).replace(/\/+$/, "");
+  const baseUrl = (process.env.LISTMONK_URL || "https://app.thepoast.com").replace(/\/+$/, "");
   const apiUser = process.env.LISTMONK_API_USER || process.env.LISTMONK_USERNAME;
   const apiToken = process.env.LISTMONK_API_TOKEN || process.env.LISTMONK_TOKEN;
   const listId = Number(process.env.LISTMONK_ADVERTISER_LIST_ID || 31);
-
-  const missing: string[] = [];
-  if (!apiUser) missing.push("LISTMONK_USERNAME");
-  if (!apiToken) missing.push("LISTMONK_TOKEN");
-  if (!Number.isInteger(listId) || listId < 1) {
-    missing.push("LISTMONK_ADVERTISER_LIST_ID");
-  }
-  if (missing.length) {
-    throw new Error(`Missing or invalid env vars: ${missing.join(", ")}`);
-  }
-
   return { baseUrl, apiUser: apiUser as string, apiToken: apiToken as string, listId };
 }
 
@@ -248,24 +210,9 @@ async function listmonk(path: string, init: RequestInit = {}) {
   });
 }
 
-function explainListmonkFailure(step: string, status: number, body: string) {
-  let hint = "";
-  if (status === 401) {
-    hint = "Listmonk rejected credentials. Check LISTMONK_API_USER / LISTMONK_API_TOKEN.";
-  } else if (status === 403) {
-    hint = "API user lacks permission. Assign 'subscribers:manage' role.";
-  } else if (status === 404) {
-    hint = "Listmonk URL not found. Check LISTMONK_URL.";
-  } else if (status === 400) {
-    hint = "Listmonk rejected data. Verify numeric LISTMONK_ADVERTISER_LIST_ID.";
-  }
-  return `Listmonk ${step} failed (HTTP ${status}). ${hint} Response: ${body.slice(0, 300)}`;
-}
-
 async function saveAdvertiserLead(lead: Lead) {
   const { listId } = listmonkConfig();
   const now = new Date().toISOString();
-
   const bookingRequest = {
     submitted_at: now,
     company: lead.company,
@@ -297,7 +244,6 @@ async function saveAdvertiserLead(lead: Lead) {
   };
 
   const name = buildSubscriberName(lead.contactName, lead.company);
-
   const createRes = await listmonk("/api/subscribers", {
     method: "POST",
     body: JSON.stringify({
@@ -312,40 +258,18 @@ async function saveAdvertiserLead(lead: Lead) {
 
   if (createRes.ok) return;
 
-  if (createRes.status !== 409) {
-    throw new Error(
-      explainListmonkFailure("create", createRes.status, await createRes.text())
-    );
-  }
-
   const query = `subscribers.email = '${lead.email.replace(/'/g, "''")}'`;
-  const findRes = await listmonk(
-    `/api/subscribers?per_page=1&query=${encodeURIComponent(query)}`
-  );
-  if (!findRes.ok) {
-    throw new Error(
-      explainListmonkFailure("lookup", findRes.status, await findRes.text())
-    );
-  }
+  const findRes = await listmonk(`/api/subscribers?per_page=1&query=${encodeURIComponent(query)}`);
   const found = await findRes.json();
   const existing = found?.data?.results?.[0];
-  if (!existing) {
-    throw new Error("Listmonk said email exists but lookup returned nothing");
-  }
+
+  if (!existing) throw new Error("Listmonk lookup failed");
 
   const existingAttribs = existing.attribs ?? {};
-  const history = Array.isArray(existingAttribs.ad_requests)
-    ? existingAttribs.ad_requests
-    : [];
+  const history = Array.isArray(existingAttribs.ad_requests) ? existingAttribs.ad_requests : [];
+  const listIds = Array.from(new Set<number>([...((existing.lists ?? []) as { id: number }[]).map((l) => l.id), listId]));
 
-  const listIds = Array.from(
-    new Set<number>([
-      ...((existing.lists ?? []) as { id: number }[]).map((l) => l.id),
-      listId,
-    ])
-  );
-
-  const updateRes = await listmonk(`/api/subscribers/${existing.id}`, {
+  await listmonk(`/api/subscribers/${existing.id}`, {
     method: "PUT",
     body: JSON.stringify({
       email: existing.email,
@@ -360,24 +284,11 @@ async function saveAdvertiserLead(lead: Lead) {
       },
     }),
   });
-
-  if (!updateRes.ok) {
-    throw new Error(
-      explainListmonkFailure("update", updateRes.status, await updateRes.text())
-    );
-  }
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                   ACTION                                   */
-/* -------------------------------------------------------------------------- */
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-
-  if (str(formData.get("nonce"), 200)) {
-    return redirect(THANK_YOU_PATH);
-  }
+  if (str(formData.get("nonce"), 200)) return redirect(THANK_YOU_PATH);
 
   const company = str(formData.get("company"), 200);
   const websiteRaw = str(formData.get("website"), 300);
@@ -393,7 +304,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const altcha = str(formData.get("altcha"), 20000);
 
   const fieldErrors: ActionData["fieldErrors"] = {};
-
   if (!company) fieldErrors.company = "Please enter your company name.";
   if (!contactName) fieldErrors.name = "Please enter your name.";
   if (!EMAIL_RE.test(email)) fieldErrors.email = "Please enter a valid work email.";
@@ -404,53 +314,23 @@ export async function action({ request }: ActionFunctionArgs) {
   let previousCampaign = "";
   if (sourceRaw) {
     const normalized = normalizeWebsite(sourceRaw);
-    if (normalized) {
-      previousCampaign = normalized;
-    } else {
-      fieldErrors.source = "Please enter a valid URL, or leave this field blank.";
-    }
+    if (normalized) previousCampaign = normalized;
+    else fieldErrors.source = "Please enter a valid URL.";
   }
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate) || Number.isNaN(Date.parse(targetDate))) {
-    fieldErrors.targetDate = "Please select a campaign start date.";
-  }
-
-  if (!fieldErrors.targetDate) {
-    // Allow yesterday (UTC) so customers in timezones ahead/behind the server still pass.
-    const earliest = new Date(Date.now() - 24 * 60 * 60 * 1000)
-      .toISOString()
-      .slice(0, 10);
-    if (targetDate < earliest) {
-      fieldErrors.targetDate = "Start date can't be in the past.";
-    }
-  }
-
-  if (endDate) {
-    const validEnd =
-      /^\d{4}-\d{2}-\d{2}$/.test(endDate) && !Number.isNaN(Date.parse(endDate));
-    if (!validEnd) {
-      fieldErrors.endDate = "Please select a valid end date, or leave blank.";
-    } else if (!fieldErrors.targetDate && endDate < targetDate) {
-      fieldErrors.endDate = "End date must be on or after the start date.";
-    }
-  }
-
+  if (!targetDate) fieldErrors.targetDate = "Please select a campaign start date.";
   const objective = OBJECTIVES.find((o) => o.value === objectiveValue);
-  if (!objective) fieldErrors.objective = "Please choose a campaign placement objective.";
+  if (!objective) fieldErrors.objective = "Please choose an objective.";
 
   if (process.env.ALTCHA_REQUIRED !== "false" && !altcha) {
     fieldErrors.altcha = "Please complete the security verification below.";
   }
 
   if (Object.keys(fieldErrors).length > 0) {
-    return json<ActionData>(
-      { error: "Please review and complete the highlighted fields.", fieldErrors },
-      { status: 400 }
-    );
+    return json<ActionData>({ error: "Please review highlighted fields.", fieldErrors }, { status: 400 });
   }
 
   const campaignName = campaignNameRaw || `${company} — ${targetDate}`;
-
   try {
     await saveAdvertiserLead({
       company,
@@ -458,7 +338,7 @@ export async function action({ request }: ActionFunctionArgs) {
       contactName,
       email,
       campaignName,
-      objective: (objective as (typeof OBJECTIVES)[number]).label,
+      objective: objective!.label,
       targetDate,
       endDate,
       budget,
@@ -466,44 +346,21 @@ export async function action({ request }: ActionFunctionArgs) {
       previousCampaign,
     });
   } catch (err) {
-    console.error("[book] failed to save advertiser lead:", err);
-
-    const cause = (err as { cause?: { code?: string; message?: string } })?.cause;
-    const reason =
-      (err instanceof Error ? err.message : String(err)) +
-      (cause ? ` [${cause.code || cause.message}]` : "");
-
-    return json<ActionData>(
-      {
-        error: "Unable to process booking request right now. Please try again.",
-        debug:
-          SHOW_ERROR_DETAILS || process.env.BOOK_DEBUG === "true"
-            ? reason
-            : undefined,
-      },
-      { status: 500 }
-    );
+    console.error("[book] failed:", err);
+    return json<ActionData>({ error: "Unable to process booking right now." }, { status: 500 });
   }
 
   return redirect(THANK_YOU_PATH);
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                    PAGE                                    */
-/* -------------------------------------------------------------------------- */
-
-export default function Advertise() {
+export default function Partner() {
   const actionData = useActionData<ActionData>();
   const errors = actionData?.fieldErrors ?? {};
   const navigation = useNavigation();
-  // Stay "busy" through the redirect to /thank-you so the form can't be double-submitted.
-  const submitting =
-    navigation.state === "submitting" ||
-    (navigation.state === "loading" && navigation.formMethod === "POST");
+  const submitting = navigation.state === "submitting";
 
   const [objectiveValue, setObjectiveValue] = useState<string>(OBJECTIVES[0].value);
-  const selectedObjective =
-    OBJECTIVES.find((o) => o.value === objectiveValue) ?? OBJECTIVES[0];
+  const selectedObjective = OBJECTIVES.find((o) => o.value === objectiveValue) ?? OBJECTIVES[0];
 
   const targetDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
@@ -512,8 +369,6 @@ export default function Advertise() {
   const [minDate, setMinDate] = useState<string | undefined>(undefined);
   const [campaignName, setCampaignName] = useState("");
 
-  // Default campaign name like "Campaign — Oct 2 — 1:54 PM".
-  // Computed on the client only (avoids SSR hydration mismatch / stale server time).
   useEffect(() => {
     const now = new Date();
     const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
@@ -521,57 +376,32 @@ export default function Advertise() {
     setCampaignName((current) => current || `Campaign — ${date} — ${time}`);
   }, []);
 
-  // Local "today" computed on the client only (avoids SSR hydration mismatch).
   useEffect(() => {
     const d = new Date();
     const pad = (n: number) => String(n).padStart(2, "0");
     setMinDate(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`);
   }, []);
 
-  // After a failed submit, jump to the first problem.
-  useEffect(() => {
-    if (!actionData) return;
-    const invalid = document.querySelector<HTMLElement>(
-      '.ad-booking-form [aria-invalid="true"]'
-    );
-    if (invalid) {
-      invalid.focus();
-      return;
-    }
-    document
-      .querySelector<HTMLElement>(".ad-form-error, .ad-field-error")
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [actionData]);
-
   const openPicker = (ref: RefObject<HTMLInputElement>) => {
-    if (ref.current) {
-      if ("showPicker" in ref.current && typeof ref.current.showPicker === "function") {
-        try {
-          ref.current.showPicker();
-        } catch {
-          ref.current.focus();
-        }
-      } else {
-        ref.current.focus();
-      }
+    if (ref.current && "showPicker" in ref.current) {
+      try { ref.current.showPicker(); } catch { ref.current.focus(); }
+    } else {
+      ref.current?.focus();
     }
   };
 
   const fieldError = (name: FieldName) =>
-    errors[name] ? (
-      <span className="ad-field-error" id={`${name}-error`} role="alert">
-        {errors[name]}
-      </span>
-    ) : null;
+    errors[name] ? <span className="ad-field-error" role="alert">{errors[name]}</span> : null;
 
   return (
     <div className="feed-page ad-booking-page">
-      <header className="feed-topbar">
-        <Link className="feed-mark" to="/" aria-label="Return to thepoast homepage">
-          <img src="/img/tp.png" alt="thepoast" decoding="async" />
-        </Link>
-      </header>
-
+    <FeedTopbar 
+      showSubscribe={false} 
+      onSubscribe={(e) => { 
+        e.preventDefault(); 
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); 
+      }} 
+    />
       <main className="ad-booking-card">
         <div className="ad-booking-header">
           <div className="ad-badge">Partner with us</div>
@@ -579,45 +409,19 @@ export default function Advertise() {
 
         <Form method="post" className="ad-booking-form">
           {actionData?.error && (
-            <div className="ad-form-error" role="alert">
-              {actionData.error}
-              {actionData.debug && (
-                <code className="ad-form-error-debug">{actionData.debug}</code>
-              )}
-            </div>
+            <div className="ad-form-error" role="alert">{actionData.error}</div>
           )}
 
-          {/* Section 1: Contact Details (first: who you are) */}
           <div className="ad-form-section">
             <div className="form-group-row">
               <div className="form-field">
                 <label htmlFor="company">Company</label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  required
-                  autoComplete="organization"
-                  placeholder="Company *"
-                  aria-invalid={errors.company ? true : undefined}
-                  aria-describedby={errors.company ? "company-error" : undefined}
-                />
+                <input type="text" id="company" name="company" required placeholder="Company *" />
                 {fieldError("company")}
               </div>
-
               <div className="form-field">
                 <label htmlFor="website">Website</label>
-                <input
-                  type="text"
-                  id="website"
-                  name="website"
-                  required
-                  autoComplete="url"
-                  inputMode="url"
-                  placeholder="Website *"
-                  aria-invalid={errors.website ? true : undefined}
-                  aria-describedby={errors.website ? "website-error" : undefined}
-                />
+                <input type="text" id="website" name="website" required placeholder="Website *" />
                 {fieldError("website")}
               </div>
             </div>
@@ -625,66 +429,31 @@ export default function Advertise() {
             <div className="form-group-row">
               <div className="form-field">
                 <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  autoComplete="name"
-                  placeholder="Name *"
-                  aria-invalid={errors.name ? true : undefined}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                />
+                <input type="text" id="name" name="name" required placeholder="Name *" />
                 {fieldError("name")}
               </div>
-
               <div className="form-field">
                 <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="Business Email *"
-                  aria-invalid={errors.email ? true : undefined}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
+                <input type="email" id="email" name="email" required placeholder="Business Email *" />
                 {fieldError("email")}
               </div>
             </div>
           </div>
-          {/* Section 2: Campaign Setup & Objectives */}
+
           <div className="ad-form-section ad-form-setup">
             <div className="form-field ad-name-card">
-            <h2 className="ad-section-heading">Campaign Name</h2>
-            <br />
+              <h2 className="ad-section-heading">Campaign Name</h2>
               <input
                 type="text"
                 id="campaignName"
                 name="campaignName"
-                maxLength={120}
-                autoComplete="off"
-                placeholder="Campaign Name"
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
-                aria-describedby="campaignName-hint"
               />
-              <p className="ad-field-hint" id="campaignName-hint">
-                Give your campaign a name so you can find it later.
-              </p>
             </div>
 
-            <fieldset
-              className="form-field ad-objective-group"
-              aria-describedby={errors.objective ? "objective-error" : "objective-hint"}
-            >
+            <fieldset className="form-field ad-objective-group">
               <legend>Ad Objective</legend>
-              <p className="ad-field-hint" id="objective-hint">
-                Pick the objective that best matches your goals.
-              </p>
-
               <div className="ad-objectives">
                 {OBJECTIVES.map((option) => (
                   <label key={option.value} className="ad-objective">
@@ -697,9 +466,7 @@ export default function Advertise() {
                     />
                     <span className="ad-objective-card">
                       <span className="ad-objective-head">
-                        <span className="ad-objective-icon">
-                          <ObjectiveIconSvg name={option.icon} />
-                        </span>
+                        <span className="ad-objective-icon"><ObjectiveIconSvg name={option.icon} /></span>
                         {option.label}
                       </span>
                       <span className="ad-objective-desc">{option.description}</span>
@@ -708,91 +475,33 @@ export default function Advertise() {
                 ))}
               </div>
 
-              {/* Dynamic Objective Detail Card matching X-style layout */}
               <div className="ad-objective-detail" aria-live="polite">
-                <div className="ad-detail-inner" key={selectedObjective.value}>
+                <div className="ad-detail-inner">
                   <div className="ad-detail-head">
-                    <span className="ad-detail-icon">
-                      <ObjectiveIconSvg name={selectedObjective.icon} />
-                    </span>
+                    <span className="ad-detail-icon"><ObjectiveIconSvg name={selectedObjective.icon} /></span>
                     <span className="ad-detail-name">{selectedObjective.label}</span>
                   </div>
                   <p className="ad-detail-lead">{selectedObjective.description}</p>
-
-                  <p className="ad-detail-heading">How it works</p>
-                  <p className="ad-detail-text">{selectedObjective.howItWorks}</p>
-
-                  <p className="ad-detail-heading">Good for</p>
-                  <ul className="ad-detail-tags">
-                    {selectedObjective.goodFor.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
                 </div>
               </div>
-
-              {fieldError("objective")}
             </fieldset>
           </div>
 
-          {/* Section 3: Schedule & Budget */}
           <div className="ad-form-section">
             <h2 className="ad-section-heading">Schedule & Budget</h2>
             <div className="form-group-row">
               <div className="form-field">
                 <label htmlFor="targetDate">Target Start Date</label>
-                <div
-                  className="ad-date-input-wrapper"
-                  onClick={() => openPicker(targetDateRef)}
-                >
-                  <input
-                    ref={targetDateRef}
-                    type="date"
-                    id="targetDate"
-                    name="targetDate"
-                    required
-                    min={minDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    aria-invalid={errors.targetDate ? true : undefined}
-                    aria-describedby={errors.targetDate ? "targetDate-error" : undefined}
-                  />
-                  <span className="ad-date-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                  </span>
+                <div className="ad-date-input-wrapper" onClick={() => openPicker(targetDateRef)}>
+                  <input ref={targetDateRef} type="date" id="targetDate" name="targetDate" required min={minDate} onChange={(e) => setStartDate(e.target.value)} />
                 </div>
                 {fieldError("targetDate")}
               </div>
-
               <div className="form-field">
                 <label htmlFor="endDate">End Date (Optional)</label>
-                <div
-                  className="ad-date-input-wrapper"
-                  onClick={() => openPicker(endDateRef)}
-                >
-                  <input
-                    ref={endDateRef}
-                    type="date"
-                    id="endDate"
-                    name="endDate"
-                    min={startDate || minDate}
-                    aria-invalid={errors.endDate ? true : undefined}
-                    aria-describedby={errors.endDate ? "endDate-error" : undefined}
-                  />
-                  <span className="ad-date-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                  </span>
+                <div className="ad-date-input-wrapper" onClick={() => openPicker(endDateRef)}>
+                  <input ref={endDateRef} type="date" id="endDate" name="endDate" min={startDate || minDate} />
                 </div>
-                {fieldError("endDate")}
               </div>
             </div>
 
@@ -809,89 +518,28 @@ export default function Advertise() {
             </fieldset>
           </div>
 
-          {/* Section 4: Campaign Details */}
-          <div className="ad-form-section">
-            <h2 className="ad-section-heading">More Context</h2>
-            <div className="form-field full-width">
-              <textarea
-                id="notes"
-                name="notes"
-                rows={4}
-                maxLength={5000}
-                placeholder="Share your UTM code, landing page URL, or a few campaign details..."
-              />
-            </div>
-            
-            <h2 className="ad-section-heading">Existing Campaign (Optional)</h2>
-            <div className="form-field full-width">
-              <input
-                type="text"
-                id="source"
-                name="source"
-                autoComplete="off"
-                inputMode="url"
-                placeholder="Link previous or existing campaign — https://"
-                aria-invalid={errors.source ? true : undefined}
-                aria-describedby={errors.source ? "source-error" : undefined}
-              />
-              {fieldError("source")}
-            </div>
-          </div>
+          <input type="text" name="nonce" className="hp-field" tabIndex={-1} autoComplete="off" />
 
-          {/* Security Honeypot */}
-          <input
-            type="text"
-            name="nonce"
-            className="hp-field"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-          />
+          <button type="submit" className="ad-submit-btn" disabled={submitting}>
+            {submitting ? "Submitting Request..." : "Submit Booking Request"}
+          </button>
 
-            <button
-              type="submit"
-              className="ad-submit-btn"
-              disabled={submitting}
-              aria-busy={submitting}
-            >
-              {submitting ? "Submitting Request..." : "Submit Booking Request"}
-            </button>
-          {/* Section 5: Verification & Submit */}
           <div className="ad-form-section ad-form-submit">
             <div className="subscribe-altcha">
               <Altcha />
               {fieldError("altcha")}
             </div>
-
-          <footer
-            className="feed-footer"
-            id="subscribe"
-          >
-            <form
-              method="post"
-              action="https://app.thepoast.com/subscription/form"
-              className="feed-subscribe-form"
-            >
-              <div className="feed-legal">
-                by submitting, you agree to our{" "}
-                <Link to="/policies/terms">terms</Link>{" "}
-                &amp;{" "}
-                <Link to="/policies/privacy">privacy</Link>
-                <div className="innerfeed-legal">
-                  <Link className="space" to="/about">about</Link>
-                  <Link className="space" to="/archive">archive</Link>
-                  <Link className="space" to="/submit-post">submit post</Link>
-                  <Link className="space" to="/partner">partner</Link>
-                  <Link className="space" to="/book">advertise</Link>
-                  <p className="copyright">thepoast © 2026</p>
-                </div>
-              </div>
-            </form>
-          </footer>
           </div>
-        </Form>
 
+          <div className="feed-legal" style={{ textAlign: "center", marginTop: "1rem" }}>
+              By submitting, you agree to our{" "}
+              <Link to="/policies/terms">terms</Link> &amp;{" "}
+              <Link to="/policies/privacy">privacy</Link>
+            </div>
+        </Form>
       </main>
+
+      <FeedFooter />
     </div>
   );
 }

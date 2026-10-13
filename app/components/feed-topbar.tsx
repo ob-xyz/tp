@@ -3,12 +3,14 @@ import { Link } from "@remix-run/react";
 
 interface FeedTopbarProps {
   hidden?: boolean;
-  onSubscribe: (event: MouseEvent<HTMLAnchorElement>) => void;
+  onSubscribe?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  showSubscribe?: boolean;
 }
 
 export default function FeedTopbar({
   hidden = false,
   onSubscribe,
+  showSubscribe = true,
 }: FeedTopbarProps) {
   return (
     <header className={`feed-topbar${hidden ? " is-hidden" : ""}`}>
@@ -21,13 +23,15 @@ export default function FeedTopbar({
         />
       </Link>
 
-      <a
-        className="feed-subscribe"
-        href="#subscribe"
-        onClick={onSubscribe}
-      >
-        Subscribe
-      </a>
+      {showSubscribe && (
+        <a
+          className="feed-subscribe"
+          href="#subscribe"
+          onClick={onSubscribe}
+        >
+          Subscribe
+        </a>
+      )}
     </header>
   );
 }

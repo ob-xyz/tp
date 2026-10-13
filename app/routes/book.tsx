@@ -7,6 +7,8 @@ import { json, redirect } from "@remix-run/node";
 import { Link, Form, useActionData } from "@remix-run/react";
 import { useState } from "react";
 
+import FeedTopbar from "~/components/feed-topbar";
+import FeedFooter from "~/components/feed-footer";
 import Altcha from "~/components/altcha";
 
 export const meta: MetaFunction = () => {
@@ -223,10 +225,6 @@ async function saveAdvertiserLead(lead: Lead) {
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                   ACTION                                   */
-/* -------------------------------------------------------------------------- */
-
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
@@ -299,10 +297,6 @@ export async function action({ request }: ActionFunctionArgs) {
   return redirect("/thank-you");
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                    PAGE                                    */
-/* -------------------------------------------------------------------------- */
-
 export default function Advertise() {
   const actionData = useActionData<ActionData>();
   const errors = actionData?.fieldErrors ?? {};
@@ -319,12 +313,13 @@ export default function Advertise() {
 
   return (
     <div className="feed-page ad-booking-page">
-      <header className="feed-topbar">
-        <Link className="feed-mark" to="/">
-          <img src="/img/tp.png" alt="thepoast" decoding="async" />
-        </Link>
-      </header>
-
+    <FeedTopbar 
+      showSubscribe={false} 
+      onSubscribe={(e) => { 
+        e.preventDefault(); 
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); 
+      }} 
+    />
       <main className="ad-booking-card">
         <div className="ad-booking-header">
           <span className="ad-badge">ADVERTISE with us</span>
@@ -340,7 +335,6 @@ export default function Advertise() {
             </div>
           )}
 
-          {/* Contact Details */}
           <div className="form-group-row">
             <div className="form-field">
               <label htmlFor="company">Company</label>
@@ -436,7 +430,6 @@ export default function Advertise() {
             </div>
           </div>
 
-          {/* Payment Method */}
           <div className="form-field full-width">
             <label>Payment Method</label>
             <input
@@ -461,7 +454,6 @@ export default function Advertise() {
             {fieldError("paymentMethod")}
           </div>
 
-          {/* Campaign Details */}
           <div className="form-field full-width">
             <label htmlFor="notes">How can we help you?</label>
             <textarea
@@ -473,7 +465,6 @@ export default function Advertise() {
             />
           </div>
 
-          {/* Honeypot */}
           <input
             type="text"
             name="nonce"
@@ -486,43 +477,25 @@ export default function Advertise() {
           <button type="submit" className="ad-submit-btn">
             Submit Booking Request
           </button>
-          {/* Verification Widget */}
+
           <div className="subscribe-altcha">
             <Altcha />
             {fieldError("altcha")}
           </div>
 
-          <footer
-            className="feed-footer"
-            id="subscribe"
-          >
-            <form
-              method="post"
-              action="https://app.thepoast.com/subscription/form"
-              className="feed-subscribe-form"
-            >
-              <div className="feed-legal">
-                by submitting, you agree to our{" "}
-                <Link to="/policies/terms">terms</Link>{" "}
-                &amp;{" "}
-                <Link to="/policies/privacy">privacy</Link>
-                <div className="innerfeed-legal">
-                  <Link className="space" to="/about">about</Link>
-                  <Link className="space" to="/archive">archive</Link>
-                  <Link className="space" to="/submit-post">submit post</Link>
-                  <Link className="space" to="/partner">partner</Link>
-                  <Link className="space" to="/book">advertise</Link>
-                  <p className="copyright">thepoast © 2026</p>
-                </div>
-              </div>
-            </form>
-          </footer>
+          <div className="feed-legal" style={{ textAlign: "center", marginTop: "1rem" }}>
+            By submitting, you agree to our{" "}
+            <Link to="/policies/terms">terms</Link> &amp;{" "}
+            <Link to="/policies/privacy">privacy</Link>
+          </div>
         </Form>
 
         <Link to="/" className="back-btn">
           ← Return to thepoast
         </Link>
       </main>
+
+      <FeedFooter />
     </div>
   );
 }

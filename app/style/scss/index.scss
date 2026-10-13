@@ -81,6 +81,24 @@ body:has(.feed-page) {
   a {
     font-family: kl;
   }
+    .feed-legal {
+    margin-left:.85rem;
+    font-family: kl;
+    font-weight: 100;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    text-align: right;
+    color: var(--feed-legal);
+
+    a {
+      color: var(--feed-legal);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 /* ---------------------------------------------------------------------- */
@@ -301,7 +319,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     flex-wrap: wrap;
     justify-content: center;
     width: auto;
-    gap: 0.35rem 0.85rem;
+    gap: 0.35rem 0.3rem; // Tightened spacing significantly here (~70% reduction)
     font-size: 0.75rem;
     a {
       color: var(--feed-legal);
@@ -366,8 +384,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .feed-banner-title {
   font-family: bold;
-  font-size: 1.35rem;
-  line-height: 1.2;
+  font-size: 2rem;
   text-align: center;
   color: var(--feed-text);
 }
@@ -380,7 +397,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   font-family: bold;
-  font-size: 1rem;
+  font-size: 1.25rem;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.2s ease;
 
@@ -473,7 +490,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   }
 
   .feed-legal {
-    padding-left:0;
     margin-left:0;
     font-family: kl;
     font-weight: 100;

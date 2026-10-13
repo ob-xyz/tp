@@ -105,6 +105,7 @@ export default function About() {
   const { endRef, reached } = useReachedEndOfPage();
 
   const [forced, setForced] = useState(false);
+  const [expandBanner, setExpandBanner] = useState(false);
 
   const footerRef = useRef<HTMLElement>(null);
   const previousReached = useRef(false);
@@ -114,6 +115,7 @@ export default function About() {
   useEffect(() => {
     if (previousReached.current && !reached) {
       setForced(false);
+      setExpandBanner(false);
     }
 
     previousReached.current = reached;
@@ -125,6 +127,7 @@ export default function About() {
     event.preventDefault();
 
     setForced(true);
+    setExpandBanner(true);
 
     footerRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -244,6 +247,7 @@ export default function About() {
 
       <FeedSubscribeBanner
         visible={bannerVisible}
+        initialExpanded={expandBanner}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   json,
@@ -7,6 +7,9 @@ import {
   type MetaFunction
 } from "@remix-run/node";
 
+import FeedTopbar from "../components/feed-topbar";
+import FeedFooter from "../components/feed-footer";
+import FeedSubscribeBanner from "../components/feed-subscribe-banner";
 import Altcha from "../components/altcha";
 import FeedEmbed, {
   getCachedHeight,
@@ -51,16 +54,13 @@ export function shouldRevalidate() {
 
 const FEED_LIMIT = 30;
 const FEED_START_DATE = "2026-09-23";
+const BANNER_TRIGGER = 0.75;
 
 type Feed = {
   id: string;
   subject: string;
   date: string;
 };
-
-/* -------------------------------------------------------------------------- */
-/*                                   LOADER                                   */
-/* -------------------------------------------------------------------------- */
 
 export async function loader() {
   const campaigns = await listFinishedCampaigns();
@@ -82,15 +82,6 @@ export async function loader() {
     FEED_LIMIT
   );
 
-  /*
-   * IMPORTANT:
-   *
-   * The initial /today response contains only lightweight
-   * campaign metadata.
-   *
-   * Lead-story HTML is fetched independently by FeedCard
-   * when the card approaches the viewport.
-   */
   const feeds: Feed[] = daily.map((campaign) => ({
     id: String(campaign.id),
     subject: campaign.subject || "thepoast",
@@ -99,10 +90,6 @@ export async function loader() {
       new Date().toISOString(),
   }));
 
-  /*
-   * Warm the server-side preview cache without making the
-   * browser wait for the HTML.
-   */
   if (feeds.length > 0) {
     warmLeadStories(feeds.map((feed) => feed.id));
   }
@@ -124,14 +111,8 @@ export async function loader() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                 CLIENT-SIDE FETCH QUEUE (max 3 in flight)                  */
-/* -------------------------------------------------------------------------- */
-
 const MAX_CONCURRENT = 3;
-
 let active = 0;
-
 const waiting: Array<() => void> = [];
 
 function schedule<T>(
@@ -162,13 +143,6 @@ const sleep = (ms: number) =>
     setTimeout(resolve, ms)
   );
 
-/* -------------------------------------------------------------------------- */
-/*                              FETCH LEAD STORY                              */
-/* -------------------------------------------------------------------------- */
-
-/**
- * Returns HTML, or null if the campaign has no lead story.
- */
 async function fetchLead(
   id: string,
   signal: AbortSignal
@@ -216,21 +190,12 @@ async function fetchLead(
       }
 
       lastError = error;
-
-      /*
-       * Small retry delay. Normally this never matters because
-       * the server-side preview cache is already warm.
-       */
       await sleep(500 * (attempt + 1));
     }
   }
 
   throw lastError;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                  DATE                                      */
-/* -------------------------------------------------------------------------- */
 
 function formatDate(date: string) {
   try {
@@ -246,9 +211,46 @@ function formatDate(date: string) {
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                 FEED CARD                                  */
-/* -------------------------------------------------------------------------- */
+function useReachedEndOfPage() {
+  const endRef = useRef<HTMLDivElement>(null);
+  const [reached, setReached] = useState(false);
+
+  useEffect(() => {
+    const element = endRef.current;
+    if (!element) return;
+
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const top = element.getBoundingClientRect().top;
+      setReached(window.scrollY > 0 && top <= window.innerHeight * BANNER_TRIGGER);
+    };
+
+    const scheduleCheck = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+
+    window.addEventListener("scroll", scheduleCheck, { passive: true });
+    window.addEventListener("resize", scheduleCheck);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined" && element.parentElement) {
+      resizeObserver = new ResizeObserver(scheduleCheck);
+      resizeObserver.observe(element.parentElement);
+    }
+
+    check();
+
+    return () => {
+      window.removeEventListener("scroll", scheduleCheck);
+      window.removeEventListener("resize", scheduleCheck);
+      resizeObserver?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return { endRef, reached };
+}
 
 function FeedCard({
   feed,
@@ -302,20 +304,10 @@ function FeedCard({
               if (controller.signal.aborted) {
                 return;
               }
-
-              console.error(
-                `[feeds] Failed to load feed ${feed.id}:`,
-                error
-              );
-
               setFailed(true);
             });
         },
         {
-          /*
-           * Start loading well before the user reaches
-           * the card so scrolling feels instantaneous.
-           */
           rootMargin: "1800px 0px",
           threshold: 0,
         }
@@ -406,37 +398,38 @@ function FeedCard({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                    PAGE                                    */
-/* -------------------------------------------------------------------------- */
-
 export default function Today() {
   const {
     feeds,
     degraded,
   } = useLoaderData<typeof loader>();
 
-  return (
-    <div className="feeds-page">
-      <header className="feed-topbar">
-        <Link
-          className="feed-mark"
-          to="/"
-        >
-          <img
-            src="/img/tp.png"
-            alt="thepoast"
-            decoding="async"
-          />
-        </Link>
+  const { endRef, reached } = useReachedEndOfPage();
+  const [forced, setForced] = useState(false);
+  const [expandBanner, setExpandBanner] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+  const previousReached = useRef(false);
 
-        <a
-          href="#subscribe"
-          className="feed-subscribe"
-        >
-          Subscribe
-        </a>
-      </header>
+  const bannerVisible = reached || forced;
+
+  useEffect(() => {
+    if (previousReached.current && !reached) {
+      setForced(false);
+      setExpandBanner(false);
+    }
+    previousReached.current = reached;
+  }, [reached]);
+
+  const handleTopbarSubscribe = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setForced(true);
+    setExpandBanner(true);
+    footerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
+  return (
+    <div className="feed-page feeds-page">
+      <FeedTopbar hidden={reached} onSubscribe={handleTopbarSubscribe} />
 
       <main className="feeds-stream">
         {feeds.length === 0 ? (
@@ -455,67 +448,15 @@ export default function Today() {
             />
           ))
         )}
+
+        <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>
 
-      <footer
-        className="feed-footer"
-        id="subscribe"
-      >
-        <form
-          method="post"
-          action="https://app.thepoast.com/subscription/form"
-          className="feed-subscribe-form"
-        >
-          <div className="feed-header">Get thepoast</div>
+      <div ref={footerRef}>
+        <FeedFooter covered={bannerVisible} />
+      </div>
 
-          <div className="feed-input-bar">
-            <input
-              className="feed-input email-input"
-              type="email"
-              name="email"
-              required
-              placeholder="Email Address *"
-            />
-
-            <button
-              className="feed-submit"
-              type="submit"
-            >
-              Subscribe
-            </button>
-          </div>
-
-          <div className="feed-altcha-wrap">
-            <Altcha />
-          </div>
-
-          <input
-            id="6d48f"
-            type="hidden"
-            name="l"
-            value="6d48fffe-7d37-4c14-b317-3e4cda33a647"
-          />
-
-          <input
-            type="hidden"
-            name="nonce"
-          />
-          <div className="feed-legal">
-            by submitting, you agree to our{" "}
-            <Link to="/policies/terms">terms</Link>{" "}
-            &amp;{" "}
-            <Link to="/policies/privacy">privacy</Link>
-            <div className="innerfeed-legal">
-              <Link className="space" to="/about">about</Link>
-              <Link className="space" to="/archive">archive</Link>
-              <Link className="space" to="/submit-post">submit post</Link>
-              <Link className="space" to="/partner">partner</Link>
-              <Link className="space" to="/book">advertise</Link>
-              <p className="copyright">thepoast © 2026</p>
-            </div>
-          </div>
-        </form>
-      </footer>
+      <FeedSubscribeBanner visible={bannerVisible} forceExpanded={expandBanner} />
     </div>
   );
 }

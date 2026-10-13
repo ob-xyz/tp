@@ -68,6 +68,22 @@ body:has(.feed-page) {
 .feed-page a {
   font-family: kl;
 }
+.feed-page .feed-legal {
+  margin-left: 0.85rem;
+  font-family: kl;
+  font-weight: 100;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  text-align: right;
+  color: var(--feed-legal);
+}
+.feed-page .feed-legal a {
+  color: var(--feed-legal);
+  text-decoration: none;
+}
+.feed-page .feed-legal a:hover {
+  text-decoration: underline;
+}
 
 /* ---------------------------------------------------------------------- */
 /*                                 TOP BAR                                 */
@@ -264,7 +280,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   flex-wrap: wrap;
   justify-content: center;
   width: auto;
-  gap: 0.35rem 0.85rem;
+  gap: 0.35rem 0.3rem;
   font-size: 0.75rem;
 }
 .feed-footer .feed-footer-links a {
@@ -323,8 +339,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .feed-banner-title {
   font-family: bold;
-  font-size: 1.35rem;
-  line-height: 1.2;
+  font-size: 2rem;
   text-align: center;
   color: var(--feed-text);
 }
@@ -337,7 +352,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   font-family: bold;
-  font-size: 1rem;
+  font-size: 1.25rem;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.2s ease;
 }
@@ -419,7 +434,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   justify-content: flex-start;
 }
 .feed-banner-form .feed-legal {
-  padding-left: 0;
   margin-left: 0;
   font-family: kl;
   font-weight: 100;
