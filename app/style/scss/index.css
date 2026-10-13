@@ -341,7 +341,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .feed-banner-title {
   font-family: bold;
-  font-size: 2rem;
+  font-size: 1.75rem;
   text-align: center;
   color: var(--feed-text);
 }
