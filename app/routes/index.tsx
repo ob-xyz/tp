@@ -156,9 +156,8 @@ export default function Index() {
 
         {/* Marker for the end of the feed ("You're all caught up") */}
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
-      </main>
 
-      {/* Fades out as the banner rises over it */}
+              {/* Fades out as the banner rises over it */}
       <footer
         ref={footerRef}
         className={`feed-footer${bannerVisible ? " is-covered" : ""}`}
@@ -239,6 +238,9 @@ export default function Index() {
           )}
         </div>
       </aside>
+      </main>
+
+
     </div>
   );
 }

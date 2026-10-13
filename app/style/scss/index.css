@@ -64,6 +64,7 @@ body:has(.feed-page) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-right: 7.5rem;
 }
 .feed-page a {
   font-family: kl;
@@ -258,7 +259,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   max-width: 600px;
   padding: 0 1rem;
   /* Space at the very end so the banner never covers "You're all caught up" */
-  padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(11rem + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
   text-align: center;
   font-family: kl;
@@ -311,6 +312,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   display: flex;
   justify-content: center;
   pointer-events: none;
+  margin-bottom: 1rem;
+  margin-right: 7.5rem;
   /* Hidden state: parked below the screen */
   transform: translateY(100%);
   visibility: hidden;
@@ -341,7 +344,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 
 .feed-banner-title {
   font-family: bold;
-  font-size: 1.75rem;
+  font-weight: 900;
+  font-size: 1.25rem;
   text-align: center;
   color: var(--feed-text);
 }
@@ -354,7 +358,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   background: var(--feed-btn-bg);
   color: var(--feed-btn-text);
   font-family: bold;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.2s ease;
 }
