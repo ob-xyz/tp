@@ -312,7 +312,6 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   display: flex;
   justify-content: center;
   pointer-events: none;
-  margin-bottom: 1rem;
   margin-right: 7.5rem;
   /* Hidden state: parked below the screen */
   transform: translateY(100%);
@@ -340,6 +339,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   border-bottom: none;
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+  padding-bottom: 1rem;
 }
 
 .feed-banner-title {
@@ -351,6 +351,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
 }
 
 .feed-banner-btn {
+  margin-bottom: 1rem;
   width: 100%;
   border: none;
   border-radius: 999px;
