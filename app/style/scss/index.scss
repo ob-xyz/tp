@@ -528,6 +528,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   .feed-topbar {
     padding: 0.7rem 0.6rem;
     gap: 0.4rem;
+    border-left: none;
+    border-right: none;
 
     .feed-subscribe {
       font-size: 0.85rem;
