@@ -119,6 +119,8 @@ export default function NotFound() {
             src="/live"
             title="Today's Edition"
             interactive
+            bordered
+            hideTopBorder
             fallbackHeight={900}
           />
         </div>

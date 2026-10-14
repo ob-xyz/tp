@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import {
   json,
   type HeadersFunction,
@@ -13,6 +13,7 @@ import FeedSubscribeBanner from "../components/feed-subscribe-banner";
 import Altcha from "../components/altcha";
 import FeedEmbed, {
   getCachedHeight,
+  useSideBorders,
 } from "../components/feed-embed";
 
 import {
@@ -218,6 +219,7 @@ function FeedCard({
   priority: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const sideBorders = useSideBorders();
   const [html, setHtml] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
 
@@ -264,11 +266,18 @@ function FeedCard({
     <section className="feed-archive-item" data-feed-id={feed.id}>
       <div ref={ref}>
         {html ? (
-          <FeedEmbed id={feed.id} html={html} title={feed.subject} interactive fallbackHeight={900} />
+          <FeedEmbed
+            id={feed.id}
+            html={html}
+            title={feed.subject}
+            interactive
+            bordered
+            hideTopBorder
+            fallbackHeight={900}
+          />
         ) : failed ? (
-          <Link
-            to={`/feeds/${feed.id}`}
-            prefetch="intent"
+          <a
+            href={`/feeds/${feed.id}`}
             className="feeds-empty feed-fallback"
             style={{
               display: "block",
@@ -276,12 +285,13 @@ function FeedCard({
               textAlign: "center",
               textDecoration: "none",
               color: "inherit",
+              ...sideBorders,
             }}
           >
             <strong>{feed.subject}</strong>
             {feed.dateLabel && <div style={{ opacity: 0.6, marginTop: 6 }}>{feed.dateLabel}</div>}
             <div style={{ opacity: 0.6, marginTop: 6 }}>Read this edition</div>
-          </Link>
+          </a>
         ) : (
           <div
             className="feeds-skeleton feed-lazy-placeholder"
@@ -289,6 +299,7 @@ function FeedCard({
             style={{
               width: "100%",
               height: getCachedHeight(feed.id, true) ?? 900,
+              ...sideBorders,
             }}
           />
         )}

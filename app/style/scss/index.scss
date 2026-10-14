@@ -188,6 +188,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   padding: 0 0.4rem;
   margin-left:0;
   .status-dot {
+    display: flex;
+    z-index: 9999999999999;
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 999px;

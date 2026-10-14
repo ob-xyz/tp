@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import {
   json,
   type HeadersFunction,
@@ -7,14 +7,14 @@ import {
   type MetaFunction
 } from "@remix-run/node";
 
-import FeedTopbar from "../components/feed-topbar";
-import FeedFooter from "../components/feed-footer";
-import FeedSubscribeBanner from "../components/feed-subscribe-banner";
-import Altcha from "../components/altcha";
+import FeedTopbar from "../../components/feed-topbar";
+import FeedFooter from "../../components/feed-footer";
+import FeedSubscribeBanner from "../../components/feed-subscribe-banner";
+import Altcha from "../../components/altcha";
 import FeedEmbed, {
   getCachedHeight,
   useSideBorders,
-} from "../components/feed-embed";
+} from "../../components/feed-embed";
 
 import {
   listFinishedCampaigns,
@@ -22,7 +22,7 @@ import {
   getCampaignDate,
   getDateKey,
   warmLeadStories,
-} from "../utils/poast-feeds.server";
+} from "../../utils/poast-feeds.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -348,9 +348,8 @@ function FeedCard({
               hideTopBorder
             />
 
-            <Link
-              to={`/feeds/${feed.id}`}
-              prefetch="intent"
+            <a
+              href={`/archive/feeds/${feed.id}`}
               aria-label={`Read: ${feed.subject}`}
               style={{
                 position: "absolute",
@@ -360,9 +359,8 @@ function FeedCard({
             />
           </>
         ) : failed ? (
-          <Link
-            to={`/feeds/${feed.id}`}
-            prefetch="intent"
+          <a
+            href={`/archive/feeds/${feed.id}`}
             className="feed-fallback"
             style={{
               display: "block",
@@ -385,7 +383,7 @@ function FeedCard({
             >
               {formatDate(feed.date)}
             </div>
-          </Link>
+          </a>
         ) : (
           <div
             className="feed-lazy-placeholder"
