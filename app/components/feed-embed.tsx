@@ -27,6 +27,13 @@ type Props = {
   fallbackHeight?: number;
   onLoaded?: () => void;
   lazy?: boolean;
+  /**
+   * Draw hairline side borders around the embed from the parent page.
+   * The email HTML inside the iframe only draws its own side borders at
+   * wider viewports (media query), and an iframe's viewport is its own
+   * width (<= 600px), so those borders never appear when embedded.
+   */
+  bordered?: boolean;
 };
 
 function FeedEmbed({
@@ -38,6 +45,7 @@ function FeedEmbed({
   fallbackHeight = 360,
   onLoaded,
   lazy = false,
+  bordered = false,
 }: Props) {
   const key = keyFor(id, interactive);
 
@@ -203,6 +211,14 @@ function FeedEmbed({
         position: "relative",
         width: "100%",
         height,
+        boxSizing: "border-box",
+        ...(bordered
+          ? {
+              borderLeft: "1px solid var(--feed-hairline)",
+              borderRight: "1px solid var(--feed-hairline)",
+              borderTop: "none",
+            }
+          : null),
       }}
     >
       <iframe

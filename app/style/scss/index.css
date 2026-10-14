@@ -102,7 +102,9 @@ body:has(.feed-page) {
   background: var(--feed-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--feed-hairline);
+  border-left: 1px solid var(--feed-hairline);
+  border-right: 1px solid var(--feed-hairline);
+  border-bottom: none;
   box-sizing: border-box;
   overflow: hidden;
   transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s;

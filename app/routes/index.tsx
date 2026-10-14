@@ -150,6 +150,7 @@ export default function Index() {
             src="/live"
             title="Today's Edition"
             interactive
+            bordered
             fallbackHeight={900}
           />
         </div>
