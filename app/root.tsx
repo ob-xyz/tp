@@ -9,11 +9,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLocation,
 } from "@remix-run/react";
 import { useNavigationType } from "react-router-dom";
 
 import globalStyles from "~/style/global/global.css";
+import NotFound from "~/routes/$";
 
 export const links: LinksFunction = () => {
   return [
@@ -51,6 +53,68 @@ function ScrollToTop() {
   }, [pathname, hash, navType]);
 
   return null;
+}
+
+function Document({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#050505"
+          media="(prefers-color-scheme: dark)"
+        />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <Document>
+      {caught.status === 404 ? (
+        <NotFound />
+      ) : (
+        <main style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
+          <h1>
+            {caught.status} {caught.statusText}
+          </h1>
+          <p>Something went wrong.</p>
+          <a href="/">Back to thepoast</a>
+        </main>
+      )}
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+
+  return (
+    <Document>
+      <main style={{ padding: "4rem 1.5rem", textAlign: "center" }}>
+        <h1>Something went wrong</h1>
+        <p>We hit an unexpected error.</p>
+        <a href="/">Back to thepoast</a>
+      </main>
+    </Document>
+  );
 }
 
 export default function App() {

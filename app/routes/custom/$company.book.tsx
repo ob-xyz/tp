@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLoaderData, useActionData, Form, useNavigation } from "@remix-run/react";
+import {
+  Link,
+  useLoaderData,
+  useActionData,
+  Form,
+  useNavigation,
+  useCatch,
+} from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type {
   LoaderFunctionArgs,
@@ -11,6 +18,7 @@ import type {
 
 import FeedEmbed from "~/components/feed-embed";
 import Altcha from "~/components/altcha";
+import NotFound from "~/routes/$"; // your existing custom 404 page
 
 const CAMPAIGN_MAP: Record<string, number> = {
   now: 1,
@@ -266,8 +274,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  // On a caught 404, data is undefined
+  if (!data) {
+    return { title: "404 / thepoast", robots: "noindex" };
+  }
   return {
-    title: `Book ${data?.companyName || "Campaign"} x thepoast`,
+    title: `Book ${data.companyName} x thepoast`,
   };
 };
 
@@ -279,6 +291,17 @@ export const links: LinksFunction = () => [
 export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
 });
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.status === 404) {
+    return <NotFound />;
+  }
+
+  // Anything other than a 404 falls through to the ErrorBoundary
+  throw new Error(`Unexpected response: ${caught.status}`);
+}
 
 function useReachedEndOfFeed() {
   const endRef = useRef<HTMLDivElement>(null);

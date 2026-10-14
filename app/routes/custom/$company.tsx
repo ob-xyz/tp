@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useLoaderData } from "@remix-run/react";
+import { Link, useNavigate, useLoaderData, useCatch } from "@remix-run/react";
 import type {
   LoaderFunctionArgs,
   HeadersFunction,
@@ -8,6 +8,7 @@ import type {
 } from "@remix-run/node";
 
 import FeedEmbed from "~/components/feed-embed";
+import NotFound from "~/routes/$"; // your existing custom 404 page
 
 // Map your company slugs to their Listmonk campaign IDs here!
 const CAMPAIGN_MAP: Record<string, number> = {
@@ -32,8 +33,12 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  // On a caught 404, data is undefined
+  if (!data) {
+    return { title: "404 / thepoast", robots: "noindex" };
+  }
   return {
-    title: `${data?.companyName || "Campaign"} x thepoast`,
+    title: `${data.companyName} x thepoast`,
   };
 };
 
@@ -45,6 +50,17 @@ export const links: LinksFunction = () => [
 export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
 });
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.status === 404) {
+    return <NotFound />;
+  }
+
+  // Anything other than a 404 falls through to the ErrorBoundary
+  throw new Error(`Unexpected response: ${caught.status}`);
+}
 
 const BANNER_TRIGGER = 0.85;
 
@@ -102,14 +118,14 @@ export default function DynamicCampaignPage() {
 
   return (
     <div className="feed-page">
-        <header 
-        className={`feed-topbar${reached ? " is-hidden" : ""}`} 
+      <header
+        className={`feed-topbar${reached ? " is-hidden" : ""}`}
         style={{ borderLeft: "none", borderRight: "none" }}
-        >
+      >
         <Link className="feed-mark" to="/">
-            <img src="/img/tp.png" alt="thepoast" decoding="async" />
+          <img src="/img/tp.png" alt="thepoast" decoding="async" />
         </Link>
-        </header>
+      </header>
 
       <main className="feed-stream">
         <div className="feed-embed loaded">
@@ -154,11 +170,11 @@ export default function DynamicCampaignPage() {
             </div>
 
             <button
-            type="button"
-            className="feed-banner-btn"
-            onClick={() => navigate(`/${company}/book`)}
+              type="button"
+              className="feed-banner-btn"
+              onClick={() => navigate(`/${company}/book`)}
             >
-            Run this ad
+              Run this ad
             </button>
           </div>
         </aside>
