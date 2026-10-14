@@ -1,5 +1,11 @@
 $ad-max-width: 620px;
 
+body:has(.ad-booking-page) .feed-topbar {
+  background: transparent;
+  border-left:none;
+  border-right: none;
+}
+
 .ad-booking-page {
   --feed-page-glow: rgba(184, 132, 47, 0.12);
 

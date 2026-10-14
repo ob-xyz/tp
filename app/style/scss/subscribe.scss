@@ -17,6 +17,10 @@ $subscribe-max-width: 540px;
   --feed-legal-link: rgba(0, 0, 0, 0.7);
   --feed-focus: #3598db;
   --feed-live: #00b86b;
+
+  /* The Poast logo gradient (red -> orange -> amber) */
+  --feed-brand-gradient: linear-gradient(90deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%);
+  --feed-brand-glow: rgba(252, 109, 4, 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,6 +47,17 @@ html:has(.subscribe-page),
 body:has(.subscribe-page) {
   background: var(--feed-bg, #050505);
   scroll-behavior: smooth !important;
+}
+
+/*
+ * Same treatment as the About / Advertise pages: let the page glow show
+ * through the topbar instead of a solid var(--feed-bg) strip. The blur from
+ * .feed-topbar keeps scrolled content readable.
+ */
+body:has(.subscribe-page) .feed-topbar {
+  background: transparent;
+  border-left:none;
+  border-right: none;
 }
 
 .subscribe-page {
@@ -139,14 +154,39 @@ body:has(.subscribe-page) {
   width: 100%;
   box-sizing: border-box;
   background: var(--feed-input-bg);
-  border: 1px solid var(--feed-input-border);
+  border: 2px solid var(--feed-focus); /* idle: blue */
   border-radius: 999px;
   padding: 0.25rem 0.35rem 0.25rem 0;
+  position: relative;
+  box-shadow: 0 0 12px var(--feed-focus);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
+  /* Focused: Poast gradient ring (hidden until focus) */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    border-radius: inherit;
+    background: var(--feed-brand-gradient);
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  /* Focused: blue fades out, Poast gradient takes over */
   &:focus-within {
-    border-color: var(--feed-focus);
-    box-shadow: 0 0 12px var(--feed-focus);
+    border-color: transparent;
+    box-shadow: 0 0 14px var(--feed-brand-glow);
+
+    &::before {
+      opacity: 1;
+    }
   }
 }
 
@@ -287,7 +327,8 @@ body:has(.subscribe-page) {
   .subscribe-card,
   .subscribe-submit,
   .back-btn,
-  .subscribe-input-bar {
+  .subscribe-input-bar,
+  .subscribe-input-bar::before {
     transition: none !important;
     animation: none !important;
   }

@@ -26,6 +26,10 @@ $feed-max-width: 600px;
 
   --feed-pulse-rgb: 239, 38, 38;
   --feed-focus: #3598db;
+
+  /* The Poast logo gradient (red -> orange -> amber) */
+  --feed-brand-gradient: linear-gradient(90deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%);
+  --feed-brand-glow: rgba(252, 109, 4, 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -431,14 +435,39 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     width: 100%;
     box-sizing: border-box;
     background: var(--feed-input-bg);
-    border: 1px solid var(--feed-input-border);
     border-radius: 999px;
     padding: 0.25rem 0.35rem 0.25rem 0;
+    position: relative;
+    border: 2px solid var(--feed-focus); /* idle: blue */
+    box-shadow: 0 0 12px var(--feed-focus);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
+    /* Focused: Poast gradient ring (hidden until focus) */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      padding: 2px;
+      border-radius: inherit;
+      background: var(--feed-brand-gradient);
+      -webkit-mask: linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Focused: blue fades out, Poast gradient takes over */
     &:focus-within {
-      border-color: var(--feed-focus);
-      box-shadow: 0 0 12px var(--feed-focus);
+      border-color: transparent;
+      box-shadow: 0 0 14px var(--feed-brand-glow);
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     .feed-input {
@@ -586,6 +615,8 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
     .feed-banner,
     .feed-footer,
     .feed-banner-btn,
+    .feed-input-bar,
+    .feed-input-bar::before,
     .feed-topbar {
       transition: none !important;
       animation: none !important;
