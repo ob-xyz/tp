@@ -13,6 +13,7 @@ import FeedSubscribeBanner from "../components/feed-subscribe-banner";
 import Altcha from "../components/altcha";
 import FeedEmbed, {
   getCachedHeight,
+  useSideBorders,
 } from "../components/feed-embed";
 
 import {
@@ -252,24 +253,13 @@ function useReachedEndOfPage() {
   return { endRef, reached };
 }
 
-/*
- * Side borders drawn from the parent page. The email HTML inside the iframe
- * only draws its own at wider viewports, which never match inside the iframe.
- * Also applied to the placeholder/fallback so the lines stay continuous.
- */
-const SIDE_BORDERS = {
-  boxSizing: "border-box",
-  borderLeft: "1px solid var(--feed-hairline)",
-  borderRight: "1px solid var(--feed-hairline)",
-  borderTop: "none",
-} as const;
-
 function FeedCard({
   feed,
 }: {
   feed: Feed;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const sideBorders = useSideBorders();
 
   const [html, setHtml] = useState<string | null>(
     null
@@ -380,7 +370,7 @@ function FeedCard({
               textAlign: "center",
               textDecoration: "none",
               color: "inherit",
-              ...SIDE_BORDERS,
+              ...sideBorders,
             }}
           >
             <strong>
@@ -405,7 +395,7 @@ function FeedCard({
               height:
                 getCachedHeight(feed.id) ??
                 360,
-              ...SIDE_BORDERS,
+              ...sideBorders,
             }}
           />
         )}

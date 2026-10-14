@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import {
   memo,
   useCallback,
@@ -5,6 +6,42 @@ import {
   useRef,
   useState,
 } from "react";
+
+/** Same breakpoint the page SCSS uses for mobile. */
+const MOBILE_QUERY = "(max-width: 640px)";
+
+const SIDE_BORDER_STYLE: CSSProperties = {
+  boxSizing: "border-box",
+  borderLeft: "1px solid var(--feed-hairline)",
+  borderRight: "1px solid var(--feed-hairline)",
+  borderTop: "none",
+};
+
+/**
+ * Side-border styles for the feed column. Returns {} on mobile (and during
+ * SSR / first render), so borders only appear on larger screens once the
+ * page has mounted.
+ */
+export function useSideBorders(): CSSProperties {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") {
+      setEnabled(true);
+      return;
+    }
+
+    const query = window.matchMedia(MOBILE_QUERY);
+    const update = () => setEnabled(!query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return enabled ? SIDE_BORDER_STYLE : {};
+}
 
 const heightCache = new Map<string, number>();
 
@@ -94,6 +131,7 @@ function FeedEmbed({
   hideTopBorder = false,
 }: Props) {
   const key = keyFor(id, interactive);
+  const sideBorders = useSideBorders();
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const observerRef = useRef<ResizeObserver | null>(null);
@@ -260,13 +298,7 @@ function FeedEmbed({
         width: "100%",
         height,
         boxSizing: "border-box",
-        ...(bordered
-          ? {
-              borderLeft: "1px solid var(--feed-hairline)",
-              borderRight: "1px solid var(--feed-hairline)",
-              borderTop: "none",
-            }
-          : null),
+        ...(bordered ? sideBorders : null),
       }}
     >
       <iframe
