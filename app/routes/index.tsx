@@ -151,6 +151,7 @@ export default function Index() {
             title="Today's Edition"
             interactive
             bordered
+            hideTopBorder
             fallbackHeight={900}
           />
         </div>
@@ -240,8 +241,6 @@ export default function Index() {
         </div>
       </aside>
       </main>
-
-
     </div>
   );
 }

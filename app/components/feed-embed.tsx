@@ -18,6 +18,49 @@ export function getCachedHeight(
   return heightCache.get(keyFor(id, interactive));
 }
 
+/**
+ * Removes any border-top (and <hr> dividers) on elements that touch the very
+ * top of the embedded document, i.e. the divider the email template draws
+ * above its first post. Only elements flush with the top edge are touched,
+ * so dividers between posts are left alone.
+ */
+function stripTopBorder(doc: Document) {
+  const body = doc.body;
+  const view = doc.defaultView;
+  if (!body || !view) return;
+
+  const top = body.getBoundingClientRect().top;
+
+  const walk = (parent: Element, depth: number) => {
+    if (depth > 12) return;
+
+    for (const child of Array.from(parent.children)) {
+      const rect = child.getBoundingClientRect();
+
+      // Skip hidden elements and anything not flush with the top edge
+      if (rect.width === 0 && rect.height === 0) continue;
+      if (rect.top - top > 2) continue;
+
+      if (child.tagName === "HR") {
+        (child as HTMLElement).style.setProperty("display", "none", "important");
+        continue;
+      }
+
+      if (parseFloat(view.getComputedStyle(child).borderTopWidth) > 0) {
+        (child as HTMLElement).style.setProperty(
+          "border-top",
+          "none",
+          "important"
+        );
+      }
+
+      walk(child, depth + 1);
+    }
+  };
+
+  walk(body, 0);
+}
+
 type Props = {
   id: string;
   title: string;
@@ -34,6 +77,8 @@ type Props = {
    * width (<= 600px), so those borders never appear when embedded.
    */
   bordered?: boolean;
+  /** Remove the divider line at the very top of the embedded content. */
+  hideTopBorder?: boolean;
 };
 
 function FeedEmbed({
@@ -46,6 +91,7 @@ function FeedEmbed({
   onLoaded,
   lazy = false,
   bordered = false,
+  hideTopBorder = false,
 }: Props) {
   const key = keyFor(id, interactive);
 
@@ -75,6 +121,8 @@ function FeedEmbed({
     if (!body || body.childElementCount === 0) {
       return false;
     }
+
+    if (hideTopBorder && document) stripTopBorder(document);
 
     const measure = () => {
       const next = Math.ceil(
@@ -112,7 +160,7 @@ function FeedEmbed({
     }
 
     return true;
-  }, [key]);
+  }, [key, hideTopBorder]);
 
   const handleLoad = useCallback(() => {
     attach();
