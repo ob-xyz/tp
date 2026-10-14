@@ -15,8 +15,8 @@ export default function FeedFooter({
           <Link to="/submit-post">submit post</Link>
           <Link to="/policies/privacy">privacy</Link>
           <Link to="/policies/terms">terms</Link>
-          <Link to="/partner">partner</Link>
           <Link to="/manager">manager</Link>
+          <Link to="/partner">partner</Link>
           <Link to="/book">advertise</Link>
       </div>
 
