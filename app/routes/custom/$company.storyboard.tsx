@@ -2,7 +2,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { getCampaignPreview, prepareIssueHtml } from "~/utils/poast-feeds.server";
 
 const CAMPAIGN_MAP: Record<string, number> = {
-  now: 1,
   advertise: 5,
   fin: 507,
   stripe: 451,
