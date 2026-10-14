@@ -16,7 +16,7 @@
   --feed-focus: #3598db;
   --feed-live: #00b86b;
   /* The Poast logo gradient (red -> orange -> amber) */
-  --feed-brand-gradient: linear-gradient(90deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%);
+  --feed-brand-gradient: linear-gradient(45deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%);
   --feed-brand-glow: rgba(252, 109, 4, 0.22);
 }
 

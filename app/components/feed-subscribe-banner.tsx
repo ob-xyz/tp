@@ -37,7 +37,7 @@ export default function FeedSubscribeBanner({
     >
       <div className="feed-banner-inner">
         <div className="feed-banner-title">
-          Get The Poast for free
+          Get thepoast for free
         </div>
 
         {!expanded ? (

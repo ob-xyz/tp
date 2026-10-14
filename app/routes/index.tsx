@@ -184,7 +184,7 @@ export default function Index() {
         aria-hidden={!bannerVisible}
       >
         <div className="feed-banner-inner">
-          <div className="feed-banner-title">Get The Poast for free</div>
+          <div className="feed-banner-title">Get thepoast for free</div>
 
           {!expanded ? (
             <button
