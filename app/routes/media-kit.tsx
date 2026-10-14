@@ -23,17 +23,17 @@ const STATS = [
 const AUDIENCE = ["Founders", "Executives", "Builders", "Investors", "Marketers"];
 
 const FORMATS = [
-  {
-    title: "Full creative control",
-    body: "It's your ad, run your way. Use images, videos, or plain-jane text to find your next customer.",
+    {
+    title: "Repurpose campaigns from social media",
+    body: "Already running ads? Repurpose one of them in thepoast.",
   },
   {
-    title: "Link clicks that land",
-    body: "Every ad click lands on your landing page, not some pesky in-app browser.",
+    title: "Link to your landing page",
+    body: "Avoid in-app browsers and get every link click landing on your page.",
   },
-  {
-    title: "Use existing campaigns",
-    body: "Already have a proven ad that works? Run it in thepoast. Measure its performance.",
+    {
+    title: "Track and measure every ad",
+    body: "Track and measure every ad with your own UTM link, or we can do it for you.",
   },
 ];
 
@@ -43,7 +43,7 @@ const STEPS = [
     body: "Tell us about your company, start date, budget, and any ads you're already running.",
   },
   {
-    title: "We reply within 24 hours",
+    title: "We reply within 48 hours",
     body: "You'll get availability, options, and next steps by email.",
   },
   {
@@ -186,14 +186,9 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <div className="mk-cta">
-          <Link to="/book" className="mk-btn">
-            Advertise with us
-          </Link>
-          <Link to="/about" className="back-btn">
-            About thepoast
-          </Link>
-        </div>
+        <Link to="/manager" className="back-btn">
+          ← Return to Campaign Manager
+        </Link>
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>

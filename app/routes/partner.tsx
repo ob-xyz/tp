@@ -521,7 +521,7 @@ export default function Partner() {
           <input type="text" name="nonce" className="hp-field" tabIndex={-1} autoComplete="off" />
 
           <button type="submit" className="ad-submit-btn" disabled={submitting}>
-            {submitting ? "Submitting Request..." : "Submit Booking Request"}
+            {submitting ? "Submitting Request..." : "Submit New Campaign"}
           </button>
 
           <div className="ad-form-section ad-form-submit">
@@ -536,6 +536,10 @@ export default function Partner() {
               <Link to="/policies/terms">terms</Link> &amp;{" "}
               <Link to="/policies/privacy">privacy</Link>
             </div>
+
+        <Link to="/manager" className="back-btn">
+          ← Return to Campaign Manager
+        </Link>
       </main>
 
       <FeedFooter />

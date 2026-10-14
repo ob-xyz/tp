@@ -490,8 +490,8 @@ export default function Advertise() {
             <Link to="/policies/privacy">privacy</Link>
           </div>
 
-        <Link to="/" className="back-btn">
-          ← Return to thepoast
+        <Link to="/manager" className="back-btn">
+          ← Return to Campaign Manager
         </Link>
       </main>
 
