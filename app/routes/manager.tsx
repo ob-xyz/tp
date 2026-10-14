@@ -88,9 +88,9 @@ type PortalItem = {
 // The big widget at the top: the fastest way to get started.
 const FEATURED: PortalItem & { cta: string; note: string } = {
   href: "/book",
-  title: "Book a quick campaign",
+  title: "Quick checkout",
   description:
-    "Find your next customers in thepoast.",
+    "Book your next campaign right here.",
   icon: <BoltIcon />,
   from: "#ffb340",
   to: "#ff8a00",
@@ -102,8 +102,8 @@ const FEATURED: PortalItem & { cta: string; note: string } = {
 const APPS: PortalItem[] = [
   {
     href: "/partner",
-    title: "New Campaign",
-    description: "Start here if your campaign has a goal, budget, or schedule.",
+    title: "Custom Campaign",
+    description: "Start here if you have a goal, budget, or schedule.",
     icon: <MegaphoneIcon />,
     from: "#5e9bff",
     to: "#2f6bf2",

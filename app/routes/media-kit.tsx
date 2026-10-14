@@ -32,8 +32,8 @@ const FORMATS = [
     body: "Avoid in-app browsers and get every link click landing on your page.",
   },
     {
-    title: "Track and measure every ad",
-    body: "Track and measure every ad with your own UTM link, or we can do it for you.",
+    title: "Track and measure your ads",
+    body: "Track and measure ads using your own UTM link, or we'll give you one.",
   },
 ];
 

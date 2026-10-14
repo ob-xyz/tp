@@ -20,152 +20,146 @@
   force = true
 
 [[redirects]]
-  from = "/sports"
-  to = "https://app.thepoast.com/campaign/ba97f2f9-a8c7-46a7-b183-ccffbc3b6891/644045f5-a135-42b3-bb76-6d9557c055d9"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/anthropic"
-  to = "https://app.thepoast.com/campaign/3b6fe241-842f-4da6-8fe7-7050c9f073d4/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/accenture"
-  to = "https://app.thepoast.com/campaign/bf8ba5af-8724-4d7d-80b2-e3126315763f/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/acumatica"
-  to = "https://app.thepoast.com/campaign/d11a46be-d473-409b-8316-ae061b0110dc/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/adp"
-  to = "https://app.thepoast.com/campaign/99cba324-16d0-4ec9-b09c-4352a21853d5/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/adyen"
-  to = "https://app.thepoast.com/campaign/de4ea41d-5dd5-45a9-9051-8cacf805865e/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/ahead"
-  to = "https://app.thepoast.com/campaign/4112a608-0911-422d-bf29-3952e2396280/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/airbus"
-  to = "https://app.thepoast.com/campaign/37bdc165-7022-412f-8190-fba03708e65e/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/alphasights"
-  to = "https://app.thepoast.com/campaign/e62e7722-1d45-44f2-bd9e-1624fc389397/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/american-express"
-  to = "https://app.thepoast.com/campaign/5e7106ea-ec5a-4696-9da5-9220b70805e8/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/anaplan"
-  to = "https://app.thepoast.com/campaign/cb9ce8ee-8e05-4473-97a4-dee4df7714b9/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/aon"
-  to = "https://app.thepoast.com/campaign/6173be0f-b0d7-450c-8111-d6cc46dedbc9/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/appsflyer"
-  to = "https://app.thepoast.com/campaign/5a0f59fa-8d13-4dd9-b81c-5b94999bd0fa/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/arborxr"
-  to = "https://app.thepoast.com/campaign/89260980-f09e-4160-90f4-318b7e750aec/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/arm"
-  to = "https://app.thepoast.com/campaign/cce9ae7b-d444-4fe5-82cb-2c620a7b8a88/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/astronomer"
-  to = "https://app.thepoast.com/campaign/e4f5fe80-6d7e-4e9c-ab4a-a58bf47bb9e1/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/avalara"
-  to = "https://app.thepoast.com/campaign/e40af457-6216-46d3-86b0-5911c22bcfab/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/avidex"
-  to = "https://app.thepoast.com/campaign/78162188-25eb-498e-93b4-a68712592da1/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/awin"
-  to = "https://app.thepoast.com/campaign/69f55470-ee68-461a-8763-6dbc01772a89/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/barclays"
-  to = "https://app.thepoast.com/campaign/2951858e-c56b-467a-a1c9-17ff565742ac/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/bcg"
-  to = "https://app.thepoast.com/campaign/4de399e1-8588-4a2d-bb2b-d8f9c7ff14f0/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/beautiful-ai"
-  to = "https://app.thepoast.com/campaign/e34730c7-2f5a-4043-a0ea-ba72463eca8f/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/better-stack"
-  to = "https://app.thepoast.com/campaign/1e92e7c9-6d8d-45fb-ae3b-50c8be01134c/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/bilt"
-  to = "https://app.thepoast.com/campaign/563205dd-35ca-4833-a7cc-4e03365a2c65/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
 [[redirects]]
   from = "/blackberry"
-  to = "https://app.thepoast.com/campaign/3a3f0bf0-119e-40bd-978a-c0608ab41642/e0b14610-4448-4657-ae89-21598fe78de2"
+  to = "https://thepoast.com/manager"
   status = 200
   force = true
 
