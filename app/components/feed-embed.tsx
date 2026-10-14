@@ -12,8 +12,8 @@ const MOBILE_QUERY = "(max-width: 640px)";
 
 const SIDE_BORDER_STYLE: CSSProperties = {
   boxSizing: "border-box",
-  borderLeft: "1px solid var(--feed-hairline)",
-  borderRight: "1px solid var(--feed-hairline)",
+  borderLeft: "2px solid var(--feed-hairline)",
+  borderRight: "2px solid var(--feed-hairline)",
   borderTop: "none",
 };
 
