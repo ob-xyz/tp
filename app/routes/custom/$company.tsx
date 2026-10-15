@@ -8,7 +8,9 @@ import type {
 } from "@remix-run/node";
 
 import FeedEmbed from "~/components/feed-embed";
+import MediaKit, { MEDIA_KIT } from "~/components/media-kit";
 import NotFound from "~/routes/$"; // your existing custom 404 page
+import bookStyles from "../../style/scss/custom/custom.css";
 
 // Map your company slugs to their Listmonk campaign IDs here!
 const CAMPAIGN_MAP: Record<string, number> = {
@@ -38,11 +40,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     return { title: "404 / thepoast", robots: "noindex" };
   }
   return {
-    title: `${data.companyName} x thepoast`,
+    title: "thepoast",
   };
 };
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: bookStyles },
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" },
 ];
@@ -113,51 +116,29 @@ export default function DynamicCampaignPage() {
   const { endRef, reached } = useReachedEndOfFeed();
   const navigate = useNavigate();
   const footerRef = useRef<HTMLElement>(null);
+  const [kitOpen, setKitOpen] = useState(false);
 
   const bannerVisible = reached;
 
   return (
     <div className="feed-page">
-      <header
-        className={`feed-topbar${reached ? " is-hidden" : ""}`}
-        style={{
-          borderLeft: "none",
-          borderRight: "none",
-          display: "grid",
-          gridTemplateColumns: "1fr auto 1fr",
-          alignItems: "center",
-          paddingLeft: "16px",
-          paddingRight: "0.4rem",
-        }}
-      >
-        {/* Left empty spacer to balance the grid */}
-        <div aria-hidden="true" />
+<header className={`feed-topbar${reached ? " is-hidden" : ""}`}>
+  <Link className="feed-mark" to="/">
+    <img src="/img/tp.png" alt="thepoast" decoding="async" />
+  </Link>
 
-        {/* Center Logo */}
-        <Link className="feed-mark" to="/" style={{ justifySelf: "center" }}>
-          <img src="/img/tp.png" alt="thepoast" decoding="async" />
-        </Link>
-
-        {/* Right Button */}
-        <div style={{ justifySelf: "end", marginRight: "0.4rem" }}>
-          <button
-            type="button"
-            className="feed-banner-btn"
-            style={{
-              padding: "8px 14px",
-              fontSize: "13px",
-              width: "auto",
-              height: "auto",
-              flexShrink: 0,
-            }}
-            onClick={() => navigate(`/${company}/book`)}
-          >
-            Book Ad
-          </button>
-        </div>
-      </header>
+  <Link className="feed-subscribe" to={`/${company}/book`}>
+    Get Started
+  </Link>
+</header>
 
       <main className="feed-stream">
+        <div className="mk-promo-wrap">
+          <Link to={`/${company}/book?free=1`} className="mk-promo">
+            Book your first ad for free*! Get started →
+          </Link>
+        </div>
+
         <div className="feed-embed loaded">
           <FeedEmbed
             id={`${company}-campaign`}
@@ -177,26 +158,25 @@ export default function DynamicCampaignPage() {
           className={`feed-footer${bannerVisible ? " is-covered" : ""}`}
         >
           <div className="feed-footer-links">
-            <Link to="/about">about</Link>
-            <Link to="/archive">archive</Link>
-            <Link to="/submit-post">submit post</Link>
-            <Link to="/policies/privacy">privacy</Link>
-            <Link to="/policies/terms">terms</Link>
-            <Link to="/manager">manager</Link>
-            <Link to="/partner">partner</Link>
-            <Link to="/book">advertise</Link>
+          <Link to="/about">about</Link>
+          <Link to="/archive">archive</Link>
+          <Link to="/submit-post">submit post</Link>
+          <Link to="/policies/privacy">privacy</Link>
+          <Link to="/policies/terms">terms</Link>
+          <Link to="/book">advertise</Link>
+          <Link to="/manager">ads manager</Link>
           </div>
           <p className="feed-copyright">thepoast © 2026</p>
         </footer>
 
         <aside
           className={`feed-banner${bannerVisible ? " is-visible" : ""}`}
-          aria-label="Book Ad"
+          aria-label="Get Started"
           aria-hidden={!bannerVisible}
         >
           <div className="feed-banner-inner">
             <div className="feed-banner-title">
-              Run your campaign in thepoast
+              Reach people where they buy
             </div>
 
             <button
@@ -204,11 +184,29 @@ export default function DynamicCampaignPage() {
               className="feed-banner-btn"
               onClick={() => navigate(`/${company}/book`)}
             >
-              Book Ad
+              Get Started
+            </button>
+
+            <button
+              type="button"
+              className="back-btn"
+              tabIndex={bannerVisible ? 0 : -1}
+              onClick={() => setKitOpen(true)}
+              style={{ marginTop: "0rem" }}
+              
+            >
+              Audience details
             </button>
           </div>
         </aside>
       </main>
+
+      <MediaKit
+        open={kitOpen}
+        onClose={() => setKitOpen(false)}
+        ctaLabel="Get Started"
+        onCta={() => navigate(`/${company}/book`)}
+      />
     </div>
   );
 }

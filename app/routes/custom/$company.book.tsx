@@ -6,6 +6,7 @@ import {
   useActionData,
   Form,
   useNavigation,
+  useSearchParams,
   useCatch,
 } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
@@ -19,6 +20,7 @@ import type {
 
 import FeedEmbed from "~/components/feed-embed";
 import Altcha from "~/components/altcha";
+import MediaKit from "~/components/media-kit";
 import NotFound from "~/routes/$"; // your existing custom 404 page
 import bookStyles from "../../style/scss/custom/custom.css";
 
@@ -32,9 +34,9 @@ const CAMPAIGN_MAP: Record<string, number> = {
 const BANNER_TRIGGER = 0.85;
 
 const STEPS = ["Preview", "Schedule", "Confirm"] as const;
-const PLACEMENTS_PAID = ["Top of Feed — $2,500", "Mid Feed — $1,000"] as const;
-const PLACEMENTS_FREE = ["Top of Feed", "Mid Feed"] as const;
-const RAW_PLACEMENTS = ["Top of Feed", "Mid Feed"] as const;
+const PLACEMENTS_PAID = ["Top Feed — $3,000", "Mid Feed — $1,500"] as const;
+const PLACEMENTS_FREE = ["Top Feed", "Mid Feed"] as const;
+const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
 const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
 
 type Placement = (typeof RAW_PLACEMENTS)[number];
@@ -248,7 +250,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (!company) fieldErrors.company = "Company name is required.";
   if (!startDate) fieldErrors.startDate = "Please select a target start date.";
-  if (!["Top of Feed", "Mid Feed"].includes(placement)) {
+  if (!["Top Feed", "Mid Feed"].includes(placement)) {
     fieldErrors.placement = "Please select a valid placement.";
   }
   if (!["Credit Card", "Insertion Order", "Free"].includes(paymentMethod)) {
@@ -461,16 +463,23 @@ export default function AdvertiserBookPage() {
   const { endRef, reached } = useReachedEndOfFeed();
   const navigation = useNavigation();
 
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  // ?free=1 (from the "Run your first ad for free" banner) opens step 2 with Free selected
+  const [searchParams] = useSearchParams();
+  const startFree = searchParams.get("free") === "1";
+
+  const [step, setStep] = useState<1 | 2 | 3>(startFree ? 2 : 1);
 
   // Form State
   const [startDate, setStartDate] = useState("");
-  const [placement, setPlacement] = useState<Placement>("Top of Feed");
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Credit Card");
+  const [placement, setPlacement] = useState<Placement>("Top Feed");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
+    startFree ? "Free" : "Credit Card"
+  );
   const [notes, setNotes] = useState("");
   const [stepError, setStepError] = useState("");
   const [minDate, setMinDate] = useState("");
   const [isEditingCreative, setIsEditingCreative] = useState(false);
+  const [kitOpen, setKitOpen] = useState(false);
 
   const isSubmitting = navigation.state === "submitting";
 
@@ -572,7 +581,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-title">Here's how your ad will look</h1>
+            <h1 className="bk-title">Place this ad</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed
@@ -597,21 +606,14 @@ export default function AdvertiserBookPage() {
                 <button
                   type="button"
                   onClick={() => setIsEditingCreative(true)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "#a1a1a6",
-                    fontSize: "0.85rem",
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                    marginTop: "1rem",
-                  }}
+                  className="back-btn"
                 >
-                  Want to use a different ad?
+                  Want to book a different ad?
                 </button>
+                
               ) : (
-                <div style={{ marginTop: "1rem", padding: "0.75rem", background: "#161616", borderRadius: "12px", border: "1px solid #2a2a2a", fontSize: "0.85rem", color: "#a1a1a6" }}>
-                  No problem! Customize your campaign or link a different ad in the final step.
+                <div style={{ marginTop: "1rem", padding: "0.75rem", background: "#161616", borderRadius: "12px", border: "1px solid #2a2a2a", fontSize: "0.85rem", color: "#fafafa" }}>
+                  No problem! Change your ad in the final step.
                 </div>
               )}
             </div>
@@ -664,6 +666,13 @@ export default function AdvertiserBookPage() {
                   value={placement}
                   onChange={setPlacement}
                 />
+                <button
+                  type="button"
+                  className="mk-link"
+                  onClick={() => setKitOpen(true)}
+                >
+                  Audience &amp; results
+                </button>
               </div>
 
               {/* PAYMENT METHOD */}
@@ -799,7 +808,7 @@ export default function AdvertiserBookPage() {
         )}
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
-        <Link to={`/${company}`} className="back-btn">
+        <Link to={`/${company}`} className="back-btn" style={{ marginTop: "0" }}>
           ← Return to Sample
         </Link>
       </main>
@@ -811,12 +820,18 @@ export default function AdvertiserBookPage() {
           <Link to="/submit-post">submit post</Link>
           <Link to="/policies/privacy">privacy</Link>
           <Link to="/policies/terms">terms</Link>
-          <Link to="/manager">manager</Link>
-          <Link to="/partner">partner</Link>
           <Link to="/book">advertise</Link>
+          <Link to="/manager">ads manager</Link>
         </div>
         <p className="feed-copyright">thepoast © 2026</p>
       </footer>
+
+      <MediaKit
+        open={kitOpen}
+        onClose={() => setKitOpen(false)}
+        ctaLabel="Continue booking"
+        onCta={() => setKitOpen(false)}
+      />
     </div>
   );
 }

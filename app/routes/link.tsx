@@ -368,7 +368,7 @@ export default function Advertise() {
 
       <main className="ad-booking-card">
         <div className="ad-booking-header">
-          <span className="ad-badge">submit campaign</span>
+          <span className="ad-badge">Repurpose a campaign</span>
         </div>
 
         <Form method="post" className="ad-booking-form">
@@ -475,7 +475,7 @@ export default function Advertise() {
           />
 
           <button type="submit" className="ad-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting…" : "Submit Campaign"}
+            {isSubmitting ? "Submitting…" : "Repurpose a Campaign"}
           </button>
 
           <div className="subscribe-altcha">
