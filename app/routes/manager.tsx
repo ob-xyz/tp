@@ -87,50 +87,49 @@ type PortalItem = {
 
 // The big widget at the top: the fastest way to get started.
 const FEATURED: PortalItem & { cta: string; note: string } = {
-  href: "/book",
-  title: "Quick checkout",
+  href: "/livead",
+  title: "Live Ad Preview",
   description:
-    "Book your next campaign right here.",
+    "See how ads look in thepoast's email news feed.",
   icon: <BoltIcon />,
   from: "#ffb340",
   to: "#ff8a00",
-  cta: "Book now",
-  note: "We reply within 48 hours",
+  cta: "See preview",
 };
 
 // The app grid. Add, remove or reorder freely, the layout adapts.
 const APPS: PortalItem[] = [
+    {
+    href: "/book",
+    title: "Quick Campaign",
+    description: "Book your ad here and we'll reply within 48 hours",
+    icon: <ChartIcon />,
+    from: "#5e9bff",
+    to: "#7f13a9",
+  },
   {
     href: "/partner",
     title: "Custom Campaign",
-    description: "Start here if you have a goal, budget, or schedule.",
+    description: "Add a goal, budget, and schedule to your campaign",
     icon: <MegaphoneIcon />,
-    from: "#5e9bff",
-    to: "#2f6bf2",
+    from: "#d9283d",
+    to: "#fc640b",
   },
   {
     href: "/link",
-    title: "Existing Campaign",
-    description: "Already running ads on social? Send us the link.",
+    title: "Repurpose a Campaign",
+    description: "Already running ads on social? Send us the link",
     icon: <LinkIcon />,
     from: "#46d37a",
-    to: "#1fa653",
+    to: "#c8b41a",
   },
   {
     href: "/media-kit",
     title: "Media Kit",
-    description: "Learn about our audience, stats, and more.",
-    icon: <ChartIcon />,
-    from: "#b77bff",
-    to: "#8a45e8",
-  },
-  {
-    href: "/archive",
-    title: "Our Archive",
-    description: "Browse an archive of everything we've published so far.",
+    description: "Learn about our audience, stats, and more",
     icon: <ArchiveIcon />,
-    from: "#8e9aaf",
-    to: "#5b6577",
+    from: "#610bc9",
+    to: "#e84545",
   },
 ];
 

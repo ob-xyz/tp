@@ -12,6 +12,7 @@ import NotFound from "~/routes/$"; // your existing custom 404 page
 
 // Map your company slugs to their Listmonk campaign IDs here!
 const CAMPAIGN_MAP: Record<string, number> = {
+  livead: 4,
   advertise: 5,
   fin: 507,
   stripe: 451,
@@ -119,11 +120,41 @@ export default function DynamicCampaignPage() {
     <div className="feed-page">
       <header
         className={`feed-topbar${reached ? " is-hidden" : ""}`}
-        style={{ borderLeft: "none", borderRight: "none" }}
+        style={{
+          borderLeft: "none",
+          borderRight: "none",
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
+          alignItems: "center",
+          paddingLeft: "16px",
+          paddingRight: "0.4rem",
+        }}
       >
-        <Link className="feed-mark" to="/">
+        {/* Left empty spacer to balance the grid */}
+        <div aria-hidden="true" />
+
+        {/* Center Logo */}
+        <Link className="feed-mark" to="/" style={{ justifySelf: "center" }}>
           <img src="/img/tp.png" alt="thepoast" decoding="async" />
         </Link>
+
+        {/* Right Button */}
+        <div style={{ justifySelf: "end", marginRight: "0.4rem" }}>
+          <button
+            type="button"
+            className="feed-banner-btn"
+            style={{
+              padding: "8px 14px",
+              fontSize: "13px",
+              width: "auto",
+              height: "auto",
+              flexShrink: 0,
+            }}
+            onClick={() => navigate(`/${company}/book`)}
+          >
+            Book Ad
+          </button>
+        </div>
       </header>
 
       <main className="feed-stream">
@@ -160,7 +191,7 @@ export default function DynamicCampaignPage() {
 
         <aside
           className={`feed-banner${bannerVisible ? " is-visible" : ""}`}
-          aria-label="Run this ad"
+          aria-label="Book Ad"
           aria-hidden={!bannerVisible}
         >
           <div className="feed-banner-inner">
@@ -173,7 +204,7 @@ export default function DynamicCampaignPage() {
               className="feed-banner-btn"
               onClick={() => navigate(`/${company}/book`)}
             >
-              Run this ad
+              Book Ad
             </button>
           </div>
         </aside>

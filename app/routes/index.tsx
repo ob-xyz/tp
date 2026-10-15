@@ -170,9 +170,8 @@ export default function Index() {
           <Link to="/submit-post">submit post</Link>
           <Link to="/policies/privacy">privacy</Link>
           <Link to="/policies/terms">terms</Link>
-          <Link to="/manager">manager</Link>
-          <Link to="/partner">partner</Link>
           <Link to="/book">advertise</Link>
+          <Link to="/manager">ads manager</Link>
         </div>
         <p className="feed-copyright">thepoast © 2026</p>
       </footer>

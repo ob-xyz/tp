@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import {
   Link,
   useLoaderData,
@@ -19,14 +20,25 @@ import type {
 import FeedEmbed from "~/components/feed-embed";
 import Altcha from "~/components/altcha";
 import NotFound from "~/routes/$"; // your existing custom 404 page
+import bookStyles from "../../style/scss/custom/custom.css";
 
 const CAMPAIGN_MAP: Record<string, number> = {
+  livead: 4,
   advertise: 5,
   fin: 507,
   stripe: 451,
 };
 
 const BANNER_TRIGGER = 0.85;
+
+const STEPS = ["Preview", "Schedule", "Confirm"] as const;
+const PLACEMENTS_PAID = ["Top of Feed — $2,500", "Mid Feed — $1,000"] as const;
+const PLACEMENTS_FREE = ["Top of Feed", "Mid Feed"] as const;
+const RAW_PLACEMENTS = ["Top of Feed", "Mid Feed"] as const;
+const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
+
+type Placement = (typeof RAW_PLACEMENTS)[number];
+type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 type FieldName = "company" | "startDate" | "placement" | "paymentMethod" | "notes" | "altcha";
 
@@ -47,6 +59,17 @@ type CampaignLead = {
 
 const str = (value: FormDataEntryValue | null, max: number): string =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
+
+function formatDate(value: string): string {
+  const [y, m, d] = value.split("-").map(Number);
+  if (!y || !m || !d) return value;
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 function listmonkConfig() {
   const baseUrl = (
@@ -273,7 +296,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  // On a caught 404, data is undefined
   if (!data) {
     return { title: "404 / thepoast", robots: "noindex" };
   }
@@ -283,6 +305,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: bookStyles },
   { rel: "preconnect", href: "https://img.thepoast.com" },
   { rel: "dns-prefetch", href: "https://img.thepoast.com" },
 ];
@@ -298,7 +321,6 @@ export function CatchBoundary() {
     return <NotFound />;
   }
 
-  // Anything other than a 404 falls through to the ErrorBoundary
   throw new Error(`Unexpected response: ${caught.status}`);
 }
 
@@ -343,10 +365,99 @@ function useReachedEndOfFeed() {
   return { endRef, reached };
 }
 
+/* ------------------------------------------------------------------ */
+/* Small UI pieces                                                     */
+/* ------------------------------------------------------------------ */
+
+function CalendarIcon() {
+  return (
+    <svg
+      className="bk-date-icon"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="4.5" width="18" height="16.5" rx="3" />
+      <path d="M3 9.5h18M8 2.5v4M16 2.5v4" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12.5l4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
+
+function Segmented<T extends string>({
+  label,
+  options,
+  rawOptions,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: readonly T[];
+  rawOptions?: readonly string[];
+  value: T;
+  onChange: (next: T) => void;
+}) {
+  const lookupArray = rawOptions ? rawOptions : options;
+  const index = Math.max(0, lookupArray.indexOf(value));
+
+  return (
+    <div
+      className={`bk-seg is-${options.length}`}
+      role="group"
+      aria-label={label}
+      style={{ "--bk-i": index, "--bk-n": options.length } as CSSProperties}
+    >
+      <span className="bk-seg-thumb" aria-hidden="true" />
+      {options.map((option, i) => {
+        const rawValue = rawOptions ? rawOptions[i] : option;
+        const isActive = rawValue === value;
+        return (
+          <button
+            type="button"
+            key={option}
+            aria-pressed={isActive}
+            className={`bk-seg-btn${isActive ? " is-active" : ""}`}
+            onClick={() => onChange(rawValue as T)}
+          >
+            {option}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
+
 export default function AdvertiserBookPage() {
   const { company, companyName } = useLoaderData<typeof loader>();
   const actionData = useActionData<ActionData>();
-  const errors = actionData?.fieldErrors ?? {};
+  const errors: Partial<Record<FieldName, string>> = actionData?.fieldErrors ?? {};
   const { endRef, reached } = useReachedEndOfFeed();
   const navigation = useNavigation();
 
@@ -354,28 +465,67 @@ export default function AdvertiserBookPage() {
 
   // Form State
   const [startDate, setStartDate] = useState("");
-  const [placement, setPlacement] = useState<"Top of Feed" | "Mid Feed">("Top of Feed");
-  const [paymentMethod, setPaymentMethod] = useState<"Credit Card" | "Insertion Order" | "Free">("Credit Card");
+  const [placement, setPlacement] = useState<Placement>("Top of Feed");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Credit Card");
   const [notes, setNotes] = useState("");
+  const [stepError, setStepError] = useState("");
+  const [minDate, setMinDate] = useState("");
+  const [isEditingCreative, setIsEditingCreative] = useState(false);
 
-  const startDateRef = useRef<HTMLInputElement>(null);
   const isSubmitting = navigation.state === "submitting";
 
-  const triggerDatePicker = () => {
-    if (startDateRef.current) {
-      try {
-        startDateRef.current.showPicker();
-      } catch {
-        startDateRef.current.focus();
-      }
-    }
+  useEffect(() => {
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    setMinDate(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`);
+  }, []);
+
+  const openPicker = (input: HTMLInputElement) => {
+    try {
+      input.showPicker();
+    } catch {}
   };
 
+  const goToReview = () => {
+    if (!startDate) {
+      setStepError("Please select a target start date before proceeding.");
+      return;
+    }
+    if (minDate && startDate < minDate) {
+      setStepError("Please choose a start date that isn't in the past.");
+      return;
+    }
+    setStepError("");
+    setStep(3);
+  };
+
+  const summaryRows: { label: string; value: string }[] = [
+    { label: "Advertiser", value: companyName },
+    { label: "Target Date", value: startDate ? formatDate(startDate) : "Earliest Available" },
+    { label: "Placement", value: placement },
+    { label: "Payment Method", value: paymentMethod },
+  ];
+
+  const serverFieldMessages = Object.entries(errors)
+    .filter(([key, message]) => key !== "altcha" && message)
+    .map(([, message]) => message as string);
+
+  const submitLabel = isSubmitting
+    ? "Submitting..."
+    : paymentMethod === "Insertion Order"
+    ? "Lock In Insertion Order →"
+    : paymentMethod === "Free"
+    ? "Lock In Free Campaign →"
+    : "Proceed with Credit Card →";
+
+  // Dynamic placement options depending on payment method
+  const currentPlacements = paymentMethod === "Free" ? PLACEMENTS_FREE : PLACEMENTS_PAID;
+
   return (
-    <div className="feed-page">
+    <div className="feed-page bk">
       {/* Sticky Top Bar */}
-      <header 
-        className={`feed-topbar${reached ? " is-hidden" : ""}`} 
+      <header
+        className={`feed-topbar${reached ? " is-hidden" : ""}`}
         style={{ borderLeft: "none", borderRight: "none" }}
       >
         <Link className="feed-mark" to="/">
@@ -383,93 +533,48 @@ export default function AdvertiserBookPage() {
         </Link>
       </header>
 
-      <main className="feed-stream" style={{ padding: "3rem 1rem", maxWidth: "640px", margin: "0 auto" }}>
-        
-        {/* Shopify/Stripe-Style App Stepper Bar with Brand Gradient Accents */}
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "2.25rem",
-          background: "#0a0a0a",
-          borderRadius: "16px",
-          padding: "1.1rem 2rem",
-          border: "1px solid #1f1f1f",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.4)"
-        }}>
-          {/* STEP 1 */}
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", opacity: step >= 1 ? 1 : 0.4, transition: "opacity 0.2s" }}>
-            <span style={{
-              background: step === 1 ? "#ffffff" : step > 1 ? "linear-gradient(90deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%)" : "#1a1a1a",
-              color: step === 1 ? "#000000" : step > 1 ? "#ffffff" : "#666666",
-              width: "26px",
-              height: "26px",
-              borderRadius: "50%",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              fontFamily: "bold",
-              boxShadow: step === 1 ? "0 0 12px rgba(255,255,255,0.3)" : "none"
-            }}>{step > 1 ? "✓" : "1"}</span>
-            <span style={{ fontSize: "0.9rem", fontFamily: "bold", color: step === 1 ? "#ffffff" : "#888888" }}>Preview</span>
-          </div>
+      <main className="feed-stream bk-main">
 
-          <div style={{ width: "30px", height: "1px", background: "#222222" }} />
-
-          {/* STEP 2 */}
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", opacity: step >= 2 ? 1 : 0.4, transition: "opacity 0.2s" }}>
-            <span style={{
-              background: step === 2 ? "#ffffff" : step > 2 ? "linear-gradient(90deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%)" : "#1a1a1a",
-              color: step === 2 ? "#000000" : step > 2 ? "#ffffff" : "#666666",
-              width: "26px",
-              height: "26px",
-              borderRadius: "50%",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              fontFamily: "bold",
-              boxShadow: step === 2 ? "0 0 12px rgba(255,255,255,0.3)" : "none"
-            }}>{step > 2 ? "✓" : "2"}</span>
-            <span style={{ fontSize: "0.9rem", fontFamily: "bold", color: step === 2 ? "#ffffff" : "#888888" }}>Schedule</span>
-          </div>
-
-          <div style={{ width: "30px", height: "1px", background: "#222222" }} />
-
-          {/* STEP 3 */}
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", opacity: step >= 3 ? 1 : 0.4, transition: "opacity 0.2s" }}>
-            <span style={{
-              background: step === 3 ? "#ffffff" : "#1a1a1a",
-              color: step === 3 ? "#000000" : "#666666",
-              width: "26px",
-              height: "26px",
-              borderRadius: "50%",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              fontFamily: "bold",
-              boxShadow: step === 3 ? "0 0 12px rgba(255,255,255,0.3)" : "none"
-            }}>3</span>
-            <span style={{ fontSize: "0.9rem", fontFamily: "bold", color: step === 3 ? "#ffffff" : "#888888" }}>Confirm</span>
-          </div>
-        </div>
+        {/* Stepper */}
+        <ol className="bk-steps" aria-label="Progress">
+          {STEPS.map((label, i) => {
+            const n = (i + 1) as 1 | 2 | 3;
+            const state = step === n ? "current" : step > n ? "done" : "todo";
+            return (
+              <Fragment key={label}>
+                {i > 0 && (
+                  <li
+                    className={`bk-step-line${step >= n ? " is-done" : ""}`}
+                    aria-hidden="true"
+                  />
+                )}
+                <li
+                  className={`bk-step is-${state}`}
+                  aria-current={state === "current" ? "step" : undefined}
+                >
+                  <button
+                    type="button"
+                    className="bk-step-btn"
+                    disabled={state !== "done"}
+                    onClick={() => setStep(n)}
+                  >
+                    <span className="bk-step-dot">
+                      {state === "done" ? <CheckIcon /> : n}
+                    </span>
+                    <span className="bk-step-label">{label}</span>
+                  </button>
+                </li>
+              </Fragment>
+            );
+          })}
+        </ol>
 
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
-          <div style={{
-            background: "#0f0f0f",
-            border: "1px solid #222222",
-            borderRadius: "24px",
-            padding: "2.5rem 2.25rem",
-            marginBottom: "2rem",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
-          }}>
-            <h1 style={{ color: "#ffffff", fontFamily: "bold", fontSize: "1.65rem", marginBottom: "0.6rem", textAlign: "center", letterSpacing: "-0.01em" }}>
-              New Campaign
-            </h1>
-            <div className="feed-embed loaded" style={{ marginTop: "1rem", border: "1px solid #262626", borderRadius: "16px", overflow: "hidden", paddingBottom: "2rem", background: "#000" }}>
+          <div className="bk-card">
+            <h1 className="bk-title">Here's how your ad will look</h1>
+
+            <div className="feed-embed loaded bk-preview">
               <FeedEmbed
                 id={`${company}-ad-storyboard`}
                 src={`/custom/${company}/storyboard`}
@@ -482,212 +587,102 @@ export default function AdvertiserBookPage() {
 
             <button
               type="button"
-              className="feed-banner-btn"
-              style={{ width: "100%", margin: 0, padding: "1.05rem", fontSize: "0.98rem", borderRadius: "14px" }}
+              className="bk-btn bk-btn-primary bk-btn-block"
               onClick={() => setStep(2)}
             >
               Looks Great — Select Send Date →
             </button>
+            <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
+              {!isEditingCreative ? (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingCreative(true)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#a1a1a6",
+                    fontSize: "0.85rem",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    marginTop: "1rem",
+                  }}
+                >
+                  Want to use a different ad?
+                </button>
+              ) : (
+                <div style={{ marginTop: "1rem", padding: "0.75rem", background: "#161616", borderRadius: "12px", border: "1px solid #2a2a2a", fontSize: "0.85rem", color: "#a1a1a6" }}>
+                  No problem! Customize your campaign or link a different ad in the final step.
+                </div>
+              )}
+            </div>
           </div>
         )}
 
         {/* STEP 2: SCHEDULE & PLACEMENT */}
         {step === 2 && (
-          <div style={{
-            background: "#0f0f0f",
-            border: "1px solid #222222",
-            borderRadius: "24px",
-            padding: "2.5rem 2.25rem",
-            marginBottom: "2rem",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
-          }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.85rem", marginBottom: "2.25rem" }}>
-              
+          <div className="bk-card">
+
+            <div className="bk-fields">
+
               {/* TARGET START DATE */}
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "0.72rem",
-                  fontFamily: "bold",
-                  letterSpacing: "0.09em",
-                  color: "#888888",
-                  textTransform: "uppercase",
-                  marginBottom: "0.6rem"
-                }}>
-                  Target Start Date
-                </label>
-                
-                <div 
-                  onClick={triggerDatePicker}
-                  style={{
-                    position: "relative",
-                    background: "#000000",
-                    border: "1px solid #2a2a2a",
-                    borderRadius: "14px",
-                    padding: "1.05rem 1.25rem",
-                    cursor: "pointer",
-                    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between"
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = "#444"}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = "#2a2a2a"}
-                >
+              <div className="bk-group">
+                <span className="bk-label" id="bk-date-label">Target Start Date</span>
+
+                <label className="bk-date">
+                  <span className={`bk-date-text${startDate ? "" : " is-empty"}`}>
+                    {startDate ? formatDate(startDate) : "Select launch date"}
+                  </span>
+                  <CalendarIcon />
                   <input
-                    ref={startDateRef}
                     type="date"
+                    className="bk-date-input"
+                    aria-labelledby="bk-date-label"
                     value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    style={{
-                      position: "absolute",
-                      opacity: 0,
-                      pointerEvents: "none",
-                      width: "100%",
-                      height: "100%"
+                    min={minDate || undefined}
+                    onClick={(e) => openPicker(e.currentTarget)}
+                    onChange={(e) => {
+                      setStartDate(e.target.value);
+                      setStepError("");
                     }}
                   />
-                  <span style={{ fontSize: "1rem", color: startDate ? "#ffffff" : "#555555", fontFamily: "kl" }}>
-                    {startDate || "Select launch date..."}
+                </label>
+
+                {(stepError || errors.startDate) && (
+                  <span className="bk-error" role="alert">
+                    {stepError || errors.startDate}
                   </span>
-                  <span style={{ fontSize: "1.1rem", opacity: 0.7 }}>📅</span>
-                </div>
-                {errors.startDate && <span className="ad-field-error" style={{ color: "#ee1216", fontSize: "0.8rem", marginTop: "0.3rem", display: "block" }}>{errors.startDate}</span>}
+                )}
               </div>
 
               {/* SELECT PLACEMENT */}
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "0.72rem",
-                  fontFamily: "bold",
-                  letterSpacing: "0.09em",
-                  color: "#888888",
-                  textTransform: "uppercase",
-                  marginBottom: "0.6rem"
-                }}>
-                  Select Placement
-                </label>
-                
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "6px",
-                  background: "#000000",
-                  padding: "5px",
-                  borderRadius: "16px",
-                  border: "1px solid #2a2a2a"
-                }}>
-                  <button
-                    type="button"
-                    onClick={() => setPlacement("Top of Feed")}
-                    style={{
-                      background: placement === "Top of Feed" ? "#ffffff" : "transparent",
-                      color: placement === "Top of Feed" ? "#000000" : "#888888",
-                      border: "none",
-                      borderRadius: "12px",
-                      padding: "0.9rem 0.5rem",
-                      fontFamily: "bold",
-                      fontSize: "0.92rem",
-                      cursor: "pointer",
-                      transition: "all 0.15s cubic-bezier(0.4, 0, 0.2, 1)"
-                    }}
-                  >
-                    Top of Feed
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPlacement("Mid Feed")}
-                    style={{
-                      background: placement === "Mid Feed" ? "#ffffff" : "transparent",
-                      color: placement === "Mid Feed" ? "#000000" : "#888888",
-                      border: "none",
-                      borderRadius: "12px",
-                      padding: "0.9rem 0.5rem",
-                      fontFamily: "bold",
-                      fontSize: "0.92rem",
-                      cursor: "pointer",
-                      transition: "all 0.15s cubic-bezier(0.4, 0, 0.2, 1)"
-                    }}
-                  >
-                    Mid Feed
-                  </button>
-                </div>
+              <div className="bk-group">
+                <span className="bk-label">Select Placement</span>
+                <Segmented
+                  label="Placement"
+                  options={currentPlacements}
+                  rawOptions={RAW_PLACEMENTS}
+                  value={placement}
+                  onChange={setPlacement}
+                />
               </div>
 
-              {/* 3-WAY PAYMENT METHOD TOGGLE (Shopify Clean Styling) */}
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "0.72rem",
-                  fontFamily: "bold",
-                  letterSpacing: "0.09em",
-                  color: "#888888",
-                  textTransform: "uppercase",
-                  marginBottom: "0.6rem"
-                }}>
-                  Payment Method
-                </label>
-                
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                  gap: "6px",
-                  background: "#000000",
-                  padding: "5px",
-                  borderRadius: "16px",
-                  border: "1px solid #2a2a2a"
-                }}>
-                  {(["Credit Card", "Insertion Order", "Free"] as const).map((method) => {
-                    const isActive = paymentMethod === method;
-                    return (
-                      <button
-                        type="button"
-                        key={method}
-                        onClick={() => setPaymentMethod(method)}
-                        style={{
-                          background: isActive ? "#ffffff" : "transparent",
-                          color: isActive ? "#000000" : "#888888",
-                          border: "none",
-                          borderRadius: "12px",
-                          padding: "0.9rem 0.4rem",
-                          fontFamily: "bold",
-                          fontSize: "0.82rem",
-                          textAlign: "center",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          cursor: "pointer",
-                          transition: "all 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
-                          boxShadow: isActive ? "0 2px 8px rgba(255,255,255,0.15)" : "none"
-                        }}
-                      >
-                        {method}
-                      </button>
-                    );
-                  })}
-                </div>
+              {/* PAYMENT METHOD */}
+              <div className="bk-group">
+                <span className="bk-label">Payment Method</span>
+                <Segmented
+                  label="Payment method"
+                  options={PAYMENT_METHODS}
+                  value={paymentMethod}
+                  onChange={setPaymentMethod}
+                />
               </div>
 
             </div>
 
-            <div style={{ display: "flex", gap: "0.85rem" }}>
+            <div className="bk-actions">
               <button
                 type="button"
-                style={{
-                  background: "#161616",
-                  color: "#ffffff",
-                  border: "1px solid #2a2a2a",
-                  borderRadius: "14px",
-                  padding: "0.9rem 1.5rem",
-                  fontSize: "0.9rem",
-                  fontFamily: "bold",
-                  cursor: "pointer",
-                  transition: "background 0.15s"
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#222"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "#161616"}
+                className="bk-btn bk-btn-secondary"
                 onClick={() => setStep(1)}
               >
                 ← Back
@@ -695,15 +690,8 @@ export default function AdvertiserBookPage() {
 
               <button
                 type="button"
-                className="feed-banner-btn"
-                style={{ flex: 1, margin: 0, padding: "0.9rem", borderRadius: "14px" }}
-                onClick={() => {
-                  if (!startDate) {
-                    alert("Please select a target start date before proceeding.");
-                    return;
-                  }
-                  setStep(3);
-                }}
+                className="bk-btn bk-btn-primary"
+                onClick={goToReview}
               >
                 Review Order →
               </button>
@@ -711,28 +699,23 @@ export default function AdvertiserBookPage() {
           </div>
         )}
 
-        {/* STEP 3: FINAL REVIEW & SUBMIT VIA REMIX FORM */}
+        {/* STEP 3: FINAL REVIEW & SUBMIT */}
         {step === 3 && (
-          <Form method="post" style={{
-            background: "#0f0f0f",
-            border: "1px solid #222222",
-            borderRadius: "24px",
-            padding: "2.5rem 2.25rem",
-            marginBottom: "2rem",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
-          }}>
-            <h1 style={{ color: "#ffffff", fontFamily: "bold", fontSize: "1.65rem", marginBottom: "0.5rem", textAlign: "center" }}>
-              Finalize Campaign
-            </h1>
-
+          <Form method="post" className="bk-card">
             {actionData?.error && (
-              <div style={{ background: "#2a0808", border: "1px solid #ee1216", borderRadius: "12px", padding: "1rem", marginBottom: "1.5rem", color: "#ff8888", fontSize: "0.9rem" }} role="alert">
+              <div className="bk-alert" role="alert">
                 {actionData.error}
-                {actionData.debug && <code style={{ display: "block", marginTop: "0.5rem", fontSize: "0.75rem", opacity: 0.8 }}>{actionData.debug}</code>}
+                {serverFieldMessages.length > 0 && (
+                  <ul>
+                    {serverFieldMessages.map((message) => (
+                      <li key={message}>{message}</li>
+                    ))}
+                  </ul>
+                )}
+                {actionData.debug && <code>{actionData.debug}</code>}
               </div>
             )}
 
-            {/* Hidden form fields sent to Listmonk action */}
             <input type="hidden" name="company" value={companyName} />
             <input type="hidden" name="startDate" value={startDate} />
             <input type="hidden" name="placement" value={placement} />
@@ -747,81 +730,58 @@ export default function AdvertiserBookPage() {
               style={{ display: "none" }}
             />
 
-            <div style={{
-              background: "#000000",
-              border: "1px solid #262626",
-              borderRadius: "16px",
-              padding: "1.5rem",
-              marginBottom: "1.85rem"
-            }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.85rem" }}>
-                <span style={{ fontSize: "0.72rem", fontFamily: "bold", letterSpacing: "0.08em", color: "#777777", textTransform: "uppercase" }}>Advertiser</span>
-                <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "0.95rem" }}>{companyName}</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.85rem" }}>
-                <span style={{ fontSize: "0.72rem", fontFamily: "bold", letterSpacing: "0.08em", color: "#777777", textTransform: "uppercase" }}>Target Date</span>
-                <span style={{ color: "#ffffff", fontSize: "0.95rem" }}>{startDate || "Earliest Available"}</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.85rem" }}>
-                <span style={{ fontSize: "0.72rem", fontFamily: "bold", letterSpacing: "0.08em", color: "#777777", textTransform: "uppercase" }}>Placement</span>
-                <span style={{ color: "#ffffff", fontSize: "0.95rem" }}>{placement}</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "0.72rem", fontFamily: "bold", letterSpacing: "0.08em", color: "#777777", textTransform: "uppercase" }}>Payment Method</span>
-                <span style={{ color: "#ffffff", fontSize: "0.95rem" }}>{paymentMethod}</span>
+            {/* Quick Preview Thumbnail Header on Step 3 */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>Ad Preview</span>
+              <div className="feed-embed loaded bk-preview" style={{ maxHeight: "220px", overflow: "hidden", marginBottom: 0 }}>
+                <FeedEmbed
+                  id={`${company}-ad-thumbnail`}
+                  src={`/custom/${company}/storyboard`}
+                  title={`${companyName} Target Ad Unit`}
+                  interactive={false}
+                  bordered={false}
+                  fallbackHeight={220}
+                />
               </div>
             </div>
 
-            <div style={{ marginBottom: "1.5rem" }}>
-              <label style={{
-                display: "block",
-                fontSize: "0.72rem",
-                fontFamily: "bold",
-                letterSpacing: "0.09em",
-                color: "#888888",
-                textTransform: "uppercase",
-                marginBottom: "0.6rem"
-              }}>
+            <dl className="bk-summary">
+              {summaryRows.map((row) => (
+                <div key={row.label} className="bk-row">
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="bk-group" style={{ marginBottom: "1.5rem" }}>
+              <label className="bk-label" htmlFor="bk-notes">
                 Additional Notes (Optional)
               </label>
               <textarea
+                id="bk-notes"
                 name="notes"
-                rows={2}
+                className="bk-textarea"
+                rows={3}
                 placeholder="Special instructions or tracking links..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "1rem",
-                  background: "#000000",
-                  border: "1px solid #2a2a2a",
-                  borderRadius: "14px",
-                  color: "#ffffff",
-                  fontSize: "0.95rem",
-                  fontFamily: "kl",
-                  outline: "none"
-                }}
-                onFocus={(e) => e.currentTarget.style.borderColor = "#555"}
-                onBlur={(e) => e.currentTarget.style.borderColor = "#2a2a2a"}
               />
             </div>
 
-            <div style={{ display: "flex", gap: "0.85rem" }}>
+            <div className="bk-altcha">
+              <Altcha />
+            </div>
+            {errors.altcha && (
+              <span className="bk-error" role="alert" style={{ marginBottom: "1.25rem" }}>
+                {errors.altcha}
+              </span>
+            )}
+
+            <div className="bk-actions">
               <button
                 type="button"
-                style={{
-                  background: "#161616",
-                  color: "#ffffff",
-                  border: "1px solid #2a2a2a",
-                  borderRadius: "14px",
-                  padding: "0.9rem 1.5rem",
-                  fontSize: "0.9rem",
-                  fontFamily: "bold",
-                  cursor: "pointer",
-                  transition: "background 0.15s"
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#222"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "#161616"}
+                className="bk-btn bk-btn-secondary"
                 onClick={() => setStep(2)}
               >
                 ← Back
@@ -829,31 +789,21 @@ export default function AdvertiserBookPage() {
 
               <button
                 type="submit"
-                className="feed-banner-btn"
-                style={{ flex: 1, margin: 0, padding: "0.9rem", borderRadius: "14px" }}
+                className="bk-btn bk-btn-primary"
                 disabled={isSubmitting}
               >
-                {isSubmitting 
-                  ? "Submitting..." 
-                  : paymentMethod === "Insertion Order" 
-                    ? "Lock In Insertion Order →" 
-                    : paymentMethod === "Free"
-                    ? "Lock In Free Campaign →"
-                    : "Proceed with Credit Card →"}
+                {submitLabel}
               </button>
-            </div>
-            {/* Altcha Verification Widget */}
-            <div style={{ marginBottom: "1.75rem" }}>
-              <Altcha />
-              {errors.altcha && <span style={{ color: "#ee1216", fontSize: "0.8rem", display: "block", marginTop: "0.4rem" }}>{errors.altcha}</span>}
             </div>
           </Form>
         )}
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
+        <Link to={`/${company}`} className="back-btn">
+          ← Return to Sample
+        </Link>
       </main>
 
-      {/* Standard Footer */}
       <footer className="feed-footer">
         <div className="feed-footer-links">
           <Link to="/about">about</Link>
