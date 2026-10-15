@@ -15,9 +15,9 @@ export const meta: MetaFunction = () => {
 
 const STATS = [
   { value: "27k+", label: "Email subscribers" },
-  { value: "10k+", label: "Daily readers" },
-  { value: "30k+", label: "Monthly web visitors" },
+  { value: "70k+", label: "Weekly readers" },
   { value: "36%", label: "Average open rate" },
+  { value: "30k+", label: "Monthly web visitors" },
 ];
 
 const AUDIENCE = ["Founders", "Executives", "Builders", "Investors", "Marketers"];
@@ -157,7 +157,7 @@ export default function MediaKit() {
 
         <section className="mk-section" aria-labelledby="mk-formats-title">
           <h2 className="mk-section-title" id="mk-formats-title">
-            Why advertise with us?
+           Advertise with us
           </h2>
           <div className="mk-formats">
             {FORMATS.map((format) => (
