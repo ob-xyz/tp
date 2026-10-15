@@ -87,7 +87,7 @@ type PortalItem = {
 
 // The big widget at the top: the fastest way to get started.
 const FEATURED: PortalItem & { cta: string; note: string } = {
-  href: "/livead",
+  href: "/free",
   title: "Live Ad Preview",
   description:
     "See how ads look in thepoast's email news feed.",
