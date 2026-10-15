@@ -12,7 +12,7 @@ import NotFound from "~/routes/$"; // your existing custom 404 page
 
 // Map your company slugs to their Listmonk campaign IDs here!
 const CAMPAIGN_MAP: Record<string, number> = {
-  livead: 4,
+  free: 4,
   advertise: 5,
   fin: 507,
   stripe: 451,

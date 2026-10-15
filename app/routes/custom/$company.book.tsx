@@ -23,7 +23,7 @@ import NotFound from "~/routes/$"; // your existing custom 404 page
 import bookStyles from "../../style/scss/custom/custom.css";
 
 const CAMPAIGN_MAP: Record<string, number> = {
-  livead: 4,
+  free: 4,
   advertise: 5,
   fin: 507,
   stripe: 451,
