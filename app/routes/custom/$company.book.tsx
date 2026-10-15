@@ -581,7 +581,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-title">Place this ad</h1>
+            <h1 className="bk-title">Run this ad</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed

@@ -1,5 +1,12 @@
-// ---------- Tokens ----------
+:root {
+  --feed-hairline: rgba(0, 0, 0, 0.1);
+}
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --feed-hairline: rgba(255, 255, 255, 0.08);
+  }
+}
 $card: #0f0f0f;
 $field: #000000;
 $line: #222222;
@@ -918,8 +925,9 @@ $bp-sm: 480px;
   width: 100%;
   padding: 0.75rem 0.75rem 0.25rem;
   box-sizing: border-box;
-    font-family: $font-bold;
-
+  font-family: $font-bold;
+  border-left: 2px solid var(--feed-hairline);
+  border-right: 2px solid var(--feed-hairline);
 }
 
 .mk-promo {

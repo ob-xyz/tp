@@ -1,3 +1,12 @@
+:root {
+  --feed-hairline: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --feed-hairline: rgba(255, 255, 255, 0.08);
+  }
+}
 @keyframes bk-in {
   from {
     opacity: 0;
@@ -818,6 +827,8 @@
   padding: 0.75rem 0.75rem 0.25rem;
   box-sizing: border-box;
   font-family: bold;
+  border-left: 2px solid var(--feed-hairline);
+  border-right: 2px solid var(--feed-hairline);
 }
 
 .mk-promo {
