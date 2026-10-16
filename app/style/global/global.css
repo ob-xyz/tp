@@ -4012,7 +4012,7 @@ body:has(.feed-topbar.is-hidden) .mk-promo-wrap {
   color: #000000;
   font-family: book !important;
   font-weight: 100;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
   text-decoration: none;
   transition: background 0.2s cubic-bezier(0.32, 0.72, 0, 1), color 0.2s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.2s cubic-bezier(0.32, 0.72, 0, 1), transform 0.15s cubic-bezier(0.32, 0.72, 0, 1);
