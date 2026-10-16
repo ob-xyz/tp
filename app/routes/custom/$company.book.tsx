@@ -800,9 +800,11 @@ export default function AdvertiserBookPage() {
         )}
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
+        <div style={{ textAlign: "center" }}>
         <Link to={`/${company}`} className="back-btn" style={{ marginTop: "0" }}>
           ← Back to Sample
         </Link>
+        </div>
       </main>
 
       <footer className="feed-footer">
