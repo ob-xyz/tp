@@ -302,7 +302,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     return { title: "404 / thepoast", robots: "noindex" };
   }
   return {
-    title: `Book ${data.companyName} x thepoast`,
+    title: `Booking ad for ${data.companyName}`,
   };
 };
 
@@ -509,7 +509,6 @@ export default function AdvertiserBookPage() {
   };
 
   const summaryRows: { label: string; value: string }[] = [
-    { label: "Advertiser", value: companyName },
     { label: "Target Date", value: startDate ? formatDate(startDate) : "Earliest Available" },
     { label: "Placement", value: placement },
     { label: "Payment Method", value: paymentMethod },
@@ -581,7 +580,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-title">Run this ad</h1>
+            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>Reach people with this ad</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed
@@ -666,13 +665,6 @@ export default function AdvertiserBookPage() {
                   value={placement}
                   onChange={setPlacement}
                 />
-                <button
-                  type="button"
-                  className="mk-link"
-                  onClick={() => setKitOpen(true)}
-                >
-                  Audience &amp; results
-                </button>
               </div>
 
               {/* PAYMENT METHOD */}
@@ -741,7 +733,7 @@ export default function AdvertiserBookPage() {
 
             {/* Quick Preview Thumbnail Header on Step 3 */}
             <div style={{ marginBottom: "1.5rem" }}>
-              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>Ad Preview</span>
+              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>{companyName} Ad</span>
               <div className="feed-embed loaded bk-preview" style={{ maxHeight: "220px", overflow: "hidden", marginBottom: 0 }}>
                 <FeedEmbed
                   id={`${company}-ad-thumbnail`}
@@ -809,7 +801,7 @@ export default function AdvertiserBookPage() {
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
         <Link to={`/${company}`} className="back-btn" style={{ marginTop: "0" }}>
-          ← Return to Sample
+          ← Back to Sample
         </Link>
       </main>
 

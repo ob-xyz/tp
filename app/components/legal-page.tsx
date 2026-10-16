@@ -65,9 +65,9 @@ export default function LegalPage({
 
         {children}
 
-        <a className="legal-top" href="#top-of-page">
-          Back to top ↑
-        </a>
+        <Link className="legal-top" to="/">
+          ← Back to thepoast
+        </Link>
       </main>
 
     </div>

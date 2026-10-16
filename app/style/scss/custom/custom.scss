@@ -511,6 +511,9 @@ $bp-sm: 480px;
     display: flex;
     justify-content: center;
     margin: 0 0 1.5rem;
+    altcha-widget {
+    --altcha-color-text: #7a7a80;
+  }
   }
 
   .bk-note {
@@ -551,6 +554,12 @@ $bp-sm: 480px;
       opacity: 0.55;
     }
   }
+  @media (prefers-color-scheme: light) {
+    .back-btn{
+      color:#000 !important;
+      background: #fff !important;
+    }
+  } 
 
   .bk-btn-primary {
     flex: 1;
@@ -560,8 +569,8 @@ $bp-sm: 480px;
     &:hover:not(:disabled) {
       background: #e8e8ed;
     }
-  }
 
+  }
   .bk-btn-secondary {
     background: #161616;
     border-color: #2a2a2a;
@@ -666,6 +675,13 @@ $bp-sm: 480px;
     border-radius: 28px;
     transform: translateY(12px) scale(0.97);
   }
+    @media (prefers-color-scheme: light) {
+    .back-btn{
+      color:#000 !important;
+      background: #fff !important;
+    }
+  } 
+
 }
 
 .mk-head {
@@ -968,5 +984,22 @@ $bp-sm: 480px;
   &:focus-visible {
     outline: 2px solid rgba(#ffffff, 0.7);
     outline-offset: 2px;
+  }
+}
+
+// ---------- Stat cards: always black, so their text is always light ----------
+// --feed-text / --feed-text-muted are DARK in light mode (index.scss), which made
+// the numbers/labels invisible on these black cards. Hard-code light text here.
+// 3-class selectors so they beat the 2-class rules in media-kit.scss.
+.mk-stats .mk-stat {
+  background: $field;
+  border-color: #262626;
+
+  .mk-stat-value {
+    color: $text;
+  }
+
+  .mk-stat-label {
+    color: $text-3;
   }
 }

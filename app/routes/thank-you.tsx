@@ -10,7 +10,7 @@ export default function ThankYou() {
   return (
     <div className="feed-page ad-booking-page">
       <header className="feed-topbar">
-        <Link className="feed-mark" to="/" aria-label="Return to thepoast homepage">
+        <Link className="feed-mark" to="/" aria-label="Back to thepoast homepage">
           <img src="/img/tp.png" alt="thepoast" decoding="async" />
         </Link>
       </header>
@@ -61,7 +61,7 @@ export default function ThankYou() {
         </div>
 
         <Link to="/" className="back-btn ad-success-btn">
-          ← Return to thepoast
+          ← Back to thepoast
         </Link>
       </main>
     </div>

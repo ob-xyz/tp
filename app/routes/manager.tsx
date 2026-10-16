@@ -7,7 +7,7 @@ import FeedFooter from "~/components/feed-footer";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Campaign Manager / thepoast",
+    title: "thepoast Ads Manager",
     description:
       "Book a new campaign, share an existing one, or explore our media kit, all in one place.",
   };
@@ -197,7 +197,7 @@ export default function Portal() {
         </nav>
 
         <Link to="/" className="back-btn">
-          ← Return to thepoast
+          ← Back to thepoast
         </Link>
       </main>
 

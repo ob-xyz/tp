@@ -17,11 +17,6 @@ const SIDE_BORDER_STYLE: CSSProperties = {
   borderTop: "none",
 };
 
-/**
- * Side-border styles for the feed column. Returns {} on mobile (and during
- * SSR / first render), so borders only appear on larger screens once the
- * page has mounted.
- */
 export function useSideBorders(): CSSProperties {
   const [enabled, setEnabled] = useState(false);
 

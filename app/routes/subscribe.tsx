@@ -70,7 +70,7 @@ export default function Subscribe() {
           </form>
 
           <Link to="/" className="back-btn">
-            ← Return to thepoast
+            ← Back to thepoast
           </Link>
         </div>
       </main>

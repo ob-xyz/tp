@@ -223,7 +223,7 @@ export default function About() {
             to="/"
             className="about-btn"
           >
-            Return to thepoast
+            Back to thepoast
           </Link>
 
           <Link

@@ -235,7 +235,7 @@ export default function Tips() {
             <h1 className="ad-booking-title">Post received</h1>
             <p className="ad-booking-sub">Thank you for sending this our way. We'll take a look.</p>
           </div>
-          <Link to="/" className="back-btn ad-success-btn">← Return to thepoast</Link>
+          <Link to="/" className="back-btn ad-success-btn">← Back to thepoast</Link>
           <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
         </main>
         <div ref={footerRef}>
@@ -314,7 +314,7 @@ export default function Tips() {
             <Link to="/policies/privacy">privacy</Link>
           </div>
 
-        <Link to="/" className="back-btn">← Return to thepoast</Link>
+        <Link to="/" className="back-btn">← Back to thepoast</Link>
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>

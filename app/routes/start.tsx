@@ -7,7 +7,7 @@ import FeedFooter from "~/components/feed-footer";
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Campaign Manager / thepoast",
+    title: "thepoast Ads Manager",
     description:
       "Book a new campaign, share an existing one, or explore our media kit, all in one place.",
   };
@@ -88,9 +88,9 @@ type PortalItem = {
 // The big widget at the top: the fastest way to get started.
 const FEATURED: PortalItem & { cta: string; note: string } = {
   href: "/free",
-  title: "Live Ad Preview",
+  title: "Explore the opportunity",
   description:
-    "See how ads look in thepoast's email news feed.",
+    "For advertisers who want to see how it looks",
   icon: <BoltIcon />,
   from: "#ffb340",
   to: "#ff8a00",
@@ -101,32 +101,32 @@ const FEATURED: PortalItem & { cta: string; note: string } = {
 const APPS: PortalItem[] = [
     {
     href: "/book",
-    title: "Quick Campaign",
-    description: "Book your ad here and we'll reply within 48 hours",
+    title: "Book an ad",
+    description: "For advertisers who want a quick placement with a defined price",
     icon: <ChartIcon />,
     from: "#5e9bff",
     to: "#7f13a9",
   },
   {
-    href: "/partner",
-    title: "Custom Campaign",
-    description: "Add a goal, budget, and schedule to your campaign",
-    icon: <MegaphoneIcon />,
-    from: "#d9283d",
-    to: "#fc640b",
-  },
-  {
     href: "/link",
-    title: "Repurpose a Campaign",
-    description: "Already running ads on social? Send us the link",
+    title: "Use an existing ad",
+    description: "For advertisers who already have creative running on social",
     icon: <LinkIcon />,
     from: "#46d37a",
     to: "#c8b41a",
   },
   {
+    href: "/partner",
+    title: "Create a campaign",
+    description: "For advertisers who want to choose their schedule, goal, and budget",
+    icon: <MegaphoneIcon />,
+    from: "#d9283d",
+    to: "#fc640b",
+  },
+  {
     href: "/media-kit",
-    title: "Media Kit",
-    description: "Learn about our audience, stats, and more",
+    title: "See our media kit",
+    description: "For advertisers who want to learn more about our audience",
     icon: <ArchiveIcon />,
     from: "#610bc9",
     to: "#e84545",
@@ -197,7 +197,7 @@ export default function Portal() {
         </nav>
 
         <Link to="/" className="back-btn">
-          ← Return to thepoast
+          ← Back to thepoast
         </Link>
       </main>
 

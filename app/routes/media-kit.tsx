@@ -187,7 +187,7 @@ export default function MediaKit() {
         </section>
 
         <Link to="/manager" className="back-btn">
-          ← Return to Campaign Manager
+          ← Back to Ads Manager
         </Link>
 
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />

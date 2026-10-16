@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-
-/* ------------------------------------------------------------------ */
-/* Edit your numbers and copy here. Everything on screen reads from    */
-/* this object, so nothing else needs to change.                       */
-/* ------------------------------------------------------------------ */
+import { Link } from "@remix-run/react";
 
 export const MEDIA_KIT = {
   // One-liner shown above the Book button in the bottom banner
@@ -185,7 +181,7 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
 
         <div className="mk-body">
           <h2 id="mk-title" className="mk-title">
-            The #1 place for product conversations
+            Your next customer is already reading thepoast
           </h2>
           <p className="mk-lede">{MEDIA_KIT.audience}</p>
 
@@ -215,9 +211,9 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
             {ctaLabel}
           </button>
       <div  style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <a className="back-btn" href={MEDIA_KIT.fullKitHref}>
+          <Link className="back-btn" to="/media-kit">
             See full media kit
-          </a>
+          </Link>
       </div>
         </div>
       </div>

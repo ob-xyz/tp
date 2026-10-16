@@ -176,7 +176,7 @@ export default function DynamicCampaignPage() {
         >
           <div className="feed-banner-inner">
             <div className="feed-banner-title">
-              Reach people where they buy
+              Better business performance, fueled by AI
             </div>
 
             <button

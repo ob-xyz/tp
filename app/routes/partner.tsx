@@ -538,7 +538,7 @@ export default function Partner() {
             </div>
 
         <Link to="/manager" className="back-btn">
-          ← Return to Campaign Manager
+          ← Back to Ads Manager
         </Link>
       </main>
 
