@@ -127,15 +127,15 @@ export default function DynamicCampaignPage() {
     <img src="/img/tp.png" alt="thepoast" decoding="async" />
   </Link>
 
-  <Link className="feed-subscribe" to={`/${company}/book`}>
+  {/* <Link className="feed-subscribe" to={`/${company}/book`}>
     Get Started
-  </Link>
+  </Link> */}
 </header>
 
       <main className="feed-stream">
         <div className="mk-promo-wrap">
           <Link to={`/${company}/book?free=1`} className="mk-promo">
-            Book your first ad for free*! Get started →
+            Book your first ad for free! Get started →
           </Link>
         </div>
 

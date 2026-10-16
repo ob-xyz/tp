@@ -1,5 +1,6 @@
 :root {
   --feed-hairline: rgba(0, 0, 0, 0.1);
+  --feed-topbar-h: 3.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -838,14 +839,32 @@
   }
 }
 .mk-promo-wrap {
+  position: sticky;
+  top: var(--feed-topbar-h);
+  z-index: 39;
   width: 100%;
   padding: 0.75rem 0.75rem 0.25rem;
   box-sizing: border-box;
   font-family: bold;
+  background: var(--feed-bg);
   border-left: 2px solid var(--feed-hairline);
   border-right: 2px solid var(--feed-hairline);
+  transition: top 0.25s ease, transform 0.25s ease, opacity 0.25s ease, visibility 0s;
 }
 
+body:has(.feed-topbar.is-hidden) .mk-promo-wrap {
+  transform: translateY(-150%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s 0.25s;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --feed-topbar-h: 2.9rem;
+  }
+}
 .mk-promo {
   display: flex;
   align-items: center;
@@ -892,6 +911,37 @@
 }
 .mk-stats .mk-stat .mk-stat-label {
   color: #7a7a80;
+}
+
+.mk-placement-cost {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  gap: 0.1rem;
+}
+
+.mk-placement-unit {
+  color: #7a7a80;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.mk-title + .mk-stats {
+  margin-top: 1.25rem;
+}
+
+.mk.is-open .mk-sheet {
+  will-change: transform, opacity;
+}
+
+.mk-cta,
+.mk-promo,
+.mk-link,
+.feed-banner-btn,
+.feed-subscribe {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /*# sourceMappingURL=custom.css.map */

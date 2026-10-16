@@ -1,5 +1,6 @@
 :root {
   --feed-hairline: rgba(0, 0, 0, 0.1);
+  --feed-topbar-h: 3.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -938,12 +939,34 @@ $bp-sm: 480px;
 // ---------- "Run your first ad for free" promo (sample page) ----------
 
 .mk-promo-wrap {
+  position: sticky;
+  top: var(--feed-topbar-h);   // sits right under the topbar
+  z-index: 39;                 // just under the topbar (40)
   width: 100%;
   padding: 0.75rem 0.75rem 0.25rem;
   box-sizing: border-box;
   font-family: $font-bold;
+  background: var(--feed-bg);  // so posts don't show through while scrolling
   border-left: 2px solid var(--feed-hairline);
   border-right: 2px solid var(--feed-hairline);
+    transition: top 0.25s ease, transform 0.25s ease, opacity 0.25s ease,
+    visibility 0s;
+}
+
+// Slide away together with the topbar when the bottom banner shows up
+body:has(.feed-topbar.is-hidden) .mk-promo-wrap {
+  transform: translateY(-150%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s 0.25s;
+}
+
+// Phones: the topbar is slightly shorter (0.7rem padding)
+@media (max-width: 640px) {
+  :root {
+    --feed-topbar-h: 2.9rem;
+  }
 }
 
 .mk-promo {
@@ -1002,4 +1025,41 @@ $bp-sm: 480px;
   .mk-stat-label {
     color: $text-3;
   }
+}
+
+// ---------- Popup: price basis, spacing, snappier feel ----------
+
+// "$3,000" + what it covers ("per issue") stacked on the right
+.mk-placement-cost {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  gap: 0.1rem;
+}
+
+.mk-placement-unit {
+  color: $text-3;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+// The audience line is optional now; keep the gap right when it's missing
+.mk-title + .mk-stats {
+  margin-top: 1.25rem;
+}
+
+// Smoother sheet animation: only promote to its own layer while it's open
+.mk.is-open .mk-sheet {
+  will-change: transform, opacity;
+}
+
+// No 300ms tap delay / grey tap flash on the CTAs
+.mk-cta,
+.mk-promo,
+.mk-link,
+.feed-banner-btn,
+.feed-subscribe {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }

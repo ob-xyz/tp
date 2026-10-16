@@ -6,6 +6,10 @@ export const MEDIA_KIT = {
   // One-liner shown above the Book button in the bottom banner
   bannerLine: "70,000 weekly readers · 27,400 subscribers",
 
+  // What every placement price covers. CONFIRM THIS before shipping:
+  // buyers will ask "$3,000 for what?"
+  priceUnit: "per issue",
+
   // Only add stats you can defend. A third stat like
   // { value: "X", label: "Clicks per issue" } is more credible than open rate.
   stats: [
@@ -13,9 +17,8 @@ export const MEDIA_KIT = {
     { value: "27,400", label: "subscribers" },
   ],
 
-  // Who reads it, in one line (placeholder: replace with your real audience)
-  audience:
-    "",
+  // Who reads it, in one line. Leave empty to hide the line entirely.
+  audience: "",
 
   placements: [
     {
@@ -183,7 +186,7 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
           <h2 id="mk-title" className="mk-title">
             Your next customer is already reading thepoast
           </h2>
-          <p className="mk-lede">{MEDIA_KIT.audience}</p>
+          {MEDIA_KIT.audience && <p className="mk-lede">{MEDIA_KIT.audience}</p>}
 
           <div className={`mk-stats is-${MEDIA_KIT.stats.length}`}>
             {MEDIA_KIT.stats.map((s) => (
@@ -202,7 +205,10 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
                   <span className="mk-placement-name">{p.name}</span>
                   <span className="mk-placement-note">{p.note}</span>
                 </div>
-                <span className="mk-placement-price">{p.price}</span>
+                <div className="mk-placement-cost">
+                  <span className="mk-placement-price">{p.price}</span>
+                  <span className="mk-placement-unit">{MEDIA_KIT.priceUnit}</span>
+                </div>
               </li>
             ))}
           </ul>
@@ -210,11 +216,11 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
           <button type="button" className="mk-cta" onClick={onCta}>
             {ctaLabel}
           </button>
-      <div  style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <Link className="back-btn" to="/media-kit">
-            See full media kit
-          </Link>
-      </div>
+          <div style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+            <Link className="back-btn" to="/media-kit" prefetch="intent">
+              See full media kit
+            </Link>
+          </div>
         </div>
       </div>
     </div>

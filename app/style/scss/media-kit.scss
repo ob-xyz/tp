@@ -137,6 +137,60 @@ $mk-max-width: 860px;
   }
 }
 
+/* Pricing */
+.mk-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+}
+
+.mk-tier {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.25rem;
+  background: var(--feed-input-bg);
+  border: 1px solid var(--feed-input-border);
+  border-radius: 1rem;
+  text-align: left;
+
+  .mk-tier-name {
+    margin: 0 0 0.35rem;
+    font-family: "bold";
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--feed-text);
+  }
+
+  .mk-tier-note {
+    margin: 0 0 1.25rem;
+    font-family: "kl";
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--feed-text-muted);
+  }
+
+  .mk-tier-cost {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .mk-tier-price {
+    font-family: "ku";
+    font-size: 1.85rem;
+    line-height: 1.1;
+    color: var(--feed-text);
+  }
+
+  .mk-tier-unit {
+    font-family: "kl";
+    font-size: 0.85rem;
+    color: var(--feed-text-muted);
+  }
+}
+
 /* How it works: every step is the same width and height, left-aligned */
 .mk-section .ad-success-steps {
   align-items: stretch;
@@ -222,7 +276,8 @@ $mk-max-width: 860px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .mk-formats {
+  .mk-formats,
+  .mk-tiers {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }

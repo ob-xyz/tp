@@ -1,10 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { Link, PrefetchPageLinks, useNavigate } from "@remix-run/react";
+import { useEffect, useRef, useState } from "react";
 
-import FeedTopbar from "~/components/feed-topbar";
-import FeedFooter from "~/components/feed-footer";
-import FeedSubscribeBanner from "~/components/feed-subscribe-banner";
+import { MEDIA_KIT } from "~/components/media-kit";
 
 export const meta: MetaFunction = () => {
   return {
@@ -23,7 +21,7 @@ const STATS = [
 const AUDIENCE = ["Founders", "Executives", "Builders", "Investors", "Marketers"];
 
 const FORMATS = [
-    {
+  {
     title: "Repurpose campaigns from social media",
     body: "Already running ads? Repurpose one of them in thepoast.",
   },
@@ -31,7 +29,7 @@ const FORMATS = [
     title: "Link to your landing page",
     body: "Avoid in-app browsers and get every link click landing on your page.",
   },
-    {
+  {
     title: "Track and measure your ads",
     body: "Track and measure ads using your own UTM link, or we'll give you one.",
   },
@@ -52,6 +50,7 @@ const STEPS = [
   },
 ];
 
+const PARTNER_PATH = "/partner";
 const BANNER_TRIGGER = 0.75;
 
 function useReachedEndOfPage() {
@@ -97,31 +96,22 @@ function useReachedEndOfPage() {
 
 export default function MediaKit() {
   const { endRef, reached } = useReachedEndOfPage();
-  const [forced, setForced] = useState(false);
-  const [expandBanner, setExpandBanner] = useState(false);
-  const footerRef = useRef<HTMLElement>(null);
-  const previousReached = useRef(false);
-
-  const bannerVisible = reached || forced;
-
-  useEffect(() => {
-    if (previousReached.current && !reached) {
-      setForced(false);
-      setExpandBanner(false);
-    }
-    previousReached.current = reached;
-  }, [reached]);
-
-  const handleTopbarSubscribe = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    setForced(true);
-    setExpandBanner(true);
-    footerRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="feed-page ad-booking-page mk-page">
-      <FeedTopbar hidden={reached} onSubscribe={handleTopbarSubscribe} />
+      {/* Warm the /partner route so Get Started feels instant */}
+      <PrefetchPageLinks page={PARTNER_PATH} />
+
+      <header className={`feed-topbar${reached ? " is-hidden" : ""}`}>
+        <Link className="feed-mark" to="/">
+          <img src="/img/tp.png" alt="thepoast" decoding="async" />
+        </Link>
+
+        <Link className="feed-subscribe" to={PARTNER_PATH} prefetch="intent">
+          Get Started
+        </Link>
+      </header>
 
       <main className="ad-booking-card mk-card">
         <div className="ad-booking-header">
@@ -157,13 +147,31 @@ export default function MediaKit() {
 
         <section className="mk-section" aria-labelledby="mk-formats-title">
           <h2 className="mk-section-title" id="mk-formats-title">
-           Advertise with us
+            Advertise with us
           </h2>
           <div className="mk-formats">
             {FORMATS.map((format) => (
               <article className="mk-format" key={format.title}>
                 <h3>{format.title}</h3>
                 <p>{format.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mk-section" aria-labelledby="mk-pricing-title">
+          <h2 className="mk-section-title" id="mk-pricing-title">
+            Pricing
+          </h2>
+          <div className="mk-tiers">
+            {MEDIA_KIT.placements.map((placement) => (
+              <article className="mk-tier" key={placement.name}>
+                <h3 className="mk-tier-name">{placement.name}</h3>
+                <p className="mk-tier-note">{placement.note}</p>
+                <div className="mk-tier-cost">
+                  <span className="mk-tier-price">{placement.price}</span>
+                  <span className="mk-tier-unit">{MEDIA_KIT.priceUnit}</span>
+                </div>
               </article>
             ))}
           </div>
@@ -186,18 +194,42 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <Link to="/manager" className="back-btn">
-          ← Back to Ads Manager
-        </Link>
-
         <div ref={endRef} className="feed-end-marker" aria-hidden="true" />
       </main>
 
-      <div ref={footerRef}>
-        <FeedFooter covered={bannerVisible} />
-      </div>
+      <footer className={`feed-footer${reached ? " is-covered" : ""}`}>
+        <div className="feed-footer-links">
+          <Link to="/about">about</Link>
+          <Link to="/archive">archive</Link>
+          <Link to="/submit-post">submit post</Link>
+          <Link to="/policies/privacy">privacy</Link>
+          <Link to="/policies/terms">terms</Link>
+          <Link to="/book">advertise</Link>
+          <Link to="/manager">ads manager</Link>
+        </div>
+        <p className="feed-copyright">thepoast © 2026</p>
+      </footer>
 
-      <FeedSubscribeBanner visible={bannerVisible} forceExpanded={expandBanner} />
+      <aside
+        className={`feed-banner${reached ? " is-visible" : ""}`}
+        aria-label="Get Started"
+        aria-hidden={!reached}
+      >
+        <div className="feed-banner-inner">
+          <div className="feed-banner-title">
+            Better business performance, fueled by AI
+          </div>
+
+          <button
+            type="button"
+            className="feed-banner-btn"
+            tabIndex={reached ? 0 : -1}
+            onClick={() => navigate(PARTNER_PATH)}
+          >
+            Get Started
+          </button>
+        </div>
+      </aside>
     </div>
   );
 }
