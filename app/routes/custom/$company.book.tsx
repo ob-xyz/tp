@@ -39,6 +39,29 @@ const PLACEMENTS_FREE = ["Top Feed", "Mid Feed"] as const;
 const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
 const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
 
+const FREE_TERMS: { q: string; a: string }[] = [
+  {
+    q: "Is it really free?",
+    a: "Yes. Your first ad with thepoast is on us. No card or payment details needed.",
+  },
+  {
+    q: "Is it free forever?",
+    a: "No. This is a one-time offer. Every ad after your first is billed at our standard rates.",
+  },
+  {
+    q: "Who qualifies?",
+    a: "New advertisers. One free ad per company or person, and it can't be combined with other offers or exchanged for cash.",
+  },
+  {
+    q: "What's included?",
+    a: "We'll place your ad at the top feed or mid feed, the same as a paid ad.",
+  },
+  {
+    q: "Any catches?",
+    a: "Your start date is a target and depends on availability. Ads must follow our advertising guidelines, and we may adjust or end this offer at any time.",
+  },
+];
+
 type Placement = (typeof RAW_PLACEMENTS)[number];
 type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
@@ -621,6 +644,7 @@ export default function AdvertiserBookPage() {
 
         {/* STEP 2: SCHEDULE & PLACEMENT */}
         {step === 2 && (
+          <>
           <div className="bk-card">
 
             <div className="bk-fields">
@@ -698,6 +722,26 @@ export default function AdvertiserBookPage() {
               </button>
             </div>
           </div>
+
+          {paymentMethod === "Free" && (
+            <section className="bk-terms" aria-labelledby="bk-terms-title">
+              <h2 className="bk-label" id="bk-terms-title">
+                First Ad Free · Terms
+              </h2>
+              <dl className="bk-terms-list">
+                {FREE_TERMS.map((item) => (
+                  <div key={item.q} className="bk-terms-item">
+                    <dt>{item.q}</dt>
+                    <dd>{item.a}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="bk-terms-foot">
+                Full details in our <Link to="/policies/terms">terms</Link>.
+              </p>
+            </section>
+          )}
+          </>
         )}
 
         {/* STEP 3: FINAL REVIEW & SUBMIT */}
@@ -777,6 +821,12 @@ export default function AdvertiserBookPage() {
               <span className="bk-error" role="alert" style={{ marginBottom: "1.25rem" }}>
                 {errors.altcha}
               </span>
+            )}
+
+            {paymentMethod === "Free" && (
+              <p className="bk-note" style={{ margin: "0 0 1.25rem" }}>
+                Free applies to your first ad only. Later ads are billed at standard rates.
+              </p>
             )}
 
             <div className="bk-actions">

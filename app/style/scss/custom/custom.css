@@ -428,6 +428,56 @@
   font-size: 0.82rem;
   text-align: center;
 }
+.bk .bk-terms {
+  width: 100%;
+  margin: -0.75rem 0 2rem;
+  padding: 1.5rem 2rem;
+  background: #0f0f0f;
+  border: 1px solid #222222;
+  border-radius: 28px;
+  animation: bk-in 0.35s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@media (max-width: 480px) {
+  .bk .bk-terms {
+    padding: 1.25rem;
+    border-radius: 24px;
+  }
+}
+.bk .bk-terms-list {
+  margin: 1rem 0 0;
+  padding: 0 1.25rem;
+  background: #000000;
+  border: 1px solid #262626;
+  border-radius: 18px;
+}
+.bk .bk-terms-item {
+  padding: 0.9rem 0;
+  border-top: 1px solid #1c1c1c;
+}
+.bk .bk-terms-item:first-child {
+  border-top: 0;
+}
+.bk .bk-terms-item dt {
+  margin: 0 0 0.25rem;
+  color: #ffffff;
+  font-size: 0.92rem;
+}
+.bk .bk-terms-item dd {
+  margin: 0;
+  color: #a1a1a6;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.bk .bk-terms-foot {
+  margin: 0.9rem 0 0;
+  color: #7a7a80;
+  font-size: 0.78rem;
+  text-align: center;
+}
+.bk .bk-terms-foot a {
+  color: #a1a1a6;
+  text-decoration: underline;
+}
 .bk .bk-actions {
   display: flex;
   gap: 0.75rem;
