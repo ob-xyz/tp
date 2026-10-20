@@ -6,14 +6,13 @@ export const MEDIA_KIT = {
   // One-liner shown above the Book button in the bottom banner
   bannerLine: "70,000 weekly readers · 27,400 subscribers",
 
-  // What every placement price covers. CONFIRM THIS before shipping:
-  // buyers will ask "$3,000 for what?"
+  // What every placement price covers.
   priceUnit: "per issue",
 
   // Only add stats you can defend. A third stat like
   // { value: "X", label: "Clicks per issue" } is more credible than open rate.
   stats: [
-    { value: "70,000", label: "weekly readers" },
+    { value: "10,000", label: "daily readers" },
     { value: "27,400", label: "subscribers" },
   ],
 
@@ -23,12 +22,12 @@ export const MEDIA_KIT = {
   placements: [
     {
       name: "Top Feed",
-      price: "$3,000",
+      price: "$500",
       note: "The first ad readers see in every issue",
     },
     {
       name: "Mid Feed",
-      price: "$1,500",
+      price: "$300",
       note: "Placed natively between posts, further down the feed",
     },
   ],
