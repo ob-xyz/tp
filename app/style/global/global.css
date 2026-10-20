@@ -2333,6 +2333,7 @@ body:has(.ad-booking-page) .feed-topbar {
   align-items: baseline;
   gap: 0.4rem;
   margin-top: auto;
+  margin-left: 0;
 }
 .mk-tier .mk-tier-price {
   font-family: "ku";
