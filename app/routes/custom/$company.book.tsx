@@ -18,6 +18,7 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
+import { hasResults } from "~/data/ad-results";
 import FeedEmbed from "~/components/feed-embed";
 import Altcha from "~/components/altcha";
 import MediaKit from "~/components/media-kit";
@@ -239,6 +240,12 @@ async function saveCampaignBooking(lead: CampaignLead, companySlug: string) {
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const company = params.company?.toLowerCase() || "";
+
+  // Already ran an ad? Booking lives on their results dashboard now.
+  if (hasResults(company)) {
+    throw redirect(`/${company}`);
+  }
+
   const campaignId = CAMPAIGN_MAP[company];
 
   if (!campaignId) {

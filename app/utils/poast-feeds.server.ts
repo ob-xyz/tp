@@ -758,7 +758,10 @@ type StoryboardExtraction = {
 };
 
 /** Finds the first .storyboard div and keeps its full parent chain. */
-function extractFirstStoryboardDocument(html: string): StoryboardExtraction | null {
+function extractFirstStoryboardDocument(
+  html: string,
+  nth = 1
+): StoryboardExtraction | null {
   const htmlOpen = html.match(/<html\b[^>]*>/i)?.[0] || "<html>";
   const bodyOpenMatch = html.match(/<body\b[^>]*>/i);
   const bodyCloseMatch = html.match(/<\/body\s*>/i);
@@ -778,6 +781,7 @@ function extractFirstStoryboardDocument(html: string): StoryboardExtraction | nu
   const stack: HtmlTag[] = [];
   let storyboardTag: HtmlTag | null = null;
   let storyboardAncestors: HtmlTag[] = [];
+  let storyboardsSeen = 0;
 
   for (const tag of tags) {
     if (tag.closing) {
@@ -809,10 +813,13 @@ function extractFirstStoryboardDocument(html: string): StoryboardExtraction | nu
 
     if (!storyboardTag && tag.name === "div") {
       if (/\bstoryboard\b/i.test(getAttribute(tag.raw, "class"))) {
-        storyboardTag = tag;
-        storyboardAncestors = stack.filter(
-          (a) => a.name !== "html" && a.name !== "head" && a.name !== "body"
-        );
+        storyboardsSeen++;
+        if (storyboardsSeen === nth) {
+          storyboardTag = tag;
+          storyboardAncestors = stack.filter(
+            (a) => a.name !== "html" && a.name !== "head" && a.name !== "body"
+          );
+        }
       }
     }
 
@@ -829,12 +836,14 @@ function extractFirstStoryboardDocument(html: string): StoryboardExtraction | nu
 export function prepareLeadStoryHtml(
   html: string,
   referenceDate: Date,
-  _feedId?: string
+  _feedId?: string,
+  nth = 1
 ): string {
   if (!html) return "";
 
   const extracted = extractFirstStoryboardDocument(
-    resolveTemplateTags(html, referenceDate)
+    resolveTemplateTags(html, referenceDate),
+    nth
   );
 
   if (!extracted) return "";
@@ -878,6 +887,24 @@ export function getLeadStoryHtml(id: string): Promise<string | null> {
     const [raw, date] = await Promise.all([getRawHtml(id), getReferenceDate(id)]);
     if (!raw) return null;
     return prepareLeadStoryHtml(raw, date, id) || null;
+  });
+}
+
+/**
+ * Post #N of a campaign (the Nth `.storyboard`), as a standalone card.
+ * Used by the ad results dashboard. null = campaign or post not found.
+ */
+export function getStoryboardHtml(
+  id: string | number,
+  nth: number
+): Promise<string | null> {
+  const key = String(id);
+  const n = Math.max(1, Math.floor(Number(nth)) || 1);
+
+  return cached(`story:${key}:${n}`, 6 * HOUR, 7 * DAY, async () => {
+    const [raw, date] = await Promise.all([getRawHtml(key), getReferenceDate(key)]);
+    if (!raw) return null;
+    return prepareLeadStoryHtml(raw, date, key, n) || null;
   });
 }
 
