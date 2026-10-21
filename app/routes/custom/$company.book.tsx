@@ -42,7 +42,7 @@ const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
 const FREE_TERMS: { q: string; a: string }[] = [
   {
     q: "Is it really free?",
-    a: "Yes. Your first ad with thepoast is on us. No card or payment details needed.",
+    a: "Yes. Your first ad with thepoast is on us. No card or payment details required.",
   },
   {
     q: "Is it free forever?",
@@ -50,11 +50,11 @@ const FREE_TERMS: { q: string; a: string }[] = [
   },
   {
     q: "Who qualifies?",
-    a: "New advertisers. One free ad per company or person, and it can't be combined with other offers or exchanged for cash.",
+    a: "New advertisers. One free ad per company, and it can't be combined with other offers or exchanged for cash.",
   },
   {
     q: "What's included?",
-    a: "We'll place your ad at the top feed or mid feed, the same as a paid ad.",
+    a: "One standard paid ad for free. Just choose if you want to place it at the top or middle of our feed.",
   },
   {
     q: "Any catches?",
@@ -603,7 +603,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>Reach people with this ad</h1>
+            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>This is how your ad will look to 10k+ people</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed
@@ -726,7 +726,7 @@ export default function AdvertiserBookPage() {
           {paymentMethod === "Free" && (
             <section className="bk-terms" aria-labelledby="bk-terms-title">
               <h2 className="bk-label" id="bk-terms-title">
-                First Ad Free · Terms
+                Run Your First Ad Risk-Free · Terms
               </h2>
               <dl className="bk-terms-list">
                 {FREE_TERMS.map((item) => (
