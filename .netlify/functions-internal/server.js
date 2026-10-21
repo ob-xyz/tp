@@ -1488,7 +1488,7 @@ function warmIssues(ids, max = 8) {
     warmingIssues = !1;
   });
 }
-var LIVE_CAMPAIGN_ID = 1, LIVE_KEY = "live:issue", LIVE_FRESH_MS = 3e4, LIVE_STALE_MS = 10 * MIN, LIVE_WARM_INTERVAL_MS = 25e3;
+var LIVE_CAMPAIGN_ID = 2, LIVE_KEY = "live:issue", LIVE_FRESH_MS = 3e4, LIVE_STALE_MS = 10 * MIN, LIVE_WARM_INTERVAL_MS = 25e3;
 async function getLiveIssue() {
   try {
     return await cached(
