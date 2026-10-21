@@ -1028,7 +1028,7 @@ export function warmIssues(ids: string[], max = 8) {
 /* -------------------------------------------------------------------------- */
 /*                     LIVE "TODAY'S EDITION" (index route)                   */
 /* -------------------------------------------------------------------------- */
-const LIVE_CAMPAIGN_ID = 1;
+const LIVE_CAMPAIGN_ID = 2;
 const LIVE_KEY = "live:issue";
 
 const LIVE_FRESH_MS = 30_000;
