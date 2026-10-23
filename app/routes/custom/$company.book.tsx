@@ -26,8 +26,7 @@ import NotFound from "~/routes/$"; // your existing custom 404 page
 import bookStyles from "../../style/scss/custom/custom.css";
 
 const CAMPAIGN_MAP: Record<string, number> = {
-  free: 4,
-  advertise: 5,
+  foryou: 3,
   fin: 507,
   stripe: 451,
 };
@@ -642,7 +641,7 @@ export default function AdvertiserBookPage() {
                 
               ) : (
                 <div style={{ marginTop: "1rem", padding: "0.75rem", background: "#161616", borderRadius: "12px", border: "1px solid #2a2a2a", fontSize: "0.85rem", color: "#fafafa" }}>
-                  No problem! Change your ad in the final step.
+                  No problem! Add a link to the ad you want to run in the final step.
                 </div>
               )}
             </div>
@@ -830,12 +829,6 @@ export default function AdvertiserBookPage() {
               </span>
             )}
 
-            {paymentMethod === "Free" && (
-              <p className="bk-note" style={{ margin: "0 0 1.25rem" }}>
-                Free applies to your first ad only. Later ads are billed at standard rates.
-              </p>
-            )}
-
             <div className="bk-actions">
               <button
                 type="button"
@@ -853,6 +846,13 @@ export default function AdvertiserBookPage() {
                 {submitLabel}
               </button>
             </div>
+
+            {paymentMethod === "Free" && (
+              <p className="bk-note" style={{ margin: "0 0 1.25rem" }}>
+                Free applies to your first ad only. Later ads are billed at standard rates.
+              </p>
+            )}
+
           </Form>
         )}
 

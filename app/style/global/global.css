@@ -3557,7 +3557,7 @@ body:has(.subscribe-page) .feed-topbar {
   --altcha-color-text: #7a7a80;
 }
 .bk .bk-note {
-  margin: 1rem 0 0;
+  padding-top: 1rem;
   color: #7a7a80;
   font-size: 0.82rem;
   text-align: center;

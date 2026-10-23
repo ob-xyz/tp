@@ -22,8 +22,7 @@ import resultsStyles from "../../style/scss/custom/results.css";
 
 // Map your company slugs to their Listmonk campaign IDs here!
 const CAMPAIGN_MAP: Record<string, number> = {
-  free: 4,
-  advertise: 5,
+  foryou: 3,
   fin: 507,
   stripe: 451,
 };
