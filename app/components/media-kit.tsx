@@ -23,7 +23,7 @@ export const MEDIA_KIT = {
     {
       name: "Top Feed",
       price: "$500",
-      note: "The first ad readers see in every issue",
+      note: "Be the first ad readers see, near the top of the feed",
     },
     {
       name: "Mid Feed",
@@ -183,7 +183,7 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
 
         <div className="mk-body">
           <h2 id="mk-title" className="mk-title">
-            Your next customer is already reading thepoast
+            Find your next customers with thepoast
           </h2>
           {MEDIA_KIT.audience && <p className="mk-lede">{MEDIA_KIT.audience}</p>}
 
