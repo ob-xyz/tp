@@ -6,6 +6,7 @@ const CAMPAIGN_MAP: Record<string, number> = {
   foryou: 3,
   fin: 507,
   stripe: 451,
+  checksum: 789,
 };
 
 const PREVIEW_CACHE_CONTROL =
