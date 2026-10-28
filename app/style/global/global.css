@@ -4046,7 +4046,7 @@ body:has(.feed-topbar.is-hidden) .mk-promo-wrap {
 
 @media (max-width: 640px) {
   :root {
-    --feed-topbar-h: 2.9rem;
+    --feed-topbar-h: 2.7rem;
   }
 }
 .mk-promo {
