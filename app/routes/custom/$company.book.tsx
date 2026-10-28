@@ -605,7 +605,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>This is how your ad will look to 10k+ people</h1>
+            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>Want to run this ad in thepoast?</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed
@@ -779,7 +779,7 @@ export default function AdvertiserBookPage() {
 
             {/* Quick Preview Thumbnail Header on Step 3 */}
             <div style={{ marginBottom: "1.5rem" }}>
-              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>{companyName} Ad</span>
+              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>Here's {companyName} Ad</span>
               <div className="feed-embed loaded bk-preview" style={{ maxHeight: "220px", overflow: "hidden", marginBottom: 0 }}>
                 <FeedEmbed
                   id={`${company}-ad-thumbnail`}
@@ -810,7 +810,7 @@ export default function AdvertiserBookPage() {
                 name="notes"
                 className="bk-textarea"
                 rows={3}
-                placeholder="Special instructions or tracking links..."
+                placeholder="Fix the ad copy, drop a UTM tracking link, or link a new ad"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />

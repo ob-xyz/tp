@@ -3633,7 +3633,7 @@ body:has(.subscribe-page) .feed-topbar {
   border-radius: 16px;
   cursor: pointer;
   font-family: bold;
-  font-size: 1rem;
+  font-size: 0.925rem;
   transition: transform 0.15s cubic-bezier(0.32, 0.72, 0, 1), background 0.15s, opacity 0.15s;
 }
 .bk .bk-btn:active:not(:disabled) {

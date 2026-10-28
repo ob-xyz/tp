@@ -602,7 +602,7 @@ $bp-sm: 480px;
     border-radius: 16px;
     cursor: pointer;
     font-family: $font-bold;
-    font-size: 1rem;
+    font-size: .925rem;
     transition: transform 0.15s $ease, background 0.15s, opacity 0.15s;
 
     &:active:not(:disabled) {
