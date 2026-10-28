@@ -19,14 +19,8 @@ import type { ResultsData } from "~/utils/ad-results";
 import { handleRebookAction } from "~/utils/ad-results.server";
 import bookStyles from "../../style/scss/custom/custom.css";
 import resultsStyles from "../../style/scss/custom/results.css";
+import { CAMPAIGN_MAP } from "~/data/campaigns";
 
-// Map your company slugs to their Listmonk campaign IDs here!
-const CAMPAIGN_MAP: Record<string, number> = {
-  foryou: 3,
-  fin: 507,
-  stripe: 451,
-  checksum: 789,
-};
 
 type LoaderData =
   | { mode: "results"; results: ResultsData }

@@ -24,13 +24,8 @@ import Altcha from "~/components/altcha";
 import MediaKit from "~/components/media-kit";
 import NotFound from "~/routes/$"; // your existing custom 404 page
 import bookStyles from "../../style/scss/custom/custom.css";
+import { CAMPAIGN_MAP } from "~/data/campaigns";
 
-const CAMPAIGN_MAP: Record<string, number> = {
-  foryou: 3,
-  fin: 507,
-  stripe: 451,
-  checksum: 789,
-};
 
 const BANNER_TRIGGER = 0.85;
 

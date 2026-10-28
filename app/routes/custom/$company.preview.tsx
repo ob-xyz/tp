@@ -1,13 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { getCampaignPreview } from "~/utils/poast-feeds.server";
+import { CAMPAIGN_MAP } from "~/data/campaigns";
 
-// Keep the same campaign mapping dictionary here (or move it to a shared file)
-const CAMPAIGN_MAP: Record<string, number> = {
-  foryou: 3,
-  fin: 507,
-  stripe: 451,
-  checksum: 789,
-};
 
 const PREVIEW_CACHE_CONTROL =
   "public, max-age=60, s-maxage=300, stale-while-revalidate=86400";
