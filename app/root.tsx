@@ -33,7 +33,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "thepoast - no spam, no bots.",
+  title: "thepoast - no bots, no spam.",
   description: "No bots. No spam. Just the best things you haven't seen.",
   viewport: "width=device-width,initial-scale=1"
 });
