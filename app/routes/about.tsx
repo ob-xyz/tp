@@ -161,8 +161,7 @@ export default function About() {
           </h2>
 
           <p className="about-text">
-            We're a daily feed of snarky comments and posts from
-            across the business world.
+            We're a curated news feed of the best conversations in tech, delivered by email, daily.
           </p>
         </section>
 
