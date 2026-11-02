@@ -87,7 +87,7 @@ type PortalItem = {
 
 // The big widget at the top: the fastest way to get started.
 const FEATURED: PortalItem & { cta: string; note: string } = {
-  href: "/free",
+  href: "/foryou",
   title: "Explore the opportunity",
   description:
     "For advertisers who want to see how it looks",
