@@ -41,7 +41,7 @@ import { saveRebookRequest } from "~/utils/ad-results.server";
 const BANNER_TRIGGER = 0.85;
 
 const STEPS = ["Schedule", "Confirm"] as const;
-const PLACEMENTS_PAID = ["Top Feed — $500", "Mid Feed — $300"] as const;
+const PLACEMENTS_PAID = ["Top Feed — $1,000", "Mid Feed — $500"] as const;
 const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
 const PAYMENT_METHODS = ["Credit Card", "Insertion Order"] as const;
 const CREATIVES = ["Same ad", "New ad"] as const;

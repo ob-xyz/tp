@@ -22,12 +22,12 @@ export const MEDIA_KIT = {
   placements: [
     {
       name: "Top Feed",
-      price: "$500",
+      price: "$1,000",
       note: "Be the first ad readers see, near the top of the feed",
     },
     {
       name: "Mid Feed",
-      price: "$300",
+      price: "$500",
       note: "Placed natively between posts, further down the feed",
     },
   ],

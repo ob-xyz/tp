@@ -30,7 +30,7 @@ import { CAMPAIGN_MAP } from "~/data/campaigns";
 const BANNER_TRIGGER = 0.85;
 
 const STEPS = ["Preview", "Schedule", "Confirm"] as const;
-const PLACEMENTS_PAID = ["Top Feed — $500", "Mid Feed — $300"] as const;
+const PLACEMENTS_PAID = ["Top Feed — $1,000", "Mid Feed — $500"] as const;
 const PLACEMENTS_FREE = ["Top Feed", "Mid Feed"] as const;
 const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
 const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
