@@ -42,6 +42,57 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 /**
+ * Removes the profile-picture logo block from the email document:
+ *   <p class="tac"><a><img src=".../tp_u6yYte.png"></a><br></p>
+ */
+function removeProfileLogo(doc: Document | null | undefined) {
+  if (!doc) return;
+
+  doc.querySelectorAll('img[src*="tp_u6yYte.png"]').forEach((img) => {
+    const block = img.closest("p.tac");
+    if (block) block.remove();
+  });
+}
+
+/**
+ * The email renders in a same-origin iframe inside `ref`. Strip the logo
+ * once the iframe loads, and keep watching in case the iframe is mounted
+ * or replaced after this effect runs.
+ */
+function useStripProfileLogo(ref: React.RefObject<HTMLElement>) {
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+
+    const attached = new WeakSet<HTMLIFrameElement>();
+
+    const strip = (iframe: HTMLIFrameElement) => {
+      try {
+        removeProfileLogo(iframe.contentDocument);
+      } catch {
+        // cross-origin or not ready yet; the load listener will retry
+      }
+    };
+
+    const attach = () => {
+      root.querySelectorAll("iframe").forEach((iframe) => {
+        if (attached.has(iframe)) return;
+        attached.add(iframe);
+        iframe.addEventListener("load", () => strip(iframe));
+        strip(iframe);
+      });
+    };
+
+    attach();
+
+    const observer = new MutationObserver(attach);
+    observer.observe(root, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, [ref]);
+}
+
+/**
  * Watches an invisible marker placed right after the issue. Once the reader
  * has scrolled to or past it, `reached` flips to true. Scrolling back up
  * flips it back.
@@ -100,8 +151,11 @@ export default function ArchiveIssue() {
   const [forced, setForced] = useState(false);
   const [expandBanner, setExpandBanner] = useState(false);
 
+  const embedRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const previousReached = useRef(false);
+
+  useStripProfileLogo(embedRef);
 
   const bannerVisible = reached || forced;
 
@@ -130,7 +184,7 @@ export default function ArchiveIssue() {
       />
 
       <main className="feed-stream">
-        <div className="feed-embed loaded">
+        <div ref={embedRef} className="feed-embed loaded">
           <FeedEmbed
             id={id}
             src={`/feeds/full/${id}`}

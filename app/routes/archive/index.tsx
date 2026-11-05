@@ -144,6 +144,19 @@ const sleep = (ms: number) =>
     setTimeout(resolve, ms)
   );
 
+/**
+ * Removes the profile-picture logo block from the email HTML:
+ *   <p class="tac" ...><a ...><img src=".../tp_u6yYte.png" ...></a><br></p>
+ * Matches only a single <p>...</p> that contains the logo image, so it
+ * can never swallow neighbouring paragraphs.
+ */
+const PROFILE_LOGO_BLOCK =
+  /<p\b[^>]*>(?:(?!<\/p>)[\s\S])*?tp_u6yYte\.png(?:(?!<\/p>)[\s\S])*?<\/p>/gi;
+
+function stripProfileLogo(html: string) {
+  return html.replace(PROFILE_LOGO_BLOCK, "");
+}
+
 async function fetchLead(
   id: string,
   signal: AbortSignal
@@ -184,7 +197,7 @@ async function fetchLead(
         throw new Error("Empty preview");
       }
 
-      return text;
+      return stripProfileLogo(text);
     } catch (error) {
       if (signal.aborted) {
         throw error;
