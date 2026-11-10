@@ -215,7 +215,7 @@ export default function MediaKit() {
       >
         <div className="feed-banner-inner">
           <div className="feed-banner-title">
-            Better business performance, fueled by AI
+            Better business performance, fueled by email
           </div>
 
           <button
