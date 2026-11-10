@@ -13,9 +13,7 @@ export const meta: MetaFunction = () => {
 
 const STATS = [
   { value: "27k+", label: "Email subscribers" },
-  { value: "70k+", label: "Weekly readers" },
-  { value: "36%", label: "Average open rate" },
-  { value: "30k+", label: "Monthly web visitors" },
+  { value: "150k+", label: "Monthly web readers" },
 ];
 
 const AUDIENCE = ["Founders", "Executives", "Builders", "Investors", "Marketers"];
