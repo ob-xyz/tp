@@ -10,7 +10,7 @@ const HIDE_EXTRANEOUS_STYLES = `
   .storyboard {
     display: none !important;
   }
-  .storyboard:nth-of-type(2) {
+  .storyboard:nth-of-type(3) {
     display: block !important;
   }
 
@@ -50,7 +50,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       status: 200,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=60, s-maxage=300",
+        "Cache-Control": "public, max-age=0, s-maxage=300",
         "X-Content-Type-Options": "nosniff",
       },
     });
