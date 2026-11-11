@@ -4,8 +4,8 @@ import { CAMPAIGN_MAP } from "~/data/campaigns";
 
 
 const PREVIEW_CACHE_CONTROL =
-  "public, max-age=60, s-maxage=300, stale-while-revalidate=86400";
-
+  // "public, max-age=60, s-maxage=300, stale-while-revalidate=86400";
+     "public, max-age=0, s-maxage=0, must-revalidate"
 const EMAIL_LOGO_BLOCK =
   /<p\b[^>]*class=["']tac["'][^>]*>\s*<a\b[^>]*>\s*<img\b[^>]*src=["']https:\/\/img\.thepoast\.com\/tp_u6yYte\.png["'][^>]*>\s*<\/a>\s*<\/p>/i;
 
