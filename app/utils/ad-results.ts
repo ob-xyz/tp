@@ -6,7 +6,7 @@
 import { findRun, displayName, getRuns, runKey } from "~/data/ad-results";
 import type { AdRun } from "~/data/ad-results";
 
-export const PLACEMENTS_PAID = ["Top Feed — $500", "Mid Feed — $300"] as const;
+export const PLACEMENTS_PAID = ["Top Feed — $1,000", "Mid Feed — $500"] as const;
 export const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
 export const PAYMENT_METHODS = ["Credit Card", "Insertion Order"] as const;
 export const CREATIVES = ["Same ad", "New ad"] as const;
