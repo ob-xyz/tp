@@ -10,7 +10,6 @@ import {
 import FeedTopbar from "../../components/feed-topbar";
 import FeedFooter from "../../components/feed-footer";
 import FeedSubscribeBanner from "../../components/feed-subscribe-banner";
-import Altcha from "../../components/altcha";
 import FeedEmbed, {
   getCachedHeight,
   useSideBorders,
@@ -27,7 +26,7 @@ import {
 export const meta: MetaFunction = () => {
   return {
     title: "Archive / thepoast",
-    description: "Create a new ad campaign for your company or brand here.",
+    description: "See past issues of thepoast here.",
   };
 };
 
@@ -54,7 +53,7 @@ export function shouldRevalidate() {
 }
 
 const FEED_LIMIT = 30;
-const FEED_START_DATE = "2026-09-23";
+const FEED_START_DATE = "2026-10-16";
 const BANNER_TRIGGER = 0.75;
 
 type Feed = {

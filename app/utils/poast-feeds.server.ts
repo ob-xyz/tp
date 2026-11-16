@@ -650,7 +650,7 @@ export function extractLeadingStory(html: string, subject: string): LeadStory {
   text = removeSubjectPrefix(cleanText(text), subject);
 
   if (!text && image?.alt) text = image.alt;
-  if (!text) text = subject || "The Poast";
+  if (!text) text = subject || "thepoast";
 
   return {
     text: clipText(text, 220),
@@ -932,7 +932,7 @@ export function getIssue(id: string): Promise<Issue | null> {
 
     return {
       id: String(campaign.id),
-      subject: campaign.subject || "The Poast",
+      subject: campaign.subject || "thepoast",
       date: rawDate || referenceDate.toISOString(),
       body,
     };
