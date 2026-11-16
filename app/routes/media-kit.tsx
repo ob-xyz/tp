@@ -2,8 +2,6 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link, PrefetchPageLinks, useNavigate } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 
-import { MEDIA_KIT } from "~/components/media-kit";
-
 export const meta: MetaFunction = () => {
   return {
     title: "Media kit / thepoast",
@@ -46,6 +44,21 @@ const STEPS = [
     title: "Approve and launch",
     body: "Once creative is approved, your campaign goes live on your start date.",
   },
+];
+
+const CATEGORIES = ["Technology", "Markets", "Politics"];
+
+// Same pricing in every category. Keep in sync with the booking page (PACKAGES).
+const CAMPAIGNS = [
+  { name: "Single placement", detail: "1 placement · one week", price: "$3,000", save: "" },
+  {
+    name: "Monthly campaign",
+    detail: "1 per week · 4 weeks",
+    price: "$10,000",
+    save: "Save $2,000",
+    recommended: true,
+  },
+  { name: "Quarterly campaign", detail: "1 per week · 12 weeks", price: "$25,000", save: "Save $11,000" },
 ];
 
 const PARTNER_PATH = "/partner";
@@ -161,17 +174,26 @@ export default function MediaKit() {
           <h2 className="mk-section-title" id="mk-pricing-title">
             Pricing
           </h2>
-          <div className="mk-tiers">
-            {MEDIA_KIT.placements.map((placement) => (
-              <article className="mk-tier" key={placement.name}>
-                <h3 className="mk-tier-name">{placement.name}</h3>
-                <p className="mk-tier-note">{placement.note}</p>
-                <div className="mk-tier-cost">
-                  <span className="mk-tier-price">{placement.price}</span>
-                  <span className="mk-tier-unit">{MEDIA_KIT.priceUnit}</span>
-                </div>
-              </article>
-            ))}
+          <div className="mk-price">
+            <ul className="mk-price-list">
+              {CAMPAIGNS.map((campaign) => (
+                <li className="mk-price-row" key={campaign.name}>
+                  <div className="mk-price-info">
+                    <span className="mk-price-name">
+                      {campaign.name}
+                      {campaign.recommended && (
+                        <span className="mk-price-badge">Recommended</span>
+                      )}
+                    </span>
+                    <span className="mk-price-detail">{campaign.detail}</span>
+                  </div>
+                  <div className="mk-price-cost">
+                    <span className="mk-price-amount">{campaign.price}</span>
+                    {campaign.save && <span className="mk-price-save">{campaign.save}</span>}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

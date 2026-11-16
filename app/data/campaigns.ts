@@ -9,6 +9,7 @@ export const CAMPAIGN_MAP: Record<string, number> = {
   youdotcom: 790,
   attio: 791,
   tailscale: 700,
+  viktor: 471,
 };
 
 /** Returns the campaign ID for a slug, or undefined if unknown. */

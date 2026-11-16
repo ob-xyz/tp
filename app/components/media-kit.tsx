@@ -4,7 +4,7 @@ import { Link } from "@remix-run/react";
 
 export const MEDIA_KIT = {
   // One-liner shown above the Book button in the bottom banner
-  bannerLine: "70,000 weekly readers · 27,400 subscribers",
+  bannerLine: "27,400 subscribers",
 
   // What every placement price covers.
   priceUnit: "per issue",
@@ -12,7 +12,7 @@ export const MEDIA_KIT = {
   // Only add stats you can defend. A third stat like
   // { value: "X", label: "Clicks per issue" } is more credible than open rate.
   stats: [
-    { value: "10,000", label: "daily readers" },
+    { value: "7,500", label: "daily readers" },
     { value: "27,400", label: "subscribers" },
   ],
 
@@ -21,14 +21,19 @@ export const MEDIA_KIT = {
 
   placements: [
     {
-      name: "Top Feed",
-      price: "$1,000",
-      note: "Be the first ad readers see, near the top of the feed",
+      name: "Technology",
+      price: "$3,000",
+      note: "Your ad placed in our technology thread.",
     },
-    {
-      name: "Mid Feed",
-      price: "$500",
-      note: "Placed natively between posts, further down the feed",
+        {
+      name: "Markets",
+      price: "$3,000",
+      note: "Your ad placed in our markets thread.",
+    },
+            {
+      name: "Politics",
+      price: "$3,000",
+      note: "Your ad placed in our politics thread.",
     },
   ],
 

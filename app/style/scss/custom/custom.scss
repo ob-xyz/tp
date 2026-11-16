@@ -410,6 +410,141 @@ $bp-sm: 480px;
     }
   }
 
+  // Compact variant for the per-week category rows
+  .bk-seg.is-compact {
+    border-radius: 14px;
+
+    .bk-seg-btn {
+      min-height: 38px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+    }
+
+    .bk-seg-thumb {
+      border-radius: 10px;
+    }
+  }
+
+  // ---------- Campaign packages (step 2) ----------
+
+  .bk-pkgs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem; // leaves room for the "Recommended" badge
+    width: 100%;
+  }
+
+  .bk-pkg {
+    @include reset-button;
+    @include field-surface;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 1.1rem;
+    border-radius: 16px;
+    color: $text;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover:not(:disabled):not(.is-active) {
+      border-color: #4a4a4a;
+    }
+
+    &:focus-visible {
+      outline: none;
+      @include focus-glow;
+    }
+
+    &.is-active {
+      border-color: #ffffff;
+      box-shadow: 0 0 0 1px #ffffff;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+
+  .bk-pkg-badge {
+    position: absolute;
+    top: -0.6rem;
+    left: 1rem;
+    padding: 0.2rem 0.55rem;
+    background: $grad;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: $font-bold;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .bk-pkg-main,
+  .bk-pkg-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+        color: #ffffff;
+
+  }
+
+  .bk-pkg-side {
+    flex-shrink: 0;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .bk-pkg-name {
+    font-family: $font-bold;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #ffffff;
+
+  }
+
+  .bk-pkg-detail {
+    color: $text-3;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    
+  }
+
+  .bk-pkg-price {
+    font-family: $font-bold;
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: #ffffff;
+  }
+
+  .bk-pkg-save {
+    color: #32d74b;
+    font-size: 0.74rem;
+  }
+
+  // ---------- Per-week categories ----------
+
+  .bk-weeks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .bk-week {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .bk-week-label {
+    color: $text-2;
+    font-size: 0.82rem;
+  }
+
   .bk-textarea {
     @include field-surface;
     display: block;

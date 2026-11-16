@@ -30,9 +30,39 @@ import { CAMPAIGN_MAP } from "~/data/campaigns";
 const BANNER_TRIGGER = 0.85;
 
 const STEPS = ["Preview", "Schedule", "Confirm"] as const;
-const PLACEMENTS_PAID = ["Top Feed — $1,000", "Mid Feed — $500"] as const;
-const PLACEMENTS_FREE = ["Top Feed", "Mid Feed"] as const;
-const RAW_PLACEMENTS = ["Top Feed", "Mid Feed"] as const;
+const CATEGORIES = ["Technology", "Markets", "Politics"] as const;
+
+// Campaign packages. Prices are authoritative on the server (see action()).
+const PACKAGES = [
+  {
+    id: "Single",
+    label: "Single placement",
+    detail: "1 placement · one week",
+    price: 3000,
+    placements: 1,
+    savings: 0,
+    recommended: false,
+  },
+  {
+    id: "Monthly",
+    label: "Monthly campaign",
+    detail: "1 placement per week · 4 weeks",
+    price: 10000,
+    placements: 4,
+    savings: 2000, // vs. 4 × $3,000
+    recommended: true,
+  },
+  {
+    id: "Quarterly",
+    label: "Quarterly campaign",
+    detail: "1 placement per week · 12 weeks",
+    price: 25000,
+    placements: 12,
+    savings: 11000, // vs. 12 × $3,000
+    recommended: false,
+  },
+] as const;
+const MAX_PLACEMENTS = Math.max(...PACKAGES.map((p) => p.placements));
 const PAYMENT_METHODS = ["Credit Card", "Insertion Order", "Free"] as const;
 
 const FREE_TERMS: { q: string; a: string }[] = [
@@ -50,7 +80,7 @@ const FREE_TERMS: { q: string; a: string }[] = [
   },
   {
     q: "What's included?",
-    a: "One standard paid ad for free. Just choose if you want to place it at the top or middle of our feed.",
+    a: "One single placement for free. Just choose which category you want it in: Technology, Markets, or Politics.",
   },
   {
     q: "Any catches?",
@@ -58,10 +88,18 @@ const FREE_TERMS: { q: string; a: string }[] = [
   },
 ];
 
-type Placement = (typeof RAW_PLACEMENTS)[number];
+type Category = (typeof CATEGORIES)[number];
+type PackageId = (typeof PACKAGES)[number]["id"];
 type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
-type FieldName = "company" | "startDate" | "placement" | "paymentMethod" | "notes" | "altcha";
+type FieldName =
+  | "company"
+  | "startDate"
+  | "package"
+  | "categories"
+  | "paymentMethod"
+  | "notes"
+  | "altcha";
 
 type ActionData = {
   error?: string;
@@ -72,7 +110,10 @@ type ActionData = {
 type CampaignLead = {
   company: string;
   startDate: string;
-  placement: string;
+  package: string;
+  categories: string[];
+  placements: { week: number; date: string; category: string }[];
+  totalPrice: number;
   paymentMethod: string;
   notes: string;
   campaignId: number;
@@ -90,6 +131,16 @@ function formatDate(value: string): string {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+function addDays(value: string, days: number): string {
+  const [y, m, d] = value.split("-").map(Number);
+  if (!y || !m || !d) return value;
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+function formatPrice(amount: number): string {
+  return `$${amount.toLocaleString("en-US")}`;
 }
 
 function listmonkConfig() {
@@ -142,7 +193,11 @@ async function saveCampaignBooking(lead: CampaignLead, companySlug: string) {
     submitted_at: now,
     company: lead.company,
     start_date: lead.startDate,
-    placement: lead.placement,
+    package: lead.package,
+    placement_count: lead.placements.length,
+    placement: lead.categories,
+    placements: lead.placements,
+    total_price: lead.totalPrice,
     payment_method: lead.paymentMethod,
     notes: lead.notes,
     campaign_id: lead.campaignId,
@@ -153,7 +208,11 @@ async function saveCampaignBooking(lead: CampaignLead, companySlug: string) {
     source: `${companySlug}-booking-flow`,
     company: lead.company,
     start_date: lead.startDate,
-    placement: lead.placement,
+    package: lead.package,
+    placement_count: lead.placements.length,
+    placement: lead.categories,
+    placements: lead.placements,
+    total_price: lead.totalPrice,
     payment_method: lead.paymentMethod,
     notes: lead.notes,
     last_submitted_at: now,
@@ -266,7 +325,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const company = str(formData.get("company"), 200);
   const startDate = str(formData.get("startDate"), 50);
-  const placement = str(formData.get("placement"), 50);
+  const packageId = str(formData.get("package"), 50);
+  const categories = formData.getAll("categories").map((v) => str(v, 50));
   const paymentMethod = str(formData.get("paymentMethod"), 50);
   const notes = str(formData.get("notes"), 5000);
   const altcha = str(formData.get("altcha"), 20000);
@@ -275,8 +335,20 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (!company) fieldErrors.company = "Company name is required.";
   if (!startDate) fieldErrors.startDate = "Please select a target start date.";
-  if (!["Top Feed", "Mid Feed"].includes(placement)) {
-    fieldErrors.placement = "Please select a valid placement.";
+
+  const pkg = PACKAGES.find((p) => p.id === packageId);
+  if (!pkg) {
+    fieldErrors.package = "Please select a campaign.";
+  } else {
+    const validCategories = categories.every((c) =>
+      (CATEGORIES as readonly string[]).includes(c)
+    );
+    if (categories.length !== pkg.placements || !validCategories) {
+      fieldErrors.categories = "Please select a category for every placement.";
+    }
+    if (paymentMethod === "Free" && pkg.id !== "Single") {
+      fieldErrors.package = "The free offer applies to a single placement.";
+    }
   }
   if (!["Credit Card", "Insertion Order", "Free"].includes(paymentMethod)) {
     fieldErrors.paymentMethod = "Please select a payment method.";
@@ -286,7 +358,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     fieldErrors.altcha = "Please complete the verification check.";
   }
 
-  if (Object.keys(fieldErrors).length > 0) {
+  if (Object.keys(fieldErrors).length > 0 || !pkg) {
     return json<ActionData>(
       { error: "Please fix the highlighted fields.", fieldErrors },
       { status: 400 }
@@ -295,12 +367,23 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const campaignId = CAMPAIGN_MAP[companySlug] || 0;
 
+  // Price is computed here from the package, never taken from the browser.
+  const totalPrice = paymentMethod === "Free" ? 0 : pkg.price;
+  const placements = categories.map((category, i) => ({
+    week: i + 1,
+    date: addDays(startDate, i * 7),
+    category,
+  }));
+
   try {
     await saveCampaignBooking(
       {
         company,
         startDate,
-        placement,
+        package: pkg.id,
+        categories,
+        placements,
+        totalPrice,
         paymentMethod,
         notes,
         campaignId,
@@ -440,7 +523,9 @@ function Segmented<T extends string>({
   rawOptions,
   value,
   onChange,
+  compact = false,
 }: {
+  compact?: boolean;
   label: string;
   options: readonly T[];
   rawOptions?: readonly string[];
@@ -452,7 +537,7 @@ function Segmented<T extends string>({
 
   return (
     <div
-      className={`bk-seg is-${options.length}`}
+      className={`bk-seg is-${options.length}${compact ? " is-compact" : ""}`}
       role="group"
       aria-label={label}
       style={{ "--bk-i": index, "--bk-n": options.length } as CSSProperties}
@@ -496,7 +581,11 @@ export default function AdvertiserBookPage() {
 
   // Form State
   const [startDate, setStartDate] = useState("");
-  const [placement, setPlacement] = useState<Placement>("Top Feed");
+  const [packageId, setPackageId] = useState<PackageId>(startFree ? "Single" : "Monthly");
+  const [categories, setCategories] = useState<Category[]>(
+    Array(MAX_PLACEMENTS).fill("Technology")
+  );
+  const [customize, setCustomize] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     startFree ? "Free" : "Credit Card"
   );
@@ -533,10 +622,60 @@ export default function AdvertiserBookPage() {
     setStep(3);
   };
 
-  const summaryRows: { label: string; value: string }[] = [
-    { label: "Target Date", value: startDate ? formatDate(startDate) : "Earliest Available" },
-    { label: "Placement", value: placement },
+  const pkg = PACKAGES.find((p) => p.id === packageId) ?? PACKAGES[0];
+  const isFree = paymentMethod === "Free";
+  const isRecurring = pkg.placements > 1;
+  const showWeekly = customize && isRecurring;
+  const activeCategories = categories.slice(0, pkg.placements);
+  const total = isFree ? 0 : pkg.price;
+
+  const setAllCategories = (next: Category) =>
+    setCategories(Array(MAX_PLACEMENTS).fill(next));
+  const setWeekCategory = (index: number, next: Category) =>
+    setCategories((prev) => prev.map((c, i) => (i === index ? next : c)));
+  const toggleCustomize = () => {
+    // Collapsing back to one category resets every week to the first week's pick
+    if (customize) setAllCategories(categories[0]);
+    setCustomize(!customize);
+  };
+  const handlePaymentChange = (next: PaymentMethod) => {
+    setPaymentMethod(next);
+    // The free offer covers a single placement only
+    if (next === "Free") setPackageId("Single");
+  };
+
+  const categoryCounts = CATEGORIES.map(
+    (c) => [c, activeCategories.filter((x) => x === c).length] as const
+  ).filter(([, n]) => n > 0);
+  const categorySummary =
+    categoryCounts.length === 1
+      ? categoryCounts[0][0]
+      : categoryCounts.map(([c, n]) => `${c} ×${n}`).join(" · ");
+
+  const summaryRows: { label: string; value: string; total?: boolean }[] = [
+    {
+      label: "Campaign",
+      value: `${pkg.label} — ${isFree ? "Free" : formatPrice(pkg.price)}`,
+    },
+    {
+      label: "Placements",
+      value: isRecurring ? `${pkg.placements} total - 1 per week` : "1 placement",
+    },
+    { label: "Category", value: categorySummary },
+    {
+      label: isRecurring ? "First Placement" : "Target Date",
+      value: startDate ? formatDate(startDate) : "Earliest Available",
+    },
+    ...(isRecurring && startDate
+      ? [
+          {
+            label: "Final Placement",
+            value: formatDate(addDays(startDate, (pkg.placements - 1) * 7)),
+          },
+        ]
+      : []),
     { label: "Payment Method", value: paymentMethod },
+    { label: "Total", value: isFree ? "Free" : formatPrice(total), total: true },
   ];
 
   const serverFieldMessages = Object.entries(errors)
@@ -551,8 +690,6 @@ export default function AdvertiserBookPage() {
     ? "Lock In Free Campaign →"
     : "Proceed with Credit Card →";
 
-  // Dynamic placement options depending on payment method
-  const currentPlacements = paymentMethod === "Free" ? PLACEMENTS_FREE : PLACEMENTS_PAID;
 
   return (
     <div className="feed-page bk">
@@ -651,9 +788,94 @@ export default function AdvertiserBookPage() {
 
             <div className="bk-fields">
 
+              {/* CAMPAIGN */}
+              <div className="bk-group">
+                <span className="bk-label" id="bk-pkg-label">Campaign</span>
+                <div className="bk-pkgs" role="radiogroup" aria-labelledby="bk-pkg-label">
+                  {PACKAGES.map((p) => {
+                    const active = p.id === packageId;
+                    const locked = isFree && p.id !== "Single";
+                    return (
+                      <button
+                        type="button"
+                        key={p.id}
+                        role="radio"
+                        aria-checked={active}
+                        disabled={locked}
+                        className={`bk-pkg${active ? " is-active" : ""}`}
+                        onClick={() => setPackageId(p.id)}
+                      >
+                        {p.recommended && <span className="bk-pkg-badge">Recommended</span>}
+                        <span className="bk-pkg-main">
+                          <span className="bk-pkg-name">{p.label}</span>
+                          <span className="bk-pkg-detail">{p.detail}</span>
+                        </span>
+                        <span className="bk-pkg-side">
+                          <span className="bk-pkg-price">
+                            {isFree && p.id === "Single" ? "Free" : formatPrice(p.price)}
+                          </span>
+                          {p.savings > 0 && (
+                            <span className="bk-pkg-save">Save {formatPrice(p.savings)}</span>
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                {isFree && <p className="bk-hint">The free offer covers a single placement.</p>}
+                {errors.package && (
+                  <span className="bk-error" role="alert">{errors.package}</span>
+                )}
+              </div>
+
+              {/* CATEGORY */}
+              <div className="bk-group">
+                <span className="bk-label">Select Category</span>
+                {!showWeekly ? (
+                  <Segmented
+                    label="Category"
+                    options={CATEGORIES}
+                    value={categories[0]}
+                    onChange={setAllCategories}
+                  />
+                ) : (
+                  <div className="bk-weeks">
+                    {activeCategories.map((c, i) => (
+                      <div className="bk-week" key={i}>
+                        <span className="bk-week-label">
+                          Week {i + 1}
+                          {startDate ? ` · ${formatDate(addDays(startDate, i * 7))}` : ""}
+                        </span>
+                        <Segmented
+                          compact
+                          label={`Week ${i + 1} category`}
+                          options={CATEGORIES}
+                          value={c}
+                          onChange={(next) => setWeekCategory(i, next)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {isRecurring && (
+                  <div style={{ textAlign: "center" }}>
+                    <button type="button" className="back-btn" onClick={toggleCustomize}>
+                      {showWeekly
+                        ? "Use one category for every week"
+                        : "Choose a category for each week"}
+                    </button>
+                  </div>
+                )}
+                {errors.categories && (
+                  <span className="bk-error" role="alert">{errors.categories}</span>
+                )}
+              </div>
+
               {/* TARGET START DATE */}
               <div className="bk-group">
-                <span className="bk-label" id="bk-date-label">Target Start Date</span>
+                <span className="bk-label" id="bk-date-label">
+                  {isRecurring ? "First Placement Date" : "Target Start Date"}
+                </span>
 
                 <label className="bk-date">
                   <span className={`bk-date-text${startDate ? "" : " is-empty"}`}>
@@ -674,23 +896,17 @@ export default function AdvertiserBookPage() {
                   />
                 </label>
 
+                {isRecurring && (
+                  <p className="bk-hint">
+                    Your first placement runs on this date, then weekly after.
+                  </p>
+                )}
+
                 {(stepError || errors.startDate) && (
                   <span className="bk-error" role="alert">
                     {stepError || errors.startDate}
                   </span>
                 )}
-              </div>
-
-              {/* SELECT PLACEMENT */}
-              <div className="bk-group">
-                <span className="bk-label">Select Placement</span>
-                <Segmented
-                  label="Placement"
-                  options={currentPlacements}
-                  rawOptions={RAW_PLACEMENTS}
-                  value={placement}
-                  onChange={setPlacement}
-                />
               </div>
 
               {/* PAYMENT METHOD */}
@@ -700,7 +916,7 @@ export default function AdvertiserBookPage() {
                   label="Payment method"
                   options={PAYMENT_METHODS}
                   value={paymentMethod}
-                  onChange={setPaymentMethod}
+                  onChange={handlePaymentChange}
                 />
               </div>
 
@@ -765,7 +981,10 @@ export default function AdvertiserBookPage() {
 
             <input type="hidden" name="company" value={companyName} />
             <input type="hidden" name="startDate" value={startDate} />
-            <input type="hidden" name="placement" value={placement} />
+            <input type="hidden" name="package" value={packageId} />
+            {activeCategories.map((c, i) => (
+              <input key={i} type="hidden" name="categories" value={c} />
+            ))}
             <input type="hidden" name="paymentMethod" value={paymentMethod} />
             <input
               type="text"
@@ -794,7 +1013,7 @@ export default function AdvertiserBookPage() {
 
             <dl className="bk-summary">
               {summaryRows.map((row) => (
-                <div key={row.label} className="bk-row">
+                <div key={row.label} className={`bk-row${row.total ? " is-total" : ""}`}>
                   <dt>{row.label}</dt>
                   <dd>{row.value}</dd>
                 </div>
@@ -843,7 +1062,7 @@ export default function AdvertiserBookPage() {
               </button>
             </div>
 
-            {paymentMethod === "Free" && (
+            {isFree && (
               <p className="bk-note" style={{ margin: "0 0 1.25rem" }}>
                 Free applies to your first ad only. Later ads are billed at standard rates.
               </p>

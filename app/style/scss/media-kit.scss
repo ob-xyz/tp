@@ -192,6 +192,113 @@ $mk-max-width: 860px;
   }
 }
 
+.mk-section .mk-price {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.25rem 1.5rem;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 22px;
+  text-align: left;
+
+  .mk-price-list {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mk-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0;
+    padding: 1.15rem 0;
+    border-top: 1px solid #222222;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .mk-price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+    gap: 0.25rem;
+  }
+
+  .mk-price-cost {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    margin: 0;
+    text-align: right;
+    gap: 0.25rem;
+  }
+
+  .mk-price-name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .mk-price-badge {
+    margin: 0;
+    padding: 0.15rem 0.5rem;
+    background: linear-gradient(60deg, #ee1216 0%, #fc6d04 55%, #ffa600 100%);
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mk-price-detail {
+    width: 100%;
+    margin: 0;
+    color: #7a7a80;
+    font-size: 0.82rem;
+    text-align: left;
+  }
+
+  .mk-price-amount {
+    width: 100%;
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .mk-price-save {
+    width: 100%;
+    margin: 0;
+    color: #32d74b;
+    font-size: 0.74rem;
+    text-align: right;
+  }
+}
+
 /* How it works: every step is the same width and height, left-aligned */
 .mk-section .ad-success-steps {
   align-items: stretch;
