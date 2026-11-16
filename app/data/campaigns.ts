@@ -2,7 +2,6 @@
 // /preview and /storyboard routes automatically.
 export const CAMPAIGN_MAP: Record<string, number> = {
   foryou: 3,
-  ad: 5,
   fin: 507,
   stripe: 451,
   checksum: 789,
