@@ -1,31 +1,51 @@
 :root {
-  --feed-foot: rgba(0, 0, 0, 0.45) !important;
+  --feed-foot: rgba(0, 0, 0, 0.45);
   --feed-input-border: rgba(0, 0, 0, 0.15);
   --feed-live: #ff2b2b;
+  --poast-orange: #3698DB;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --feed-foot: rgba(255, 255, 255, 0.3) !important;
+    --feed-foot: rgba(255, 255, 255, 0.3);
     --feed-input-border: rgba(255, 255, 255, 0.12);
     --feed-live: #ff2b2b;
   }
 }
+/* ALTCHA widget */
 altcha-widget {
   position: relative;
+  display: block;
   margin-left: 0;
   margin-top: 0.1rem;
-  max-width: 200px;
-  --altcha-max-width: 300px;
-  --altcha-border-width: 0;
-  --altcha-color-text: var(--feed-foot);
-  --altcha-max-width: 280px;
-  --altcha-color-bg: transparent;
-  --altcha-border-radius: 8px;
-  font-size: 0.75rem;
-  --altcha-color-border: var(--feed-input-border);
-  --altcha-color-border-focus: var(--feed-live);
+  max-width: 280px;
   font-family: bold;
+  font-size: 0.725rem;
+  color: var(--feed-foot);
+  --altcha-max-width: 280px;
+  --altcha-border-width: 0px;
+  --altcha-border-radius: 8px;
+  --altcha-color-base: transparent;
+  --altcha-color-bg: transparent;
+  --altcha-color-text: var(--feed-foot);
+  --altcha-color-border: var(--feed-input-border);
+  --altcha-color-border-focus: var(--poast-orange);
+  --altcha-color-primary: var(--poast-orange);
+  --altcha-color-active: var(--poast-orange);
+  --altcha-color-success: var(--poast-orange);
+}
+
+/* Verification state */
+altcha-widget.poast-verified {
+  --altcha-color-primary: var(--poast-orange) !important;
+  --altcha-color-active: var(--poast-orange) !important;
+  --altcha-color-success: var(--poast-orange) !important;
+  --altcha-color-border-focus: var(--poast-orange) !important;
+}
+
+/* Keep the widget visually lightweight */
+altcha-widget {
+  --altcha-color-text: var(--feed-foot);
 }
 
 /*# sourceMappingURL=altcha.css.map */
