@@ -14,11 +14,16 @@
   force = true
 
 [[redirects]]
-  from = "/ad"
-  to = "https://app.thepoast.com/campaign/71191bc5-96cf-4080-b760-04bb83b5e616/b40a21cd-3a39-4d7a-9844-290d8b956ae0"
+  from = "/backup"
+  to = "https://app.thepoast.com/campaign/611791e4-dfa1-4dae-ab0c-40a5e6fae402/b40a21cd-3a39-4d7a-9844-290d8b956ae0"
   status = 200
   force = true
 
+[[redirects]]
+  from = "/test"
+  to = "https://app.thepoast.com/campaign/81a5d081-edcf-435a-8d69-a114d148b8a8/b40a21cd-3a39-4d7a-9844-290d8b956ae0"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
