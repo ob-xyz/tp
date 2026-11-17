@@ -6,9 +6,6 @@ export const MEDIA_KIT = {
   // One-liner shown above the Book button in the bottom banner
   bannerLine: "27,400 subscribers",
 
-  // What every placement price covers.
-  priceUnit: "per issue",
-
   // Only add stats you can defend. A third stat like
   // { value: "X", label: "Clicks per issue" } is more credible than open rate.
   stats: [
@@ -21,19 +18,25 @@ export const MEDIA_KIT = {
 
   placements: [
     {
-      name: "Technology",
+      name: "Single placement",
       price: "$3,000",
-      note: "Your ad placed in our technology thread.",
+      note: "1 placement · one week",
+      savings: "",
+      recommended: false,
     },
-        {
-      name: "Markets",
-      price: "$3,000",
-      note: "Your ad placed in our markets thread.",
+    {
+      name: "Monthly campaign",
+      price: "$10,000",
+      note: "1 per week · 4 weeks",
+      savings: "Save $2,000",
+      recommended: true,
     },
-            {
-      name: "Politics",
-      price: "$3,000",
-      note: "Your ad placed in our politics thread.",
+    {
+      name: "Quarterly campaign",
+      price: "$25,000",
+      note: "1 per week · 12 weeks",
+      savings: "Save $11,000",
+      recommended: false,
     },
   ],
 
@@ -201,17 +204,24 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
             ))}
           </div>
 
-          <span className="mk-label">Placements</span>
+          <span className="mk-label">Pricing</span>
           <ul className="mk-placements">
             {MEDIA_KIT.placements.map((p) => (
               <li key={p.name} className="mk-placement">
                 <div className="mk-placement-text">
-                  <span className="mk-placement-name">{p.name}</span>
+                  <div className="mk-placement-head">
+                    <span className="mk-placement-name">{p.name}</span>
+                    {p.recommended && (
+                      <span className="mk-placement-badge">Recommended</span>
+                    )}
+                  </div>
                   <span className="mk-placement-note">{p.note}</span>
                 </div>
                 <div className="mk-placement-cost">
                   <span className="mk-placement-price">{p.price}</span>
-                  <span className="mk-placement-unit">{MEDIA_KIT.priceUnit}</span>
+                  {p.savings && (
+                    <span className="mk-placement-save">{p.savings}</span>
+                  )}
                 </div>
               </li>
             ))}

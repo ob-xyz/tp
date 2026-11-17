@@ -742,7 +742,7 @@ export default function AdvertiserBookPage() {
         {/* STEP 1: PREVIEW CREATIVE */}
         {step === 1 && (
           <div className="bk-card">
-            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>Want to run this ad in thepoast?</h1>
+            <h1 className="bk-label" style={{ marginBottom: "0.5rem" }}>Run this ad</h1>
 
             <div className="feed-embed loaded bk-preview">
               <FeedEmbed
@@ -998,7 +998,7 @@ export default function AdvertiserBookPage() {
 
             {/* Quick Preview Thumbnail Header on Step 3 */}
             <div style={{ marginBottom: "1.5rem" }}>
-              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>Here's {companyName} Ad</span>
+              <span className="bk-label" style={{ marginBottom: "0.5rem", textAlign: "center" }}>We'll run {companyName}'s Ad</span>
               <div className="feed-embed loaded bk-preview" style={{ maxHeight: "220px", overflow: "hidden", marginBottom: 0 }}>
                 <FeedEmbed
                   id={`${company}-ad-thumbnail`}

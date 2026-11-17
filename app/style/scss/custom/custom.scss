@@ -1257,3 +1257,101 @@ body:has(.feed-topbar.is-hidden) .mk-promo-wrap {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
+
+.mk-sheet .mk-placements {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0 1.25rem;
+  background: $field;
+  border: 1px solid #262626;
+  border-radius: 18px;
+  text-align: left;
+
+  .mk-placement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-top: 1px solid #1c1c1c;
+    text-align: left;
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+
+  .mk-placement-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .mk-placement-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .mk-placement-name {
+    margin: 0;
+    color: $text;
+    font-family: $font-bold;
+    font-size: 0.98rem;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .mk-placement-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.55rem;
+    background: $grad;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: $font-bold;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .mk-placement-note {
+    margin: 0;
+    color: $text-3;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  .mk-placement-cost {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+    gap: 0.2rem;
+    margin: 0;
+    text-align: right;
+  }
+
+  .mk-placement-price {
+    margin: 0;
+    color: $text;
+    font-family: $font-bold;
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+
+  .mk-placement-save {
+    margin: 0;
+    color: #32d74b;
+    font-family: $font-bold;
+    font-size: 0.74rem;
+    line-height: 1.2;
+  }
+}
