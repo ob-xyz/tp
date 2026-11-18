@@ -20,7 +20,8 @@ import {
 
 const HEADERS = {
   "Content-Type": "text/html; charset=utf-8",
-  "Cache-Control": "public, max-age=300, s-maxage=600, stale-while-revalidate=3600",
+  // "Cache-Control": "public, max-age=300, s-maxage=600, stale-while-revalidate=3600",
+  "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
   "X-Content-Type-Options": "nosniff",
   "X-Robots-Tag": "noindex, nofollow",
 };

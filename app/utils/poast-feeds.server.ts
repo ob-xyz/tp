@@ -256,16 +256,28 @@ function peekListedCampaign(id: string): Campaign | null {
 /**
  * One campaign. null = genuinely not found. Throws UpstreamError on outages.
  */
+
 export function getCampaign(id: string | number): Promise<Campaign | null> {
   const key = String(id);
 
-  return cached(`campaign:${key}`, 10 * MIN, DAY, async () => {
+  // Change freshMs from 10 * MIN to 0 for instant reflection
+  return cached(`campaign:${key}`, 0, DAY, async () => {
     const payload = await upstreamJson<{ data?: Campaign }>(
       `/api/campaigns/${encodeURIComponent(key)}`
     );
     return payload?.data ?? null;
   });
 }
+// export function getCampaign(id: string | number): Promise<Campaign | null> {
+//   const key = String(id);
+
+//   return cached(`campaign:${key}`, 10 * MIN, DAY, async () => {
+//     const payload = await upstreamJson<{ data?: Campaign }>(
+//       `/api/campaigns/${encodeURIComponent(key)}`
+//     );
+//     return payload?.data ?? null;
+//   });
+// }
 
 /**
  * Listmonk's rendered preview HTML. null = not found. Throws on outages.
@@ -274,7 +286,8 @@ export function getCampaign(id: string | number): Promise<Campaign | null> {
 export function getCampaignPreview(id: string | number): Promise<string | null> {
   const key = String(id);
 
-  return cached(`preview:${key}`, 6 * HOUR, 7 * DAY, async () => {
+  // Change freshMs from 6 * HOUR to 0 so edits in Listmonk appear instantly
+  return cached(`preview:${key}`, 0, 7 * DAY, async () => {
     const html = await upstream(
       `/api/campaigns/${encodeURIComponent(key)}/preview`,
       "text/html",
@@ -283,6 +296,19 @@ export function getCampaignPreview(id: string | number): Promise<string | null> 
     return html && html.trim() ? html : null;
   });
 }
+
+// export function getCampaignPreview(id: string | number): Promise<string | null> {
+//   const key = String(id);
+
+//   return cached(`preview:${key}`, 6 * HOUR, 7 * DAY, async () => {
+//     const html = await upstream(
+//       `/api/campaigns/${encodeURIComponent(key)}/preview`,
+//       "text/html",
+//       10_000
+//     );
+//     return html && html.trim() ? html : null;
+//   });
+// }
 
 async function getTemplate(templateId: number): Promise<string> {
   try {
