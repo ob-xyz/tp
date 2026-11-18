@@ -50,8 +50,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       status: 200,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        // "Cache-Control": "public, max-age=0, s-maxage=300",
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "Cache-Control": "public, max-age=0, s-maxage=300",
         "X-Content-Type-Options": "nosniff",
       },
     });

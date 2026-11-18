@@ -215,8 +215,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const headers: HeadersFunction = () => ({
-  // "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
-  "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+  "Cache-Control": "public, max-age=30, s-maxage=60, stale-while-revalidate=300",
   "X-Robots-Tag": "noindex, nofollow",
 });
 
