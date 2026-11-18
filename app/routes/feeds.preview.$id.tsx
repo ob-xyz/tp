@@ -3,11 +3,7 @@ import { getLeadStoryHtml } from "../utils/poast-feeds.server";
 
 const HTML_HEADERS = {
   "Content-Type": "text/html; charset=utf-8",
-
-  "Cache-Control":
-    "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400",
-  "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-
+  "Cache-Control": "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400",
   "X-Content-Type-Options": "nosniff",
 };
 
