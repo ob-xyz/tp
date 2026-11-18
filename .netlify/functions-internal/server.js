@@ -1565,7 +1565,8 @@ var CAMPAIGN_MAP = {
   youdotcom: 790,
   attio: 791,
   tailscale: 700,
-  viktor: 471
+  viktor: 471,
+  airwallex: 612
 };
 
 // app/routes/custom/$company.storyboard.tsx
