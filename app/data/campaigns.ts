@@ -11,6 +11,7 @@ export const CAMPAIGN_MAP: Record<string, number> = {
   viktor: 471,
   airwallex: 612,
   algolia: 565,
+  wisprflow: 616,
 };
 
 /** Returns the campaign ID for a slug, or undefined if unknown. */
