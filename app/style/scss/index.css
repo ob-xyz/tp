@@ -67,7 +67,7 @@ body:has(.feed-page) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-right: 5rem;
+  padding-right: 8rem !important;
 }
 .feed-page a {
   font-family: kl;
@@ -324,6 +324,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   transform: translateY(100%);
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.35s;
+  padding-right: 8rem !important;
 }
 .feed-banner.is-visible {
   transform: translateY(0);

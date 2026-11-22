@@ -81,7 +81,7 @@ body:has(.feed-page) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-right:5rem;
+  padding-right:8rem !important;
   a {
     font-family: kl;
   }
@@ -309,6 +309,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   color: var(--feed-legal);
   transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
     visibility 0s;
+  
   /* Banner is up: links fade and sink as the banner rises over them */
   &.is-covered {
     opacity: 0;
@@ -366,6 +367,7 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   transform: translateY(100%);
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.35s;
+  padding-right:8rem !important;
 
   &.is-visible {
     transform: translateY(0);
