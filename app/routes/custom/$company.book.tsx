@@ -686,7 +686,7 @@ export default function AdvertiserBookPage() {
       value: startDate ? formatDate(startDate) : "Earliest Available",
     },
     ...(isMultiWeek && startDate
-      ? [
+      ? [ 
           {
             label: "Final Week",
             value: formatDate(addDays(startDate, (pkg.weeks - 1) * 7)),
