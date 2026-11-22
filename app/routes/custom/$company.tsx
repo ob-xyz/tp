@@ -235,8 +235,9 @@ function SamplePage({ company, companyName }: { company: string; companyName: st
               style={{ marginTop: "0rem" }}
               
             >
-              Audience details
+              See Audience Stats
             </button>
+            <br></br>
           </div>
         </aside>
       </main>

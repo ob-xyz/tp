@@ -50,15 +50,22 @@ const CATEGORIES = ["Technology", "Markets", "Politics"];
 
 // Same pricing in every category. Keep in sync with the booking page (PACKAGES).
 const CAMPAIGNS = [
-  { name: "Single placement", detail: "1 placement · one week", price: "$3,000", save: "" },
+  { name: "Weekly campaign",
+    detail: "2 ads · 1 week",
+    price: "$600", 
+    save: ""
+  },
   {
     name: "Monthly campaign",
-    detail: "1 per week · 4 weeks",
-    price: "$10,000",
-    save: "Save $2,000",
+    detail: "8 ads · 4 weeks",
+    price: "$2,000",
+    save: "Save $400",
     recommended: true,
   },
-  { name: "Quarterly campaign", detail: "1 per week · 12 weeks", price: "$25,000", save: "Save $11,000" },
+  { name: "Quarterly campaign",
+    detail: "24 ads · 12 weeks",
+    price: "$4,800",
+    save: "Save $2,400" },
 ];
 
 const PARTNER_PATH = "/partner";

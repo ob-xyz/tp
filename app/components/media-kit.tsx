@@ -11,6 +11,8 @@ export const MEDIA_KIT = {
   stats: [
     { value: "7,500", label: "daily readers" },
     { value: "27,400", label: "subscribers" },
+    { value: "3.1%", label: "CTR" },
+    { value: "14.1%", label: "CTOR" },
   ],
 
   // Who reads it, in one line. Leave empty to hide the line entirely.
@@ -18,24 +20,24 @@ export const MEDIA_KIT = {
 
   placements: [
     {
-      name: "Single placement",
-      price: "$3,000",
-      note: "1 placement · one week",
+      name: "Weekly campaign",
+      price: "$600",
+      note: "2 ads · 1 week",
       savings: "",
       recommended: false,
     },
     {
       name: "Monthly campaign",
-      price: "$10,000",
-      note: "1 per week · 4 weeks",
-      savings: "Save $2,000",
+      price: "$2,000",
+      note: "8 ads · 4 weeks",
+      savings: "Save $400",
       recommended: true,
     },
     {
       name: "Quarterly campaign",
-      price: "$25,000",
-      note: "1 per week · 12 weeks",
-      savings: "Save $11,000",
+      price: "$4,800",
+      note: "24 ads · 12 weeks",
+      savings: "Save $2,400",
       recommended: false,
     },
   ],
@@ -191,7 +193,7 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
 
         <div className="mk-body">
           <h2 id="mk-title" className="mk-title">
-            Find your next customers with thepoast
+            Find your next customers
           </h2>
           {MEDIA_KIT.audience && <p className="mk-lede">{MEDIA_KIT.audience}</p>}
 
@@ -230,11 +232,6 @@ export default function MediaKit({ open, onClose, ctaLabel, onCta }: MediaKitPro
           <button type="button" className="mk-cta" onClick={onCta}>
             {ctaLabel}
           </button>
-          <div style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-            <Link className="back-btn" to="/media-kit" prefetch="intent">
-              See full media kit
-            </Link>
-          </div>
         </div>
       </div>
     </div>
