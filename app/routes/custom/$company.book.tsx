@@ -679,7 +679,7 @@ export default function AdvertiserBookPage() {
       value: isFree
         ? "1 placement"
         : `${pkg.placements} total`,
-    }, 
+    },
     // { label: "Category", value: categorySummary },
     {
       label: isMultiWeek ? "First Week" : "Target Date",
