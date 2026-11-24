@@ -98,6 +98,11 @@ body:has(.feed-page) {
   align-items: center;
   padding-right: 8rem !important;
 }
+@media (max-width: 600px) {
+  .feed-page {
+    padding-right: 0 !important;
+  }
+}
 .feed-page a {
   font-family: kl;
 }
@@ -354,6 +359,11 @@ body:has(.ad-booking-card, .tips-page) .feed-topbar {
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.35s;
   padding-right: 8rem !important;
+}
+@media (max-width: 600px) {
+  .feed-banner {
+    padding-right: 0 !important;
+  }
 }
 .feed-banner.is-visible {
   transform: translateY(0);
